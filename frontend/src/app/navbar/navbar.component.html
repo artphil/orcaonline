@@ -1,0 +1,25 @@
+<nav class="navbar">
+
+  <div class="container">
+    <div class="p-grid">
+
+      <div class="p-col-2">
+        <p-button icon="pi pi-bars" (onClick)="showHiddeMenu()"></p-button>
+      </div>
+
+      <div class="p-col-8 navbar-title">
+        <label>Orça Online</label>
+      </div>
+
+      <div class="p-col-2 navbar-user">
+        <label>Bem Vindo</label>
+      </div>
+
+    </div>
+  </div>
+
+</nav>
+
+  <div class="navbar-menu" [hidden]="closed">
+    <p-menubar [model]="items"></p-menubar>
+  </div>
