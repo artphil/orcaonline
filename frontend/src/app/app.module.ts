@@ -9,7 +9,10 @@ import { ButtonModule } from 'primeng/button';
 
 // App imports
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
+
+import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './product/product.component';
 import { UserComponent } from './user/user.component';
 
@@ -19,13 +22,15 @@ import { UserComponent } from './user/user.component';
     NavbarComponent,
     ProductComponent,
     UserComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     // PrimeNG
     TieredMenuModule,
-    ButtonModule
+    ButtonModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

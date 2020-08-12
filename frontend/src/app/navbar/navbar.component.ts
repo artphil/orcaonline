@@ -14,14 +14,22 @@ export class NavbarComponent {
     {
       label: 'Inicio',
       icon: 'pi pi-fw pi-home',
-      // routerLink: '/'
+      routerLink: '/'
     },
     {
       label: 'Produtos',
       icon: 'pi pi-fw pi-briefcase',
       items: [
-        { label: 'Cadastro', icon: 'pi pi-fw pi-briefcase' },
-        { label: 'Lista', icon: 'pi pi-fw pi-th-large' }
+        {
+          label: 'Cadastro',
+          icon: 'pi pi-fw pi-briefcase',
+          routerLink: '/pdt'
+        },
+        {
+          label: 'Lista',
+          icon: 'pi pi-fw pi-th-large',
+          routerLink: '/'
+        }
       ]
     }
   ];
