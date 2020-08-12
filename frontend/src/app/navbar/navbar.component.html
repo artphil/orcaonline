@@ -4,7 +4,7 @@
     <div class="p-grid">
 
       <div class="p-col-2">
-        <p-button icon="pi pi-bars" (onClick)="showHiddeMenu()"></p-button>
+        <a class="navbar-toggle" (click)="menu.toggle($event)" ><i class="pi pi-bars" style="font-size: 2em;"></i></a>
       </div>
 
       <div class="p-col-8 navbar-title">
@@ -20,6 +20,6 @@
 
 </nav>
 
-  <div class="navbar-menu" [hidden]="closed">
-    <p-menubar [model]="items"></p-menubar>
+  <div >
+    <p-tieredMenu #menu [model]="items"[popup]="true"></p-tieredMenu>
   </div>

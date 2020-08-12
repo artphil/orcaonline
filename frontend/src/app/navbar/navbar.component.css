@@ -4,13 +4,16 @@ nav label {
 }
 
 .navbar {
-  padding: 10px 10px;
+  padding: 10px;
   background-color: #1e94d2;
 }
 
 .navbar-toggle {
-  text-align: center;
+  margin: auto auto;
   color: #fff;
+}
+.navbar-toggle :hover{
+  color: #777;
 }
 
 .navbar-user {
@@ -23,9 +26,3 @@ nav label {
   text-align: center;
   font-size: 20px;
 }
-
-.navbar-menu {
-  position: fixed;
-  z-index: 9998;
-}
-

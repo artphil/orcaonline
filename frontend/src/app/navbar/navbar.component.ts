@@ -17,16 +17,13 @@ export class NavbarComponent {
       // routerLink: '/'
     },
     {
-      label: 'Edit',
-      icon: 'pi pi-fw pi-pencil',
+      label: 'Produtos',
+      icon: 'pi pi-fw pi-briefcase',
       items: [
-        { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-        { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+        { label: 'Cadastro', icon: 'pi pi-fw pi-briefcase' },
+        { label: 'Lista', icon: 'pi pi-fw pi-th-large' }
       ]
     }
   ];
 
-  showHiddeMenu() {
-    this.closed = !this.closed;
-  }
 }
