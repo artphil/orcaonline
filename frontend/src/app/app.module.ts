@@ -8,14 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 // App imports
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { ProductModule } from './product/product.module';
 
-import { ProductComponent } from './product/product.component';
 import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
     UserComponent,
   ],
   imports: [
@@ -25,6 +24,7 @@ import { UserComponent } from './user/user.component';
     AppRoutingModule,
 
     CoreModule,
+    ProductModule
   ],
   providers: [],
   bootstrap: [AppComponent]
