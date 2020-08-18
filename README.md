@@ -110,18 +110,19 @@ nenhum fornecedor.
 
 #### E4-A1: Tarefas
 
-Filtro Orçamentos Pendentes (Fabiano)
-Filtro Fornecedores que preencheram o Orçamento (Fabiano)
+* Filtro Orçamentos Pendentes (Fabiano)
+* Filtro Fornecedores que preencheram o Orçamento (Fabiano)
 
-Tela de Listagem de Orçamentos pendentes (Yasmim)
-Tela de Listagem de Fornecedores que preencheram o Orçamento  (Yasmim)
-Tela de Cadastro de Orçamentos. (Arthur)
-Tela de Exclusão de Produtos (Arthur)
+* Tela de Listagem de Orçamentos pendentes (Yasmim)
+* Tela de Listagem de Fornecedores que preencheram o Orçamento  (Yasmim)
+* Tela de Cadastro de Orçamentos. (Arthur)
+* Tela de Exclusão de Produtos (Arthur)
 
 #### E5-A1: Estória
 
 Antônio necessita de uma maneira de coletar feedback dos usuários do sistema a \
-fim de melhorar a prestação do serviço, bem como sugestões de inserção de novos produtos.
+fim de melhorar a prestação do serviço, bem como sugestões de inserção de novos \
+produtos.
 
 #### E5-A1: Tarefas
 
