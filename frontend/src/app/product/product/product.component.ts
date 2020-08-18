@@ -1,3 +1,5 @@
+import { ProductService } from './../product.service';
+import { ProductModel } from '../product.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  product: ProductModel = new ProductModel;
 
-  constructor() { }
+  constructor(private service: ProductService) { }
 
   ngOnInit(): void {
+    console.log(this.product);
   }
 
+  saveProduct(): void {
+
+  }
 }
