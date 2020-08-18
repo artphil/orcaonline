@@ -3,7 +3,7 @@
 ## Estrutura
 
 ``` Markdown
-frontend/                  => Arquivos de configuração Angular
+frontend/src/              => Arquivos de configuração Angular
   └─ app/                  => Módulo principal da aplicação
     ├─ core/               => Módulo módulo dos componentes de sistema - extenção
     │  │                      de 'app'
