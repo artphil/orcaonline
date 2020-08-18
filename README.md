@@ -40,7 +40,8 @@ foobar.singularize('phenomena') # returns 'phenomenon'
 
 #### E1-C1: Estória
 
-Camila precisa fazer uma nova aquisição de matéria prima para sua produção. Ela descobriu a plataforma e deseja se registrar no sistema para fazer um orçamento.
+Camila precisa fazer uma nova aquisição de matéria prima para sua produção. Ela \
+descobriu a plataforma e deseja se registrar no sistema para fazer um orçamento.
 
 #### E1-C1: Tarefas
 
@@ -63,7 +64,9 @@ Camila precisa fazer uma nova aquisição de matéria prima para sua produção.
 
 #### E2-F1: Estória
 
-Fábio ainda não é usuário do sistema, ele deseja se  cadastrar e informar os produtos que fornece para aumentar sua visibilidade no mercado. Fábio produz dois itens primários e não tem nenhuma especificidade.
+Fábio ainda não é usuário do sistema, ele deseja se  cadastrar e informar os \
+produtos que fornece para aumentar sua visibilidade no mercado. Fábio produz \
+dois itens primários e não tem nenhuma especificidade.
 
 #### E2-F1: Tarefas
 
@@ -85,7 +88,9 @@ Fábio ainda não é usuário do sistema, ele deseja se  cadastrar e informar os
 
 #### E3-A1: Estória
 
-Antônio precisa cadastrar as categorias de produtos para que sejam encontrados pelos usuários, tanto pelos fornecedores que vão cadastrar seus produtos, como pelos compradores que vão pesquisar pelos produtos de interesse. 
+Antônio precisa cadastrar as categorias de produtos para que sejam encontrados \
+pelos usuários, tanto pelos fornecedores que vão cadastrar seus produtos, como \
+pelos compradores que vão pesquisar pelos produtos de interesse.
 
 #### E3-A1: Tarefas
 
@@ -100,7 +105,8 @@ Antônio precisa cadastrar as categorias de produtos para que sejam encontrados 
 
 #### E4-A1: Estória
 
-Antônio precisa saber se há orçamentos em aberto que não foram preenchidos por nenhum fornecedor.
+Antônio precisa saber se há orçamentos em aberto que não foram preenchidos por \
+nenhum fornecedor.
 
 #### E4-A1: Tarefas
 
@@ -114,7 +120,8 @@ Tela de Exclusão de Produtos (Arthur)
 
 #### E5-A1: Estória
 
-Antônio necessita de uma maneira de coletar feedback dos usuários do sistema a fim de melhorar a prestação do serviço, bem como sugestões de inserção de novos produtos.
+Antônio necessita de uma maneira de coletar feedback dos usuários do sistema a \
+fim de melhorar a prestação do serviço, bem como sugestões de inserção de novos produtos.
 
 #### E5-A1: Tarefas
 
@@ -128,7 +135,8 @@ Antônio necessita de uma maneira de coletar feedback dos usuários do sistema a
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first to \
+discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
