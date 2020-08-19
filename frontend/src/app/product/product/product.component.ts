@@ -14,27 +14,30 @@ import { ProductService } from './../product.service';
 export class ProductComponent implements OnInit {
   product: ProductModel;
   productSegments: SelectItem[];
-  productFamily: SelectItem[];
-  productClass: SelectItem[];
+  productFamilies: SelectItem[];
+  productClasses: SelectItem[];
 
-  isNewProduct = false;
+  isNewProduct = true;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.productSegments = [
-      { label: 'Segmento 1', value: 1 },
-      { label: 'Segmento 2', value: 2 }
+      { label: 'Selecione', value: null },
+      { label: 'Segmento 1', value: 'Teste1' },
+      { label: 'Segmento 2', value: 'Teste2' }
     ];
 
-    this.productFamily = [
-      { label: 'Familia 1', value: 1 },
-      { label: 'Familia 2', value: 2 }
+    this.productFamilies = [
+      { label: 'Selecione', value: null },
+      { label: 'Familia 1', value: 'Teste1' },
+      { label: 'Familia 2', value: 'Teste2' }
     ];
 
-    this.productClass = [
-      { label: 'Classe 1', value: 1 },
-      { label: 'Classe 2', value: 2 }
+    this.productClasses = [
+      { label: 'Selecione', value: null },
+      { label: 'Classe 1', value: 'Teste1' },
+      { label: 'Classe 2', value: 'Teste2' }
     ];
 
     if (this.isNewProduct) {

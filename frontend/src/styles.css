@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #4d4e4f;
+}
 body{
   margin: 0px auto;
   padding: 0px 0px;
 }
 
+
 label {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
 
