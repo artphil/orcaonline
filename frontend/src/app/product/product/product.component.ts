@@ -1,7 +1,10 @@
-import { ProductService } from './../product.service';
-import { ProductModel } from '../product.model';
-import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+
+import { SelectItem } from 'primeng/api';
+
+import { ProductModel } from '../product.model';
+import { ProductService } from './../product.service';
 
 @Component({
   selector: 'app-product',
@@ -10,18 +13,40 @@ import { NgForm } from '@angular/forms';
 })
 export class ProductComponent implements OnInit {
   product: ProductModel;
-  segments = [
-    { label: 'Segmento1', value: 1 },
-    { label: 'Segmento2', value: 2 }
-  ];
-  isNewProduct = true;
+  productSegments: SelectItem[];
+  productFamily: SelectItem[];
+  productClass: SelectItem[];
 
-  constructor(private service: ProductService) { }
+  isNewProduct = false;
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    console.log(this.product);
+    this.productSegments = [
+      { label: 'Segmento 1', value: 1 },
+      { label: 'Segmento 2', value: 2 }
+    ];
+
+    this.productFamily = [
+      { label: 'Familia 1', value: 1 },
+      { label: 'Familia 2', value: 2 }
+    ];
+
+    this.productClass = [
+      { label: 'Classe 1', value: 1 },
+      { label: 'Classe 2', value: 2 }
+    ];
+
     if (this.isNewProduct) {
       this.product = new ProductModel();
+    } else {
+      this.productService.getOne()
+        .then((product: ProductModel) => {
+          this.product = product;
+        })
+        .catch(() => {
+          this.product = new ProductModel();
+        });
     }
   }
 
