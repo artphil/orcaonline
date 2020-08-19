@@ -134,6 +134,13 @@ produtos.
 * Tela de Exclusão de Feedback (Reclamação, Elogio, Sugestão) (Arthur)
 * Tela de Relatórios de Uso do Sistema (Yasmim)
 
+## Sprint #1
+
+* Configuracao e preparacao do ambiente
+* Modelagem da classe de Produtos
+* Telas de listagem e cadastro de produtos
+* Testes de unidades de produtos
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to \
