@@ -15,7 +15,6 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
 
     ButtonModule,
     TieredMenuModule
