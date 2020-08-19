@@ -9,13 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ProductModule } from './product/product.module';
+import { PeopleModule } from './people/people.module';
 
-import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +23,8 @@ import { UserComponent } from './user/user.component';
     AppRoutingModule,
 
     CoreModule,
-    ProductModule
+    ProductModule,
+    PeopleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
