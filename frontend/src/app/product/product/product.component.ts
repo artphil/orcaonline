@@ -8,15 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  product: ProductModel = new ProductModel;
-
+  product: ProductModel;
+  isNewProduct = true;
   constructor(private service: ProductService) { }
 
   ngOnInit(): void {
     console.log(this.product);
+    if (this.isNewProduct) {
+      this.product = new ProductModel();
+    }
   }
 
   saveProduct(): void {
+    console.log(this.product);
+  }
+
+  newProduct(): void {
+    this.product = new ProductModel();
+  }
+
+  removeProduct(): void {
 
   }
 }
