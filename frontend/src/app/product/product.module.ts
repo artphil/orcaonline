@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+
+import { SharedModule } from './../shared/shared.module';
 
 import { ProductComponent } from './product/product.component';
 
@@ -20,7 +23,10 @@ import { ProductService } from './product.service';
     HttpClientModule,
 
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    DropdownModule,
+
+    SharedModule
   ],
   exports: [],
   providers: [
