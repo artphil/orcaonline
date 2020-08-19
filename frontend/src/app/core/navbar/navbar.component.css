@@ -9,7 +9,7 @@ nav label {
 }
 
 .navbar-toggle {
-  margin: auto auto;
+  margin: 10px;
   color: #fff;
 }
 .navbar-toggle :hover{
