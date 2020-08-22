@@ -23,19 +23,16 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productSegments = [
-      { label: 'Selecione', value: null },
       { label: 'Segmento 1', value: 'Teste1' },
       { label: 'Segmento 2', value: 'Teste2' }
     ];
 
     this.productFamilies = [
-      { label: 'Selecione', value: null },
       { label: 'Familia 1', value: 'Teste1' },
       { label: 'Familia 2', value: 'Teste2' }
     ];
 
     this.productClasses = [
-      { label: 'Selecione', value: null },
       { label: 'Classe 1', value: 'Teste1' },
       { label: 'Classe 2', value: 'Teste2' }
     ];

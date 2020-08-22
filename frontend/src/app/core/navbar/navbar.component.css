@@ -26,3 +26,8 @@ nav label {
   text-align: center;
   font-size: 20px;
 }
+
+p-tieredMenu p-tieredmenu-overlay {
+  top: 0px;
+  left: 0px;
+}

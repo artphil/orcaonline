@@ -1,5 +1,5 @@
 <form #productForm="ngForm">
-  <div class="p-gird">
+  <div class="p-grid">
 
     <div class="p-col-12">
       <h1 *ngIf="isNewProduct">Novo Produto</h1>
@@ -35,7 +35,7 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Segmento</label>
       <p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel" [(ngModel)]="product.segmento"
-        required></p-dropdown>
+        placeholder="Selecione" required></p-dropdown>
 
       <app-msg-validation [control]="productSegment" error="required" text="Informe o segmento do produto.">
       </app-msg-validation>
@@ -44,7 +44,7 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Família</label>
       <p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel" [(ngModel)]="product.familia"
-        required></p-dropdown>
+        placeholder="Selecione" required></p-dropdown>
 
       <app-msg-validation [control]="productFamily" error="required" text="Informe a família do produto.">
       </app-msg-validation>
@@ -53,21 +53,25 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Classe</label>
       <p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [(ngModel)]="product.classe"
-        required></p-dropdown>
+        placeholder="Selecione" required></p-dropdown>
 
       <app-msg-validation [control]="productClass" error="required" text="Informe a classe do produto.">
       </app-msg-validation>
 
     </div>
 
+    <div class="p-col-12">
+      <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveProduct(productForm)"
+        [disabled]="productForm.invalid"></p-button>
 
-    <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveProduct(productForm)"
-      [disabled]="productForm.invalid"></p-button>
+      <p-button styleClass="p-button-secondary" label="Novo" (onClick)="newProduct(productForm)"></p-button>
 
-    <p-button styleClass="p-button-secondary" label="Novo" (onClick)="newProduct(productForm)"></p-button>
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeProduct(productForm)"
+        [disabled]="!product.codigo"></p-button>
 
-    <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeProduct(productForm)"
-      [disabled]="!product.codigo"></p-button>
+    </div>
+
 
   </div>
+
 </form>
