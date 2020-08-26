@@ -7,6 +7,4 @@ import com.orcaolineapi.modelo.AbstractModel;
 @RestController
 public abstract class AbstractResource<T extends AbstractModel> {
 
-	
-	
 }

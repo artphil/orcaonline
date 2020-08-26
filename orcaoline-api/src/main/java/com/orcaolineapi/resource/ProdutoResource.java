@@ -15,10 +15,10 @@ import com.orcaolineapi.repository.ProdutoRepository;
 public class ProdutoResource {
 
 	private @Autowired ProdutoRepository repository;
-	
+
 	@GetMapping
-	public List<Produto> getProdutos(){
+	public List<Produto> getProdutos() {
 		return repository.findAll();
 	}
-	
+
 }

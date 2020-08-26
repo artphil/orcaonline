@@ -10,7 +10,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 public interface AbstractRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
 	Optional<T> findById(ID id);
-	 
-	<S extends T> S save(S entity); 
-	
+
+	<S extends T> S save(S entity);
+
 }

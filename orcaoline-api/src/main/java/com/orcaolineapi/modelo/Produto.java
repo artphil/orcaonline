@@ -7,23 +7,23 @@ import javax.persistence.Id;
 
 @Entity
 public class Produto extends AbstractModel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 
 	private String codigo;
-	
+
 	private String nome;
-	
+
 	private String descricao;
-	
+
 	private String segmento;
-	
+
 	private String familia;
-	
+
 	private String classe;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -79,5 +79,5 @@ public class Produto extends AbstractModel {
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
-	
+
 }
