@@ -1,0 +1,77 @@
+<form #productForm="ngForm">
+  <div class="p-grid">
+
+    <div class="p-col-12">
+      <h1 *ngIf="isNewProduct">Novo Produto</h1>
+      <h1 *ngIf="!isNewProduct">Editar Produto</h1>
+    </div>
+
+    <div class="p-col-6 p-md-3 p-fluid">
+      <label>Código</label>
+      <input type="text" pInputText name="codigo" [(ngModel)]="product.codigo" disabled>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Nome</label>
+      <input type="text" pInputText name="nome" #productName="ngModel" [(ngModel)]="product.nome" required
+        minlength="4">
+
+      <app-msg-validation [control]="productName" error="required" text="Informe o nome do produto.">
+      </app-msg-validation>
+
+      <app-msg-validation [control]="productName" error="minlength"
+        text="O nome do produto deve ter no mínimo {{ productName.errors?.minlength?.requiredLength }} caracteres.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Descrição</label>
+      <input type="text" pInputText name="descricao" #productDescription="ngModel" [(ngModel)]="product.descricao"
+        required>
+      <app-msg-validation [control]="productDescription" error="required" text="Informe descrição do do produto.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
+      <label>Segmento</label>
+      <p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel" [(ngModel)]="product.segmento"
+        placeholder="Selecione" required></p-dropdown>
+
+      <app-msg-validation [control]="productSegment" error="required" text="Informe o segmento do produto.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
+      <label>Família</label>
+      <p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel" [(ngModel)]="product.familia"
+        placeholder="Selecione" required></p-dropdown>
+
+      <app-msg-validation [control]="productFamily" error="required" text="Informe a família do produto.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
+      <label>Classe</label>
+      <p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [(ngModel)]="product.classe"
+        placeholder="Selecione" required></p-dropdown>
+
+      <app-msg-validation [control]="productClass" error="required" text="Informe a classe do produto.">
+      </app-msg-validation>
+
+    </div>
+
+    <div class="p-col-12">
+      <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveProduct(productForm)"
+        [disabled]="productForm.invalid"></p-button>
+
+      <p-button styleClass="p-button-secondary" label="Novo" (onClick)="newProduct(productForm)"></p-button>
+
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeProduct(productForm)"
+        [disabled]="!product.codigo"></p-button>
+
+    </div>
+
+
+  </div>
+
+</form>
