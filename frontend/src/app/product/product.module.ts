@@ -12,10 +12,12 @@ import { SharedModule } from './../shared/shared.module';
 import { ProductComponent } from './product/product.component';
 
 import { ProductService } from './product.service';
+import { SegmentComponent } from './segment/segment.component';
 
 @NgModule({
   declarations: [
-    ProductComponent
+    ProductComponent,
+    SegmentComponent
   ],
   imports: [
     CommonModule,

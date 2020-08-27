@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
   productFamilies: SelectItem[];
   productClasses: SelectItem[];
 
-  isNewProduct = true;
+  isNewProduct = false;
 
   constructor(private productService: ProductService) { }
 

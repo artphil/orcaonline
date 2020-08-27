@@ -13,7 +13,7 @@ frontend/src/              => Arquivos de configuração Angular
     │  └─ msg-validation/  => Componente de mensagem de erro de validação
     ├─ product/            => Módulo dos componentes relacionados aos produtos
     │  └─ product/         => Componente de CRUD do produto
-    └─ people/             => Módulo dos componentes relacionados aos usuários
+    └─ person/             => Módulo dos componentes relacionados aos usuários
 ````
 
 <!-- │ └ ├ ─ -->
