@@ -1,7 +1,7 @@
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
-import { SelectItem } from 'primeng/api';
+import { SelectItem } from 'primeng/api/selectitem';
 
 import { ProductModel } from '../product.model';
 import { ProductService } from './../product.service';

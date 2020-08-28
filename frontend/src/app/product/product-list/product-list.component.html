@@ -1,10 +1,62 @@
 <form #productListForm="ngForm">
-
 	<div class="p-grid">
+
 		<div class="p-col-12">
-			<h1 >Produtos</h1>
+			<h1 *ngIf="isNewProduct">Novo Produto</h1>
+			<h1 *ngIf="!isNewProduct">Editar Produto</h1>
 		</div>
+
+		<div class="p-col-4 p-md-1 p-fluid">
+			<label>Código</label>
+			<input type="text" pInputText name="codigo" [(ngModel)]="filter.codigo">
+		</div>
+
+		<div class="p-col-8 p-md-11 p-fluid">
+			<label>Nome</label>
+			<input type="text" pInputText name="nome" #productName="ngModel" [(ngModel)]="filter.nome">
+		</div>
+
+		<div class="p-col-12 p-md-4 p-fluid">
+			<label>Segmento</label>
+			<p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel"
+				[(ngModel)]="filter.segmento" placeholder="Selecione"></p-dropdown>
+		</div>
+
+		<div class="p-col-12 p-md-4 p-fluid">
+			<label>Família</label>
+			<p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel"
+				[(ngModel)]="filter.familia" placeholder="Selecione"></p-dropdown>
+		</div>
+
+		<div class="p-col-12 p-md-4 p-fluid">
+			<label>Classe</label>
+			<p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [(ngModel)]="filter.classe"
+				placeholder="Selecione"></p-dropdown>
+		</div>
+
+
+		<p-table [value]="products">
+			<ng-template pTemplate="header">
+				<tr>
+					<th>Codigo</th>
+					<th>Nome</th>
+					<th>Descricao</th>
+					<th>Segmento</th>
+					<th>Familia</th>
+					<th>Classe</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-product>
+				<tr>
+					<td>{{filter.codigo}}</td>
+					<td>{{filter.nome}}</td>
+					<td>{{filter.descricao}}</td>
+					<td>{{filter.segmento}}</td>
+					<td>{{filter.familia}}</td>
+					<td>{{filter.classe}}</td>
+				</tr>
+			</ng-template>
+		</p-table>
+
 	</div>
-
-
 </form>
