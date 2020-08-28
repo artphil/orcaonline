@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orcaolineapi.modelo.produto.Produto;
-import com.orcaolineapi.repository.ProdutoRepository;
+import com.orcaolineapi.repository.produto.ProdutoRepository;
 
 @RestController
 @RequestMapping("/produtos")
