@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orcaolineapi.modelo.produto.Segmento;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.resource.AbstractResource;
-import com.orcaolineapi.service.AbstractService;
 import com.orcaolineapi.service.produto.SegmentoService;
 
 @RestController
@@ -24,7 +23,7 @@ public class SegmentoResource extends AbstractResource<Segmento>{
 	}
 
 	@Override
-	public AbstractService<Segmento> getService() {
+	public SegmentoService getService() {
 		return this.service;
 	}
 	
