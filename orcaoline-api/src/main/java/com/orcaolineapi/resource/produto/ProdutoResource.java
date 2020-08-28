@@ -1,4 +1,4 @@
-package com.orcaolineapi.resource;
+package com.orcaolineapi.resource.produto;
 
 import java.util.List;
 
