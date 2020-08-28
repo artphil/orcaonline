@@ -42,7 +42,7 @@ export class ProductComponent implements OnInit {
     } else {
       this.productService.getOne()
         .then((product: ProductModel) => {
-          this.product = product;
+          this.product = product? product : new ProductModel();
         })
         .catch(() => {
           this.product = new ProductModel();

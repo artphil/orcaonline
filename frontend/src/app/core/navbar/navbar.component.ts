@@ -28,7 +28,7 @@ export class NavbarComponent {
         {
           label: 'Lista',
           icon: 'pi pi-fw pi-th-large',
-          routerLink: '/'
+          routerLink: '/pdt/list'
         }
       ]
     }

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
 
 import { SharedModule } from './../shared/shared.module';
 
@@ -18,8 +19,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 @NgModule({
   declarations: [
     ProductComponent,
-    SegmentComponent,
-    ProductListComponent
+    ProductListComponent,
+    SegmentComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +29,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 
     InputTextModule,
     ButtonModule,
-    DropdownModule,
+	DropdownModule,
+	TableModule,
 
     SharedModule
   ],
