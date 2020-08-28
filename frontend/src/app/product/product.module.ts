@@ -13,11 +13,13 @@ import { ProductComponent } from './product/product.component';
 
 import { ProductService } from './product.service';
 import { SegmentComponent } from './segment/segment.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
     ProductComponent,
-    SegmentComponent
+    SegmentComponent,
+    ProductListComponent
   ],
   imports: [
     CommonModule,
