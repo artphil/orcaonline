@@ -8,7 +8,7 @@
 
     <div class="p-col-6 p-md-3 p-fluid">
       <label>Código</label>
-      <input type="text" pInputText name="codigo" [(ngModel)]="product.codigo" disabled>
+      <input type="text" pInputText name="codigo" [(ngModel)]="product.id" disabled>
     </div>
 
     <div class="p-col-12 p-fluid">
@@ -64,10 +64,10 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveProduct(productForm)"
         [disabled]="productForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Novo" (onClick)="newProduct(productForm)"></p-button>
+      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearProduct(productForm)"></p-button>
 
       <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeProduct(productForm)"
-        [disabled]="!product.codigo"></p-button>
+        [disabled]="!product.id"></p-button>
 
     </div>
 

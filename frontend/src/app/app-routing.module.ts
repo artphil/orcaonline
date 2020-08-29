@@ -9,14 +9,15 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { UserComponent } from './people/user/user.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'usr', component: UserComponent },
-  { path: 'pdt', component: ProductComponent },
-  { path: 'pdt/list', component: ProductListComponent }
+	{ path: '', component: HomeComponent },
+	{ path: 'usr', component: UserComponent },
+	{ path: 'pdt', component: ProductComponent },
+	{ path: 'pdt/list', component: ProductListComponent },
+	{ path: 'pdt/:cod', component: ProductComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }
