@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
@@ -12,19 +14,17 @@ public class Produto extends AbstractModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-
-	private String codigo;
+	private Long id;
 
 	private String nome;
 
 	private String descricao;
-
-	private String segmento;
-
-	private String familia;
-
-	private String classe;
+	
+	private String ncm;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_gtin_ean")
+	private GTIN_EAN gtin;
 
 	public Long getId() {
 		return id;
@@ -32,14 +32,6 @@ public class Produto extends AbstractModel {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getNome() {
@@ -57,29 +49,21 @@ public class Produto extends AbstractModel {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public String getSegmento() {
-		return segmento;
+	
+	public String getNcm() {
+		return ncm;
 	}
 
-	public void setSegmento(String segmento) {
-		this.segmento = segmento;
+	public void setNcm(String ncm) {
+		this.ncm = ncm;
 	}
 
-	public String getFamilia() {
-		return familia;
+	public GTIN_EAN getGtin() {
+		return gtin;
 	}
 
-	public void setFamilia(String familia) {
-		this.familia = familia;
+	public void setGtin(GTIN_EAN gtin) {
+		this.gtin = gtin;
 	}
-
-	public String getClasse() {
-		return classe;
-	}
-
-	public void setClasse(String classe) {
-		this.classe = classe;
-	}
-
+	
 }
