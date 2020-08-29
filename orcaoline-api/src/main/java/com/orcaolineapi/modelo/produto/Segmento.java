@@ -1,9 +1,13 @@
 package com.orcaolineapi.modelo.produto;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
@@ -17,6 +21,9 @@ public class Segmento extends AbstractModel {
 	private String nome;
 	
 	private String descricao;
+	
+	@OneToMany(mappedBy = "segmento", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Familia> familias;
 
 	public Long getId() {
 		return id;
