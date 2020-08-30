@@ -1,15 +1,13 @@
 ## Content-Type: application/json
 ## Host: localhost:8080
 
+### GET Host/bricks
+
+#### [code]
+
+#### [response]
+
 ``` Markdown
-___________________________________________________________________
-
-GET Host/bricks
-
-[code]
-
-[response]
-
 [
     {
         "id": 1,
@@ -52,14 +50,13 @@ GET Host/bricks
         }
     }    
 ]
-___________________________________________________________________
+````
+### GET Host/produtos/1
 
-GET Host/produtos/1
+#### [code]
 
-[code]
-
-[response]
-
+#### [response]
+``` Markdown
     {
         "id": 2,
         "nome": "bricksteste2",
@@ -80,12 +77,11 @@ GET Host/produtos/1
             }
         }
     }   
-___________________________________________________________________
+````
+### POST Host/bricks
 
-POST Host/bricks
-
-[code]
-
+#### [code]
+``` Markdown
     {
         "nome": "bricksteste",
         "descricao": "bricksteste",
@@ -93,9 +89,9 @@ POST Host/bricks
             "id": "1"
         }
     }
-
-[response]
-
+````
+#### [response]
+``` Markdown
 {
     "id": 1,
     "nome": "bricksteste",
@@ -107,12 +103,11 @@ POST Host/bricks
         "familia": null
     }
 }
+````
+### PUT Host/bricks/1
 
-___________________________________________________________________
-
-PUT Host/bricks/1
-
-[code]
+#### [code]
+``` Markdown
     {
         "nome": "bricksteste2",
         "descricao": "bricksteste2",
@@ -120,9 +115,9 @@ PUT Host/bricks/1
             "id": "1"
         }
     }
-
-[response] 
-
+````
+#### [response] 
+``` Markdown
 {
     "id": 1,
     "nome": "bricksteste2",

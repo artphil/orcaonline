@@ -1,15 +1,12 @@
 ## Content-Type: application/json
 ## Host: localhost:8080
 
+### GET Host/familias
+
+#### [code]
+
+#### [response]
 ``` Markdown
-___________________________________________________________________
-
-GET Host/familias
-
-[code]
-
-[response]
-
 [
     {
         "id": 1,
@@ -32,14 +29,13 @@ GET Host/familias
         }
     }
 ]
-___________________________________________________________________
+````
+### GET Host/familias/1
 
-GET Host/familias/1
+#### [code]
 
-[code]
-
-[response]
-
+#### [response]
+``` Markdown
     {
         "id": 1,
         "nome": "familiateste",
@@ -50,12 +46,11 @@ GET Host/familias/1
             "descricao": "alimento4"
         }
     }
-___________________________________________________________________
+````
+### POST Host/familias
 
-POST Host/familias
-
-[code]
-
+#### [code]
+``` Markdown
     {
         "nome": "familiateste",
         "descricao": "familiateste",
@@ -63,9 +58,9 @@ POST Host/familias
             "id": "1"
         }
     }
-
-[response]
-
+````
+#### [response]
+``` Markdown
 {
     "id": 2,
     "nome": "familiateste",
@@ -76,12 +71,11 @@ POST Host/familias
         "descricao": null
     }
 }
+````
+### PUT Host/familias/1
 
-___________________________________________________________________
-
-PUT Host/familias/1
-
-[code]
+#### [code]
+``` Markdown
     {
         "nome": "familiateste1",
         "descricao": "familiateste",
@@ -89,8 +83,9 @@ PUT Host/familias/1
             "id": "1"
         }
     }
-
-[response] 
+````
+#### [response] 
+``` Markdown
 {
     "id": 1,
     "nome": "familiateste1",

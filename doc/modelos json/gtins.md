@@ -1,15 +1,12 @@
 ## Content-Type: application/json
 ## Host: localhost:8080
 
+### GET Host/gtins
+
+#### [code]
+
+#### [response]
 ``` Markdown
-___________________________________________________________________
-
-GET Host/gtins
-
-[code]
-
-[response]
-
 [
     {
         "id": 1,
@@ -60,14 +57,13 @@ GET Host/gtins
         }
     }    
 ]
-___________________________________________________________________
+````
+### GET Host/gtins/1
 
-GET Host/gtins/1
+#### [code]
 
-[code]
-
-[response]
-
+#### [response]
+``` Markdown
     {
         "id": 1,
         "numero": 1,
@@ -92,21 +88,20 @@ GET Host/gtins/1
             }
         }
     }
-___________________________________________________________________
+````
+### POST Host/gtins
 
-POST Host/gtins
-
-[code]
-
+#### [code]
+``` Markdown
     {
         "numero": "1",
         "brick": {
             "id": "1"
         }
     }
-    
-[response]
-
+````    
+#### [response]
+``` Markdown
 {
     "id": 1,
     "numero": 1,
@@ -117,20 +112,20 @@ POST Host/gtins
         "classe": null
     }
 }
-___________________________________________________________________
+````
+### PUT Host/gtins/1
 
-PUT Host/gtins/1
-
-[code]
+####[code]
+``` Markdown
     {
         "numero": "2",
         "bricks": {
             "id": "1"
         }
     }
-
-[response] 
-
+````
+####[response] 
+``` Markdown
 {
     "id": 1,
     "numero": "2",

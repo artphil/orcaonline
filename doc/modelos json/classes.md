@@ -37,7 +37,7 @@
 
 #### [code]
 
-[response]
+#### [response]
 
 ``` Markdown
 [
@@ -54,9 +54,9 @@
 ]
 ````
 
-POST Host/classes
+### POST Host/classes
 
-[code]
+#### [code]
 ``` Markdown
     {
         "nome": "familiateste",
@@ -67,7 +67,7 @@ POST Host/classes
     }
 ````
 
-[response]
+#### [response]
 ``` Markdown
 {
     "id": 2,
@@ -83,9 +83,9 @@ POST Host/classes
 ````
 
 
-PUT Host/classes/1
+### PUT Host/classes/1
 
-[code]
+#### [code]
 ``` Markdown
     {
         "nome": "familiateste1",
@@ -96,7 +96,7 @@ PUT Host/classes/1
     }
 ````
 
-[response] 
+#### [response] 
 ``` Markdown
 {
     "id": 1,
