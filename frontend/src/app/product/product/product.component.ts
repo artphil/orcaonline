@@ -14,77 +14,77 @@ import { ProductService } from './../product.service';
 })
 export class ProductComponent implements OnInit {
   product: ProductModel;
-  productSegments: SelectItem[];
-  productFamilies: SelectItem[];
-  productClasses: SelectItem[];
+  productNCMs: SelectItem[];
+  productGTINs: SelectItem[];
 
   isNewProduct: boolean;
   idProduct: number;
 
-  constructor( 
-	  private route: ActivatedRoute,
-	  private router: Router,
-	  private productService: ProductService
-	  ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService
+  ) { }
 
   ngOnInit(): void {
-	  console.log('ooo', this.route.snapshot.paramMap.get('cod'));
-	  this.idProduct = Number(this.route.snapshot.paramMap.get('cod'));
-			
-	this.isNewProduct = !this.idProduct;
-	console.log('aaa',this.idProduct);
+    this.idProduct = Number(this.route.snapshot.paramMap.get('cod'));
 
-    this.productSegments = [
+    this.isNewProduct = !this.idProduct;
+    console.log('product:', this.idProduct);
+
+    this.consult();
+    this.productNCMs = [
       { label: 'Segmento 1', value: 'Teste1' },
       { label: 'Segmento 2', value: 'Teste2' }
     ];
 
-    this.productFamilies = [
+    this.productGTINs = [
       { label: 'Familia 1', value: 'Teste1' },
       { label: 'Familia 2', value: 'Teste2' }
     ];
 
-    this.productClasses = [
-      { label: 'Classe 1', value: 'Teste1' },
-      { label: 'Classe 2', value: 'Teste2' }
-    ];
+  }
 
+  consult(): void {
     if (this.isNewProduct) {
+      console.log('new')
       this.product = new ProductModel();
     } else {
       this.productService.getOne(this.idProduct)
         .then((product: ProductModel) => {
-			console.log(product? product : 'nada');
-          this.product = product? product : new ProductModel();
+          console.log(product ? product : 'nada');
+          this.product = product ? product : new ProductModel();
         })
         .catch(() => {
-			console.log('cath');
           this.product = new ProductModel();
+          console.log('catch', this.product);
         });
     }
   }
 
   saveProduct(form: NgForm): void {
-	  if (this.isNewProduct) {
-		  this.productService.create(this.product)
-		  .then((product: ProductModel) => {
-			  this.product = product;
-			});
-		}
-		else {
-			this.productService.update(this.idProduct, this.product)
-			.then((product: ProductModel) => {
-				this.product = product;
-			  });
-		}
-	}
+    if (this.isNewProduct) {
+      this.productService.create(this.product)
+        .then((product: ProductModel) => {
+          this.product = product;
+        });
+    }
+    else {
+      this.productService.update(this.product)
+        .then((product: ProductModel) => {
+          this.product = product;
+        });
+    }
+
+  }
 
   clearProduct(form: NgForm): void {
-	this.router.navigateByUrl('/pdt')
+    this.router.navigateByUrl('/pdt')
   }
 
   removeProduct(form: NgForm): void {
-    console.log(form);
+    this.productService.delete(this.idProduct)
+    .then(() => alert("Produto Exluido"))
     // form.reset();
   }
 }

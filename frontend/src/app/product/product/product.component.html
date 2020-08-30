@@ -8,7 +8,7 @@
 
     <div class="p-col-6 p-md-3 p-fluid">
       <label>Código</label>
-      <input type="text" pInputText name="codigo" [(ngModel)]="product.id" disabled>
+      <input type="text" pInputText name="id" [(ngModel)]="product.id" disabled>
     </div>
 
     <div class="p-col-12 p-fluid">
@@ -33,31 +33,21 @@
     </div>
 
     <div class="p-col-12 p-md-4 p-fluid">
-      <label>Segmento</label>
-      <p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel" [(ngModel)]="product.segmento"
+      <label>NCM</label>
+      <p-dropdown [options]="productNCMs" name="ncm" #productNCM="ngModel" [(ngModel)]="product.ncm"
         placeholder="Selecione" required></p-dropdown>
 
-      <app-msg-validation [control]="productSegment" error="required" text="Informe o segmento do produto.">
+      <app-msg-validation [control]="productNCM" error="required" text="Informe o segmento do produto.">
       </app-msg-validation>
     </div>
 
     <div class="p-col-12 p-md-4 p-fluid">
-      <label>Família</label>
-      <p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel" [(ngModel)]="product.familia"
+      <label>GTIN</label>
+      <p-dropdown [options]="productGTINs" name="gtin" #productGTIN="ngModel" [(ngModel)]="product.gtin"
         placeholder="Selecione" required></p-dropdown>
 
-      <app-msg-validation [control]="productFamily" error="required" text="Informe a família do produto.">
+      <app-msg-validation [control]="productGTIN" error="required" text="Informe a família do produto.">
       </app-msg-validation>
-    </div>
-
-    <div class="p-col-12 p-md-4 p-fluid">
-      <label>Classe</label>
-      <p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [(ngModel)]="product.classe"
-        placeholder="Selecione" required></p-dropdown>
-
-      <app-msg-validation [control]="productClass" error="required" text="Informe a classe do produto.">
-      </app-msg-validation>
-
     </div>
 
     <div class="p-col-12">
@@ -75,3 +65,4 @@
   </div>
 
 </form>
+ {{ product|json }}

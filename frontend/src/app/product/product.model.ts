@@ -1,17 +1,15 @@
 export class ProductModel {
-  id: string;
+  id: number;
   nome: string;
   descricao: string;
-  segmento: string;
-  familia: string;
-  classe: string;
+  ncm: string;
+  gtin: string;
 
   constructor(value='') {
-    this.id = value;
+    this.id = null;
     this.nome = value;
     this.descricao = value;
-    this.segmento = value;
-    this.familia = value;
-    this.classe = value;
+    this.ncm = value;
+    this.gtin = value;
   }
 }

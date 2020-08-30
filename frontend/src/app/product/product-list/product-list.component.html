@@ -7,7 +7,7 @@
 
 		<div class="p-col-4 p-md-1 p-fluid">
 			<label>Código</label>
-			<input type="text" pInputText name="codigo" [(ngModel)]="filter.id">
+			<input type="text" pInputText name="id" [(ngModel)]="filter.id">
 		</div>
 
 		<div class="p-col-8 p-md-11 p-fluid">
@@ -16,23 +16,16 @@
 		</div>
 
 		<div class="p-col-12 p-md-4 p-fluid">
-			<label>Segmento</label>
-			<p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel"
-				[(ngModel)]="filter.segmento"></p-dropdown>
+			<label>NCM</label>
+			<p-dropdown [options]="productSegments" name="ncm" #productSegment="ngModel"
+				[(ngModel)]="filter.ncm"></p-dropdown>
 		</div>
 
 		<div class="p-col-12 p-md-4 p-fluid">
-			<label>Família</label>
-			<p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel"
-				[(ngModel)]="filter.familia"></p-dropdown>
+			<label>GTIN</label>
+			<p-dropdown [options]="productFamilies" name="gtin" #productFamily="ngModel"
+				[(ngModel)]="filter.gtin"></p-dropdown>
 		</div>
-
-		<div class="p-col-12 p-md-4 p-fluid">
-			<label>Classe</label>
-			<p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [(ngModel)]="filter.classe">
-			</p-dropdown>
-		</div>
-
 
 		<p-table [value]="products">
 			<ng-template pTemplate="header">
@@ -40,8 +33,8 @@
 					<th>Codigo</th>
 					<th>Nome</th>
 					<th>Descricao</th>
-					<th>Segmento</th>
-					<th>Familia</th>
+					<th>NCM</th>
+					<th>GTIN</th>
 					<th>Classe</th>
 					<th></th>
 				</tr>
@@ -51,8 +44,8 @@
 					<td>{{product.id}}</td>
 					<td>{{product.nome}}</td>
 					<td>{{product.descricao}}</td>
-					<td>{{product.segmento}}</td>
-					<td>{{product.familia}}</td>
+					<td>{{product.ncm}}</td>
+					<td>{{product.gtin}}</td>
 					<td>{{product.classe}}</td>
 					<td>
 						<p-button icon="pi pi-pencil"(onClick)="editProduct(product.id)"></p-button>
