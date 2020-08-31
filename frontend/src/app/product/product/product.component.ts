@@ -33,6 +33,7 @@ export class ProductComponent implements OnInit {
     console.log('product:', this.idProduct);
 
     this.consult();
+
     this.productNCMs = [
       { label: 'Segmento 1', value: 'Teste1' },
       { label: 'Segmento 2', value: 'Teste2' }
@@ -66,25 +67,32 @@ export class ProductComponent implements OnInit {
     if (this.isNewProduct) {
       this.productService.create(this.product)
         .then((product: ProductModel) => {
-          this.product = product;
-        });
+          form.reset();
+
+          console.log(`/pdt/${product.id}`)
+          this.router.navigateByUrl(`/pdt/${product.id}`);
+        })
+        .catch(() => alert('Solicitação não concluida.'));;
     }
     else {
       this.productService.update(this.product)
         .then((product: ProductModel) => {
-          this.product = product;
-        });
+          form.reset();
+          this.router.navigateByUrl(`/pdt/${product.id}`);
+        })
+        .catch(() => alert('Solicitação não concluida.'));
     }
 
   }
 
   clearProduct(form: NgForm): void {
+    form.reset();
     this.router.navigateByUrl('/pdt')
   }
 
   removeProduct(form: NgForm): void {
     this.productService.delete(this.idProduct)
     .then(() => alert("Produto Exluido"))
-    // form.reset();
+    .catch(() => alert('Solicitação não concluida.'));
   }
 }
