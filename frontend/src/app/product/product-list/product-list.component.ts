@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api/selectitem';
 
-import { ProductModel } from '../product.model';
-import { ProductService } from '../product.service';
+import { ProductModel, SegmentModel } from '../product.model';
+import { ProductService } from '../product/product.service';
+import { SegmentService } from '../segment/segment.service';
 
 @Component({
 	selector: 'app-product-list',
@@ -21,13 +22,24 @@ export class ProductListComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		private productService: ProductService) { }
+		private productService: ProductService,
+		private segmentService: SegmentService
+	) { }
 
 	ngOnInit(): void {
 
-		this.productSegments = [
-			{ label: 'Todos', value: '' }
-		];
+		this.segmentService.getList()
+			.then((segmentList: SegmentModel[]) => {
+				this.productSegments = []; 
+				segmentList.forEach(s => {
+					this.productSegments.push({label:s.nome, value:s})
+				});
+			})
+			.catch(() => {
+				this.productSegments = [
+					{ label: 'Todos', value: {} }
+				];
+			});
 
 		this.productFamilies = [
 			{ label: 'Todos', value: '' }
@@ -44,8 +56,8 @@ export class ProductListComponent implements OnInit {
 			.catch(() => { return [] });
 	}
 
-	editProduct(id:string) {
-	this.router.navigateByUrl('/pdt/'+id)
+	editProduct(id: string) {
+		this.router.navigateByUrl('/pdt/' + id)
 	}
 
 }

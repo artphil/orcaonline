@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectItem } from 'primeng/api/selectitem';
 
 import { ProductModel } from '../product.model';
-import { ProductService } from './../product.service';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-product',

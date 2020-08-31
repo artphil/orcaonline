@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class SegmentService {
 
-  apiPath = 'http://45.80.152.3:8080/produtos/';
+  apiPath = 'http://45.80.152.3:8080/segmentos/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -18,7 +18,7 @@ export class ProductService {
 
   getOne(code: number = null): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${code}`)
+    return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
       .toPromise()
       .then(res => { return res });
   }
@@ -32,9 +32,6 @@ export class ProductService {
 
   create(data: any): Promise<any> {
 
-    delete data.ncm;
-    delete data.gtin;
-
     return this.http.post<any>(this.apiPath, data, this.httpOptions)
       .toPromise()
       .then(res => { return res });
@@ -42,10 +39,6 @@ export class ProductService {
 
   update(data: any): Promise<any> {
 
-    delete data.ncm;
-    delete data.gtin;
-
-    console.log('to send:', data);
     return this.http.put<any>(`${this.apiPath}${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => { return res });
