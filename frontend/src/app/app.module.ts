@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ProductModule } from './product/product.module';
-import { PeopleModule } from './people/people.module';
+import { PersonModule } from './person/person.module';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { PeopleModule } from './people/people.module';
 
     CoreModule,
     ProductModule,
-    PeopleModule
+    PersonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
