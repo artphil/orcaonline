@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
@@ -15,11 +17,13 @@ public class Familia extends AbstractModel{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@NotBlank(message = "O nome da família é obrigatório!")
 	private String nome;
 	
 	private String descricao;
 	
+	@NotNull(message = "Segmento é obrigatório!")
 	@ManyToOne
 	@JoinColumn(name = "id_segmento")
 	private Segmento segmento;

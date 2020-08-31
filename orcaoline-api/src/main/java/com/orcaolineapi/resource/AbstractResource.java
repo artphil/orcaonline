@@ -3,6 +3,7 @@ package com.orcaolineapi.resource;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public abstract class AbstractResource<T extends AbstractModel> {
 	
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<T> save(@RequestBody T resource, HttpServletResponse response){
+	public ResponseEntity<T> save(@Valid @RequestBody T resource, HttpServletResponse response){
 		T resourceSave = getRepository().save(resource);
 		return ResponseEntity.status(HttpStatus.CREATED).body(resourceSave);
 	}

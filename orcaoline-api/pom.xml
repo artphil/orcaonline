@@ -60,10 +60,15 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 
-		<!-- Hibernate - Mapeamento Objeto Relacional-->
+		<!-- Hibernate - Mapeamento Objeto Relacional -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 	</dependencies>
 
