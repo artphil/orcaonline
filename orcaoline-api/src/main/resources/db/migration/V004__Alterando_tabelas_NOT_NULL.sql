@@ -21,6 +21,10 @@ ADD CONSTRAINT `fk_classe_idFamilia`
   ON UPDATE CASCADE;
   
 ALTER TABLE `orcaoline`.`familia` 
+DROP FOREIGN KEY `fk_familia_idSegmento`;
+ALTER TABLE `orcaoline`.`familia`
+DROP INDEX `fk_familia_idSegmento` ;
+ALTER TABLE `orcaoline`.`familia` 
 CHANGE COLUMN `id_segmento` `id_segmento` BIGINT NOT NULL ;
 ALTER TABLE `orcaoline`.`familia` 
 ADD CONSTRAINT `fk_familia_idSegmento`
