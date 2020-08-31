@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit {
 	productSegments: SelectItem[];
 	productFamilies: SelectItem[];
 	productClasses: SelectItem[];
+	productBricks: SelectItem[];
 
 	constructor(
 		private router: Router,

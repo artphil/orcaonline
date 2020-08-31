@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api/selectitem';
+import { MessageService } from 'primeng/api';
 
 import { ProductModel, GtinModel } from '../product.model';
 import { ProductService } from './product.service';
@@ -25,7 +26,8 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
-    private gtinService: GtinService
+    private gtinService: GtinService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class ProductComponent implements OnInit {
       .then((segmentList: GtinModel[]) => {
         this.productGTINs = [{ label: 'Todos', value: {} }];
         segmentList.forEach(s => {
-          this.productGTINs.push({ label: s.numero, value: { 'id': s.id } })
+          this.productGTINs.push({ label: s.numero.toString(), value: { 'id': s.id } })
         });
       })
       .catch(() => {
@@ -78,6 +80,7 @@ export class ProductComponent implements OnInit {
     if (this.isNewProduct) {
       this.productService.create(this.product)
         .then((product: ProductModel) => {
+          this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: product.nome });
           this.router.navigateByUrl(`/pdt/${product.id}`)
         })
         .catch(() => alert('Solicitação não concluida.'));;
@@ -85,6 +88,7 @@ export class ProductComponent implements OnInit {
     else {
       this.productService.update(this.product)
         .then((product: ProductModel) => {
+          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: product.nome });
           this.consult()
         })
         .catch(() => alert('Solicitação não concluida.'));
@@ -101,9 +105,10 @@ export class ProductComponent implements OnInit {
   removeProduct(form: NgForm): void {
     this.productService.delete(this.idProduct)
       .then(() => {
-        alert("Produto Exluido");
+        this.messageService.add({ severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idProduct} não pode mais ser acessado` });
         this.router.navigateByUrl('/pdt')
       })
-      .catch(() => alert('Solicitação não concluida.'));
+      .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' })
+      );
   }
 }
