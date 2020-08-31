@@ -1,3 +1,15 @@
+export class ProductFilterModel {
+  id: number;
+  nome: string;
+  descricao: string;
+  ncm: string;
+  gtin: GtinModel;
+  brick: BrickModel;
+  classe: ClassModel;
+  familia: FamilyModel;
+  segmento: SegmentModel;
+}
+
 export class ProductModel {
   id: number;
   nome: string;

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api/selectitem';
 
-import { ProductModel, SegmentModel } from '../product.model';
+import { ProductFilterModel, ProductModel, SegmentModel } from '../product.model';
 import { ProductService } from '../product/product.service';
 import { SegmentService } from '../segment/segment.service';
 
@@ -15,7 +15,7 @@ import { SegmentService } from '../segment/segment.service';
 export class ProductListComponent implements OnInit {
 
 	products: ProductModel[];
-	filter = new ProductModel();
+	filter = new ProductFilterModel();
 	productSegments: SelectItem[];
 	productFamilies: SelectItem[];
 	productClasses: SelectItem[];

@@ -15,12 +15,18 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductService } from './product/product.service';
 
 import { SegmentComponent } from './segment/segment.component';
+import { FamilyComponent } from './family/family.component';
+import { GtinComponent } from './gtin/gtin.component';
+import { SegmentService } from './segment/segment.service';
+import { GtinService } from './gtin/gtin.service';
 
 @NgModule({
   declarations: [
     ProductComponent,
     ProductListComponent,
-    SegmentComponent
+    SegmentComponent,
+    FamilyComponent,
+    GtinComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +42,9 @@ import { SegmentComponent } from './segment/segment.component';
   ],
   exports: [],
   providers: [
-    ProductService
+    ProductService,
+    SegmentService,
+    GtinService
   ]
 })
 export class ProductModule { }

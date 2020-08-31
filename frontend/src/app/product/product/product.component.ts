@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api/selectitem';
 
-import { ProductModel } from '../product.model';
+import { ProductModel, GtinModel } from '../product.model';
 import { ProductService } from './product.service';
+import { GtinService } from '../gtin/gtin.service';
 
 @Component({
   selector: 'app-product',
@@ -23,14 +24,12 @@ export class ProductComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private gtinService: GtinService
   ) { }
 
   ngOnInit(): void {
     this.idProduct = Number(this.route.snapshot.paramMap.get('cod'));
-
-    this.isNewProduct = !this.idProduct;
-    console.log('product:', this.idProduct);
 
     this.consult();
 
@@ -39,14 +38,26 @@ export class ProductComponent implements OnInit {
       { label: 'Segmento 2', value: 'Teste2' }
     ];
 
-    this.productGTINs = [
-      { label: 'Familia 1', value: 'Teste1' },
-      { label: 'Familia 2', value: 'Teste2' }
-    ];
+    this.gtinService.getList()
+      .then((segmentList: GtinModel[]) => {
+        this.productGTINs = [{ label: 'Todos', value: {} }];
+        segmentList.forEach(s => {
+          this.productGTINs.push({ label: s.numero, value: { 'id': s.id } })
+        });
+      })
+      .catch(() => {
+        this.productGTINs = [
+          { label: 'Todos', value: {} }
+        ];
+      });
+
 
   }
 
   consult(): void {
+    this.isNewProduct = !this.idProduct;
+    console.log('product:', this.idProduct);
+
     if (this.isNewProduct) {
       console.log('new')
       this.product = new ProductModel();
@@ -67,18 +78,14 @@ export class ProductComponent implements OnInit {
     if (this.isNewProduct) {
       this.productService.create(this.product)
         .then((product: ProductModel) => {
-          form.reset();
-
-          console.log(`/pdt/${product.id}`)
-          this.router.navigateByUrl(`/pdt/${product.id}`);
+          this.router.navigateByUrl(`/pdt/${product.id}`)
         })
         .catch(() => alert('Solicitação não concluida.'));;
     }
     else {
       this.productService.update(this.product)
         .then((product: ProductModel) => {
-          form.reset();
-          this.router.navigateByUrl(`/pdt/${product.id}`);
+          this.consult()
         })
         .catch(() => alert('Solicitação não concluida.'));
     }
@@ -87,12 +94,16 @@ export class ProductComponent implements OnInit {
 
   clearProduct(form: NgForm): void {
     form.reset();
+    this.product = new ProductModel();
     this.router.navigateByUrl('/pdt')
   }
 
   removeProduct(form: NgForm): void {
     this.productService.delete(this.idProduct)
-    .then(() => alert("Produto Exluido"))
-    .catch(() => alert('Solicitação não concluida.'));
+      .then(() => {
+        alert("Produto Exluido");
+        this.router.navigateByUrl('/pdt')
+      })
+      .catch(() => alert('Solicitação não concluida.'));
   }
 }

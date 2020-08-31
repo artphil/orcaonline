@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class GtinService {
 
-  apiPath = 'http://45.80.152.3:8080/produtos/';
+  apiPath = 'http://45.80.152.3:8080/gtins/';
 
   httpOptions = {
     headers: new HttpHeaders({

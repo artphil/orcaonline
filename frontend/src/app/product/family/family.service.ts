@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class FamilyService {
 
-  apiPath = 'http://45.80.152.3:8080/produtos/';
+  apiPath = 'http://45.80.152.3:8080/familias/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -16,16 +16,16 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getOne(code: number = null): Promise<any> {
+  getOne(query: string = ''): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
       .toPromise()
       .then(res => { return res });
   }
 
-  getList(): Promise<any> {
+  getList(query: string = ''): Promise<any> {
 
-    return this.http.get<any>(this.apiPath, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
       .toPromise()
       .then(res => { return res });
   }
