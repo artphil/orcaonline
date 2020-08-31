@@ -5,7 +5,7 @@ tags: []
 ---
 
 ## Content-Type: application/json
-## Host: localhost:8080
+## Host: 45.80.152.3:8080
 
 ### GET Host/produtos
 
