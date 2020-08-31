@@ -32,7 +32,7 @@ export class ProductListComponent implements OnInit {
 			.then((segmentList: SegmentModel[]) => {
 				this.productSegments = []; 
 				segmentList.forEach(s => {
-					this.productSegments.push({label:s.nome, value:s})
+					this.productSegments.push({ label:s.nome, value:{'id':s.id} })
 				});
 			})
 			.catch(() => {
