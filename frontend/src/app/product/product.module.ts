@@ -11,10 +11,10 @@ import { TableModule } from 'primeng/table';
 import { SharedModule } from './../shared/shared.module';
 
 import { ProductComponent } from './product/product.component';
-
-import { ProductService } from './product.service';
-import { SegmentComponent } from './segment/segment.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { ProductService } from './product/product.service';
+
+import { SegmentComponent } from './segment/segment.component';
 
 @NgModule({
   declarations: [
