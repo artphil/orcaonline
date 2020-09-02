@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
 	filter = new ProductFilterModel();
 	productSegments: SelectItem[];
 	productFamilies: SelectItem[];
+	productBricks: SelectItem[];
 	productClasses: SelectItem[];
 	productBricks: SelectItem[];
 
