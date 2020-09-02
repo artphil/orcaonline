@@ -21,6 +21,7 @@ import { ProductService } from './product/product.service';
 import { SegmentService } from './segment/segment.service';
 import { GtinService } from './gtin/gtin.service';
 import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
+import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.componen
     DropdownModule,
     TableModule,
     ToastModule,
+    DynamicDialogModule,
 
     SharedModule
   ],
@@ -48,7 +50,8 @@ import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.componen
   providers: [
     ProductService,
     SegmentService,
-    GtinService
+    GtinService,
+    DialogService
   ]
 })
 export class ProductModule { }

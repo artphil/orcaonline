@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DialogService} from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-dynamic-dialog',

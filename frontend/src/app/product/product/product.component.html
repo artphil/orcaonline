@@ -49,7 +49,7 @@
       <div class="p-inputgroup">  
       <p-dropdown [options]="productGTINs" name="gtin" #productGTIN="ngModel" [(ngModel)]="product.gtin"
         placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"></button>      
+        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (onClick)="showDialog()"></button>      
       </div>
       <app-msg-validation [control]="productGTIN" error="required" text="Informe a família do produto.">
       </app-msg-validation>
@@ -70,4 +70,3 @@
   </div>
 
 </form>
- {{ product|json }}
