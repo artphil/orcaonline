@@ -19,3 +19,7 @@ label {
     margin: 0px auto;
 	}
 }
+
+.p-fluid p-dropdown {
+  width: 100%;
+}
