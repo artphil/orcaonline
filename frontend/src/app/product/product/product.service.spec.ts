@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ProductService } from './product.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -15,7 +15,7 @@ describe('ProductService', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: Observable.of({ get: (key) => 'value' })
+            paramMap: of({ get: (key) => 'value' })
           }
         }
       ],

@@ -20,6 +20,8 @@ import { GtinComponent } from './gtin/gtin.component';
 import { ProductService } from './product/product.service';
 import { SegmentService } from './segment/segment.service';
 import { GtinService } from './gtin/gtin.service';
+import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
+import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { GtinService } from './gtin/gtin.service';
     ProductListComponent,
     SegmentComponent,
     FamilyComponent,
-    GtinComponent
+    GtinComponent,
+    DynamicDialogComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +42,7 @@ import { GtinService } from './gtin/gtin.service';
     DropdownModule,
     TableModule,
     ToastModule,
+    DynamicDialogModule,
 
     SharedModule
   ],
@@ -46,7 +50,8 @@ import { GtinService } from './gtin/gtin.service';
   providers: [
     ProductService,
     SegmentService,
-    GtinService
+    GtinService,
+    DialogService
   ]
 })
 export class ProductModule { }

@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { ProductModel, GtinModel } from '../product.model';
 import { ProductService } from './product.service';
 import { GtinService } from '../gtin/gtin.service';
+import { DynamicDialogComponent, DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-product',
@@ -27,7 +28,8 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private gtinService: GtinService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -110,5 +112,12 @@ export class ProductComponent implements OnInit {
       })
       .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' })
       );
+  }
+
+  showDialog() {
+    const ref = this.dialogService.open(DynamicDialogComponent, {
+      header: 'Choose a Car',
+      width: '100px'
+    });
   }
 }
