@@ -20,6 +20,7 @@ import { GtinComponent } from './gtin/gtin.component';
 import { ProductService } from './product/product.service';
 import { SegmentService } from './segment/segment.service';
 import { GtinService } from './gtin/gtin.service';
+import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GtinService } from './gtin/gtin.service';
     ProductListComponent,
     SegmentComponent,
     FamilyComponent,
-    GtinComponent
+    GtinComponent,
+    DynamicDialogComponent
   ],
   imports: [
     CommonModule,
