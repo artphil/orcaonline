@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
 
 		this.segmentService.getList()
 			.then((segmentList: SegmentModel[]) => {
-				this.productSegments = []; 
+				this.productSegments = [];
 				segmentList.forEach(s => {
 					this.productSegments.push({ label:s.nome, value:{'id':s.id} })
 				});
@@ -47,6 +47,10 @@ export class ProductListComponent implements OnInit {
 		];
 
 		this.productClasses = [
+			{ label: 'Todos', value: '' }
+    ];
+
+    this.productBricks = [
 			{ label: 'Todos', value: '' }
 		];
 
