@@ -19,19 +19,18 @@ public class Familia extends AbstractModel{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Pattern(regexp = "[0-9]+", message =  "Não são permitidas letras ou caracteres especiais no nome do familia")
 	private Long id;
 
 	@Length(max=150, message="Tamanho excedido para nome da familia")
-    @Pattern(regexp = "[a-zA-Z]+ [a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da familia")
-	@NotBlank(message = "O nome da família é obrigatório!")
+    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da familia")
+	@NotBlank
 	private String nome;
 	
 	@Length(max=200, message="Tamanho excedido para descricao da familia")
-    @Pattern(regexp = "[a-zA-Z]+ [a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da familia")
+    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da familia")
 	private String descricao;
 	
-	@NotNull(message = "Segmento é obrigatório!")
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_segmento")
 	private Segmento segmento;

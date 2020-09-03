@@ -3,6 +3,7 @@ package com.orcaolineapi.exceptionHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -41,8 +42,8 @@ private @Autowired MessageSource messageSource;
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 	
-	@ExceptionHandler({EmptyResultDataAccessException.class})
-	public ResponseEntity<Object> handleEmptyResultDataAccessExeption(EmptyResultDataAccessException ex, WebRequest request){
+	@ExceptionHandler({EmptyResultDataAccessException.class, NoSuchElementException.class})
+	public ResponseEntity<Object> handleEmptyResultDataAccessExeption(RuntimeException ex, WebRequest request){
 		String mensagemUsuario = messageSource.getMessage("recurso.noa-encontrado",null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvesor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvesor));

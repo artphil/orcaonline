@@ -9,5 +9,4 @@ public class OrcaolineApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OrcaolineApiApplication.class, args);
 	}
-
 }

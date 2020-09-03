@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.orcaolineapi.event.RecursoCriadoEvent;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.repository.AbstractRepository;
 import com.orcaolineapi.service.AbstractService;
@@ -28,6 +31,8 @@ public abstract class AbstractResource<T extends AbstractModel> {
 	
 	public abstract AbstractService<T> getService();
 	
+	private @Autowired ApplicationEventPublisher publisher;
+	
 	@CrossOrigin
 	@GetMapping
 	public List<T> getRecursos(){
@@ -38,6 +43,7 @@ public abstract class AbstractResource<T extends AbstractModel> {
 	@PostMapping
 	public ResponseEntity<T> save(@Valid @RequestBody T resource, HttpServletResponse response){
 		T resourceSave = getRepository().save(resource);
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, resourceSave.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(resourceSave);
 	}
 	
