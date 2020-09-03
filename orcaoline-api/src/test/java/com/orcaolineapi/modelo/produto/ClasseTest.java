@@ -1,4 +1,4 @@
-package com.produto.orcaolineapi;
+package com.orcaolineapi.modelo.produto;
 
 import static org.junit.jupiter.api.Assertions.*;
 

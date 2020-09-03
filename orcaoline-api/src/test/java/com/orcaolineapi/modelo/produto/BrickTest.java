@@ -1,18 +1,13 @@
-package com.produto.orcaolineapi;
+package com.orcaolineapi.modelo.produto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.orcaolineapi.modelo.produto.Produto;
-
-import org.junit.Assert;
-import org.junit.Before;
-
-class ProdutoTest {
+class BrickTest {
 
 	@Test
-	final void testGetId() {		
+	final void testGetId() {
 		fail("Not yet implemented"); // TODO
 	}
 
@@ -42,22 +37,12 @@ class ProdutoTest {
 	}
 
 	@Test
-	final void testGetNcm() {
+	final void testGetClasse() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	final void testSetNcm() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	final void testGetGtin() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	final void testSetGtin() {
+	final void testSetClasse() {
 		fail("Not yet implemented"); // TODO
 	}
 

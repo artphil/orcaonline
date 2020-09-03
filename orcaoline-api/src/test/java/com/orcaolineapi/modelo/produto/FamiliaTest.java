@@ -1,10 +1,10 @@
-package com.produto.orcaolineapi;
+package com.orcaolineapi.modelo.produto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class GTIN_EANTest {
+class FamiliaTest {
 
 	@Test
 	final void testGetId() {
@@ -17,22 +17,32 @@ class GTIN_EANTest {
 	}
 
 	@Test
-	final void testGetNumero() {
+	final void testGetNome() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	final void testSetNumero() {
+	final void testSetNome() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	final void testGetBrick() {
+	final void testGetDescricao() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	final void testSetBrick() {
+	final void testSetDescricao() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	final void testGetSegmento() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	final void testSetSegmento() {
 		fail("Not yet implemented"); // TODO
 	}
 

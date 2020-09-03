@@ -1,17 +1,15 @@
-package com.produto.orcaolineapi;
+package com.orcaolineapi.modelo.produto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.ResponseEntity;
 
-import com.orcaolineapi.modelo.produto.Segmento;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 
 class SegmentoTest {
-
-	@BeforeClass
+	
+	@BeforeEach
 	public static void setup() {
 
 	    // Setup resource needed by all tests.
@@ -19,10 +17,11 @@ class SegmentoTest {
 	
 	@Test
 	final void testSaveStringInWrongFormat() {
-		SegmentoRepository repository = null;
-		Segmento segmento = new Segmento((long) 123, "nome9+", "descricao");
-		Segmento result = repository.save(segmento);
-		
+//		SegmentoRepository repository = null;
+//		Segmento segmento = new Segmento("nome9+", "descricao");
+//		segmento.setId(123L);
+//		Segmento result = repository.save(segmento);
+//		
 		fail("Not yet implemented"); // TODO
 	}
 	
