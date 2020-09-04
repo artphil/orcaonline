@@ -21,10 +21,12 @@ import { ProductService } from './product/product.service';
 import { SegmentService } from './segment/segment.service';
 import { FamilyService } from './family/family.service';
 import { ClassService } from './class/class.service';
+import { BrickService } from './brick/brick.service';
 import { GtinService } from './gtin/gtin.service';
 import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 import { ClassComponent } from './class/class.component';
+import { BrickComponent } from './brick/brick.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ClassComponent } from './class/class.component';
     FamilyComponent,
     GtinComponent,
     DynamicDialogComponent,
-    ClassComponent
+    ClassComponent,
+    BrickComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import { ClassComponent } from './class/class.component';
     FamilyService,
     GtinService,
     ClassService,
+    BrickService,
     DialogService
   ]
 })

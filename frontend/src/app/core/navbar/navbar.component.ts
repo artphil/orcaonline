@@ -43,6 +43,11 @@ export class NavbarComponent {
               label: 'Classe',
               icon: 'pi pi-fw pi-plus',
               routerLink: '/pdt/cls'
+            },
+            {
+              label: 'Brick',
+              icon: 'pi pi-fw pi-plus',
+              routerLink: '/pdt/brk'
             }
           ]
         },

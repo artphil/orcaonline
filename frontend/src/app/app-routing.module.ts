@@ -4,12 +4,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './core/home/home.component';
+import { UserComponent } from './person/user/user.component';
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
-import { UserComponent } from './person/user/user.component';
 import { SegmentComponent } from './product/segment/segment.component';
 import { FamilyComponent } from './product/family/family.component';
 import { ClassComponent } from './product/class/class.component';
+import { BrickComponent } from './product/brick/brick.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,8 @@ const routes: Routes = [
   { path: 'pdt/fam/:cod', component: FamilyComponent },
   { path: 'pdt/cls', component: ClassComponent },
   { path: 'pdt/cls/:cod', component: ClassComponent },
+  { path: 'pdt/brk', component: BrickComponent },
+  { path: 'pdt/brk/:cod', component: BrickComponent },
   { path: 'pdt/:cod', component: ProductComponent }
 ];
 
