@@ -8,6 +8,14 @@ export class ProductFilterModel {
   classe: ClassModel;
   familia: FamilyModel;
   segmento: SegmentModel;
+
+  constructor(){
+    this.gtin = new GtinModel();
+    this.brick = new BrickModel();
+    this.classe = new ClassModel();
+    this.familia = new FamilyModel();
+    this.segmento = new SegmentModel();
+  }
 }
 
 export class ProductModel {
@@ -22,7 +30,7 @@ export class ProductModel {
     this.nome = null;
     this.descricao = null;
     this.ncm = null;
-    this.gtin = null;
+    this.gtin = new GtinModel();
   }
 }
 
@@ -34,7 +42,7 @@ export class GtinModel {
   constructor() {
     this.id = null;
     this.numero = null;
-    this.brick = null;
+    this.brick = new BrickModel();
   }
 }
 
@@ -48,7 +56,7 @@ export class BrickModel {
     this.id = null;
     this.nome = null;
     this.descricao = null;
-    this.classe = null;
+    this.classe = new ClassModel();
   }
 }
 
@@ -62,7 +70,7 @@ export class ClassModel {
     this.id = null;
     this.nome = null;
     this.descricao = null;
-    this.familia = null;
+    this.familia = new FamilyModel();
   }
 }
 
@@ -76,7 +84,7 @@ export class FamilyModel {
     this.id = null;
     this.nome = null;
     this.descricao = null;
-    this.segmento = null;
+    this.segmento  = new SegmentModel();
   }
 }
 

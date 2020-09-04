@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api/selectitem';
 
-import { ProductFilterModel, ProductModel, SegmentModel, FamilyModel } from '../product.model';
+import { ProductFilterModel, ProductModel, SegmentModel, FamilyModel, ClassModel } from '../product.model';
 import { ProductService } from '../product/product.service';
 import { SegmentService } from '../segment/segment.service';
 import { FamilyService } from '../family/family.service';
+import { ClassService } from '../class/class.service';
 
 @Component({
   selector: 'app-product-list',
@@ -26,7 +27,8 @@ export class ProductListComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private segmentService: SegmentService,
-    private familyService: FamilyService
+    private familyService: FamilyService,
+    private classService: ClassService
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +36,8 @@ export class ProductListComponent implements OnInit {
     this.segmentService.getList()
       .then((segmentList: SegmentModel[]) => {
         this.productSegments = [{ label: 'Todos', value: {} }];
-        segmentList.forEach(s => {
-          this.productSegments.push({ label: s.nome, value: { id: s.id } })
+        segmentList.forEach(item => {
+          this.productSegments.push({ label: item.nome, value: { id: item.id } })
         });
       })
       .catch(() => {
@@ -47,8 +49,8 @@ export class ProductListComponent implements OnInit {
     this.familyService.getList()
       .then((familyList: FamilyModel[]) => {
         this.productFamilies = [{ label: 'Todos', value: {} }];
-        familyList.forEach( f => {
-          this.productFamilies.push({ label: f.nome, value: { id: f.id } });
+        familyList.forEach(item => {
+          this.productFamilies.push({ label: item.nome, value: { id: item.id } });
         });
       })
       .catch(() => {
@@ -56,13 +58,19 @@ export class ProductListComponent implements OnInit {
           { label: 'Nenhuma Família cadastrada.', value: {} }
         ];
       });
-    this.productFamilies = [
-      { label: 'Todos', value: '' }
-    ];
 
-    this.productClasses = [
-      { label: 'Todos', value: '' }
-    ];
+    this.classService.getList()
+      .then((classList: ClassModel[]) => {
+        this.productClasses = [{ label: 'Todos', value: {} }];
+        classList.forEach(item => {
+          this.productClasses.push({ label: item.nome, value: { id: item.id } });
+        });
+      })
+      .catch(() => {
+        this.productClasses = [
+          { label: 'Nenhuma Casse cadastrada.', value: {} }
+        ];
+      });
 
     this.productBricks = [
       { label: 'Todos', value: '' }

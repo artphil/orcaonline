@@ -38,6 +38,11 @@ export class NavbarComponent {
               label: 'Família',
               icon: 'pi pi-fw pi-plus',
               routerLink: '/pdt/fam'
+            },
+            {
+              label: 'Classe',
+              icon: 'pi pi-fw pi-plus',
+              routerLink: '/pdt/cls'
             }
           ]
         },

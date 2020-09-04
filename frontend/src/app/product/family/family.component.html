@@ -2,7 +2,7 @@
   <div class="p-grid">
 
     <div class="p-col-12">
-      <h1 *ngIf="isNewFamily">Novo Familia</h1>
+      <h1 *ngIf="isNewFamily">Nova Familia</h1>
       <h1 *ngIf="!isNewFamily">Editar Familia</h1>
     </div>
 
@@ -28,18 +28,18 @@
       <label>Descrição</label>
       <input type="text" pInputText name="descricao" #familyDescription="ngModel" [(ngModel)]="family.descricao"
         required>
-      <app-msg-validation [control]="familyDescription" error="required" text="Informe descrição do do Familia.">
+      <app-msg-validation [control]="familyDescription" error="required" text="Informe descrição da Familia.">
       </app-msg-validation>
     </div>
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Segmento</label>
       <div class="p-inputgroup">
-      <p-dropdown [options]="familySegments" name="segment" #familySegment="ngModel" [(ngModel)]="family.segmento"
+      <p-dropdown [options]="familySegments" name="segment" #familySegment="ngModel" [(ngModel)]="family.segmento.id"
         placeholder="Selecione" required></p-dropdown>
         <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newSegment()"></button>
       </div>
-      <app-msg-validation [control]="familySegment" error="required" text="Informe a família do Familia.">
+      <app-msg-validation [control]="familySegment" error="required" text="Informe a família da Familia.">
       </app-msg-validation>
     </div>
 

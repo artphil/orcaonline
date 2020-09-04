@@ -36,12 +36,12 @@ export class FamilyComponent implements OnInit {
       .then((segmentList: SegmentModel[]) => {
         this.familySegments = [];
         segmentList.forEach(s => {
-          this.familySegments.push({ label: s.nome, value: { id: s.id } });
+          this.familySegments.push({ label: s.nome, value: s.id });
         });
       })
       .catch(() => {
         this.familySegments = [
-          { label: 'Nenhum Segmento cadastrado', value: {} }
+          { label: 'Nenhum Segmento cadastrado', value: null }
         ];
       });
   }

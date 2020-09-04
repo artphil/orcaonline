@@ -9,6 +9,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { UserComponent } from './person/user/user.component';
 import { SegmentComponent } from './product/segment/segment.component';
 import { FamilyComponent } from './product/family/family.component';
+import { ClassComponent } from './product/class/class.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'pdt/seg/:cod', component: SegmentComponent },
   { path: 'pdt/fam', component: FamilyComponent },
   { path: 'pdt/fam/:cod', component: FamilyComponent },
+  { path: 'pdt/cls', component: ClassComponent },
+  { path: 'pdt/cls/:cod', component: ClassComponent },
   { path: 'pdt/:cod', component: ProductComponent }
 ];
 
