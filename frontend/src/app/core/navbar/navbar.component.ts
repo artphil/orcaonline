@@ -23,7 +23,18 @@ export class NavbarComponent {
         {
           label: 'Cadastro',
           icon: 'pi pi-fw pi-briefcase',
-          routerLink: '/pdt'
+          items: [
+            {
+              label: 'Produto',
+              icon: 'pi pi-fw pi-briefcase',
+              routerLink: '/pdt'
+            },
+            {
+              label: 'Segmento',
+              icon: 'pi pi-fw pi-briefcase',
+              routerLink: '/pdt/seg'
+            }
+          ]
         },
         {
           label: 'Lista',
