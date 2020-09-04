@@ -49,20 +49,16 @@ export class ClassComponent implements OnInit {
 
   consult(): void {
     this.isNewClass = !this.idClass;
-    console.log('class:', this.idClass);
 
     if (this.isNewClass) {
-      console.log('new');
       this.pClass = new ClassModel();
     } else {
       this.classService.getOne(this.idClass)
         .then((clasItem: ClassModel) => {
-          console.log(clasItem ? clasItem : 'nada');
           this.pClass = clasItem ? clasItem : new ClassModel();
         })
         .catch(() => {
           this.pClass = new ClassModel();
-          console.log('catch', this.pClass);
         });
     }
   }

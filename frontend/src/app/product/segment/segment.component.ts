@@ -33,20 +33,16 @@ export class SegmentComponent implements OnInit {
 
   consult(): void {
     this.isNewSegment = !this.idSegment;
-    console.log('segment:', this.idSegment);
 
     if (this.isNewSegment) {
-      console.log('new')
       this.segment = new SegmentModel();
     } else {
       this.segmentService.getOne(this.idSegment)
         .then((segment: SegmentModel) => {
-          console.log(segment ? segment : 'nada');
           this.segment = segment ? segment : new SegmentModel();
         })
         .catch(() => {
           this.segment = new SegmentModel();
-          console.log('catch', this.segment);
         });
     }
   }

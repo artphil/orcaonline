@@ -61,6 +61,7 @@ import { GtinService } from './gtin/gtin.service';
     GtinService,
     ClassService,
     BrickService,
+
     DialogService
   ]
 })

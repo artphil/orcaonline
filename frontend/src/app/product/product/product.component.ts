@@ -60,20 +60,16 @@ export class ProductComponent implements OnInit {
 
   consult(): void {
     this.isNewProduct = !this.idProduct;
-    console.log('product:', this.idProduct);
 
     if (this.isNewProduct) {
-      console.log('new');
       this.product = new ProductModel();
     } else {
       this.productService.getOne(this.idProduct)
         .then((product: ProductModel) => {
-          console.log(product ? product : 'nada');
           this.product = product ? product : new ProductModel();
         })
         .catch(() => {
           this.product = new ProductModel();
-          console.log('catch', this.product);
         });
     }
   }
