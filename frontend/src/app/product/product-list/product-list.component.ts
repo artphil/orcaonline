@@ -46,7 +46,6 @@ export class ProductListComponent implements OnInit {
 
     this.familyService.getList()
       .then((familyList: FamilyModel[]) => {
-        console.log('fffff', familyList)
         this.productFamilies = [{ label: 'Todos', value: {} }];
         familyList.forEach( f => {
           this.productFamilies.push({ label: f.nome, value: { id: f.id } });
@@ -76,8 +75,8 @@ export class ProductListComponent implements OnInit {
       .catch(() => { return [] });
   }
 
-  editProduct(id: string) {
-    this.router.navigateByUrl('/pdt/' + id)
+  editProduct(id: string): void {
+    this.router.navigateByUrl('/pdt/' + id);
   }
 
 }

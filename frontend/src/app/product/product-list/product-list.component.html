@@ -39,7 +39,7 @@
 				[(ngModel)]="filter.brick"></p-dropdown>
 		</div>
 
-		<p-table [value]="products">
+		<p-table [value]="products" [responsive]="true"  [rows]="10" [paginator]="true">
 			<ng-template pTemplate="header">
 				<tr>
 					<th>Codigo</th>
@@ -47,7 +47,7 @@
 					<th>Descricao</th>
 					<th>NCM</th>
 					<th>GTIN</th>
-					<th></th>
+          <th></th>
 				</tr>
 			</ng-template>
 			<ng-template pTemplate="body" let-product>
