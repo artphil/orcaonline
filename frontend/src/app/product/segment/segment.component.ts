@@ -52,15 +52,15 @@ export class SegmentComponent implements OnInit {
       this.segmentService.create(this.segment)
         .then((segment: SegmentModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: segment.nome });
-          this.router.navigateByUrl(`/pdt/seg/${segment.id}`)
+          this.router.navigateByUrl(`/pdt/seg/${segment.id}`);
         })
-        .catch(() => alert('Solicitação não concluida.'));;
+        .catch(() => alert('Solicitação não concluida.'));
     }
     else {
       this.segmentService.update(this.segment)
         .then((segment: SegmentModel) => {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: segment.nome });
-          this.consult()
+          this.consult();
         })
         .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Produto.', detail: 'Id protegido ou inexistente' }));
     }
@@ -70,16 +70,20 @@ export class SegmentComponent implements OnInit {
   clearSegment(form: NgForm): void {
     form.reset();
     this.segment = new SegmentModel();
-    this.router.navigateByUrl('/pdt/seg')
+    this.router.navigateByUrl('/pdt/seg');
   }
 
   removeSegment(form: NgForm): void {
     this.segmentService.delete(this.idSegment)
       .then(() => {
-        this.messageService.add({ severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idSegment} não pode mais ser acessado` });
-        this.router.navigateByUrl('/pdt/seg')
+        this.messageService.add(
+          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idSegment} não pode mais ser acessado` }
+          );
+        this.router.navigateByUrl('/pdt/seg');
       })
-      .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' })
+      .catch(() => this.messageService.add(
+        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
+        )
       );
   }
 
