@@ -48,6 +48,11 @@ export class NavbarComponent {
               label: 'Brick',
               icon: 'pi pi-fw pi-plus',
               routerLink: '/pdt/brk'
+            },
+            {
+              label: 'Gtin',
+              icon: 'pi pi-fw pi-plus',
+              routerLink: '/pdt/gtn'
             }
           ]
         },

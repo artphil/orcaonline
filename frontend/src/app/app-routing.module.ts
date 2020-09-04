@@ -11,6 +11,7 @@ import { SegmentComponent } from './product/segment/segment.component';
 import { FamilyComponent } from './product/family/family.component';
 import { ClassComponent } from './product/class/class.component';
 import { BrickComponent } from './product/brick/brick.component';
+import { GtinComponent } from './product/gtin/gtin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'pdt/cls/:cod', component: ClassComponent },
   { path: 'pdt/brk', component: BrickComponent },
   { path: 'pdt/brk/:cod', component: BrickComponent },
+  { path: 'pdt/gtn', component: GtinComponent },
+  { path: 'pdt/gtn/:cod', component: GtinComponent },
   { path: 'pdt/:cod', component: ProductComponent }
 ];
 

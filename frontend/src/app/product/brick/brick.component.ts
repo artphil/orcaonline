@@ -106,5 +106,4 @@ export class BrickComponent implements OnInit {
     this.router.navigateByUrl('/pdt/cls/');
   }
 
-
 }

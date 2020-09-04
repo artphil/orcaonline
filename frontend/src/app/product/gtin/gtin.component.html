@@ -1,1 +1,44 @@
-<p>gtin works!</p>
+<form #gtinForm="ngForm">
+  <div class="p-grid">
+
+    <div class="p-col-12">
+      <h1 *ngIf="isNewGtin">Nova Gtin</h1>
+      <h1 *ngIf="!isNewGtin">Editar Gtin</h1>
+    </div>
+
+    <div class="p-col-6 p-md-3 p-fluid">
+      <label>Código</label>
+      <input type="text" pInputText name="id" [(ngModel)]="gtin.id" disabled>
+    </div>
+
+    <div class="p-col-12  p-md-4 p-fluid">
+      <label>Número</label>
+      <input type="text" pInputText name="numero" #gtinName="ngModel" [(ngModel)]="gtin.numero" required>
+
+      <app-msg-validation [control]="gtinName" error="required" text="Informe o numero do Gtin.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
+      <label>Brick</label>
+      <div class="p-inputgroup">
+      <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id"
+        placeholder="Selecione" required></p-dropdown>
+        <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn" (click)="newBrick()"></button>
+      </div>
+      <app-msg-validation [control]="gtinBrick" error="required" text="Informe o Brick da Gtin.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12">
+      <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveGtin(gtinForm)"
+        [disabled]="gtinForm.invalid"></p-button>
+
+      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearGtin(gtinForm)"></p-button>
+
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)"
+        [disabled]="!gtin.id"></p-button>
+
+    </div>
+  </div>
+</form>
