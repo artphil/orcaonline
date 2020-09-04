@@ -8,19 +8,22 @@ import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { UserComponent } from './person/user/user.component';
 import { SegmentComponent } from './product/segment/segment.component';
+import { FamilyComponent } from './product/family/family.component';
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent },
-	{ path: 'usr', component: UserComponent },
-	{ path: 'pdt', component: ProductComponent },
-	{ path: 'pdt/list', component: ProductListComponent },
-	{ path: 'pdt/seg', component: SegmentComponent },
-	{ path: 'pdt/seg/:cod', component: SegmentComponent },
-	{ path: 'pdt/:cod', component: ProductComponent }
+  { path: '', component: HomeComponent },
+  { path: 'usr', component: UserComponent },
+  { path: 'pdt', component: ProductComponent },
+  { path: 'pdt/list', component: ProductListComponent },
+  { path: 'pdt/seg', component: SegmentComponent },
+  { path: 'pdt/seg/:cod', component: SegmentComponent },
+  { path: 'pdt/fam', component: FamilyComponent },
+  { path: 'pdt/fam/:cod', component: FamilyComponent },
+  { path: 'pdt/:cod', component: ProductComponent }
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

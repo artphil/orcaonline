@@ -44,14 +44,14 @@ export class ProductComponent implements OnInit {
 
     this.gtinService.getList()
       .then((segmentList: GtinModel[]) => {
-        this.productGTINs = [{ label: 'Todos', value: {} }];
+        this.productGTINs = [];
         segmentList.forEach(s => {
-          this.productGTINs.push({ label: s.numero.toString(), value: { 'id': s.id } })
+          this.productGTINs.push({ label: s.numero.toString(), value: { id: s.id } })
         });
       })
       .catch(() => {
         this.productGTINs = [
-          { label: 'Todos', value: {} }
+          { label: 'Nenhum GTIN cadastrado', value: {} }
         ];
       });
 

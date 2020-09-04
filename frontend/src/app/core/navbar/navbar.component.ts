@@ -26,13 +26,18 @@ export class NavbarComponent {
           items: [
             {
               label: 'Produto',
-              icon: 'pi pi-fw pi-briefcase',
+              icon: 'pi pi-fw pi-plus',
               routerLink: '/pdt'
             },
             {
               label: 'Segmento',
-              icon: 'pi pi-fw pi-briefcase',
+              icon: 'pi pi-fw pi-plus',
               routerLink: '/pdt/seg'
+            },
+            {
+              label: 'Família',
+              icon: 'pi pi-fw pi-plus',
+              routerLink: '/pdt/fam'
             }
           ]
         },

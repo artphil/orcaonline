@@ -19,6 +19,7 @@ import { GtinComponent } from './gtin/gtin.component';
 
 import { ProductService } from './product/product.service';
 import { SegmentService } from './segment/segment.service';
+import { FamilyService } from './family/family.service';
 import { GtinService } from './gtin/gtin.service';
 import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
@@ -50,6 +51,7 @@ import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
   providers: [
     ProductService,
     SegmentService,
+    FamilyService,
     GtinService,
     DialogService
   ]
