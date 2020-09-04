@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BrickModel, ClassModel } from '../product.model';
 import { SelectItem, MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BrickService } from './brick.service';
 import { ClassService } from '../class/class.service';
 import { NgForm } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ClassComponent } from '../class/class.component';
 
 @Component({
   selector: 'app-brick',
@@ -16,15 +18,14 @@ export class BrickComponent implements OnInit {
   brick: BrickModel;
   brickClasses: SelectItem[];
 
-  isNewBrick: boolean;
   idBrick: number;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private brickServices: BrickService,
     private classServices: ClassService,
     private messageService: MessageService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class BrickComponent implements OnInit {
     this.classServices.getList()
       .then((classList: ClassModel[]) => {
         this.brickClasses = [];
-        classList.forEach( item => {
+        classList.forEach(item => {
           this.brickClasses.push({ label: item.nome, value: item.id });
         });
       })
@@ -47,9 +48,7 @@ export class BrickComponent implements OnInit {
   }
 
   consult(): void {
-    this.isNewBrick = !this.idBrick;
-
-    if (this.isNewBrick) {
+    if (!this.idBrick) {
       this.brick = new BrickModel();
     } else {
       this.brickServices.getOne(this.idBrick)
@@ -63,13 +62,16 @@ export class BrickComponent implements OnInit {
   }
 
   saveBrick(form: NgForm): void {
-    if (this.isNewBrick) {
+    if (!this.idBrick) {
       this.brickServices.create(this.brick)
         .then((brick: BrickModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: brick.nome });
-          this.router.navigateByUrl(`/pdt/brk/${brick.id}`);
+          this.idBrick = brick.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Salvar Brick.', detail: 'Confira os campos e tente novamente' }
+        ));
     }
     else {
       this.brickServices.update(this.brick)
@@ -77,7 +79,9 @@ export class BrickComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: brick.nome });
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Alterar Brick.', detail: 'Confira os campos e tente novamente' }
+        ));
     }
 
   }
@@ -85,7 +89,7 @@ export class BrickComponent implements OnInit {
   clearBrick(form: NgForm): void {
     form.reset();
     this.brick = new BrickModel();
-    this.router.navigateByUrl('/pdt/brk');
+    this.idBrick = undefined;
   }
 
   removeBrick(form: NgForm): void {
@@ -94,7 +98,7 @@ export class BrickComponent implements OnInit {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idBrick} não pode mais ser acessado` }
         );
-        this.router.navigateByUrl('/pdt/brk');
+        this.clearBrick(form);
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
@@ -103,7 +107,9 @@ export class BrickComponent implements OnInit {
   }
 
   newClass(): void {
-    this.router.navigateByUrl('/pdt/cls/');
+    const ref = this.dialogService.open(ClassComponent, {
+      width: '50%'
+    });
   }
 
 }

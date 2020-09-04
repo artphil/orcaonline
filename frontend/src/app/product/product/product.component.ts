@@ -8,7 +8,8 @@ import { MessageService } from 'primeng/api';
 import { ProductModel, GtinModel } from '../product.model';
 import { ProductService } from './product.service';
 import { GtinService } from '../gtin/gtin.service';
-import { DynamicDialogComponent, DialogService } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
+import { GtinComponent } from '../gtin/gtin.component';
 
 @Component({
   selector: 'app-product',
@@ -115,9 +116,8 @@ export class ProductComponent implements OnInit {
   }
 
   showDialog(): void {
-    const ref = this.dialogService.open(DynamicDialogComponent, {
-      header: 'Choose a Car',
-      width: '100px'
+    const ref = this.dialogService.open(GtinComponent, {
+      width: '50%'
     });
   }
 }

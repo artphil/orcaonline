@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GtinModel, BrickModel } from '../product.model';
 import { SelectItem, MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GtinService } from './gtin.service';
 import { BrickService } from '../brick/brick.service';
 import { NgForm } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
+import { BrickComponent } from '../brick/brick.component';
 
 @Component({
   selector: 'app-gtin',
@@ -16,15 +18,14 @@ export class GtinComponent implements OnInit {
   gtin: GtinModel;
   gtinBricks: SelectItem[];
 
-  isNewGtin: boolean;
   idGtin: number;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private gtinServices: GtinService,
     private brickServices: BrickService,
     private messageService: MessageService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class GtinComponent implements OnInit {
     this.brickServices.getList()
       .then((brickList: BrickModel[]) => {
         this.gtinBricks = [];
-        brickList.forEach( item => {
+        brickList.forEach(item => {
           this.gtinBricks.push({ label: item.nome, value: item.id });
         });
       })
@@ -47,9 +48,7 @@ export class GtinComponent implements OnInit {
   }
 
   consult(): void {
-    this.isNewGtin = !this.idGtin;
-
-    if (this.isNewGtin) {
+    if (!this.idGtin) {
       this.gtin = new GtinModel();
     } else {
       this.gtinServices.getOne(this.idGtin)
@@ -63,21 +62,30 @@ export class GtinComponent implements OnInit {
   }
 
   saveGtin(form: NgForm): void {
-    if (this.isNewGtin) {
+    if (!this.idGtin) {
       this.gtinServices.create(this.gtin)
         .then((gtin: GtinModel) => {
-          this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: gtin.numero.toString() });
-          this.router.navigateByUrl(`/pdt/gtn/${gtin.id}`);
+          this.messageService.add(
+            { severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: gtin.numero.toString() }
+            );
+          this.idGtin = gtin.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Salvar Gtin.', detail: 'Confira os campos e tente novamente' }
+        ));
     }
     else {
       this.gtinServices.update(this.gtin)
         .then((gtin: GtinModel) => {
-          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: gtin.numero.toString() });
+          this.messageService.add(
+            { severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: gtin.numero.toString() }
+            );
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Alterar Gtin.', detail: 'Confira os campos e tente novamente' }
+        ));
     }
 
   }
@@ -85,7 +93,7 @@ export class GtinComponent implements OnInit {
   clearGtin(form: NgForm): void {
     form.reset();
     this.gtin = new GtinModel();
-    this.router.navigateByUrl('/pdt/gtn');
+    this.idGtin = undefined;
   }
 
   removeGtin(form: NgForm): void {
@@ -94,7 +102,7 @@ export class GtinComponent implements OnInit {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idGtin} não pode mais ser acessado` }
         );
-        this.router.navigateByUrl('/pdt/gtn');
+        this.clearGtin(form);
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
@@ -103,7 +111,10 @@ export class GtinComponent implements OnInit {
   }
 
   newBrick(): void {
-    this.router.navigateByUrl('/pdt/brk');
+    const ref = this.dialogService.open(BrickComponent, {
+      width: '50%'
+    });
+    ref.onClose.subscribe(() => this.consult());
   }
 
 
