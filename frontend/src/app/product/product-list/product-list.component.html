@@ -42,12 +42,12 @@
 		<p-table [value]="products" [responsive]="true"  [rows]="10" [paginator]="true">
 			<ng-template pTemplate="header">
 				<tr>
-					<th>Codigo</th>
-					<th>Nome</th>
-					<th>Descricao</th>
-					<th>NCM</th>
-					<th>GTIN</th>
-          <th></th>
+					<th class="p-col-1">Codigo</th>
+					<th class="p-col-3">Nome</th>
+					<th class="p-col-4">Descricao</th>
+					<th class="p-col-2">NCM</th>
+					<th class="p-col-1">GTIN</th>
+          <th class="p-col-1"></th>
 				</tr>
 			</ng-template>
 			<ng-template pTemplate="body" let-product>
