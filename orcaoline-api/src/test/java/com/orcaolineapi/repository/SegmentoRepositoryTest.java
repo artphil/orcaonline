@@ -19,7 +19,7 @@ public class SegmentoRepositoryTest {
 	
 	@Test
 	public void saveSegmento() {
-		Segmento seg = new Segmento("PDS", "PDSGFDSS");
+		Segmento seg = new Segmento("", "PDSGFDSS");
 		this.repository.save(seg);
 		Assertions.assertThat(seg.getId()).isNotNull();
 	}

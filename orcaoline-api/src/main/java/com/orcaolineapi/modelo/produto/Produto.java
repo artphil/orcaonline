@@ -30,9 +30,9 @@ public class Produto extends AbstractModel {
     @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do produto")
 	private String descricao;
 	
-	@Length(max=8, message="Tamanho excedido para ncm do produto")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do produto")
-	private String ncm;
+	@ManyToOne
+	@JoinColumn(name = "id_ncm")
+	private NCM ncm;
 	
 	@NotNull
 	@ManyToOne
@@ -62,12 +62,12 @@ public class Produto extends AbstractModel {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	public String getNcm() {
+
+	public NCM getNcm() {
 		return ncm;
 	}
 
-	public void setNcm(String ncm) {
+	public void setNcm(NCM ncm) {
 		this.ncm = ncm;
 	}
 
