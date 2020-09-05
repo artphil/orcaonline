@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  apiPath = 'http://45.80.152.3:8080/produtos/';
+  //apiPath = 'http://45.80.152.3:8080/produtos/';
+  apiPath: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -14,7 +16,9 @@ export class ProductService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.apiPath = `${environment.apiUrl}/produtos`;
+  }
 
   getOne(code: number = null): Promise<any> {
 

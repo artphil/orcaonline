@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassService {
 
-  apiPath = 'http://45.80.152.3:8080/classes/';
+  //apiPath = 'http://45.80.152.3:8080/classes/';
+  apiPath: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -14,7 +16,9 @@ export class ClassService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.apiPath = `${environment.apiUrl}/classes`;
+  }
 
   getOne(code: number = null): Promise<any> {
 

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FamilyService {
 
-  apiPath = 'http://45.80.152.3:8080/familias/';
+  //apiPath = 'http://45.80.152.3:8080/familias/';
+  apiPath: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -14,7 +16,9 @@ export class FamilyService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.apiPath = `${environment.apiUrl}/familias`;
+  }
 
   getOne(query: any = ''): Promise<any> {
 
