@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClassService } from './class.service';
 import { FamilyService } from '../family/family.service';
 import { NgForm } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
+import { FamilyComponent } from '../family/family.component';
 
 @Component({
   selector: 'app-class',
@@ -24,6 +26,7 @@ export class ClassComponent implements OnInit {
     private classService: ClassService,
     private familyService: FamilyService,
     private messageService: MessageService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -104,7 +107,10 @@ export class ClassComponent implements OnInit {
   }
 
   newFamily(): void {
-    this.router.navigateByUrl('/pdt/fam');
+    const ref = this.dialogService.open(FamilyComponent, {
+      width: '50%'
+    });
+    ref.onClose.subscribe(() => this.consult);
   }
 
 }

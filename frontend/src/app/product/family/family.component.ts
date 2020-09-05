@@ -5,7 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FamilyService } from './family.service';
 import { NgForm } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
 import { SegmentService } from '../segment/segment.service';
+import { SegmentComponent } from '../segment/segment.component';
 
 @Component({
   selector: 'app-family',
@@ -25,6 +27,7 @@ export class FamilyComponent implements OnInit {
     private familyServices: FamilyService,
     private segmentServices: SegmentService,
     private messageService: MessageService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -103,7 +106,11 @@ export class FamilyComponent implements OnInit {
   }
 
   newSegment(): void {
-    this.router.navigateByUrl('/pdt/seg/');
+    const ref = this.dialogService.open(SegmentComponent, {
+      width: '50%'
+    });
+    ref.onClose.subscribe(() => this.consult);
+
   }
 
 }

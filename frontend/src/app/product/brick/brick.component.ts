@@ -110,6 +110,7 @@ export class BrickComponent implements OnInit {
     const ref = this.dialogService.open(ClassComponent, {
       width: '50%'
     });
+    ref.onClose.subscribe(() => this.consult());
   }
 
 }
