@@ -18,7 +18,7 @@ describe('ProductService', () => {
             paramMap: of({ get: (key) => 'value' })
           }
         }
-      ],
+      ]
     });
     service = TestBed.inject(ProductService);
   });

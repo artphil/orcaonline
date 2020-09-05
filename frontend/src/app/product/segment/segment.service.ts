@@ -20,28 +20,28 @@ export class SegmentService {
 
     return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
       .toPromise()
-      .then(res => { return res });
+      .then(res => res);
   }
 
   getList(): Promise<any> {
 
     return this.http.get<any>(this.apiPath, this.httpOptions)
       .toPromise()
-      .then(res => { return res });
+      .then(res => res);
   }
 
   create(data: any): Promise<any> {
 
     return this.http.post<any>(this.apiPath, data, this.httpOptions)
       .toPromise()
-      .then(res => { return res });
+      .then(res => res);
   }
 
   update(data: any): Promise<any> {
 
     return this.http.put<any>(`${this.apiPath}${data.id}`, data, this.httpOptions)
       .toPromise()
-      .then(res => { return res });
+      .then(res => res);
   }
 
   delete(code: number): Promise<void> {

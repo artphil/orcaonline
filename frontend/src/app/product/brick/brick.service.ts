@@ -4,9 +4,9 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class FamilyService {
+export class BrickService {
 
-  apiPath = 'http://45.80.152.3:8080/familias/';
+  apiPath = 'http://45.80.152.3:8080/bricks/';
 
   httpOptions = {
     headers: new HttpHeaders({

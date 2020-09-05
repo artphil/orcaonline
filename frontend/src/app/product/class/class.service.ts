@@ -4,9 +4,9 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class FamilyService {
+export class ClassService {
 
-  apiPath = 'http://45.80.152.3:8080/familias/';
+  apiPath = 'http://45.80.152.3:8080/classes/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -16,16 +16,16 @@ export class FamilyService {
 
   constructor(private http: HttpClient) { }
 
-  getOne(query: any = ''): Promise<any> {
+  getOne(code: number = null): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
-  getList(query: string = ''): Promise<any> {
+  getList(): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
+    return this.http.get<any>(this.apiPath, this.httpOptions)
       .toPromise()
       .then(res => res);
   }

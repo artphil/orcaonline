@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import { ClassService } from './class.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { FamilyService } from './family.service';
-
-describe('FamilyService', () => {
-  let service: FamilyService;
+describe('ClassService', () => {
+  let service: ClassService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [FamilyService,
+      providers: [ClassService,
         {
           provide: ActivatedRoute,
           useValue: {
@@ -20,7 +20,7 @@ describe('FamilyService', () => {
         }
       ]
     });
-    service = TestBed.inject(FamilyService);
+    service = TestBed.inject(ClassService);
   });
 
   it('should be created', () => {

@@ -6,27 +6,25 @@ import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+
+import { BrickComponent } from './brick.component';
+import { SharedModule } from './../../shared/shared.module';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 
-import { SegmentComponent } from './segment.component';
-import { SharedModule } from './../../shared/shared.module';
-
-describe('SegmentComponent', () => {
-  let component: SegmentComponent;
-  let fixture: ComponentFixture<SegmentComponent>;
+describe('BrickComponent', () => {
+  let component: BrickComponent;
+  let fixture: ComponentFixture<BrickComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SegmentComponent],
+      declarations: [BrickComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         FormsModule,
-        DynamicDialogModule,
         ButtonModule,
         InputTextModule,
         DropdownModule,
@@ -58,7 +56,7 @@ describe('SegmentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SegmentComponent);
+    fixture = TestBed.createComponent(BrickComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
