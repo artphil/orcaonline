@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SegmentService {
+export class BrickService {
 
-  //apiPath = 'http://45.80.152.3:8080/segmentos/';
+  //apiPath = 'http://45.80.152.3:8080/bricks/';
   apiPath: string;
-  
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8'
     })
   };
 
-  constructor(private http: HttpClient) {
-    this.apiPath = `${environment.apiUrl}/segmentos`;
-   }
+  constructor(private http: HttpClient) { 
+    this.apiPath = `${environment.apiUrl}/bricks`;
+  }
 
-  getOne(code: number = null): Promise<any> {
+  getOne(query: any = ''): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
-  getList(): Promise<any> {
+  getList(query: string = ''): Promise<any> {
 
-    return this.http.get<any>(this.apiPath, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }

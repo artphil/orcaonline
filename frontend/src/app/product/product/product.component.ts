@@ -8,7 +8,8 @@ import { MessageService } from 'primeng/api';
 import { ProductModel, GtinModel } from '../product.model';
 import { ProductService } from './product.service';
 import { GtinService } from '../gtin/gtin.service';
-import { DynamicDialogComponent, DialogService } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
+import { GtinComponent } from '../gtin/gtin.component';
 
 @Component({
   selector: 'app-product',
@@ -38,20 +39,20 @@ export class ProductComponent implements OnInit {
     this.consult();
 
     this.productNCMs = [
-      { label: 'Segmento 1', value: 'Teste1' },
-      { label: 'Segmento 2', value: 'Teste2' }
+      { label: 'NCM 1', value: 'Teste1' },
+      { label: 'NCM 2', value: 'Teste2' }
     ];
 
     this.gtinService.getList()
       .then((segmentList: GtinModel[]) => {
-        this.productGTINs = [{ label: 'Todos', value: {} }];
-        segmentList.forEach(s => {
-          this.productGTINs.push({ label: s.numero.toString(), value: { 'id': s.id } })
+        this.productGTINs = [];
+        segmentList.forEach( item => {
+          this.productGTINs.push({ label: item.numero.toString(), value: item.id });
         });
       })
       .catch(() => {
         this.productGTINs = [
-          { label: 'Todos', value: {} }
+          { label: 'Nenhum GTIN cadastrado', value: {} }
         ];
       });
 
@@ -60,20 +61,16 @@ export class ProductComponent implements OnInit {
 
   consult(): void {
     this.isNewProduct = !this.idProduct;
-    console.log('product:', this.idProduct);
 
     if (this.isNewProduct) {
-      console.log('new')
       this.product = new ProductModel();
     } else {
       this.productService.getOne(this.idProduct)
         .then((product: ProductModel) => {
-          console.log(product ? product : 'nada');
           this.product = product ? product : new ProductModel();
         })
         .catch(() => {
           this.product = new ProductModel();
-          console.log('catch', this.product);
         });
     }
   }
@@ -83,15 +80,15 @@ export class ProductComponent implements OnInit {
       this.productService.create(this.product)
         .then((product: ProductModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: product.nome });
-          this.router.navigateByUrl(`/pdt/${product.id}`)
+          this.router.navigateByUrl(`/pdt/${product.id}`);
         })
-        .catch(() => alert('Solicitação não concluida.'));;
+        .catch(() => alert('Solicitação não concluida.'));
     }
     else {
       this.productService.update(this.product)
         .then((product: ProductModel) => {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: product.nome });
-          this.consult()
+          this.consult();
         })
         .catch(() => alert('Solicitação não concluida.'));
     }
@@ -101,23 +98,26 @@ export class ProductComponent implements OnInit {
   clearProduct(form: NgForm): void {
     form.reset();
     this.product = new ProductModel();
-    this.router.navigateByUrl('/pdt')
+    this.router.navigateByUrl('/pdt');
   }
 
   removeProduct(form: NgForm): void {
     this.productService.delete(this.idProduct)
       .then(() => {
-        this.messageService.add({ severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idProduct} não pode mais ser acessado` });
-        this.router.navigateByUrl('/pdt')
+        this.messageService.add(
+          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idProduct} não pode mais ser acessado` }
+          );
+        this.router.navigateByUrl('/pdt');
       })
-      .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' })
+      .catch(() => this.messageService.add(
+        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
+        )
       );
   }
 
-  showDialog() {
-    const ref = this.dialogService.open(DynamicDialogComponent, {
-      header: 'Choose a Car',
-      width: '100px'
+  showDialog(): void {
+    const ref = this.dialogService.open(GtinComponent, {
+      width: '50%'
     });
   }
 }

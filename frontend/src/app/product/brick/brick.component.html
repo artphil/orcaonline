@@ -1,0 +1,57 @@
+<form #brickForm="ngForm">
+  <div class="p-grid">
+
+    <div class="p-col-12">
+      <h1 *ngIf="!idBrick">Novo Brick</h1>
+      <h1 *ngIf="idBrick">Editar Brick</h1>
+    </div>
+
+    <div class="p-col-6 p-md-3 p-fluid">
+      <label>Código</label>
+      <input type="text" pInputText name="id" [(ngModel)]="brick.id" disabled>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Nome</label>
+      <input type="text" pInputText name="nome" #brickName="ngModel" [(ngModel)]="brick.nome" required
+        minlength="4">
+
+      <app-msg-validation [control]="brickName" error="required" text="Informe o nome do Brick.">
+      </app-msg-validation>
+
+      <app-msg-validation [control]="brickName" error="minlength"
+        text="O nome do Brick deve ter no mínimo {{ brickName.errors?.minlength?.requiredLength }} caracteres.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Descrição</label>
+      <input type="text" pInputText name="descricao" #brickDescription="ngModel" [(ngModel)]="brick.descricao"
+        required>
+      <app-msg-validation [control]="brickDescription" error="required" text="Informe descrição da Brick.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
+      <label>Classe</label>
+      <div class="p-inputgroup">
+      <p-dropdown [options]="brickClasses" name="class" #brickclass="ngModel" [(ngModel)]="brick.classe.id"
+        placeholder="Selecione" required></p-dropdown>
+        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newClass()"></button>
+      </div>
+      <app-msg-validation [control]="brickclass" error="required" text="Informe a família da Brick.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12">
+      <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveBrick(brickForm)"
+        [disabled]="brickForm.invalid"></p-button>
+
+      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearBrick(brickForm)"></p-button>
+
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeBrick(brickForm)"
+        [disabled]="!brick.id"></p-button>
+
+    </div>
+  </div>
+</form>

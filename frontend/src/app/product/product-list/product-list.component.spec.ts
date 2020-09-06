@@ -3,6 +3,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+
+import { SharedModule } from './../../shared/shared.module';
 import { ProductListComponent } from './product-list.component';
 
 describe('ProductListComponent', () => {
@@ -11,7 +17,16 @@ describe('ProductListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ButtonModule,
+        InputTextModule,
+        DropdownModule,
+        TableModule,
+        SharedModule
+      ],
       declarations: [ ProductListComponent ]
     })
     .compileComponents();

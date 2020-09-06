@@ -1,32 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ClassComponent } from './class.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { SharedModule } from './../../shared/shared.module';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 
-import { SegmentComponent } from './segment.component';
-import { SharedModule } from './../../shared/shared.module';
-
-describe('SegmentComponent', () => {
-  let component: SegmentComponent;
-  let fixture: ComponentFixture<SegmentComponent>;
+describe('ClassComponent', () => {
+  let component: ClassComponent;
+  let fixture: ComponentFixture<ClassComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SegmentComponent],
+      declarations: [ClassComponent],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         FormsModule,
-        DynamicDialogModule,
         ButtonModule,
         InputTextModule,
         DropdownModule,
@@ -58,7 +55,7 @@ describe('SegmentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SegmentComponent);
+    fixture = TestBed.createComponent(ClassComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
