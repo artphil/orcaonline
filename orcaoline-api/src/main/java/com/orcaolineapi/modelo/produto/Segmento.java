@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -22,11 +23,11 @@ public class Segmento extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @Length(max=150, message="Tamanho excedido para nome do segmento")
+	@Size(min=1, max=5)
     @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do segmento")
 	@NotBlank
 	private String nome;
-	
+
     @Length(max=200, message="Tamanho excedido para descricao do segmento")
     @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do segmento")
 	private String descricao;

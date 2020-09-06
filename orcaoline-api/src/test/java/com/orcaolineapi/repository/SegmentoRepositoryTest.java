@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.orcaolineapi.modelo.produto.Segmento;
@@ -19,7 +20,7 @@ public class SegmentoRepositoryTest {
 	
 	@Test
 	public void saveSegmento() {
-		Segmento seg = new Segmento("PDS", "PDSGFDSS");
+		Segmento seg = new Segmento("", "PDSGFDSS");
 		this.repository.save(seg);
 		Assertions.assertThat(seg.getId()).isNotNull();
 	}
