@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.produto.ClasseRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class ClasseService extends AbstractService<Classe>{
+public class ClasseService extends AbstractService<Classe> {
 
 	private @Autowired ClasseRepository repository;
-	
+
 	@Override
 	public ClasseRepository getRepository() {
 		return this.repository;

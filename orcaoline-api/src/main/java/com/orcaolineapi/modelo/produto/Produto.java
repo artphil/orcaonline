@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -21,23 +22,35 @@ public class Produto extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Length(max=150, message="Tamanho excedido para descricao do produto")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do produto")
+	@Size(min = 5, max = 150)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
 
-	@Length(max=200, message="Tamanho excedido para descricao do produto")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do produto")
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
+
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_ncm")
 	private NCM ncm;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_gtin_ean")
 	private GTIN_EAN gtin;
+	
+	public Produto() {
+		
+	}
+
+	public Produto(String nome, String descricao, NCM ncm, GTIN_EAN gtin_ean) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.ncm = ncm;
+		this.gtin = gtin_ean;
+	}
 
 	public Long getId() {
 		return id;
@@ -78,5 +91,5 @@ public class Produto extends AbstractModel {
 	public void setGtin(GTIN_EAN gtin) {
 		this.gtin = gtin;
 	}
-	
+
 }

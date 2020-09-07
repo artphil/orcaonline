@@ -11,14 +11,14 @@ import com.orcaolineapi.service.produto.BrickService;
 
 @RestController
 @RequestMapping("/bricks")
-public class BrickResource extends AbstractResource<Brick>{
+public class BrickResource extends AbstractResource<Brick> {
 
 	private @Autowired BrickRepository repository;
-	
+
 	private @Autowired BrickService service;
-	
+
 	@Override
-	public BrickRepository  getRepository() {
+	public BrickRepository getRepository() {
 		return this.repository;
 	}
 

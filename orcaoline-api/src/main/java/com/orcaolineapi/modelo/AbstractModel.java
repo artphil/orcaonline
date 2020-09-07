@@ -27,5 +27,5 @@ public abstract class AbstractModel {
 			return false;
 		return true;
 	}
-	
+
 }

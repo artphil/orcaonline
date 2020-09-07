@@ -11,12 +11,12 @@ import com.orcaolineapi.service.produto.GTIN_EANService;
 
 @RestController
 @RequestMapping("/gtins")
-public class GTIN_EANResource extends AbstractResource<GTIN_EAN>{
+public class GTIN_EANResource extends AbstractResource<GTIN_EAN> {
 
-	private @Autowired  GTIN_EANRepository repository;
-	
-	private @Autowired  GTIN_EANService service;
-	
+	private @Autowired GTIN_EANRepository repository;
+
+	private @Autowired GTIN_EANService service;
+
 	@Override
 	public GTIN_EANRepository getRepository() {
 		return this.repository;

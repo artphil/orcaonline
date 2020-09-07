@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.orcaolineapi.event.RecursoCriadoEvent;
 
 @Component
-public class RecursoCriadoListener implements  ApplicationListener<RecursoCriadoEvent> {
+public class RecursoCriadoListener implements ApplicationListener<RecursoCriadoEvent> {
 
 	@Override
 	public void onApplicationEvent(RecursoCriadoEvent recursoCriadoEvent) {
@@ -20,9 +20,9 @@ public class RecursoCriadoListener implements  ApplicationListener<RecursoCriado
 		adicionarHeaderLocation(response, id);
 	}
 
-	private void adicionarHeaderLocation(HttpServletResponse response, Long id){
+	private void adicionarHeaderLocation(HttpServletResponse response, Long id) {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}").buildAndExpand(id).toUri();
 		response.setHeader("Location", uri.toASCIIString());
 	}
-	
+
 }

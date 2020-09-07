@@ -9,31 +9,42 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
-public class Brick extends AbstractModel{
-	
+public class Brick extends AbstractModel {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Length(max=150, message="Tamanho excedido para nome do brick")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do brick")
+
+	@Size(min = 5, max = 150)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
-	
-	@Length(max=200, message="Tamanho excedido para descricao do brick")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do brick")
+
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_classe")
 	private Classe classe;
+	
+	public Brick() {
+			
+		}
+	
+	public Brick(String nome, String descricao, Classe classe) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.classe = classe;
+	}
 
 	public Long getId() {
 		return id;

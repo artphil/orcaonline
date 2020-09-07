@@ -23,25 +23,25 @@ public class Segmento extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min=1, max=5)
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do segmento")
+	@Size(min = 5, max = 150)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
 
-    @Length(max=200, message="Tamanho excedido para descricao do segmento")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome do segmento")
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "segmento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Familia> familias;
 
 	public Segmento() {
-		
+
 	}
 
 	public Segmento(String nome, String descricao) {
 		this.nome = nome;
-		this.descricao = descricao;	
+		this.descricao = descricao;
 	}
 
 	public Long getId() {
@@ -51,7 +51,7 @@ public class Segmento extends AbstractModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}

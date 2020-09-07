@@ -1,5 +1,7 @@
 package com.orcaolineapi.modelo.produto;
 
+import java.lang.reflect.Constructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,32 +11,43 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
-public class Familia extends AbstractModel{
+public class Familia extends AbstractModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Length(max=150, message="Tamanho excedido para nome da familia")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da familia")
+	@Size(min = 5, max = 150)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
-	
-	@Length(max=200, message="Tamanho excedido para descricao da familia")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da familia")
+
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_segmento")
 	private Segmento segmento;
-
+	
+	public Familia() {
+		
+	}
+	
+	public Familia(String nome, String descricao, Segmento segmento) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.segmento = segmento;
+	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -9,31 +9,42 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
-public class Classe extends AbstractModel{
+public class Classe extends AbstractModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Length(max=150, message="Tamanho excedido para nome da classe")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da classe")
+
+	@Size(min = 5, max = 150)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
-	
-	@Length(max=200, message="Tamanho excedido para descricao da classe")
-    @Pattern(regexp = "[a-zA-Z]+[a-zA-Z]+", message =  "Não são permitidos números ou caracteres especiais no nome da classe")
+
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_familia")
 	private Familia familia;
+	
+	public Classe() {
+		
+	}
+
+	public Classe(String nome, String descricao, Familia familia) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.familia = familia;
+	}
 
 	public Long getId() {
 		return id;

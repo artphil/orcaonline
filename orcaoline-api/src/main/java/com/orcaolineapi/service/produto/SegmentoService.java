@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class SegmentoService extends AbstractService<Segmento>{
+public class SegmentoService extends AbstractService<Segmento> {
 
 	private @Autowired SegmentoRepository repository;
-	
+
 	@Override
 	public SegmentoRepository getRepository() {
 		return this.repository;

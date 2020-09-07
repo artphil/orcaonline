@@ -22,45 +22,46 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler{
+public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 
-private @Autowired MessageSource messageSource;
-	
+	private @Autowired MessageSource messageSource;
+
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.getCause().toString();
-		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario,mensagemDesenvolvedor));
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
-	
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		List<Erro> erros = criaListaDeErros(ex.getBindingResult());
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
-	
-	@ExceptionHandler({EmptyResultDataAccessException.class, NoSuchElementException.class})
-	public ResponseEntity<Object> handleEmptyResultDataAccessExeption(RuntimeException ex, WebRequest request){
-		String mensagemUsuario = messageSource.getMessage("recurso.noa-encontrado",null, LocaleContextHolder.getLocale());
+
+	@ExceptionHandler({ EmptyResultDataAccessException.class, NoSuchElementException.class })
+	public ResponseEntity<Object> handleEmptyResultDataAccessExeption(RuntimeException ex, WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.noa-encontrado", null,
+				LocaleContextHolder.getLocale());
 		String mensagemDesenvolvesor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvesor));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
-	
-	private List<Erro> criaListaDeErros(BindingResult bindingResult){
+
+	private List<Erro> criaListaDeErros(BindingResult bindingResult) {
 		List<Erro> erros = new ArrayList<>();
-		for(FieldError erro : bindingResult.getFieldErrors()) {
+		for (FieldError erro : bindingResult.getFieldErrors()) {
 			String mensagemUsuario = messageSource.getMessage(erro, LocaleContextHolder.getLocale());
 			String mensagemDesenvolvedor = erro.toString();
 			erros.add(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		}
 		return erros;
 	}
-	
-	public static class Erro{
+
+	public static class Erro {
 		String mensagemUsuario;
 		String mensagemDesenvolvedor;
 
@@ -75,6 +76,6 @@ private @Autowired MessageSource messageSource;
 
 		public String getMensagemDesenvolvedor() {
 			return mensagemDesenvolvedor;
-		} 
-	}	
+		}
+	}
 }

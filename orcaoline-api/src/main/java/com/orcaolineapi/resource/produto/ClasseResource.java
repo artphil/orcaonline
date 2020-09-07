@@ -1,6 +1,5 @@
 package com.orcaolineapi.resource.produto;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +11,12 @@ import com.orcaolineapi.service.produto.ClasseService;
 
 @RestController
 @RequestMapping("/classes")
-public class ClasseResource extends AbstractResource<Classe>{
+public class ClasseResource extends AbstractResource<Classe> {
 
 	private @Autowired ClasseRepository repository;
-	
-	private @Autowired ClasseService service; 
-	
+
+	private @Autowired ClasseService service;
+
 	public ClasseRepository getRepository() {
 		return this.repository;
 	}

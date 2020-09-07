@@ -10,15 +10,23 @@ import javax.validation.constraints.Size;
 import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
-public class NCM extends AbstractModel{
+public class NCM extends AbstractModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Digits(integer = 8, fraction = 0)
 	@Size(min = 8, max = 8)
 	private String numero;
+	
+	public NCM() {
+		
+	}
+	
+	public NCM(String numero) {
+		this.numero = numero;
+	}	
 
 	public Long getId() {
 		return id;
@@ -35,5 +43,5 @@ public class NCM extends AbstractModel{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
+
 }

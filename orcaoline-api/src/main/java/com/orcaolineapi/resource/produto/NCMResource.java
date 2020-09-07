@@ -11,14 +11,14 @@ import com.orcaolineapi.service.produto.NCMService;
 
 @RestController
 @RequestMapping("/ncms")
-public class NCMResource extends AbstractResource<NCM>{
+public class NCMResource extends AbstractResource<NCM> {
 
 	private @Autowired NCMRepository repository;
-	
+
 	private @Autowired NCMService service;
-	
+
 	@Override
-	public NCMRepository  getRepository() {
+	public NCMRepository getRepository() {
 		return this.repository;
 	}
 

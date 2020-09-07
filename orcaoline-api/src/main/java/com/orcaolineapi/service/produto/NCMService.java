@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.produto.NCMRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class NCMService extends AbstractService<NCM>{
+public class NCMService extends AbstractService<NCM> {
 
 	private @Autowired NCMRepository repository;
-	
+
 	@Override
 	public NCMRepository getRepository() {
 		return this.repository;

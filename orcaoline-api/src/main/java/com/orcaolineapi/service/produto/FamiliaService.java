@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.produto.FamiliaRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class FamiliaService extends AbstractService<Familia>{
+public class FamiliaService extends AbstractService<Familia> {
 
 	private @Autowired FamiliaRepository repository;
-	
+
 	@Override
 	public FamiliaRepository getRepository() {
 		return this.repository;

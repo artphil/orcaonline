@@ -8,12 +8,12 @@ import com.orcaolineapi.repository.produto.GTIN_EANRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class GTIN_EANService extends AbstractService<GTIN_EAN>{
+public class GTIN_EANService extends AbstractService<GTIN_EAN> {
 
 	private @Autowired GTIN_EANRepository repository;
 
 	@Override
-	public GTIN_EANRepository  getRepository() {
+	public GTIN_EANRepository getRepository() {
 		return this.repository;
 	}
 }

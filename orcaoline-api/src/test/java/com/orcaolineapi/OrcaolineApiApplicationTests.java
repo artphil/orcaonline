@@ -11,8 +11,8 @@ import com.orcaolineapi.resource.produto.SegmentoResource;
 @SpringBootTest
 public class OrcaolineApiApplicationTests {
 
-	private @Autowired SegmentoResource  controller;
-	
+	private @Autowired SegmentoResource controller;
+
 	@Test
 	public void contextLoads() {
 		assertThat(controller).isNotNull();

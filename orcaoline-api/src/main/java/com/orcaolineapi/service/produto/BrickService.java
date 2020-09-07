@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.produto.BrickRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class BrickService extends AbstractService<Brick>{
+public class BrickService extends AbstractService<Brick> {
 
 	private @Autowired BrickRepository repository;
-	
+
 	@Override
 	public BrickRepository getRepository() {
 		return this.repository;
