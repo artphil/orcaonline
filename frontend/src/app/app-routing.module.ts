@@ -18,16 +18,22 @@ const routes: Routes = [
   { path: 'usr', component: UserComponent },
   { path: 'pdt', component: ProductComponent },
   { path: 'pdt/list', component: ProductListComponent },
+
   { path: 'pdt/seg', component: SegmentComponent },
   { path: 'pdt/seg/:cod', component: SegmentComponent },
+
   { path: 'pdt/fam', component: FamilyComponent },
   { path: 'pdt/fam/:cod', component: FamilyComponent },
+
   { path: 'pdt/cls', component: ClassComponent },
   { path: 'pdt/cls/:cod', component: ClassComponent },
+
   { path: 'pdt/brk', component: BrickComponent },
   { path: 'pdt/brk/:cod', component: BrickComponent },
+
   { path: 'pdt/gtn', component: GtinComponent },
   { path: 'pdt/gtn/:cod', component: GtinComponent },
+
   { path: 'pdt/:cod', component: ProductComponent }
 ];
 

@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BrickService {
 
-  //apiPath = 'http://45.80.152.3:8080/bricks/';
+  //apiPath = 'http://45.80.152.3:8080/bricks';
   apiPath: string;
 
   httpOptions = {
@@ -16,20 +16,20 @@ export class BrickService {
     })
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.apiPath = `${environment.apiUrl}/bricks`;
   }
 
-  getOne(query: any = ''): Promise<any> {
+  getOne(code: number = null): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
   getList(query: string = ''): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${query}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}/${query}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
@@ -43,14 +43,14 @@ export class BrickService {
 
   update(data: any): Promise<any> {
 
-    return this.http.put<any>(`${this.apiPath}${data.id}`, data, this.httpOptions)
+    return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
   delete(code: number): Promise<void> {
 
-    return this.http.delete(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.delete(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(() => null);
   }

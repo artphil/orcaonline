@@ -7,9 +7,9 @@ import { environment } from 'src/environments/environment';
 })
 export class SegmentService {
 
-  //apiPath = 'http://45.80.152.3:8080/segmentos/';
+  //apiPath = 'http://45.80.152.3:8080/segmentos';
   apiPath: string;
-  
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8'
@@ -22,7 +22,7 @@ export class SegmentService {
 
   getOne(code: number = null): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
@@ -43,14 +43,14 @@ export class SegmentService {
 
   update(data: any): Promise<any> {
 
-    return this.http.put<any>(`${this.apiPath}${data.id}`, data, this.httpOptions)
+    return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
   delete(code: number): Promise<void> {
 
-    return this.http.delete(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.delete(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(() => null);
   }

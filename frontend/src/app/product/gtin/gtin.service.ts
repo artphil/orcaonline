@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GtinService {
 
-  //apiPath = 'http://45.80.152.3:8080/gtins/';
+  //apiPath = 'http://45.80.152.3:8080/gtins';
   apiPath: string;
 
   httpOptions = {
@@ -16,13 +16,13 @@ export class GtinService {
     })
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.apiPath = `${environment.apiUrl}/gtins`;
   }
 
   getOne(code: number = null): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(res => { return res });
   }
@@ -43,14 +43,14 @@ export class GtinService {
 
   update(data: any): Promise<any> {
 
-    return this.http.put<any>(`${this.apiPath}${data.id}`, data, this.httpOptions)
+    return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => { return res });
   }
 
   delete(code: number): Promise<void> {
 
-    return this.http.delete(`${this.apiPath}${code}`, this.httpOptions)
+    return this.http.delete(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(() => null);
   }
