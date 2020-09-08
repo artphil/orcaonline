@@ -21,6 +21,7 @@ export class BrickComponent implements OnInit {
   brickClasses: SelectItem[];
 
   idBrick: number;
+  isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,

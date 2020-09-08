@@ -2,8 +2,8 @@
     <div class="p-grid">
 
       <div class="p-col-12">
-        <h1 *ngIf="isNewSegment">Novo Segmento</h1>
-        <h1 *ngIf="!isNewSegment">Editar Segmento</h1>
+        <h1 *ngIf="!idSegment">Novo Segmento</h1>
+        <h1 *ngIf="idSegment">Editar Segmento</h1>
       </div>
 
       <div class="p-col-6 p-md-3 p-fluid">
@@ -39,7 +39,7 @@
         <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearSegment(segmentForm)"></p-button>
 
         <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeSegment(segmentForm)"
-          [disabled]="!segment.id"></p-button>
+          [disabled]="!idSegment"></p-button>
 
       </div>
 

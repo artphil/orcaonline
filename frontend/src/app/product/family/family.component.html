@@ -2,8 +2,8 @@
   <div class="p-grid">
 
     <div class="p-col-12">
-      <h1 *ngIf="isNewFamily">Nova Familia</h1>
-      <h1 *ngIf="!isNewFamily">Editar Familia</h1>
+      <h1 *ngIf="!idFamily">Nova Familia</h1>
+      <h1 *ngIf="idFamily">Editar Familia</h1>
     </div>
 
     <div class="p-col-6 p-md-3 p-fluid">
@@ -13,8 +13,7 @@
 
     <div class="p-col-12 p-fluid">
       <label>Nome</label>
-      <input type="text" pInputText name="nome" #familyName="ngModel" [(ngModel)]="family.nome" required
-        minlength="4">
+      <input type="text" pInputText name="nome" #familyName="ngModel" [(ngModel)]="family.nome" required minlength="4">
 
       <app-msg-validation [control]="familyName" error="required" text="Informe o nome do Familia.">
       </app-msg-validation>
@@ -34,11 +33,20 @@
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Segmento</label>
-      <div class="p-inputgroup">
-      <p-dropdown [options]="familySegments" name="segment" #familySegment="ngModel" [(ngModel)]="family.segmento.id" [filter]="true"
-        placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newSegment()"></button>
+      <div class="p-grid inputGroup">
+        <div class="p-col inputItem-first">
+
+          <p-dropdown [options]="familySegments" name="segment" #familySegment="ngModel"
+            [(ngModel)]="family.segmento.id" [filter]="true" placeholder="Selecione" required></p-dropdown>
+        </div>
+
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"
+            (click)="newSegment()"></button>
+        </div>
+
       </div>
+
       <app-msg-validation [control]="familySegment" error="required" text="Informe a família da Familia.">
       </app-msg-validation>
     </div>
@@ -50,7 +58,7 @@
       <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearFamily(familyForm)"></p-button>
 
       <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeFamily(familyForm)"
-        [disabled]="!family.id"></p-button>
+        [disabled]="!idFamily"></p-button>
 
     </div>
   </div>

@@ -23,8 +23,8 @@ export class ProductComponent implements OnInit {
   productNCMs: SelectItem[];
   productGTINs: SelectItem[];
 
-  isNewProduct: boolean;
   idProduct: number;
+  isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,22 +42,22 @@ export class ProductComponent implements OnInit {
     this.consult();
 
     this.ncmService.getList()
-    .then((ncmList: NcmModel[]) => {
-      this.productNCMs = [];
-      ncmList.forEach( item => {
-        this.productNCMs.push({ label: item.numero.toString(), value: item.id });
+      .then((ncmList: NcmModel[]) => {
+        this.productNCMs = [];
+        ncmList.forEach(item => {
+          this.productNCMs.push({ label: item.numero.toString(), value: item.id });
+        });
+      })
+      .catch(() => {
+        this.productNCMs = [
+          { label: 'Nenhum NCM cadastrado', value: {} }
+        ];
       });
-    })
-    .catch(() => {
-      this.productNCMs = [
-        { label: 'Nenhum NCM cadastrado', value: {} }
-      ];
-    });
 
     this.gtinService.getList()
       .then((gtinList: GtinModel[]) => {
         this.productGTINs = [];
-        gtinList.forEach( item => {
+        gtinList.forEach(item => {
           this.productGTINs.push({ label: item.numero.toString(), value: item.id });
         });
       })
@@ -70,9 +70,7 @@ export class ProductComponent implements OnInit {
   }
 
   consult(): void {
-    this.isNewProduct = !this.idProduct;
-
-    if (this.isNewProduct) {
+    if (!this.idProduct) {
       this.product = new ProductModel();
     } else {
       this.productService.getOne(this.idProduct)
@@ -86,13 +84,16 @@ export class ProductComponent implements OnInit {
   }
 
   saveProduct(form: NgForm): void {
-    if (this.isNewProduct) {
+    if (!this.idProduct) {
       this.productService.create(this.product)
         .then((product: ProductModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: product.nome });
-          this.router.navigateByUrl(`/pdt/${product.id}`);
+          this.idProduct = product.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Adicionar Produto.', detail: 'Id protegido ou inexistente' }
+        ));
     }
     else {
       this.productService.update(this.product)
@@ -100,7 +101,9 @@ export class ProductComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: product.nome });
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Alterar Produto.', detail: 'Id protegido ou inexistente' }
+        ));
     }
 
   }
@@ -108,7 +111,7 @@ export class ProductComponent implements OnInit {
   clearProduct(form: NgForm): void {
     form.reset();
     this.product = new ProductModel();
-    this.router.navigateByUrl('/pdt');
+    this.idProduct = null;
   }
 
   removeProduct(form: NgForm): void {
@@ -116,12 +119,12 @@ export class ProductComponent implements OnInit {
       .then(() => {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idProduct} não pode mais ser acessado` }
-          );
-        this.router.navigateByUrl('/pdt');
+        );
+        this.clearProduct(form);
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-        )
+      )
       );
   }
 

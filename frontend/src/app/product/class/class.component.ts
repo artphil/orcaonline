@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { SelectItem, MessageService } from 'primeng/api';
-import { DialogService} from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { ClassModel, FamilyModel } from '../product.model';
 import { FamilyComponent } from '../family/family.component';
@@ -24,7 +24,6 @@ export class ClassComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private classService: ClassService,
     private familyService: FamilyService,
     private messageService: MessageService,
@@ -35,7 +34,10 @@ export class ClassComponent implements OnInit {
     this.idClass = Number(this.route.snapshot.paramMap.get('cod'));
 
     this.consult();
+    this.getFamilies();
+  }
 
+  getFamilies(): void {
     this.familyService.getList()
       .then((familyList: FamilyModel[]) => {
         this.classFamilies = [];
@@ -48,7 +50,6 @@ export class ClassComponent implements OnInit {
           { label: 'Nenhuma Familia cadastrada', value: null }
         ];
       });
-
 
   }
 
@@ -71,9 +72,12 @@ export class ClassComponent implements OnInit {
       this.classService.create(this.pClass)
         .then((clasItem: ClassModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: clasItem.nome });
-          this.router.navigateByUrl(`/pdt/cls/${clasItem.id}`);
+          this.idClass = clasItem.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Adicionar Classe.', detail: 'Id protegido ou inexistente' }
+        ));
     }
     else {
       this.classService.update(this.pClass)
@@ -81,7 +85,9 @@ export class ClassComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: clasItem.nome });
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Alterar Classe.', detail: 'Id protegido ou inexistente' }
+        ));
     }
 
   }
@@ -89,19 +95,19 @@ export class ClassComponent implements OnInit {
   clearClass(form: NgForm): void {
     form.reset();
     this.pClass = new ClassModel();
-    this.router.navigateByUrl('/pdt/cls');
+    this.idClass = null;
   }
 
   removeClass(form: NgForm): void {
     this.classService.delete(this.idClass)
       .then(() => {
         this.messageService.add(
-          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idClass} não pode mais ser acessado` }
+          { severity: 'success', summary: 'Classe Excluida com Sucesso.', detail: `O id ${this.idClass} não pode mais ser acessado` }
         );
-        this.router.navigateByUrl('/pdt/cls');
+        this.clearClass(form);
       })
       .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
+        { severity: 'error', summary: 'Falha ao Excluir Classe.', detail: 'Id protegido ou inexistente' }
       )
       );
   }
@@ -110,7 +116,7 @@ export class ClassComponent implements OnInit {
     const ref = this.dialogService.open(FamilyComponent, {
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult);
+    ref.onClose.subscribe(() => this.getFamilies());
   }
 
 }

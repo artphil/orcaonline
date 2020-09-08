@@ -12,9 +12,8 @@ import { MessageService } from 'primeng/api';
 })
 export class SegmentComponent implements OnInit {
 
-  segment: SegmentModel;
+  segment = new SegmentModel();
 
-  isNewSegment: boolean;
   idSegment: number;
 
   constructor(
@@ -32,9 +31,7 @@ export class SegmentComponent implements OnInit {
   }
 
   consult(): void {
-    this.isNewSegment = !this.idSegment;
-
-    if (this.isNewSegment) {
+    if (!this.idSegment) {
       this.segment = new SegmentModel();
     } else {
       this.segmentService.getOne(this.idSegment)
@@ -48,13 +45,14 @@ export class SegmentComponent implements OnInit {
   }
 
   saveSegment(form: NgForm): void {
-    if (this.isNewSegment) {
+    if (!this.idSegment) {
       this.segmentService.create(this.segment)
         .then((segment: SegmentModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: segment.nome });
-          this.router.navigateByUrl(`/pdt/seg/${segment.id}`);
+          this.idSegment = segment.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Produto.', detail: 'Id protegido ou inexistente' }));
     }
     else {
       this.segmentService.update(this.segment)
@@ -70,7 +68,7 @@ export class SegmentComponent implements OnInit {
   clearSegment(form: NgForm): void {
     form.reset();
     this.segment = new SegmentModel();
-    this.router.navigateByUrl('/pdt/seg');
+    this.idSegment = null;
   }
 
   removeSegment(form: NgForm): void {
@@ -78,12 +76,12 @@ export class SegmentComponent implements OnInit {
       .then(() => {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idSegment} não pode mais ser acessado` }
-          );
-        this.router.navigateByUrl('/pdt/seg');
+        );
+        this.clearSegment(form);
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-        )
+      )
       );
   }
 

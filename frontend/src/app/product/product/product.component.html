@@ -2,8 +2,8 @@
   <div class="p-grid">
 
     <div class="p-col-12">
-      <h1 *ngIf="isNewProduct">Novo Produto</h1>
-      <h1 *ngIf="!isNewProduct">Editar Produto</h1>
+      <h1 *ngIf="!idProduct">Novo Produto</h1>
+      <h1 *ngIf="idProduct">Editar Produto</h1>
     </div>
 
     <div class="p-col-6 p-md-3 p-fluid">
@@ -34,27 +34,21 @@
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>NCM</label>
-      <div class="p-inputgroup">
-        <p-dropdown [options]="productNCMs" name="ncm" #productNCM="ngModel" [(ngModel)]="product.ncm" [filter]="true"
+      <div class="p-grid inputGroup">
+
+        <div class="p-col inputItem-first">
+          <p-dropdown [options]="productNCMs" name="ncm" #productNCM="ngModel" [(ngModel)]="product.ncm" [filter]="true"
           placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showNcmDialog()"></button>
+        </div>
+
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showNcmDialog()"></button>
+        </div>
+
       </div>
       <app-msg-validation [control]="productNCM" error="required" text="Informe o segmento do produto.">
       </app-msg-validation>
     </div>
-
-
-    <!-- <div class="p-col-12 p-md-4 p-fluid">
-      <label>GTIN</label>
-      <div class="p-inputgroup">
-      <p-dropdown [options]="productGTINs" name="gtin" #productGTIN="ngModel" [(ngModel)]="product.gtin.id" [filter]="true"
-        placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showGtinDialog()"></button>
-      </div>
-      <app-msg-validation [control]="productGTIN" error="required" text="Informe a família do produto.">
-      </app-msg-validation>
-    </div> -->
-
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>GTIN</label>
@@ -65,7 +59,7 @@
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last">
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
           <button type="button" pButton icon="pi pi-plus" (click)="showGtinDialog()"></button>
         </div>
 
@@ -81,7 +75,7 @@
       <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearProduct(productForm)"></p-button>
 
       <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeProduct(productForm)"
-        [disabled]="!product.id"></p-button>
+        [disabled]="!idProduct"></p-button>
 
     </div>
 

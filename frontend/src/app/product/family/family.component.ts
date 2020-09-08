@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FamilyModel, SegmentModel } from '../product.model';
 import { SelectItem } from 'primeng/api/selectitem';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FamilyService } from './family.service';
 import { NgForm } from '@angular/forms';
@@ -15,15 +15,14 @@ import { SegmentComponent } from '../segment/segment.component';
   styleUrls: ['./family.component.css']
 })
 export class FamilyComponent implements OnInit {
-  family: FamilyModel;
+  family = new FamilyModel();
   familySegments: SelectItem[];
 
-  isNewFamily: boolean;
   idFamily: number;
+  isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private familyServices: FamilyService,
     private segmentServices: SegmentService,
     private messageService: MessageService,
@@ -34,12 +33,16 @@ export class FamilyComponent implements OnInit {
     this.idFamily = Number(this.route.snapshot.paramMap.get('cod'));
 
     this.consult();
+    this.getSegments();
 
+  }
+
+  getSegments(): void {
     this.segmentServices.getList()
       .then((segmentList: SegmentModel[]) => {
         this.familySegments = [];
-        segmentList.forEach(s => {
-          this.familySegments.push({ label: s.nome, value: s.id });
+        segmentList.forEach(item => {
+          this.familySegments.push({ label: item.nome, value: item.id });
         });
       })
       .catch(() => {
@@ -50,9 +53,7 @@ export class FamilyComponent implements OnInit {
   }
 
   consult(): void {
-    this.isNewFamily = !this.idFamily;
-
-    if (this.isNewFamily) {
+    if (!this.idFamily) {
       this.family = new FamilyModel();
     } else {
       this.familyServices.getOne(this.idFamily)
@@ -66,13 +67,16 @@ export class FamilyComponent implements OnInit {
   }
 
   saveFamily(form: NgForm): void {
-    if (this.isNewFamily) {
+    if (!this.idFamily) {
       this.familyServices.create(this.family)
         .then((family: FamilyModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: family.nome });
-          this.router.navigateByUrl(`/pdt/fam/${family.id}`);
+          this.idFamily = family.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Adicionar Família.', detail: 'Id protegido ou inexistente' }
+        ));
     }
     else {
       this.familyServices.update(this.family)
@@ -80,7 +84,9 @@ export class FamilyComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: family.nome });
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch(() => this.messageService.add(
+          { severity: 'error', summary: 'Falha ao Alterar Família.', detail: 'Id protegido ou inexistente' }
+        ));
     }
 
   }
@@ -88,7 +94,7 @@ export class FamilyComponent implements OnInit {
   clearFamily(form: NgForm): void {
     form.reset();
     this.family = new FamilyModel();
-    this.router.navigateByUrl('/pdt/fam');
+    this.idFamily = null;
   }
 
   removeFamily(form: NgForm): void {
@@ -97,7 +103,7 @@ export class FamilyComponent implements OnInit {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idFamily} não pode mais ser acessado` }
         );
-        this.router.navigateByUrl('/pdt/fam');
+        this.clearFamily(form);
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
@@ -109,8 +115,8 @@ export class FamilyComponent implements OnInit {
     const ref = this.dialogService.open(SegmentComponent, {
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult);
 
+    ref.onClose.subscribe(() => this.getSegments());
   }
 
 }

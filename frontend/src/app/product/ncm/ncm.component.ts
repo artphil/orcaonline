@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class NcmComponent implements OnInit {
 
-  ncm: NcmModel;
+  ncm = new NcmModel();
 
   idNcm: number;
 
@@ -75,12 +75,12 @@ export class NcmComponent implements OnInit {
       .then(() => {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idNcm} não pode mais ser acessado` }
-          );
+        );
         this.clearNcm(form);
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-        )
+      )
       );
   }
 
