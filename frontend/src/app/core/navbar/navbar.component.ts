@@ -28,6 +28,10 @@ export class NavbarComponent {
               label: 'Produto',
               icon: 'pi pi-fw pi-plus',
               routerLink: '/pdt'
+            }, {
+              label: 'NCM',
+              icon: 'pi pi-fw pi-plus',
+              routerLink: '/pdt/ncm'
             },
             {
               label: 'Segmento',
