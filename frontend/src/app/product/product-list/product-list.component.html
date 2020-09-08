@@ -47,10 +47,14 @@
       <ng-template pTemplate="header">
         <tr>
           <th class="p-col-1">Codigo</th>
-          <th class="p-col-3">Nome</th>
-          <th class="p-col-4">Descricao</th>
-          <th class="p-col-2">NCM</th>
+          <th class="p-col-2">Nome</th>
+          <th class="p-col-2">Descricao</th>
+          <th class="p-col-1">NCM</th>
           <th class="p-col-1">GTIN</th>
+          <th class="p-col-1">BRICK</th>
+          <th class="p-col-1">Classe</th>
+          <th class="p-col-1">Familia</th>
+          <th class="p-col-1">Segmento</th>
           <th class="p-col-1"></th>
         </tr>
       </ng-template>
@@ -61,6 +65,10 @@
           <td>{{product.descricao}}</td>
           <td>{{product.ncm}}</td>
           <td>{{product.gtin?.numero}}</td>
+          <td>{{product.gtin?.brick?.nome}}</td>
+          <td>{{product.gtin?.brick?.classe?.nome}}</td>
+          <td>{{product.gtin?.brick?.classe?.familia?.nome}}</td>
+          <td>{{product.gtin?.brick?.classe?.familia?.segmento?.nome}}</td>
           <td>
             <p-button icon="pi pi-pencil" (onClick)="editProduct(product.id)"></p-button>
           </td>
