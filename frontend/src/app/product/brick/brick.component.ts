@@ -76,9 +76,10 @@ export class BrickComponent implements OnInit {
           this.idBrick = brick.id;
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Salvar Brick.', detail: 'Confira os campos e tente novamente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Salvar Brick.', detail: msg });
+        });
     }
     else {
       this.brickServices.update(this.brick)
@@ -86,9 +87,10 @@ export class BrickComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: brick.nome });
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Alterar Brick.', detail: 'Confira os campos e tente novamente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Brick.', detail: msg });
+        });
     }
   }
 
@@ -102,14 +104,14 @@ export class BrickComponent implements OnInit {
     this.brickServices.delete(this.idBrick)
       .then(() => {
         this.messageService.add(
-          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idBrick} não pode mais ser acessado` }
+          { severity: 'success', summary: 'Brick Excluido com Sucesso.', detail: `O id ${this.idBrick} não pode mais ser acessado` }
         );
         this.clearBrick(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Brick.', detail: msg });
+      });
   }
 
   newClass(): void {

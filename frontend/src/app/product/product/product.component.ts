@@ -91,9 +91,10 @@ export class ProductComponent implements OnInit {
           this.idProduct = product.id;
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Adicionar Produto.', detail: 'Id protegido ou inexistente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Produto.', detail: msg });
+        });
     }
     else {
       this.productService.update(this.product)
@@ -101,9 +102,10 @@ export class ProductComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: product.nome });
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Alterar Produto.', detail: 'Id protegido ou inexistente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Produto.', detail: msg });
+        });
     }
 
   }
@@ -122,10 +124,10 @@ export class ProductComponent implements OnInit {
         );
         this.clearProduct(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: msg });
+      });
   }
 
   showNcmDialog(): void {

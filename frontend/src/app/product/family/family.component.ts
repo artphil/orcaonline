@@ -74,9 +74,10 @@ export class FamilyComponent implements OnInit {
           this.idFamily = family.id;
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Adicionar Família.', detail: 'Id protegido ou inexistente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Família.', detail: msg });
+        });
     }
     else {
       this.familyServices.update(this.family)
@@ -84,9 +85,10 @@ export class FamilyComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: family.nome });
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Alterar Família.', detail: 'Id protegido ou inexistente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Família.', detail: msg });
+        });
     }
 
   }
@@ -105,10 +107,10 @@ export class FamilyComponent implements OnInit {
         );
         this.clearFamily(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: msg });
+      });
   }
 
   newSegment(): void {

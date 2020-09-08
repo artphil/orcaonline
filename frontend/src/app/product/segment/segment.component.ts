@@ -52,7 +52,10 @@ export class SegmentComponent implements OnInit {
           this.idSegment = segment.id;
           this.consult();
         })
-        .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Produto.', detail: 'Id protegido ou inexistente' }));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Produto.', detail: msg });
+        });
     }
     else {
       this.segmentService.update(this.segment)
@@ -60,7 +63,10 @@ export class SegmentComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: segment.nome });
           this.consult();
         })
-        .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Produto.', detail: 'Id protegido ou inexistente' }));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Produto.', detail: msg });
+        });
     }
 
   }
@@ -79,10 +85,10 @@ export class SegmentComponent implements OnInit {
         );
         this.clearSegment(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: msg });
+      });
   }
 
 

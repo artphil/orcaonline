@@ -75,9 +75,10 @@ export class ClassComponent implements OnInit {
           this.idClass = clasItem.id;
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Adicionar Classe.', detail: 'Id protegido ou inexistente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Classe.', detail: msg });
+        });
     }
     else {
       this.classService.update(this.pClass)
@@ -85,9 +86,10 @@ export class ClassComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: clasItem.nome });
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Alterar Classe.', detail: 'Id protegido ou inexistente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Classe.', detail: msg });
+        });
     }
 
   }
@@ -106,10 +108,10 @@ export class ClassComponent implements OnInit {
         );
         this.clearClass(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Classe.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Classe.', detail: msg });
+      });
   }
 
   newFamily(): void {
