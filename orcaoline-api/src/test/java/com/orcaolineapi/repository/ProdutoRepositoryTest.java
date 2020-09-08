@@ -92,7 +92,7 @@ public class ProdutoRepositoryTest {
 	}
 	
 	public NCM validNCM() {		
-		NCM ncm = new NCM("12345678");
+		NCM ncm = new NCM("12345678", "Descrição do NCM");
 		this.repositoryN.save(ncm);
 		return ncm;
 	}
