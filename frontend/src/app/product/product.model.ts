@@ -104,6 +104,7 @@ export class NcmModel {
 
   constructor() {
     this.id = null;
+    this.numero = null;
     this.descricao = null;
   }
 }

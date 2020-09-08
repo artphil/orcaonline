@@ -7,7 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class NcmService {
 
-//apiPath = 'http://45.80.152.3:8080/ncm';
+//apiPath = 'http://45.80.152.3:8080/ncms';
 apiPath: string;
 
 httpOptions = {
@@ -17,7 +17,7 @@ httpOptions = {
 };
 
 constructor(private http: HttpClient) {
-  this.apiPath = `${environment.apiUrl}/ncm`;
+  this.apiPath = `${environment.apiUrl}/ncms`;
  }
 
 getOne(code: number = null): Promise<any> {

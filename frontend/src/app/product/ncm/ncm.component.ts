@@ -51,7 +51,10 @@ export class NcmComponent implements OnInit {
           this.idNcm = ncm.id;
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar NCM.', detail: msg });
+        });
     }
     else {
       this.ncmService.update(this.ncm)
@@ -59,7 +62,10 @@ export class NcmComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: ncm.numero.toString() });
           this.consult();
         })
-        .catch(() => this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Produto.', detail: 'Id protegido ou inexistente' }));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar NCM.', detail: msg });
+        });
     }
 
   }
@@ -74,14 +80,14 @@ export class NcmComponent implements OnInit {
     this.ncmService.delete(this.idNcm)
       .then(() => {
         this.messageService.add(
-          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idNcm} não pode mais ser acessado` }
+          { severity: 'success', summary: 'NCM Excluido com Sucesso.', detail: `O id ${this.idNcm} não pode mais ser acessado` }
         );
         this.clearNcm(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir NCM.', detail: msg });
+      });
   }
 
 
