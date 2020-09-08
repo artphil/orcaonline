@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ProductFilterModel } from '../product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,29 +27,32 @@ export class ProductService {
   }
 
   getList(query: any = null): Promise<any> {
-    let urlPath = this.apiPath;
+
+    return this.http.get<any>(this.apiPath, { headers: this.headers })
+      .toPromise()
+      .then(res => res);
+  }
+
+  getFilteredList(query: ProductFilterModel): Promise<any> {
+    const urlPath = this.apiPath + '/pesquisar';
     let params = new HttpParams();
 
-    if (query) {
-      urlPath += '/pesquisa?resumo';
-
-      if (query.nome) {
-        params = params.append('nome', query.nome);
-      }
-      if (query.segmento.id) {
-        params = params.append('segmento', query.segmento.id);
-      }
-      if (query.familia.id) {
-        params = params.append('familia', query.familia.id);
-      }
-      if (query.classe.id) {
-        params = params.append('classe', query.classe.id);
-      }
-      if (query.brick.id) {
-        params = params.append('brick', query.brick.id);
-      }
-
+    if (query.nome) {
+      params = params.append('nome', query.nome);
     }
+    if (query.segmento) {
+      params = params.append('segmento', query.segmento.toString());
+    }
+    if (query.familia) {
+      params = params.append('familia', query.familia.toString());
+    }
+    if (query.classe) {
+      params = params.append('classe', query.classe.toString());
+    }
+    if (query.brick) {
+      params = params.append('brick', query.brick.toString());
+    }
+
 
     return this.http.get<any>(urlPath, { params, headers: this.headers })
       .toPromise()

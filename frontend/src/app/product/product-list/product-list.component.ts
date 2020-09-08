@@ -35,6 +35,14 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.getSegments();
+    this.getFamilies();
+    this.getClasses();
+    this.getBricks();
+    this.search();
+  }
+
+  getSegments(): void {
     this.segmentService.getList()
       .then((segmentList: SegmentModel[]) => {
         this.productSegments = [{ label: 'Todos', value: null }];
@@ -47,7 +55,9 @@ export class ProductListComponent implements OnInit {
           { label: 'Nenhum Segmento cadastrado.', value: null }
         ];
       });
+  }
 
+  getFamilies(): void {
     this.familyService.getList()
       .then((familyList: FamilyModel[]) => {
         this.productFamilies = [{ label: 'Todos', value: null }];
@@ -61,6 +71,9 @@ export class ProductListComponent implements OnInit {
         ];
       });
 
+  }
+
+  getClasses(): void {
     this.classService.getList()
       .then((classList: ClassModel[]) => {
         this.productClasses = [{ label: 'Todos', value: null }];
@@ -73,8 +86,9 @@ export class ProductListComponent implements OnInit {
           { label: 'Nenhuma Casse cadastrada.', value: null }
         ];
       });
+  }
 
-
+  getBricks(): void {
     this.brickService.getList()
       .then((brickList: BrickModel[]) => {
         this.productBricks = [{ label: 'Todos', value: null }];
@@ -88,7 +102,6 @@ export class ProductListComponent implements OnInit {
         ];
       });
 
-    this.search();
   }
 
   search(query: any = {}): void {
@@ -97,62 +110,34 @@ export class ProductListComponent implements OnInit {
         .then((product: ProductModel) => {
           this.products = [product];
         })
-        .catch(() => []);
+        .catch(() => {
+          this.products = [];
+        });
     } else {
-      if (this.filter.nome) {
-        query.nome = this.filter.nome;
-      }
-
-      this.productService.getList()
+      this.productService.getFilteredList(this.filter)
         .then((productList: ProductModel[]) => {
           this.products = productList;
         })
-        .catch(() => []);
+        .catch(() => {
+          this.products = [];
+        });
     }
 
   }
   searchBySegment(): void {
-    if (this.filter.segmento.id) {
-
-
-      const query = { segmento: { id: this.filter.segmento.id } };
-      this.search(query);
-    } else {
-      this.search();
-    }
+    this.search();
   }
 
   searchByFamily(): void {
-    if (this.filter.familia.id) {
-
-
-      const query = { familia: { id: this.filter.familia.id } };
-      this.search(query);
-    } else {
-      this.search();
-    }
+    this.search();
   }
 
   searchByClass(): void {
-    if (this.filter.classe.id) {
-
-
-      const query = { classe: { id: this.filter.classe.id } };
-      this.search(query);
-    } else {
-      this.search();
-    }
+    this.search();
   }
 
   searchByBrick(): void {
-    if (this.filter.brick.id) {
-
-
-      const query = { brick: { id: this.filter.brick.id } };
-      this.search(query);
-    } else {
-      this.search();
-    }
+    this.search();
   }
 
   editProduct(id: string): void {
