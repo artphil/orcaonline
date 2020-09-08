@@ -138,10 +138,7 @@ export class ProductComponent implements OnInit {
   }
 
   showGtinDialog(): void {
-    const ref = this.dialogService.open(GtinComponent, {
-      width: '50%'
-    });
-    ref.onClose.subscribe(() => this.consult());
+    this.router.navigateByUrl('/pdt/gtn');
   }
 
 }

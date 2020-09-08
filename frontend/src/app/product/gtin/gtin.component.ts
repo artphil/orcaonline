@@ -1,16 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-
 import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-
-import { GtinModel, BrickModel, ClassModel } from '../product.model';
+import { GtinModel, BrickModel, ClassModel, FamilyModel } from '../product.model';
 import { BrickComponent } from '../brick/brick.component';
 import { ClassComponent } from '../class/class.component';
+import { FamilyComponent } from '../family/family.component';
 import { ClassService } from '../class/class.service';
 import { GtinService } from './gtin.service';
 import { BrickService } from '../brick/brick.service';
+import { FamilyService } from '../family/family.service';
+
 
 @Component({
   selector: 'app-gtin',
@@ -22,6 +23,7 @@ export class GtinComponent implements OnInit {
   gtin: GtinModel;
   gtinBricks: SelectItem[];
   gtinClasses: SelectItem[];
+  gtinFamilies: SelectItem[];
 
   idGtin: number;
 
@@ -32,6 +34,7 @@ export class GtinComponent implements OnInit {
     private gtinServices: GtinService,
     private brickServices: BrickService,
     private classServices: ClassService,
+    private familyServices: ClassService,
     private messageService: MessageService,
     private dialogService: DialogService
   ) { }
@@ -68,6 +71,20 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhum Segmento cadastrado', value: null }
         ];
       });
+      this.familyServices.getList()
+      .then((familyList: FamilyModel[]) => {
+        this.gtinFamilies = [];
+        familyList.forEach( f => {
+          this.gtinFamilies.push({ label: f.nome, value: f.id });
+        });
+      })
+      .catch(() => {
+        this.gtinFamilies = [
+          { label: 'Nenhuma Familia cadastrada', value: null }
+        ];
+      });
+    
+
   }
 
   consult(): void {
@@ -148,6 +165,13 @@ export class GtinComponent implements OnInit {
       width: '50%'
     });
     ref.onClose.subscribe(() => this.consult());
+  }
+
+  newFamily(): void {
+    const ref = this.dialogService.open(FamilyComponent, {
+      width: '50%'
+    });
+    ref.onClose.subscribe(() => this.consult);
   }
 
 }
