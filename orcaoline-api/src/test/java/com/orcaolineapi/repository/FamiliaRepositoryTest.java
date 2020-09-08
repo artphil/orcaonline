@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -21,8 +23,7 @@ import com.orcaolineapi.modelo.produto.Segmento;
 import com.orcaolineapi.repository.produto.FamiliaRepository;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class FamiliaRepositoryTest {
 
@@ -74,17 +75,18 @@ public class FamiliaRepositoryTest {
 	}
 	
 	@Test
-	public void saveFamiliaWithInvalidIdSegmentoShouldThrowsConstraintViolationException() {
+	public void saveFamiliaWithInvalidIdSegmentoShouldThrowsDataIntegrityViolationException() {
 		
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {	
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {	
 			Segmento seg = validSegmento();
+			seg.setId(Long.valueOf(999999999));
 			//falta codigo aqui para mudar o id para um invalido
 			Familia fam = new Familia("Nome da Familia", "Descricao da Familia", seg);
 			this.repositoryF.save(fam);
 			
 		});
 		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
+		assertEquals("could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement", exception.getMessage());
 	}
 	
 	@Test

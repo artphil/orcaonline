@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -34,8 +36,7 @@ import com.orcaolineapi.repository.produto.ProdutoRepository;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.repository.produto.BrickRepository;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class ProdutoRepositoryTest {
 
@@ -92,7 +93,7 @@ public class ProdutoRepositoryTest {
 	}
 	
 	public NCM validNCM() {		
-		NCM ncm = new NCM("12345678");
+		NCM ncm = new NCM("12345678", "Descrição do NCM");
 		this.repositoryN.save(ncm);
 		return ncm;
 	}
@@ -168,10 +169,11 @@ public class ProdutoRepositoryTest {
 	}
 	
 	@Test
-	public void saveProdutoWithInvalidIdNCMShouldThrowsConstraintViolationException() {
+	public void saveProdutoWithInvalidIdNCMShouldThrowsDataIntegrityViolationException() {
 		
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {	
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {	
 			NCM ncm = validNCM();
+			ncm.setId(Long.valueOf(999999999));
 			GTIN_EAN gte = validGTIN_EAN();
 			
 			//falta codigo aqui para mudar o id para um invalido
@@ -180,15 +182,16 @@ public class ProdutoRepositoryTest {
 			
 		});
 		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
+		assertEquals("could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement", exception.getMessage());
 	}
 	
 	@Test
-	public void saveProdutoWithInvalidIdGTIN_EANShouldThrowsConstraintViolationException() {
+	public void saveProdutoWithInvalidIdGTIN_EANShouldThrowsDataIntegrityViolationException() {
 		
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {	
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {	
 			NCM ncm = validNCM();
 			GTIN_EAN gte = validGTIN_EAN();
+			gte.setId(Long.valueOf(999999999));
 			
 			//falta codigo aqui para mudar o id para um invalido
 			Produto pro = new Produto("Nome do Produto", "Descricao do Produto", ncm, gte);
@@ -196,7 +199,7 @@ public class ProdutoRepositoryTest {
 			
 		});
 		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
+		assertEquals("could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement", exception.getMessage());
 	}
 	
 	@Test

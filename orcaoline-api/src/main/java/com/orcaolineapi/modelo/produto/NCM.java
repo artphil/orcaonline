@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
@@ -20,12 +21,17 @@ public class NCM extends AbstractModel {
 	@Size(min = 8, max = 8)
 	private String numero;
 	
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
+	private String descricao;
+	
 	public NCM() {
 		
 	}
 	
-	public NCM(String numero) {
+	public NCM(String numero, String descricao) {
 		this.numero = numero;
+		this.descricao = descricao;
 	}	
 
 	public Long getId() {
@@ -42,6 +48,14 @@ public class NCM extends AbstractModel {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 }
