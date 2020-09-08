@@ -21,11 +21,19 @@
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Brick</label>
-      <div class="p-inputgroup">
-      <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id" [filter]="true"
-        placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn" (click)="newBrick()"></button>
+      <div class="p-grid inputgroup">
+
+        <div class="p-col" [ngClass]="{ 'inputItem-first': noPopup }">
+          <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id"
+            [filter]="true" placeholder="Selecione" required></p-dropdown>
+        </div>
+
+        <div class="p-col inputItem-last" *ngIf="noPopup">
+          <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn"
+            (click)="newBrick()"></button>
+        </div>
       </div>
+
       <app-msg-validation [control]="gtinBrick" error="required" text="Informe o Brick da Gtin.">
       </app-msg-validation>
     </div>
@@ -36,8 +44,8 @@
 
       <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearGtin(gtinForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)"
-        [disabled]="!gtin.id"></p-button>
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)" [disabled]="!gtin.id">
+      </p-button>
 
     </div>
   </div>

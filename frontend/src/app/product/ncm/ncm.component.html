@@ -2,8 +2,8 @@
   <div class="p-grid">
 
     <div class="p-col-12">
-      <h1 *ngIf="isNewNcm">Novo NCM</h1>
-      <h1 *ngIf="!isNewNcm">Editar NCM</h1>
+      <h1 *ngIf="!ncm.id">Novo NCM</h1>
+      <h1 *ngIf="ncm.id">Editar NCM</h1>
     </div>
 
     <div class="p-col-6 p-md-3 p-fluid">
@@ -37,7 +37,6 @@
         [disabled]="!ncm.id"></p-button>
 
     </div>
-
 
   </div>
 

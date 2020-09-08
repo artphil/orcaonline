@@ -27,3 +27,16 @@ label {
 .buttonGroup p-button {
   margin-right: 10px;
 }
+
+.inputItem-first {
+  padding-right: 0;
+}
+
+.inputItem-meddle {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.inputItem-last {
+  padding-left: 0;
+}

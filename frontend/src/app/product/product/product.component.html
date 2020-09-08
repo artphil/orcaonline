@@ -37,7 +37,7 @@
       <div class="p-inputgroup">
         <p-dropdown [options]="productNCMs" name="ncm" #productNCM="ngModel" [(ngModel)]="product.ncm" [filter]="true"
           placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"></button>
+        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showNcmDialog()"></button>
       </div>
       <app-msg-validation [control]="productNCM" error="required" text="Informe o segmento do produto.">
       </app-msg-validation>
@@ -49,7 +49,7 @@
       <div class="p-inputgroup">
       <p-dropdown [options]="productGTINs" name="gtin" #productGTIN="ngModel" [(ngModel)]="product.gtin.id" [filter]="true"
         placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showDialog()"></button>
+        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showGtinDialog()"></button>
       </div>
       <app-msg-validation [control]="productGTIN" error="required" text="Informe a família do produto.">
       </app-msg-validation>
@@ -58,16 +58,15 @@
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>GTIN</label>
-      <div class="p-grid p-noFluid">
+      <div class="p-grid inputGroup">
 
-        <div class="p-col-11">
+        <div class="p-col inputItem-first">
           <p-dropdown [options]="productGTINs" name="gtin" #productGTIN="ngModel" [(ngModel)]="product.gtin.id"
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1">
-          <button type="button" pButton pRipple icon="pi pi-plus"
-            (click)="showDialog()"></button>
+        <div class="p-col-1 inputItem-last">
+          <button type="button" pButton icon="pi pi-plus" (click)="showGtinDialog()"></button>
         </div>
 
       </div>

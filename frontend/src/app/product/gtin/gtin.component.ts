@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { GtinModel, BrickModel } from '../product.model';
-import { SelectItem, MessageService } from 'primeng/api';
+import { Component, OnInit, Inject } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
+import { SelectItem, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+
+import { GtinModel, BrickModel } from '../product.model';
+import { BrickComponent } from '../brick/brick.component';
 import { GtinService } from './gtin.service';
 import { BrickService } from '../brick/brick.service';
-import { NgForm } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { BrickComponent } from '../brick/brick.component';
 
 @Component({
   selector: 'app-gtin',
@@ -20,6 +22,8 @@ export class GtinComponent implements OnInit {
 
   idGtin: number;
 
+  noPopup = true;
+
   constructor(
     private route: ActivatedRoute,
     private gtinServices: GtinService,
@@ -28,7 +32,9 @@ export class GtinComponent implements OnInit {
     private dialogService: DialogService
   ) { }
 
+
   ngOnInit(): void {
+
     this.idGtin = Number(this.route.snapshot.paramMap.get('cod'));
 
     this.consult();
@@ -67,7 +73,7 @@ export class GtinComponent implements OnInit {
         .then((gtin: GtinModel) => {
           this.messageService.add(
             { severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: gtin.numero.toString() }
-            );
+          );
           this.idGtin = gtin.id;
           this.consult();
         })
@@ -80,7 +86,7 @@ export class GtinComponent implements OnInit {
         .then((gtin: GtinModel) => {
           this.messageService.add(
             { severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: gtin.numero.toString() }
-            );
+          );
           this.consult();
         })
         .catch(() => this.messageService.add(

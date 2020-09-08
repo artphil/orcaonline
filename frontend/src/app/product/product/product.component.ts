@@ -11,6 +11,7 @@ import { GtinService } from '../gtin/gtin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { GtinComponent } from '../gtin/gtin.component';
 import { NcmService } from '../ncm/ncm.service';
+import { NcmComponent } from '../ncm/ncm.component';
 
 @Component({
   selector: 'app-product',
@@ -124,9 +125,18 @@ export class ProductComponent implements OnInit {
       );
   }
 
-  showDialog(): void {
+  showNcmDialog(): void {
+    const ref = this.dialogService.open(NcmComponent, {
+      width: '50%'
+    });
+    ref.onClose.subscribe(() => this.consult());
+  }
+
+  showGtinDialog(): void {
     const ref = this.dialogService.open(GtinComponent, {
       width: '50%'
     });
+    ref.onClose.subscribe(() => this.consult());
   }
+
 }
