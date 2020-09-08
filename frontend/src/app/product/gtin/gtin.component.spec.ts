@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 
 import { GtinComponent } from './gtin.component';
 import { SharedModule } from './../../shared/shared.module';
+import { DialogService } from 'primeng/dynamicdialog';
 
 describe('GtinComponent', () => {
   let component: GtinComponent;
@@ -31,7 +32,7 @@ describe('GtinComponent', () => {
         ToastModule,
         SharedModule
       ],
-      providers: [MessageService,
+      providers: [MessageService, DialogService,
         {
           provide: ActivatedRoute,
           useValue: {

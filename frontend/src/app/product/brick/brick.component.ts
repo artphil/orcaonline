@@ -83,7 +83,6 @@ export class BrickComponent implements OnInit {
           { severity: 'error', summary: 'Falha ao Alterar Brick.', detail: 'Confira os campos e tente novamente' }
         ));
     }
-
   }
 
   clearBrick(form: NgForm): void {

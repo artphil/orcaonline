@@ -21,8 +21,8 @@ export class ProductListComponent implements OnInit {
   filter = new ProductFilterModel();
   productSegments: SelectItem[];
   productFamilies: SelectItem[];
-  productBricks: SelectItem[];
   productClasses: SelectItem[];
+  productBricks: SelectItem[];
 
   constructor(
     private router: Router,
@@ -88,11 +88,71 @@ export class ProductListComponent implements OnInit {
         ];
       });
 
-    this.productService.getList()
-      .then((productList: ProductModel[]) => {
-        this.products = productList;
-      })
-      .catch(() => []);
+    this.search();
+  }
+
+  search(query: any = {}): void {
+    if (this.filter.id) {
+      this.productService.getOne(this.filter.id)
+        .then((product: ProductModel) => {
+          this.products = [product];
+        })
+        .catch(() => []);
+    } else {
+      if (this.filter.nome) {
+        query.nome = this.filter.nome;
+      }
+
+      this.productService.getList()
+        .then((productList: ProductModel[]) => {
+          this.products = productList;
+        })
+        .catch(() => []);
+    }
+
+  }
+  searchBySegment(): void {
+    if (this.filter.segmento.id) {
+
+
+      const query = { segmento: { id: this.filter.segmento.id } };
+      this.search(query);
+    } else {
+      this.search();
+    }
+  }
+
+  searchByFamily(): void {
+    if (this.filter.familia.id) {
+
+
+      const query = { familia: { id: this.filter.familia.id } };
+      this.search(query);
+    } else {
+      this.search();
+    }
+  }
+
+  searchByClass(): void {
+    if (this.filter.classe.id) {
+
+
+      const query = { classe: { id: this.filter.classe.id } };
+      this.search(query);
+    } else {
+      this.search();
+    }
+  }
+
+  searchByBrick(): void {
+    if (this.filter.brick.id) {
+
+
+      const query = { brick: { id: this.filter.brick.id } };
+      this.search(query);
+    } else {
+      this.search();
+    }
   }
 
   editProduct(id: string): void {

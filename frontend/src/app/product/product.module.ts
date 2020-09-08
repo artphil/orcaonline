@@ -20,6 +20,7 @@ import { BrickComponent } from './brick/brick.component';
 import { ClassComponent } from './class/class.component';
 import { GtinComponent } from './gtin/gtin.component';
 import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { ProductService } from './product/product.service';
 import { SegmentService } from './segment/segment.service';
@@ -27,6 +28,8 @@ import { FamilyService } from './family/family.service';
 import { ClassService } from './class/class.service';
 import { BrickService } from './brick/brick.service';
 import { GtinService } from './gtin/gtin.service';
+import { NcmComponent } from './ncm/ncm.component';
+import { NcmService } from './ncm/ncm.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { GtinService } from './gtin/gtin.service';
     GtinComponent,
     DynamicDialogComponent,
     ClassComponent,
-    BrickComponent
+    BrickComponent,
+    NcmComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +54,7 @@ import { GtinService } from './gtin/gtin.service';
     TableModule,
     ToastModule,
     DynamicDialogModule,
+    AutoCompleteModule,
 
     SharedModule
   ],
@@ -61,6 +66,7 @@ import { GtinService } from './gtin/gtin.service';
     GtinService,
     ClassService,
     BrickService,
+    NcmService,
 
     DialogService
   ]

@@ -11,7 +11,7 @@
       <input type="text" pInputText name="id" [(ngModel)]="gtin.id" disabled>
     </div>
 
-    <div class="p-col-12  p-md-4 p-fluid">
+    <div class="p-col-12  p-md-9 p-fluid">
       <label>Número</label>
       <input type="text" pInputText name="numero" #gtinName="ngModel" [(ngModel)]="gtin.numero" required>
 
@@ -22,7 +22,7 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Brick</label>
       <div class="p-inputgroup">
-      <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id"
+      <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id" [filter]="true"
         placeholder="Selecione" required></p-dropdown>
         <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn" (click)="newBrick()"></button>
       </div>
@@ -30,7 +30,7 @@
       </app-msg-validation>
     </div>
 
-    <div class="p-col-12">
+    <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveGtin(gtinForm)"
         [disabled]="gtinForm.invalid"></p-button>
 

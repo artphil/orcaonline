@@ -12,6 +12,7 @@ import { FamilyComponent } from './product/family/family.component';
 import { ClassComponent } from './product/class/class.component';
 import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
+import { NcmComponent } from './product/ncm/ncm.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,6 +34,9 @@ const routes: Routes = [
 
   { path: 'pdt/gtn', component: GtinComponent },
   { path: 'pdt/gtn/:cod', component: GtinComponent },
+
+  { path: 'pdt/ncm', component: NcmComponent },
+  { path: 'pdt/ncm/:cod', component: NcmComponent },
 
   { path: 'pdt/:cod', component: ProductComponent }
 ];

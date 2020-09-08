@@ -1,0 +1,44 @@
+<form #ncmForm="ngForm">
+  <div class="p-grid">
+
+    <div class="p-col-12">
+      <h1 *ngIf="isNewNcm">Novo NCM</h1>
+      <h1 *ngIf="!isNewNcm">Editar NCM</h1>
+    </div>
+
+    <div class="p-col-6 p-md-3 p-fluid">
+      <label>Código</label>
+      <input type="text" pInputText name="id" [(ngModel)]="ncm.id" disabled>
+    </div>
+
+    <div class="p-col-12  p-md-9 p-fluid">
+      <label>Número</label>
+      <input type="text" pInputText name="numero" #ncmName="ngModel" [(ngModel)]="ncm.numero" required>
+
+      <app-msg-validation [control]="ncmName" error="required" text="Informe o numero do NCM.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Descrição</label>
+      <input type="text" pInputText name="descricao" #ncmDescription="ngModel" [(ngModel)]="ncm.descricao"
+        required>
+      <app-msg-validation [control]="ncmDescription" error="required" text="Informe descrição do do NCM.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 buttonGroup">
+      <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveNcm(ncmForm)"
+        [disabled]="ncmForm.invalid"></p-button>
+
+      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearNcm(ncmForm)"></p-button>
+
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeNcm(ncmForm)"
+        [disabled]="!ncm.id"></p-button>
+
+    </div>
+
+
+  </div>
+
+</form>

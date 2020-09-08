@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
+import { DialogService } from 'primeng/dynamicdialog';
 
 describe('BrickComponent', () => {
   let component: BrickComponent;
@@ -31,7 +32,7 @@ describe('BrickComponent', () => {
         ToastModule,
         SharedModule
       ],
-      providers: [MessageService,
+      providers: [MessageService, DialogService,
         {
           provide: ActivatedRoute,
           useValue: {

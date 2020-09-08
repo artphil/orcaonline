@@ -1,29 +1,29 @@
 <form #segmentForm="ngForm">
     <div class="p-grid">
-  
+
       <div class="p-col-12">
         <h1 *ngIf="isNewSegment">Novo Segmento</h1>
         <h1 *ngIf="!isNewSegment">Editar Segmento</h1>
       </div>
-  
+
       <div class="p-col-6 p-md-3 p-fluid">
         <label>Código</label>
         <input type="text" pInputText name="id" [(ngModel)]="segment.id" disabled>
       </div>
-  
+
       <div class="p-col-12 p-fluid">
         <label>Nome</label>
         <input type="text" pInputText name="nome" #segmentName="ngModel" [(ngModel)]="segment.nome" required
           minlength="4">
-  
+
         <app-msg-validation [control]="segmentName" error="required" text="Informe o nome do Segmento.">
         </app-msg-validation>
-  
+
         <app-msg-validation [control]="segmentName" error="minlength"
           text="O nome do Segmento deve ter no mínimo {{ segmentName.errors?.minlength?.requiredLength }} caracteres.">
         </app-msg-validation>
       </div>
-  
+
       <div class="p-col-12 p-fluid">
         <label>Descrição</label>
         <input type="text" pInputText name="descricao" #segmentDescription="ngModel" [(ngModel)]="segment.descricao"
@@ -31,19 +31,19 @@
         <app-msg-validation [control]="segmentDescription" error="required" text="Informe descrição do do Segmento.">
         </app-msg-validation>
       </div>
-  
-      <div class="p-col-12">
+
+      <div class="p-col-12 buttonGroup">
         <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveSegment(segmentForm)"
           [disabled]="segmentForm.invalid"></p-button>
-  
+
         <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearSegment(segmentForm)"></p-button>
-  
+
         <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeSegment(segmentForm)"
           [disabled]="!segment.id"></p-button>
-  
+
       </div>
-  
-  
+
+
     </div>
-  
+
   </form>

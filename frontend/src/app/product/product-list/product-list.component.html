@@ -1,4 +1,4 @@
-<form #productListForm="ngForm">
+<form #productListForm="ngForm" (keyup.enter)=search()>
 	<div class="p-grid">
 
 		<div class="p-col-12">
@@ -17,25 +17,25 @@
 
 		<div class="p-col-12 p-md-3 p-fluid">
 			<label>Segmentos</label>
-			<p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel"
+			<p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel" [filter]="true" (change)=searchBySegment()
 				[(ngModel)]="filter.segmento"></p-dropdown>
 		</div>
 
 		<div class="p-col-12 p-md-3 p-fluid">
 			<label>Família</label>
-			<p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel"
+			<p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel" [filter]="true" (change)=searchByFamily()
 				[(ngModel)]="filter.familia"></p-dropdown>
 		</div>
 
 		<div class="p-col-12 p-md-3 p-fluid">
 			<label>Classe</label>
-			<p-dropdown [options]="productClasses" name="classe" #productClass="ngModel"
+			<p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [filter]="true" (change)=searchByClass()
 				[(ngModel)]="filter.classe"></p-dropdown>
 		</div>
 
 		<div class="p-col-12 p-md-3 p-fluid">
 			<label>Brick</label>
-			<p-dropdown [options]="productBricks" name="brick" #productBrick="ngModel"
+			<p-dropdown [options]="productBricks" name="brick" #productBrick="ngModel" [filter]="true" (change)=searchByBrick()
 				[(ngModel)]="filter.brick"></p-dropdown>
 		</div>
 
@@ -63,6 +63,5 @@
 				</tr>
 			</ng-template>
 		</p-table>
-
 	</div>
 </form>

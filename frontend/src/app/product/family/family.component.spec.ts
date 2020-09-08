@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { FamilyComponent } from './family.component';
 import { SharedModule } from './../../shared/shared.module';
+import { DialogService } from 'primeng/dynamicdialog';
 
 describe('FamilyComponent', () => {
   let component: FamilyComponent;
@@ -31,7 +32,7 @@ describe('FamilyComponent', () => {
         ToastModule,
         SharedModule
       ],
-      providers: [MessageService,
+      providers: [MessageService, DialogService,
         {
           provide: ActivatedRoute,
           useValue: {

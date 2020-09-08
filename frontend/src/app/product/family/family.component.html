@@ -35,7 +35,7 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Segmento</label>
       <div class="p-inputgroup">
-      <p-dropdown [options]="familySegments" name="segment" #familySegment="ngModel" [(ngModel)]="family.segmento.id"
+      <p-dropdown [options]="familySegments" name="segment" #familySegment="ngModel" [(ngModel)]="family.segmento.id" [filter]="true"
         placeholder="Selecione" required></p-dropdown>
         <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newSegment()"></button>
       </div>
@@ -43,7 +43,7 @@
       </app-msg-validation>
     </div>
 
-    <div class="p-col-12">
+    <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveFamily(familyForm)"
         [disabled]="familyForm.invalid"></p-button>
 

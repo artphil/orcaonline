@@ -35,7 +35,7 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Classe</label>
       <div class="p-inputgroup">
-      <p-dropdown [options]="brickClasses" name="class" #brickclass="ngModel" [(ngModel)]="brick.classe.id"
+      <p-dropdown [options]="brickClasses" name="class" #brickclass="ngModel" [(ngModel)]="brick.classe.id" [filter]="true"
         placeholder="Selecione" required></p-dropdown>
         <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newClass()"></button>
       </div>
@@ -43,7 +43,7 @@
       </app-msg-validation>
     </div>
 
-    <div class="p-col-12">
+    <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveBrick(brickForm)"
         [disabled]="brickForm.invalid"></p-button>
 

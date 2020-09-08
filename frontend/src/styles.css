@@ -20,7 +20,10 @@ label {
 	}
 }
 
-.p-fluid p-dropdown {
+.p-fluid p-dropdown{
   width: 100%;
 }
 
+.buttonGroup p-button {
+  margin-right: 10px;
+}

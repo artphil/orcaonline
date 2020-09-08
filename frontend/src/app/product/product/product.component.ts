@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectItem } from 'primeng/api/selectitem';
 import { MessageService } from 'primeng/api';
 
-import { ProductModel, GtinModel } from '../product.model';
+import { ProductModel, GtinModel, NcmModel } from '../product.model';
 import { ProductService } from './product.service';
 import { GtinService } from '../gtin/gtin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { GtinComponent } from '../gtin/gtin.component';
+import { NcmService } from '../ncm/ncm.service';
 
 @Component({
   selector: 'app-product',
@@ -28,6 +29,7 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
+    private ncmService: NcmService,
     private gtinService: GtinService,
     private messageService: MessageService,
     private dialogService: DialogService
@@ -38,15 +40,23 @@ export class ProductComponent implements OnInit {
 
     this.consult();
 
-    this.productNCMs = [
-      { label: 'NCM 1', value: 'Teste1' },
-      { label: 'NCM 2', value: 'Teste2' }
-    ];
+    this.ncmService.getList()
+    .then((ncmList: NcmModel[]) => {
+      this.productNCMs = [];
+      ncmList.forEach( item => {
+        this.productNCMs.push({ label: item.numero.toString(), value: item.id });
+      });
+    })
+    .catch(() => {
+      this.productNCMs = [
+        { label: 'Nenhum NCM cadastrado', value: {} }
+      ];
+    });
 
     this.gtinService.getList()
-      .then((segmentList: GtinModel[]) => {
+      .then((gtinList: GtinModel[]) => {
         this.productGTINs = [];
-        segmentList.forEach( item => {
+        gtinList.forEach( item => {
           this.productGTINs.push({ label: item.numero.toString(), value: item.id });
         });
       })
@@ -55,7 +65,6 @@ export class ProductComponent implements OnInit {
           { label: 'Nenhum GTIN cadastrado', value: {} }
         ];
       });
-
 
   }
 

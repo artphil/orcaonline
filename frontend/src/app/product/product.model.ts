@@ -99,3 +99,14 @@ export class SegmentModel {
     this.descricao = null;
   }
 }
+
+export class NcmModel {
+  id: number;
+  numero: number;
+  descricao: string;
+
+  constructor() {
+    this.id = null;
+    this.descricao = null;
+  }
+}
