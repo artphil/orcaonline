@@ -2,8 +2,8 @@
   <div class="p-grid">
 
     <div class="p-col-12">
-      <h1 *ngIf="isNewClass">Nova Classe</h1>
-      <h1 *ngIf="!isNewClass">Editar Classe</h1>
+      <h1 *ngIf="!idClass">Nova Classe</h1>
+      <h1 *ngIf="idClass">Editar Classe</h1>
     </div>
 
     <div class="p-col-6 p-md-3 p-fluid">
@@ -13,8 +13,7 @@
 
     <div class="p-col-12 p-fluid">
       <label>Nome</label>
-      <input type="text" pInputText name="nome" #className="ngModel" [(ngModel)]="pClass.nome" required
-        minlength="4">
+      <input type="text" pInputText name="nome" #className="ngModel" [(ngModel)]="pClass.nome" required minlength="4">
 
       <app-msg-validation [control]="className" error="required" text="Informe o nome da Classe.">
       </app-msg-validation>
@@ -34,11 +33,19 @@
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Família</label>
-      <div class="p-inputgroup">
-      <p-dropdown [options]="classFamilies" name="family" #classFamily="ngModel" [(ngModel)]="pClass.familia.id" [filter]="true"
-        placeholder="Selecione" required></p-dropdown>
-        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newFamily()"></button>
+      <div class="p-grid inputGroup">
+
+        <div class="p-col inputItem-first">
+          <p-dropdown [options]="classFamilies" name="family" #classFamily="ngModel" [(ngModel)]="pClass.familia.id"
+            [filter]="true" placeholder="Selecione" required></p-dropdown>
+        </div>
+
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"
+            (click)="newFamily()"></button>
+        </div>
       </div>
+
       <app-msg-validation [control]="classFamily" error="required" text="Informe a família da Classe.">
       </app-msg-validation>
     </div>
@@ -49,8 +56,8 @@
 
       <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearClass(classForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeClass(classForm)"
-        [disabled]="!pClass.id"></p-button>
+      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeClass(classForm)" [disabled]="!pClass.id">
+      </p-button>
 
     </div>
 

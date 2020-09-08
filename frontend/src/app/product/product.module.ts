@@ -59,6 +59,7 @@ import { NcmService } from './ncm/ncm.service';
     SharedModule
   ],
   exports: [],
+  entryComponents: [ClassComponent],
   providers: [
     ProductService,
     SegmentService,

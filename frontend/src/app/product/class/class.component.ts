@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ClassModel, FamilyModel } from '../product.model';
-import { SelectItem, MessageService } from 'primeng/api';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { SelectItem, MessageService } from 'primeng/api';
+import { DialogService} from 'primeng/dynamicdialog';
+
+import { ClassModel, FamilyModel } from '../product.model';
+import { FamilyComponent } from '../family/family.component';
 import { ClassService } from './class.service';
 import { FamilyService } from '../family/family.service';
-import { NgForm } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { FamilyComponent } from '../family/family.component';
 
 @Component({
   selector: 'app-class',
@@ -14,11 +16,11 @@ import { FamilyComponent } from '../family/family.component';
   styleUrls: ['./class.component.css']
 })
 export class ClassComponent implements OnInit {
-  pClass: ClassModel;
+  pClass = new ClassModel();
   classFamilies: SelectItem[];
 
-  isNewClass: boolean;
   idClass: number;
+  @Input() isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +28,7 @@ export class ClassComponent implements OnInit {
     private classService: ClassService,
     private familyService: FamilyService,
     private messageService: MessageService,
-    private dialogService: DialogService,
+    public dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class ClassComponent implements OnInit {
     this.familyService.getList()
       .then((familyList: FamilyModel[]) => {
         this.classFamilies = [];
-        familyList.forEach( f => {
+        familyList.forEach(f => {
           this.classFamilies.push({ label: f.nome, value: f.id });
         });
       })
@@ -51,9 +53,7 @@ export class ClassComponent implements OnInit {
   }
 
   consult(): void {
-    this.isNewClass = !this.idClass;
-
-    if (this.isNewClass) {
+    if (!this.idClass) {
       this.pClass = new ClassModel();
     } else {
       this.classService.getOne(this.idClass)
@@ -67,7 +67,7 @@ export class ClassComponent implements OnInit {
   }
 
   saveClass(form: NgForm): void {
-    if (this.isNewClass) {
+    if (!this.idClass) {
       this.classService.create(this.pClass)
         .then((clasItem: ClassModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: clasItem.nome });
@@ -97,12 +97,12 @@ export class ClassComponent implements OnInit {
       .then(() => {
         this.messageService.add(
           { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idClass} não pode mais ser acessado` }
-          );
+        );
         this.router.navigateByUrl('/pdt/cls');
       })
       .catch(() => this.messageService.add(
         { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-        )
+      )
       );
   }
 

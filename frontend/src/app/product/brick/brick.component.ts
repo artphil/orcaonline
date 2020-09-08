@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { BrickModel, ClassModel } from '../product.model';
-import { SelectItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { SelectItem, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+
+import { BrickModel, ClassModel } from '../product.model';
+import { ClassComponent } from '../class/class.component';
 import { BrickService } from './brick.service';
 import { ClassService } from '../class/class.service';
-import { NgForm } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ClassComponent } from '../class/class.component';
 
 @Component({
   selector: 'app-brick',
@@ -32,7 +34,11 @@ export class BrickComponent implements OnInit {
     this.idBrick = Number(this.route.snapshot.paramMap.get('cod'));
 
     this.consult();
+    this.getClasses();
 
+  }
+
+  getClasses(): void {
     this.classServices.getList()
       .then((classList: ClassModel[]) => {
         this.brickClasses = [];
@@ -107,9 +113,10 @@ export class BrickComponent implements OnInit {
 
   newClass(): void {
     const ref = this.dialogService.open(ClassComponent, {
+      data: { popup: true },
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult());
+    ref.onClose.subscribe(() => this.getClasses());
   }
 
 }
