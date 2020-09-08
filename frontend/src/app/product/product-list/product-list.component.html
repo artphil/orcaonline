@@ -18,25 +18,29 @@
     <div class="p-col-12 p-md-3 p-fluid">
       <label>Segmentos</label>
       <p-dropdown [options]="productSegments" name="segmento" #productSegment="ngModel" [filter]="true"
-        (change)=searchBySegment() [(ngModel)]="filter.segmento"></p-dropdown>
+        (onChange)=searchBySegment() [(ngModel)]="filter.segmento"></p-dropdown>
     </div>
 
     <div class="p-col-12 p-md-3 p-fluid">
       <label>Família</label>
       <p-dropdown [options]="productFamilies" name="familia" #productFamily="ngModel" [filter]="true"
-        (change)=searchByFamily() [(ngModel)]="filter.familia"></p-dropdown>
+        (onChange)=searchByFamily() [(ngModel)]="filter.familia"></p-dropdown>
     </div>
 
     <div class="p-col-12 p-md-3 p-fluid">
       <label>Classe</label>
       <p-dropdown [options]="productClasses" name="classe" #productClass="ngModel" [filter]="true"
-        (change)=searchByClass() [(ngModel)]="filter.classe"></p-dropdown>
+        (onChange)=searchByClass() [(ngModel)]="filter.classe"></p-dropdown>
     </div>
 
     <div class="p-col-12 p-md-3 p-fluid">
       <label>Brick</label>
       <p-dropdown [options]="productBricks" name="brick" #productBrick="ngModel" [filter]="true"
-        (change)=searchByBrick() [(ngModel)]="filter.brick"></p-dropdown>
+        (onChange)=searchByBrick() [(ngModel)]="filter.brick"></p-dropdown>
+    </div>
+
+    <div class="p-col-2 p-md-2 p-fluid">
+      <p-button styleClass="p-button-prymary" label="Pesquisar" (onClick)="search()"></p-button>
     </div>
 
     <p-table [value]="products" [responsive]="true" [rows]="10" [paginator]="true">
