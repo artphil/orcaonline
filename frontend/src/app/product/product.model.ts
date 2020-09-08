@@ -1,3 +1,4 @@
+//Todas as classes
 export class ProductFilterModel {
   id: number;
   nome: string;
