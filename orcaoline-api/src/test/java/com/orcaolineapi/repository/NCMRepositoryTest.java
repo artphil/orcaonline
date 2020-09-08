@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
@@ -29,8 +30,7 @@ import com.orcaolineapi.repository.produto.NCMRepository;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.repository.produto.BrickRepository;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class NCMRepositoryTest {
 	

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -23,8 +25,7 @@ import com.orcaolineapi.repository.produto.ClasseRepository;
 import com.orcaolineapi.repository.produto.FamiliaRepository;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class ClasseRepositoryTest {
 
@@ -86,17 +87,18 @@ public class ClasseRepositoryTest {
 	}
 	
 	@Test
-	public void saveClasseWithInvalidIdSegmentoShouldThrowsConstraintViolationException() {
+	public void saveClasseWithInvalidIdSegmentoShouldThrowsDataIntegrityViolationException() {
 		
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {	
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {	
 			Familia fam = validFamilia();
+			fam.setId(Long.valueOf(999999999));
 			//falta codigo aqui para mudar o id para um invalido
 			Classe cla = new Classe("Nome da Classe", "Descricao da Classe", fam);
 			this.repositoryC.save(cla);
 			
 		});
 		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
+		assertEquals("could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement", exception.getMessage());
 	}
 	
 	@Test

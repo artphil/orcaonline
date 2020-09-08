@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -26,8 +28,7 @@ import com.orcaolineapi.repository.produto.FamiliaRepository;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.repository.produto.BrickRepository;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class BrickRepositoryTest {
 
@@ -98,17 +99,18 @@ public class BrickRepositoryTest {
 	}
 	
 	@Test
-	public void saveBrickWithInvalidIdBrickShouldThrowsConstraintViolationException() {
+	public void saveBrickWithInvalidIdClasseShouldThrowsDataIntegrityViolationException() {
 		
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {	
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {	
 			Classe cla = validClasse();
+			cla.setId(Long.valueOf(999999999));
 			//falta codigo aqui para mudar o id para um invalido
 			Brick bri = new Brick("Nome do Brick", "Descricao do Brick", cla);
 			this.repositoryB.save(bri);
 			
 		});
 		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
+		assertEquals("could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement", exception.getMessage());
 	}
 	
 	@Test
