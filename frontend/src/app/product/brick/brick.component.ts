@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { BrickModel, ClassModel } from '../product.model';
-import { SelectItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { SelectItem, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+
+import { BrickModel, ClassModel } from '../product.model';
+import { ClassComponent } from '../class/class.component';
 import { BrickService } from './brick.service';
 import { ClassService } from '../class/class.service';
-import { NgForm } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ClassComponent } from '../class/class.component';
 
 @Component({
   selector: 'app-brick',
@@ -19,6 +21,7 @@ export class BrickComponent implements OnInit {
   brickClasses: SelectItem[];
 
   idBrick: number;
+  isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +35,11 @@ export class BrickComponent implements OnInit {
     this.idBrick = Number(this.route.snapshot.paramMap.get('cod'));
 
     this.consult();
+    this.getClasses();
 
+  }
+
+  getClasses(): void {
     this.classServices.getList()
       .then((classList: ClassModel[]) => {
         this.brickClasses = [];
@@ -69,9 +76,10 @@ export class BrickComponent implements OnInit {
           this.idBrick = brick.id;
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Salvar Brick.', detail: 'Confira os campos e tente novamente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Salvar Brick.', detail: msg });
+        });
     }
     else {
       this.brickServices.update(this.brick)
@@ -79,9 +87,10 @@ export class BrickComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: brick.nome });
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Alterar Brick.', detail: 'Confira os campos e tente novamente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Brick.', detail: msg });
+        });
     }
   }
 
@@ -95,21 +104,22 @@ export class BrickComponent implements OnInit {
     this.brickServices.delete(this.idBrick)
       .then(() => {
         this.messageService.add(
-          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idBrick} não pode mais ser acessado` }
+          { severity: 'success', summary: 'Brick Excluido com Sucesso.', detail: `O id ${this.idBrick} não pode mais ser acessado` }
         );
         this.clearBrick(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Brick.', detail: msg });
+      });
   }
 
   newClass(): void {
     const ref = this.dialogService.open(ClassComponent, {
+      data: { popup: true },
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult());
+    ref.onClose.subscribe(() => this.getClasses());
   }
 
 }

@@ -3,19 +3,15 @@ export class ProductFilterModel {
   id: number;
   nome: string;
   descricao: string;
-  ncm: string;
-  gtin: GtinModel;
-  brick: BrickModel;
-  classe: ClassModel;
-  familia: FamilyModel;
-  segmento: SegmentModel;
+  ncm: number;
+  gtin: number;
+  brick: number;
+  classe: number;
+  familia: number;
+  segmento: number;
 
   constructor(){
-    this.gtin = new GtinModel();
-    this.brick = new BrickModel();
-    this.classe = new ClassModel();
-    this.familia = new FamilyModel();
-    this.segmento = new SegmentModel();
+
   }
 }
 
@@ -108,6 +104,7 @@ export class NcmModel {
 
   constructor() {
     this.id = null;
+    this.numero = null;
     this.descricao = null;
   }
 }

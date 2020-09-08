@@ -94,9 +94,10 @@ export class GtinComponent implements OnInit {
           this.idGtin = gtin.id;
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Salvar Gtin.', detail: 'Confira os campos e tente novamente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Salvar Gtin.', detail: msg });
+        });
     }
     else {
       this.gtinServices.update(this.gtin)
@@ -106,9 +107,10 @@ export class GtinComponent implements OnInit {
           );
           this.consult();
         })
-        .catch(() => this.messageService.add(
-          { severity: 'error', summary: 'Falha ao Alterar Gtin.', detail: 'Confira os campos e tente novamente' }
-        ));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Gtin.', detail: msg });
+        });
     }
 
   }
@@ -127,10 +129,10 @@ export class GtinComponent implements OnInit {
         );
         this.clearGtin(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-      )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Produto.', detail: msg });
+      });
   }
 
   newBrick(): void {

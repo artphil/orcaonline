@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ClassModel, FamilyModel } from '../product.model';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
 import { SelectItem, MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+
+import { ClassModel, FamilyModel } from '../product.model';
+import { FamilyComponent } from '../family/family.component';
 import { ClassService } from './class.service';
 import { FamilyService } from '../family/family.service';
-import { NgForm } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
-import { FamilyComponent } from '../family/family.component';
 
 @Component({
   selector: 'app-class',
@@ -14,30 +16,32 @@ import { FamilyComponent } from '../family/family.component';
   styleUrls: ['./class.component.css']
 })
 export class ClassComponent implements OnInit {
-  pClass: ClassModel;
+  pClass = new ClassModel();
   classFamilies: SelectItem[];
 
-  isNewClass: boolean;
   idClass: number;
+  @Input() isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private classService: ClassService,
     private familyService: FamilyService,
     private messageService: MessageService,
-    private dialogService: DialogService,
+    public dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
     this.idClass = Number(this.route.snapshot.paramMap.get('cod'));
 
     this.consult();
+    this.getFamilies();
+  }
 
+  getFamilies(): void {
     this.familyService.getList()
       .then((familyList: FamilyModel[]) => {
         this.classFamilies = [];
-        familyList.forEach( f => {
+        familyList.forEach(f => {
           this.classFamilies.push({ label: f.nome, value: f.id });
         });
       })
@@ -47,13 +51,10 @@ export class ClassComponent implements OnInit {
         ];
       });
 
-
   }
 
   consult(): void {
-    this.isNewClass = !this.idClass;
-
-    if (this.isNewClass) {
+    if (!this.idClass) {
       this.pClass = new ClassModel();
     } else {
       this.classService.getOne(this.idClass)
@@ -67,13 +68,17 @@ export class ClassComponent implements OnInit {
   }
 
   saveClass(form: NgForm): void {
-    if (this.isNewClass) {
+    if (!this.idClass) {
       this.classService.create(this.pClass)
         .then((clasItem: ClassModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: clasItem.nome });
-          this.router.navigateByUrl(`/pdt/cls/${clasItem.id}`);
+          this.idClass = clasItem.id;
+          this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Classe.', detail: msg });
+        });
     }
     else {
       this.classService.update(this.pClass)
@@ -81,7 +86,10 @@ export class ClassComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: clasItem.nome });
           this.consult();
         })
-        .catch(() => alert('Solicitação não concluida.'));
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Classe.', detail: msg });
+        });
     }
 
   }
@@ -89,28 +97,28 @@ export class ClassComponent implements OnInit {
   clearClass(form: NgForm): void {
     form.reset();
     this.pClass = new ClassModel();
-    this.router.navigateByUrl('/pdt/cls');
+    this.idClass = null;
   }
 
   removeClass(form: NgForm): void {
     this.classService.delete(this.idClass)
       .then(() => {
         this.messageService.add(
-          { severity: 'success', summary: 'Produto Excluido com Sucesso.', detail: `O id ${this.idClass} não pode mais ser acessado` }
-          );
-        this.router.navigateByUrl('/pdt/cls');
+          { severity: 'success', summary: 'Classe Excluida com Sucesso.', detail: `O id ${this.idClass} não pode mais ser acessado` }
+        );
+        this.clearClass(form);
       })
-      .catch(() => this.messageService.add(
-        { severity: 'error', summary: 'Falha ao Excluir Produto.', detail: 'Id protegido ou inexistente' }
-        )
-      );
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Classe.', detail: msg });
+      });
   }
 
   newFamily(): void {
     const ref = this.dialogService.open(FamilyComponent, {
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult);
+    ref.onClose.subscribe(() => this.getFamilies());
   }
 
 }
