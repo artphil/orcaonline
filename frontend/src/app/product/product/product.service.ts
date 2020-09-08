@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -10,11 +10,9 @@ export class ProductService {
   //apiPath = 'http://45.80.152.3:8080/produtos';
   apiPath: string;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8'
-    })
-  };
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json; charset=utf-8'
+  });
 
   constructor(private http: HttpClient) {
     this.apiPath = `${environment.apiUrl}/produtos`;
@@ -22,35 +20,58 @@ export class ProductService {
 
   getOne(code: number = null): Promise<any> {
 
-    return this.http.get<any>(`${this.apiPath}/${code}`, this.httpOptions)
+    return this.http.get<any>(`${this.apiPath}/${code}`, { headers: this.headers })
       .toPromise()
       .then(res => res);
   }
 
-  getList(): Promise<any> {
+  getList(query: any = null): Promise<any> {
+    let urlPath = this.apiPath;
+    let params = new HttpParams();
 
-    return this.http.get<any>(this.apiPath, this.httpOptions)
+    if (query) {
+      urlPath += '/pesquisa?resumo';
+
+      if (query.nome) {
+        params = params.append('nome', query.nome);
+      }
+      if (query.segmento.id) {
+        params = params.append('segmento', query.segmento.id);
+      }
+      if (query.familia.id) {
+        params = params.append('familia', query.familia.id);
+      }
+      if (query.classe.id) {
+        params = params.append('classe', query.classe.id);
+      }
+      if (query.brick.id) {
+        params = params.append('brick', query.brick.id);
+      }
+
+    }
+
+    return this.http.get<any>(urlPath, { params, headers: this.headers })
       .toPromise()
       .then(res => res);
   }
 
   create(data: any): Promise<any> {
 
-    return this.http.post<any>(this.apiPath, data, this.httpOptions)
+    return this.http.post<any>(this.apiPath, data, { headers: this.headers })
       .toPromise()
       .then(res => res);
   }
 
   update(data: any): Promise<any> {
 
-    return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
+    return this.http.put<any>(`${this.apiPath}/${data.id}`, data, { headers: this.headers })
       .toPromise()
       .then(res => res);
   }
 
   delete(code: number): Promise<void> {
 
-    return this.http.delete(`${this.apiPath}/${code}`, this.httpOptions)
+    return this.http.delete(`${this.apiPath}/${code}`, { headers: this.headers })
       .toPromise()
       .then(() => null);
   }
