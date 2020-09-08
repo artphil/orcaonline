@@ -7,28 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.validation.ConstraintViolationException;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.context.ActiveProfiles;
 
-import com.orcaolineapi.modelo.produto.Classe;
-import com.orcaolineapi.modelo.produto.Familia;
 import com.orcaolineapi.modelo.produto.NCM;
-import com.orcaolineapi.modelo.produto.Segmento;
-import com.orcaolineapi.modelo.produto.Brick;
-import com.orcaolineapi.repository.produto.BrickRepository;
-import com.orcaolineapi.repository.produto.ClasseRepository;
-import com.orcaolineapi.repository.produto.FamiliaRepository;
 import com.orcaolineapi.repository.produto.NCMRepository;
-import com.orcaolineapi.repository.produto.SegmentoRepository;
-import com.orcaolineapi.repository.produto.BrickRepository;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

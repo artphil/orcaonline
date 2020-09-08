@@ -3,6 +3,9 @@ package com.orcaolineapi.resource.produto;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class SegmentoResourceTest {
 	
 	private @MockBean SegmentoService service;
 	
+	private @MockBean HttpServletResponse response;
+	
 	@BeforeEach
 	public void setup() {
 		standaloneSetup(this.resource);
@@ -36,7 +41,7 @@ public class SegmentoResourceTest {
 	
 	//nomeDoMetodo / resultadoEsperado / emQueSituação 
 	@Test
-	public void teste() {
+	public void getById_Sucesso_BuscarUmRecursoExistente() {
 	
 		Segmento seg = new Segmento("fdsfsa", "dsfsafas");
 		seg.setId(1L);
@@ -49,6 +54,19 @@ public class SegmentoResourceTest {
 			.get("/segmentos/{id}", 1L)
 		.then()
 			.statusCode(HttpStatus.OK.value());
+		
+	}
+	
+	@Test
+	public void getById_Falha_BuscarUmRecursoInexistente() {
+		when(this.repository.findById(1L)).thenReturn(null);
+		
+		given()
+			.accept(ContentType.JSON)
+		.when()
+			.get("/segmentos/{id}", 140L)
+		.then()
+			.statusCode(HttpStatus.NOT_FOUND.value());
 		
 	}
 	
