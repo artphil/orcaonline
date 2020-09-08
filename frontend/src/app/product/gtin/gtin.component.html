@@ -20,6 +20,17 @@
     </div>
 
     <div class="p-col-12 p-md-4 p-fluid">
+      <label>Classe</label>
+      <div class="p-inputgroup">
+      <p-dropdown [options]="gtinClasses" name="class" #brickclass="ngModel" [(ngModel)]="gtin.brick.classe.id"
+        placeholder="Selecione" required></p-dropdown>
+        <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newClass()"></button>
+      </div>
+      <app-msg-validation [control]="brickclass" error="required" text="Informe a família da Brick.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
       <label>Brick</label>
       <div class="p-grid inputgroup">
 
