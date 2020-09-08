@@ -1,22 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { GtinModel, BrickModel, ClassModel } from '../product.model';
-import { SelectItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
-import { GtinService } from './gtin.service';
-import { BrickService } from '../brick/brick.service';
-import { ClassService } from '../class/class.service';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
-import { GtinModel, BrickModel } from '../product.model';
+import { GtinModel, BrickModel, ClassModel } from '../product.model';
 import { BrickComponent } from '../brick/brick.component';
+import { ClassComponent } from '../class/class.component';
+import { ClassService } from '../class/class.service';
 import { GtinService } from './gtin.service';
 import { BrickService } from '../brick/brick.service';
-import { ClassComponent } from '../class/class.component';
 
 @Component({
   selector: 'app-gtin',
@@ -62,7 +56,7 @@ export class GtinComponent implements OnInit {
         ];
       });
 
-      this.classServices.getList()
+    this.classServices.getList()
       .then((classList: ClassModel[]) => {
         this.gtinClasses = [];
         classList.forEach(item => {
@@ -148,7 +142,7 @@ export class GtinComponent implements OnInit {
 
   newClass(): void {
     const ref = this.dialogService.open(ClassComponent, {
-      
+
       width: '50%'
     });
     ref.onClose.subscribe(() => this.consult());
