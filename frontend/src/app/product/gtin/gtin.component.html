@@ -22,22 +22,22 @@
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Família</label>
       <div class="p-inputgroup">
-      <p-dropdown [options]="gtinFamilies" name="familia" #gtinfamilies="ngModel" [(ngModel)]="gtin.brick.classe.familia.id"
-        placeholder="Selecione" required></p-dropdown>
+      <p-dropdown [options]="gtinFamilies" name="familia" #gtinFamily="ngModel" [(ngModel)]="gtin.brick.classe.familia.id"
+      [filter]="true" placeholder="Selecione" required></p-dropdown>
         <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newFamily()"></button>
       </div>
-      <app-msg-validation [control]="gtinFamilies" error="required" text="Informe a família da Brick.">
+      <app-msg-validation [control]="gtinFamily" error="required" text="Informe a família da Brick.">
       </app-msg-validation>
     </div>
 
     <div class="p-col-12 p-md-4 p-fluid">
       <label>Classe</label>
       <div class="p-inputgroup">
-      <p-dropdown [options]="gtinClasses" name="classe" #gtinclasses="ngModel" [(ngModel)]="gtin.brick.classe.id"
-        placeholder="Selecione" required></p-dropdown>
+      <p-dropdown [options]="gtinClasses" name="classe" #gtinClass="ngModel" [(ngModel)]="gtin.brick.classe.id"
+      [filter]="true" placeholder="Selecione" required></p-dropdown>
         <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="newClass()"></button>
       </div>
-      <app-msg-validation [control]="gtinClasses" error="required" text="Informe a família da Brick.">
+      <app-msg-validation [control]="gtinClass" error="required" text="Informe a família da Brick.">
       </app-msg-validation>
     </div>
 
@@ -45,8 +45,8 @@
       <label>Brick</label>
       <div class="p-grid inputgroup">
 
-        <div class="p-col" [ngClass]="{ 'inputItem-first': noPopup }">
-          <p-dropdown [options]="gtinBricks" name="brick" #gtinBricks="ngModel" [(ngModel)]="gtin.brick.id"
+        <div class="p-col inputItem-first">
+          <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id"
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
@@ -55,7 +55,7 @@
             (click)="newBrick()"></button>
         </div>
       </div>
-      <app-msg-validation [control]="gtinBricks" error="required" text="Informe o Brick da Gtin.">
+      <app-msg-validation [control]="gtinBrick" error="required" text="Informe o Brick da Gtin.">
       </app-msg-validation>
     </div>
 

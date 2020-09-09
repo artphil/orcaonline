@@ -34,7 +34,7 @@ export class GtinComponent implements OnInit {
     private gtinServices: GtinService,
     private brickServices: BrickService,
     private classServices: ClassService,
-    private familyServices: ClassService,
+    private familyServices: FamilyService,
     private messageService: MessageService,
     private dialogService: DialogService
   ) { }
@@ -71,10 +71,11 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhum Segmento cadastrado', value: null }
         ];
       });
-      this.familyServices.getList()
+
+    this.familyServices.getList()
       .then((familyList: FamilyModel[]) => {
         this.gtinFamilies = [];
-        familyList.forEach( f => {
+        familyList.forEach(f => {
           this.gtinFamilies.push({ label: f.nome, value: f.id });
         });
       })
@@ -83,7 +84,7 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhuma Familia cadastrada', value: null }
         ];
       });
-    
+
 
   }
 
