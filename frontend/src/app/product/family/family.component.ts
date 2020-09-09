@@ -118,7 +118,7 @@ export class FamilyComponent implements OnInit {
       width: '50%'
     });
 
-    ref.onClose.subscribe(() => this.getSegments());
+    ref.onClose.subscribe(() => this.consult());
   }
 
 }

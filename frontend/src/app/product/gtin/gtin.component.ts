@@ -3,12 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { GtinModel, BrickModel, ClassModel, FamilyModel } from '../product.model';
+import { GtinModel, BrickModel, ClassModel, FamilyModel, SegmentModel } from '../product.model';
 import { BrickComponent } from '../brick/brick.component';
 import { ClassComponent } from '../class/class.component';
 import { FamilyComponent } from '../family/family.component';
+import { SegmentComponent } from '../segment/segment.component';
 import { ClassService } from '../class/class.service';
 import { GtinService } from './gtin.service';
+import { SegmentService } from '../segment/segment.service';
 import { BrickService } from '../brick/brick.service';
 import { FamilyService } from '../family/family.service';
 
@@ -24,6 +26,7 @@ export class GtinComponent implements OnInit {
   gtinBricks: SelectItem[];
   gtinClasses: SelectItem[];
   gtinFamilies: SelectItem[];
+  gtinSegments: SelectItem[];
 
   idGtin: number;
 
@@ -35,6 +38,7 @@ export class GtinComponent implements OnInit {
     private brickServices: BrickService,
     private classServices: ClassService,
     private familyServices: FamilyService,
+    private segmentServices: SegmentService,
     private messageService: MessageService,
     private dialogService: DialogService
   ) { }
@@ -84,6 +88,19 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhuma Familia cadastrada', value: null }
         ];
       });
+      this.segmentServices.getList()
+      .then((segmentList: SegmentModel[]) => {
+        this.gtinSegments = [];
+        segmentList.forEach(item => {
+          this.gtinSegments.push({ label: item.nome, value: item.id });
+        });
+      })
+      .catch(() => {
+        this.gtinSegments = [
+          { label: 'Nenhum Segmento cadastrado', value: null }
+        ];
+      });
+    
 
 
   }
@@ -173,6 +190,14 @@ export class GtinComponent implements OnInit {
       width: '50%'
     });
     ref.onClose.subscribe(() => this.consult);
+  }
+
+  newSegment(): void {
+    const ref = this.dialogService.open(SegmentComponent, {
+      width: '50%'
+    });
+
+    ref.onClose.subscribe(() => this.consult());
   }
 
 }

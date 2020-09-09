@@ -20,6 +20,25 @@
     </div>
 
     <div class="p-col-12 p-md-4 p-fluid">
+      <label>Segmento</label>
+      <div class="p-grid inputgroup">
+
+        <div class="p-col inputItem-first">
+          <p-dropdown [options]="gtinSegments" name="segmento" #gtinSegment="ngModel" [(ngModel)]="gtin.brick.classe.familia.segmento.id"
+            [filter]="true" placeholder="Selecione" required></p-dropdown>
+        </div>
+
+        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
+          <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn"
+            (click)="newSegment()"></button>
+        </div>
+
+      </div>
+      <app-msg-validation [control]="gtinBrick" error="required" text="Informe o Brick da Gtin.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
       <label>Família</label>
       <div class="p-grid inputgroup">
 
@@ -75,6 +94,8 @@
       <app-msg-validation [control]="gtinBrick" error="required" text="Informe o Brick da Gtin.">
       </app-msg-validation>
     </div>
+
+    
 
     <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveGtin(gtinForm)"
