@@ -145,7 +145,11 @@ produtos.
 * Configuracao e preparacao do ambiente
 * Modelagem da classe de Produtos
 * Telas de listagem e cadastro de produtos
-* Testes de unidades de produtos
+* Testes de integração de resources e repositório de Produtos
+
+## Gerenciamento de Projeto
+
+https://app.pipefy.com/pipes/1238697
 
 ## Contributing
 
