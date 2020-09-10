@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { NcmModel } from '../product.model';
 import { ActivatedRoute } from '@angular/router';
 import { NcmService } from './ncm.service';
 import { MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-ncm',
@@ -15,6 +16,9 @@ export class NcmComponent implements OnInit {
   ncm = new NcmModel();
 
   idNcm: number;
+
+  @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +48,8 @@ export class NcmComponent implements OnInit {
   }
 
   saveNcm(form: NgForm): void {
+    this.savePopup.emit('value');
+
     if (!this.idNcm) {
       this.ncmService.create(this.ncm)
         .then((ncm: NcmModel) => {
@@ -91,4 +97,25 @@ export class NcmComponent implements OnInit {
   }
 
 
+}
+
+
+@Component({
+  selector: 'app-dialog-ncm',
+  template: `
+  <app-ncm isPopup="true" (savePopup)="close($event)"></app-ncm>
+  `,
+  styles: ['']
+})
+export class NcmDialogComponent {
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
 }

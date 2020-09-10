@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { SelectItem, MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { BrickModel, ClassModel } from '../product.model';
-import { ClassComponent } from '../class/class.component';
+import { ClassComponent, ClassDialogComponent } from '../class/class.component';
 import { BrickService } from './brick.service';
 import { ClassService } from '../class/class.service';
 
@@ -21,7 +21,8 @@ export class BrickComponent implements OnInit {
   brickClasses: SelectItem[];
 
   idBrick: number;
-  isPopup: boolean;
+  @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -69,6 +70,8 @@ export class BrickComponent implements OnInit {
   }
 
   saveBrick(form: NgForm): void {
+    this.savePopup.emit('value');
+
     if (!this.idBrick) {
       this.brickServices.create(this.brick)
         .then((brick: BrickModel) => {
@@ -115,11 +118,33 @@ export class BrickComponent implements OnInit {
   }
 
   newClass(): void {
-    const ref = this.dialogService.open(ClassComponent, {
+    const ref = this.dialogService.open(ClassDialogComponent, {
       data: { popup: true },
-      width: '50%'
+       width: '50%'
     });
-    ref.onClose.subscribe(() => this.getClasses());
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getClasses(); }, 300);
+    });
   }
 
+}
+
+@Component({
+  selector: 'app-dialog-brick',
+  template: `
+  <app-brick isPopup="true" (savePopup)="close($event)"></app-brick>
+  `,
+  styles: ['']
+})
+export class BrickDialogComponent {
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
 }

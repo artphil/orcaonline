@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { SelectItem, MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GtinModel, BrickModel, ClassModel, FamilyModel, SegmentModel } from '../product.model';
-import { BrickComponent } from '../brick/brick.component';
-import { ClassComponent } from '../class/class.component';
-import { FamilyComponent } from '../family/family.component';
-import { SegmentComponent } from '../segment/segment.component';
+import { BrickComponent, BrickDialogComponent } from '../brick/brick.component';
+import { ClassComponent, ClassDialogComponent } from '../class/class.component';
+import { FamilyComponent, FamilyDialogComponent } from '../family/family.component';
+import { SegmentComponent, SegmentDialogComponent } from '../segment/segment.component';
 import { ClassService } from '../class/class.service';
 import { GtinService } from './gtin.service';
 import { SegmentService } from '../segment/segment.service';
@@ -30,7 +30,8 @@ export class GtinComponent implements OnInit {
 
   idGtin: number;
 
-  noPopup = true;
+  @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -50,6 +51,13 @@ export class GtinComponent implements OnInit {
 
     this.consult();
 
+    this.getBricks();
+    this.getClasses();
+    this.getFamilies();
+    this.getSegments();
+  }
+
+  getBricks(): void {
     this.brickServices.getList()
       .then((brickList: BrickModel[]) => {
         this.gtinBricks = [];
@@ -62,6 +70,9 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhum Brick cadastrado', value: null }
         ];
       });
+  }
+
+  getClasses(): void {
 
     this.classServices.getList()
       .then((classList: ClassModel[]) => {
@@ -75,7 +86,9 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhum Segmento cadastrado', value: null }
         ];
       });
+  }
 
+  getFamilies(): void {
     this.familyServices.getList()
       .then((familyList: FamilyModel[]) => {
         this.gtinFamilies = [];
@@ -88,7 +101,10 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhuma Familia cadastrada', value: null }
         ];
       });
-      this.segmentServices.getList()
+  }
+
+  getSegments(): void {
+    this.segmentServices.getList()
       .then((segmentList: SegmentModel[]) => {
         this.gtinSegments = [];
         segmentList.forEach(item => {
@@ -100,9 +116,6 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhum Segmento cadastrado', value: null }
         ];
       });
-    
-
-
   }
 
   consult(): void {
@@ -120,6 +133,8 @@ export class GtinComponent implements OnInit {
   }
 
   saveGtin(form: NgForm): void {
+    this.savePopup.emit('value');
+
     if (!this.idGtin) {
       this.gtinServices.create(this.gtin)
         .then((gtin: GtinModel) => {
@@ -171,33 +186,61 @@ export class GtinComponent implements OnInit {
   }
 
   newBrick(): void {
-    const ref = this.dialogService.open(BrickComponent, {
+    const ref = this.dialogService.open(BrickDialogComponent, {
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult());
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getBricks(); }, 300);
+    });
   }
 
   newClass(): void {
-    const ref = this.dialogService.open(ClassComponent, {
+    const ref = this.dialogService.open(ClassDialogComponent, {
 
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult());
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getClasses(); }, 300);
+    });
   }
 
   newFamily(): void {
-    const ref = this.dialogService.open(FamilyComponent, {
+    const ref = this.dialogService.open(FamilyDialogComponent, {
       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult);
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getFamilies(); }, 300);
+    });
   }
 
   newSegment(): void {
-    const ref = this.dialogService.open(SegmentComponent, {
+    const ref = this.dialogService.open(SegmentDialogComponent, {
       width: '50%'
     });
 
-    ref.onClose.subscribe(() => this.consult());
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getSegments(); }, 300);
+    });
   }
 
+}
+
+@Component({
+  selector: 'app-dialog-gtin',
+  template: `
+  <app-gtin isPopup="true" (savePopup)="close($event)"></app-gtin>
+  `,
+  styles: ['']
+})
+export class GtinDialogComponent {
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
 }

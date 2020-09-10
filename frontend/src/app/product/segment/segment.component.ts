@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SegmentModel } from '../product.model';
 import { SegmentService } from './segment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-segment',
@@ -15,6 +16,9 @@ export class SegmentComponent implements OnInit {
   segment = new SegmentModel();
 
   idSegment: number;
+
+  @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +49,7 @@ export class SegmentComponent implements OnInit {
   }
 
   saveSegment(form: NgForm): void {
+    this.savePopup.emit('value');
     if (!this.idSegment) {
       this.segmentService.create(this.segment)
         .then((segment: SegmentModel) => {
@@ -92,4 +97,24 @@ export class SegmentComponent implements OnInit {
   }
 
 
+}
+
+@Component({
+  selector: 'app-dialog-segment',
+  template: `
+  <app-segment isPopup="true" (savePopup)="close($event)"></app-segment>
+  `,
+  styles: ['']
+})
+export class SegmentDialogComponent {
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
 }

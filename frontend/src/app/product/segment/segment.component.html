@@ -36,9 +36,9 @@
         <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveSegment(segmentForm)"
           [disabled]="segmentForm.invalid"></p-button>
 
-        <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearSegment(segmentForm)"></p-button>
+        <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearSegment(segmentForm)"></p-button>
 
-        <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeSegment(segmentForm)"
+        <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeSegment(segmentForm)"
           [disabled]="!idSegment"></p-button>
 
       </div>

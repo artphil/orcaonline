@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm, SelectMultipleControlValueAccessor } from '@angular/forms';
 
 import { SelectItem, MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { ClassModel, FamilyModel } from '../product.model';
-import { FamilyComponent } from '../family/family.component';
+import { FamilyDialogComponent } from '../family/family.component';
 import { ClassService } from './class.service';
 import { FamilyService } from '../family/family.service';
 
@@ -20,7 +20,9 @@ export class ClassComponent implements OnInit {
   classFamilies: SelectItem[];
 
   idClass: number;
+
   @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -68,6 +70,8 @@ export class ClassComponent implements OnInit {
   }
 
   saveClass(form: NgForm): void {
+    this.savePopup.emit('value');
+
     if (!this.idClass) {
       this.classService.create(this.pClass)
         .then((clasItem: ClassModel) => {
@@ -115,10 +119,33 @@ export class ClassComponent implements OnInit {
   }
 
   newFamily(): void {
-    const ref = this.dialogService.open(FamilyComponent, {
-      width: '50%'
+    const ref = this.dialogService.open(FamilyDialogComponent, {
+       width: '50%'
     });
-    ref.onClose.subscribe(() => this.getFamilies());
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getFamilies(); }, 300);
+    });
   }
 
+}
+
+
+@Component({
+  selector: 'app-dialog-class',
+  template: `
+  <app-class isPopup="true" (savePopup)="close($event)"></app-class>
+  `,
+  styles: ['']
+})
+export class ClassDialogComponent {
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
 }

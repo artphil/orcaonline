@@ -55,9 +55,9 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveFamily(familyForm)"
         [disabled]="familyForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearFamily(familyForm)"></p-button>
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearFamily(familyForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeFamily(familyForm)"
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeFamily(familyForm)"
         [disabled]="!idFamily"></p-button>
 
     </div>

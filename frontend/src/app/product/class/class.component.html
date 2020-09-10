@@ -54,9 +54,9 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveClass(classForm)"
         [disabled]="classForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearClass(classForm)"></p-button>
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearClass(classForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeClass(classForm)" [disabled]="!pClass.id">
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeClass(classForm)" [disabled]="!pClass.id">
       </p-button>
 
     </div>

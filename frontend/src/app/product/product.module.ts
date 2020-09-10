@@ -14,12 +14,11 @@ import { SharedModule } from './../shared/shared.module';
 
 import { ProductComponent } from './product/product.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { SegmentComponent } from './segment/segment.component';
-import { FamilyComponent } from './family/family.component';
-import { BrickComponent } from './brick/brick.component';
-import { ClassComponent } from './class/class.component';
-import { GtinComponent } from './gtin/gtin.component';
-import { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
+import { SegmentComponent, SegmentDialogComponent } from './segment/segment.component';
+import { FamilyComponent, FamilyDialogComponent } from './family/family.component';
+import { ClassComponent, ClassDialogComponent } from './class/class.component';
+import { BrickComponent, BrickDialogComponent } from './brick/brick.component';
+import { GtinComponent, GtinDialogComponent } from './gtin/gtin.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { ProductService } from './product/product.service';
@@ -28,20 +27,26 @@ import { FamilyService } from './family/family.service';
 import { ClassService } from './class/class.service';
 import { BrickService } from './brick/brick.service';
 import { GtinService } from './gtin/gtin.service';
-import { NcmComponent } from './ncm/ncm.component';
+import { NcmComponent, NcmDialogComponent } from './ncm/ncm.component';
 import { NcmService } from './ncm/ncm.service';
 
 @NgModule({
   declarations: [
-    ProductComponent,
     ProductListComponent,
+    ProductComponent,
     SegmentComponent,
     FamilyComponent,
     GtinComponent,
-    DynamicDialogComponent,
     ClassComponent,
     BrickComponent,
-    NcmComponent
+    NcmComponent,
+
+    SegmentDialogComponent,
+    FamilyDialogComponent,
+    ClassDialogComponent,
+    BrickDialogComponent,
+    GtinDialogComponent,
+    NcmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -58,8 +63,23 @@ import { NcmService } from './ncm/ncm.service';
 
     SharedModule
   ],
-  exports: [],
-  entryComponents: [ClassComponent],
+  exports: [
+    ProductComponent,
+    SegmentComponent,
+    FamilyComponent,
+    ClassComponent,
+    BrickComponent,
+    GtinComponent,
+    NcmComponent
+  ],
+  entryComponents: [
+  SegmentDialogComponent,
+  FamilyDialogComponent,
+  ClassDialogComponent,
+  BrickDialogComponent,
+  GtinDialogComponent,
+  NcmDialogComponent
+],
   providers: [
     ProductService,
     SegmentService,

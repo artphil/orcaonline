@@ -24,11 +24,12 @@
       <div class="p-grid inputgroup">
 
         <div class="p-col inputItem-first">
-          <p-dropdown [options]="gtinSegments" name="segmento" #gtinSegment="ngModel" [(ngModel)]="gtin.brick.classe.familia.segmento.id"
-            [filter]="true" placeholder="Selecione" required></p-dropdown>
+          <p-dropdown [options]="gtinSegments" name="segmento" #gtinSegment="ngModel"
+            [(ngModel)]="gtin.brick.classe.familia.segmento.id" [filter]="true" placeholder="Selecione" required>
+          </p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
           <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn"
             (click)="newSegment()"></button>
         </div>
@@ -47,9 +48,8 @@
             [(ngModel)]="gtin.brick.classe.familia.id" [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
-          <button type="button" pButton icon="pi pi-plus" styleClass="p-button-warn"
-            (click)="newFamily()"></button>
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton icon="pi pi-plus" styleClass="p-button-warn" (click)="newFamily()"></button>
         </div>
 
       </div>
@@ -66,7 +66,7 @@
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
           <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"
             (click)="newClass()"></button>
         </div>
@@ -85,7 +85,7 @@
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
           <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn"
             (click)="newBrick()"></button>
         </div>
@@ -95,13 +95,17 @@
       </app-msg-validation>
     </div>
 
-    
+
 
     <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveGtin(gtinForm)"
         [disabled]="gtinForm.invalid"></p-button>
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearGtin(gtinForm)"></p-button>
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)" [disabled]="!gtin.id">
+
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearGtin(gtinForm)">
+      </p-button>
+
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)"
+        [disabled]="!gtin.id">
       </p-button>
 
     </div>

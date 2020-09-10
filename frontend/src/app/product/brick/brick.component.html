@@ -53,9 +53,9 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveBrick(brickForm)"
         [disabled]="brickForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearBrick(brickForm)"></p-button>
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearBrick(brickForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeBrick(brickForm)" [disabled]="!brick.id">
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeBrick(brickForm)" [disabled]="!brick.id">
       </p-button>
 
     </div>
