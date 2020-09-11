@@ -25,7 +25,7 @@
 
         <div class="p-col inputItem-first">
           <p-dropdown [options]="gtinSegments" name="segmento" #gtinSegment="ngModel" [(ngModel)]="gtin.brick.classe.familia.segmento.id"
-            [filter]="true" placeholder="Selecione" required></p-dropdown>
+            [filter]="true" placeholder="Selecione" ></p-dropdown>
         </div>
 
         <div class="p-col-1 inputItem-last" *ngIf="noPopup">
@@ -44,7 +44,7 @@
 
         <div class="p-col inputItem-first">
           <p-dropdown [options]="gtinFamilies" name="familia" #gtinFamily="ngModel"
-            [(ngModel)]="gtin.brick.classe.familia.id" [filter]="true" placeholder="Selecione" required></p-dropdown>
+            [(ngModel)]="gtin.brick.classe.familia.id" [filter]="true" placeholder="Selecione" ></p-dropdown>
         </div>
 
         <div class="p-col-1 inputItem-last" *ngIf="noPopup">
@@ -63,7 +63,7 @@
 
         <div class="p-col inputItem-first">
           <p-dropdown [options]="gtinClasses" name="classe" #gtinClass="ngModel" [(ngModel)]="gtin.brick.classe.id"
-            [filter]="true" placeholder="Selecione" required></p-dropdown>
+            [filter]="true" placeholder="Selecione" ></p-dropdown>
         </div>
 
         <div class="p-col-1 inputItem-last" *ngIf="noPopup">
@@ -95,7 +95,7 @@
       </app-msg-validation>
     </div>
 
-    
+
 
     <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveGtin(gtinForm)"

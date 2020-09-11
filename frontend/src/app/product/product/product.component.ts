@@ -19,7 +19,7 @@ import { NcmComponent } from '../ncm/ncm.component';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  product: ProductModel;
+  product = new ProductModel();
   productNCMs: SelectItem[];
   productGTINs: SelectItem[];
 

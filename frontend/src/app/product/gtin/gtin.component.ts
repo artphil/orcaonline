@@ -23,6 +23,7 @@ import { FamilyService } from '../family/family.service';
 export class GtinComponent implements OnInit {
 
   gtin: GtinModel;
+  gtinFilter: GtinModel;
   gtinBricks: SelectItem[];
   gtinClasses: SelectItem[];
   gtinFamilies: SelectItem[];
@@ -100,7 +101,7 @@ export class GtinComponent implements OnInit {
           { label: 'Nenhum Segmento cadastrado', value: null }
         ];
       });
-    
+
 
 
   }
