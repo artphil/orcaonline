@@ -36,13 +36,13 @@
       <label>NCM</label>
       <div class="p-grid inputGroup">
 
-        <div class="p-col inputItem-first">
-          <p-dropdown [options]="productNCMs" name="ncm" #productNCM="ngModel" [(ngModel)]="product.ncm.id" [filter]="true"
+        <div class="p-col-10 inputItem-first">
+          <p-dropdown [options]="productNCMs" name="ncm" #productNCM="ngModel" [(ngModel)]="product.ncm" [filter]="true"
           placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
-          <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn" (click)="showNcmDialog()"></button>
+        <div class="p-col-1 inputItem-last">
+          <button type="button" pButton  icon="pi pi-plus" styleClass="p-button-warn" (click)="showNcmDialog()"></button>
         </div>
 
       </div>
@@ -54,12 +54,12 @@
       <label>GTIN</label>
       <div class="p-grid inputGroup">
 
-        <div class="p-col inputItem-first">
+        <div class="p-col-10 inputItem-first">
           <p-dropdown [options]="productGTINs" name="gtin" #productGTIN="ngModel" [(ngModel)]="product.gtin.id"
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+        <div class="p-col-1 inputItem-last">
           <button type="button" pButton icon="pi pi-plus" (click)="showGtinDialog()"></button>
         </div>
 

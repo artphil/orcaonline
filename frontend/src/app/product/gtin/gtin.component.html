@@ -19,75 +19,66 @@
       </app-msg-validation>
     </div>
 
-    <div class="p-col-12 p-md-4 p-fluid">
+    <div class="p-col-12 p-md-3 p-fluid">
       <label>Segmento</label>
       <div class="p-grid inputgroup">
 
-        <div class="p-col inputItem-first">
-          <p-dropdown [options]="gtinSegments" name="segmento" #gtinSegment="ngModel" [(ngModel)]="gtin.brick.classe.familia.segmento.id"
-            [filter]="true" placeholder="Selecione" ></p-dropdown>
+        <div class="p-col-10 inputItem-first">
+          <p-dropdown [options]="gtinSegments" name="segmento" #gtinSegment="ngModel"
+            [(ngModel)]="gtin.brick.classe.familia.segmento.id" [filter]="true" placeholder="Selecione">
+          </p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
-          <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn"
-            (click)="newSegment()"></button>
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton icon="pi pi-plus" styleBrick="p-button-warn" (click)="newSegment()"></button>
         </div>
 
       </div>
-      <app-msg-validation [control]="gtinBrick" error="required" text="Informe o Brick da Gtin.">
-      </app-msg-validation>
     </div>
 
-    <div class="p-col-12 p-md-4 p-fluid">
+    <div class="p-col-12 p-md-3 p-fluid">
       <label>Família</label>
       <div class="p-grid inputgroup">
 
-        <div class="p-col inputItem-first">
+        <div class="p-col-10 inputItem-first">
           <p-dropdown [options]="gtinFamilies" name="familia" #gtinFamily="ngModel"
-            [(ngModel)]="gtin.brick.classe.familia.id" [filter]="true" placeholder="Selecione" ></p-dropdown>
+            [(ngModel)]="gtin.brick.classe.familia.id" [filter]="true" placeholder="Selecione"></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
-          <button type="button" pButton icon="pi pi-plus" styleClass="p-button-warn"
-            (click)="newFamily()"></button>
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton icon="pi pi-plus" styleClass="p-button-warn" (click)="newFamily()"></button>
         </div>
 
       </div>
-      <app-msg-validation [control]="gtinFamily" error="required" text="Informe a família da Brick.">
-      </app-msg-validation>
     </div>
 
-    <div class="p-col-12 p-md-4 p-fluid">
+    <div class="p-col-12 p-md-3 p-fluid">
       <label>Classe</label>
       <div class="p-grid inputgroup">
 
-        <div class="p-col inputItem-first">
+        <div class="p-col-10 inputItem-first">
           <p-dropdown [options]="gtinClasses" name="classe" #gtinClass="ngModel" [(ngModel)]="gtin.brick.classe.id"
             [filter]="true" placeholder="Selecione" ></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
-          <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"
-            (click)="newClass()"></button>
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton icon="pi pi-plus" styleClass="p-button-warn" (click)="newClass()"></button>
         </div>
 
       </div>
-      <app-msg-validation [control]="gtinClass" error="required" text="Informe a família da Brick.">
-      </app-msg-validation>
     </div>
 
-    <div class="p-col-12 p-md-4 p-fluid">
+    <div class="p-col-12 p-md-3 p-fluid">
       <label>Brick</label>
       <div class="p-grid inputgroup">
 
-        <div class="p-col inputItem-first">
+        <div class="p-col-10 inputItem-first">
           <p-dropdown [options]="gtinBricks" name="brick" #gtinBrick="ngModel" [(ngModel)]="gtin.brick.id"
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
-        <div class="p-col-1 inputItem-last" *ngIf="noPopup">
-          <button type="button" pButton pRipple icon="pi pi-plus" styleBrick="p-button-warn"
-            (click)="newBrick()"></button>
+        <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
+          <button type="button" pButton icon="pi pi-plus" styleBrick="p-button-warn" (click)="newBrick()"></button>
         </div>
 
       </div>
@@ -100,8 +91,12 @@
     <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveGtin(gtinForm)"
         [disabled]="gtinForm.invalid"></p-button>
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearGtin(gtinForm)"></p-button>
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)" [disabled]="!gtin.id">
+
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearGtin(gtinForm)">
+      </p-button>
+
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeGtin(gtinForm)"
+        [disabled]="!gtin.id">
       </p-button>
 
     </div>

@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FamilyModel, SegmentModel } from '../product.model';
 import { SelectItem } from 'primeng/api/selectitem';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FamilyService } from './family.service';
 import { NgForm } from '@angular/forms';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SegmentService } from '../segment/segment.service';
-import { SegmentComponent } from '../segment/segment.component';
+import { SegmentComponent, SegmentDialogComponent } from '../segment/segment.component';
 
 @Component({
   selector: 'app-family',
@@ -19,7 +19,9 @@ export class FamilyComponent implements OnInit {
   familySegments: SelectItem[];
 
   idFamily: number;
-  isPopup: boolean;
+
+  @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +69,8 @@ export class FamilyComponent implements OnInit {
   }
 
   saveFamily(form: NgForm): void {
+    this.savePopup.emit('value');
+
     if (!this.idFamily) {
       this.familyServices.create(this.family)
         .then((family: FamilyModel) => {
@@ -114,11 +118,33 @@ export class FamilyComponent implements OnInit {
   }
 
   newSegment(): void {
-    const ref = this.dialogService.open(SegmentComponent, {
-      width: '50%'
+    const ref = this.dialogService.open(SegmentDialogComponent, {
+       width: '50%'
     });
 
-    ref.onClose.subscribe(() => this.consult());
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getSegments(); }, 300);
+    });
   }
 
+}
+
+@Component({
+  selector: 'app-dialog-family',
+  template: `
+  <app-family isPopup="true" (savePopup)="close($event)"></app-family>
+  `,
+  styles: ['']
+})
+export class FamilyDialogComponent {
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
 }

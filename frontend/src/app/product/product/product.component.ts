@@ -9,9 +9,9 @@ import { ProductModel, GtinModel, NcmModel } from '../product.model';
 import { ProductService } from './product.service';
 import { GtinService } from '../gtin/gtin.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { GtinComponent } from '../gtin/gtin.component';
+import { GtinComponent, GtinDialogComponent } from '../gtin/gtin.component';
 import { NcmService } from '../ncm/ncm.service';
-import { NcmComponent } from '../ncm/ncm.component';
+import { NcmComponent, NcmDialogComponent } from '../ncm/ncm.component';
 
 @Component({
   selector: 'app-product',
@@ -24,7 +24,6 @@ export class ProductComponent implements OnInit {
   productGTINs: SelectItem[];
 
   idProduct: number;
-  isPopup: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +40,12 @@ export class ProductComponent implements OnInit {
 
     this.consult();
 
+    this.getNcms();
+    this.getGtins();
+
+  }
+
+  getNcms(): void {
     this.ncmService.getList()
       .then((ncmList: NcmModel[]) => {
         this.productNCMs = [];
@@ -54,6 +59,9 @@ export class ProductComponent implements OnInit {
         ];
       });
 
+  }
+
+  getGtins(): void {
     this.gtinService.getList()
       .then((gtinList: GtinModel[]) => {
         this.productGTINs = [];
@@ -66,8 +74,8 @@ export class ProductComponent implements OnInit {
           { label: 'Nenhum GTIN cadastrado', value: {} }
         ];
       });
-
   }
+
 
   consult(): void {
     if (!this.idProduct) {
@@ -131,14 +139,25 @@ export class ProductComponent implements OnInit {
   }
 
   showNcmDialog(): void {
-    const ref = this.dialogService.open(NcmComponent, {
-      width: '50%'
+    const ref = this.dialogService.open(NcmDialogComponent, {
+       width: '50%'
     });
-    ref.onClose.subscribe(() => this.consult());
+
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getNcms(); }, 300);
+    });
   }
 
+
   showGtinDialog(): void {
-    this.router.navigateByUrl('/pdt/gtn');
+    const ref = this.dialogService.open(GtinDialogComponent, {
+       width: '50%'
+    });
+
+    ref.onClose.subscribe(() => {
+      setTimeout(() => { this.getGtins(); }, 300);
+    });
   }
+
 
 }

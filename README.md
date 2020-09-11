@@ -8,23 +8,7 @@ tags: []
 
 Sistema para realização de orçamentos online entre empresas.
 
-<!-- ## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-``` bash
-pip install foobar
-```
-
-## Usage
-
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-``` -->
+Clique [aqui](http://45.80.152.3) para acessar o sistema.
 
 ## Sprint Planning
 
@@ -143,9 +127,13 @@ produtos.
 ## Sprint #1
 
 * Configuracao e preparacao do ambiente
-* Modelagem da classe de Produtos
-* Telas de listagem e cadastro de produtos
-* Testes de unidades de produtos
+* Modelagem da classe de Produto
+* Telas de listagem e cadastro de Produto
+* Testes de integração de resources e repositório de Produto
+
+## Gerenciamento de Projeto
+
+[Pipefy](https://app.pipefy.com/pipes/1238697)
 
 ## Contributing
 

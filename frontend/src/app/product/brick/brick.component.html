@@ -34,13 +34,13 @@
       <label>Classe</label>
       <div class="p-grid inputGroup">
 
-        <div class="p-col inputItem-first">
+        <div class="p-col-10 inputItem-first">
           <p-dropdown [options]="brickClasses" name="class" #brickclass="ngModel" [(ngModel)]="brick.classe.id"
             [filter]="true" placeholder="Selecione" required></p-dropdown>
         </div>
 
         <div class="p-col-1 inputItem-last" *ngIf="!isPopup">
-          <button type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-warn"
+          <button type="button" pButton  icon="pi pi-plus" styleClass="p-button-warn"
             (click)="newClass()"></button>
         </div>
 
@@ -53,9 +53,9 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveBrick(brickForm)"
         [disabled]="brickForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearBrick(brickForm)"></p-button>
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearBrick(brickForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeBrick(brickForm)" [disabled]="!brick.id">
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeBrick(brickForm)" [disabled]="!brick.id">
       </p-button>
 
     </div>

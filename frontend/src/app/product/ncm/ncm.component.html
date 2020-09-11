@@ -31,9 +31,9 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveNcm(ncmForm)"
         [disabled]="ncmForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearNcm(ncmForm)"></p-button>
+      <p-button *ngIf="!isPopup" styleClass="p-button-secondary" label="Limpar" (onClick)="clearNcm(ncmForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeNcm(ncmForm)"
+      <p-button *ngIf="!isPopup" styleClass="p-button-danger" label="Excluir" (onClick)="removeNcm(ncmForm)"
         [disabled]="!ncm.id"></p-button>
 
     </div>
