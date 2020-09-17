@@ -12,17 +12,17 @@ export class NavbarComponent {
 
   items: MenuItem[] = [
     {
-      label: 'Inicio',
+      label: 'Início',
       icon: 'pi pi-fw pi-home',
       routerLink: '/'
     },
     {
       label: 'Produtos',
-      icon: 'pi pi-fw pi-briefcase',
+      icon: 'pi pi-fw pi-shopping-cart',
       items: [
         {
           label: 'Cadastro',
-          icon: 'pi pi-fw pi-briefcase',
+          icon: 'pi pi-fw pi-plus',
           items: [
             {
               label: 'Produto',
@@ -66,6 +66,11 @@ export class NavbarComponent {
           routerLink: '/pdt/list'
         }
       ]
+    },
+    {
+      label: 'Usuários',
+      icon: 'pi pi-fw pi-users',
+      routerLink: '/usr'
     }
   ];
 
