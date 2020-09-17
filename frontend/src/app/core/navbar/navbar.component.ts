@@ -23,42 +23,7 @@ export class NavbarComponent {
         {
           label: 'Cadastro',
           icon: 'pi pi-fw pi-plus',
-          items: [
-            {
-              label: 'Produto',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt'
-            }, {
-              label: 'NCM',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/ncm'
-            },
-            {
-              label: 'Segmento',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/seg'
-            },
-            {
-              label: 'Família',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/fam'
-            },
-            {
-              label: 'Classe',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/cls'
-            },
-            {
-              label: 'Brick',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/brk'
-            },
-            {
-              label: 'Gtin',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/gtn'
-            }
-          ]
+          routerLink: '/pdt',          
         },
         {
           label: 'Lista',
