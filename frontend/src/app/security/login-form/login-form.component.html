@@ -1,30 +1,23 @@
-<div class="container">
+<div class="container-login">
 
-<!-- {{ auth.jwtPayload | json}} -->
+    <!-- {{ auth.jwtPayload | json}} -->
 
-  <div class="ui-g">
-    <div class="ui-fluid ui-g-12">
-      <div class="ui-g-12 ui-md-4 ui-fluid">
-        <label>Nome</label>
-        <input pInputText type="text" placeholder="Email" #email/>
+    <div class="p-grid">
+        <div class="p-col-12  p-fluid">
+            <label>Nome</label>
+            <input pInputText type="text" placeholder="Email" #email />
+        </div>
+
+        <div class="p-col-12 p-fluid">
+            <label>Senha</label>
+            <input pInputText type="text" placeholder="Senha" #senha />
+        </div>
+
+        <div class="p-col-12">
+            <br>
+            <button pButton label="Login" (click)="login(email.value, senha.value)"></button>
+        </div>
+
     </div>
-  </div>
-
-  <div class="ui-fluid ui-g-12">
-    <div class="ui-g-12 ui-md-4 ui-fluid">
-      <label>Senha</label>
-      <input pInputText type="text" placeholder="Senha" #senha/>
-  </div>
-</div>
-
-<div class="ui-fluid ui-g-12">
-  <div class="ui-g-12 ui-md-4 ui-fluid">
-    <br>
-    <button pButton label="Login" (click)="login(email.value, senha.value)"></button>
-  </div>
-</div>
-
-</div>
-
 
 </div>

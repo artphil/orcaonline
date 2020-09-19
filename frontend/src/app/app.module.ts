@@ -13,6 +13,8 @@ import { CoreModule } from './core/core.module';
 import { ProductModule } from './product/product.module';
 import { PersonModule } from './person/person.module';
 import { SecurityModule } from './security/security.module';
+import { TokenInterceptor } from './security/token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -31,7 +33,14 @@ import { SecurityModule } from './security/security.module';
     PersonModule,
     SecurityModule
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
