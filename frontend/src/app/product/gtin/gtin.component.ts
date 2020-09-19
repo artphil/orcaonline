@@ -4,10 +4,10 @@ import { NgForm } from '@angular/forms';
 import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GtinModel, BrickModel, ClassModel, FamilyModel, SegmentModel } from '../product.model';
-import { BrickComponent, BrickDialogComponent } from '../brick/brick.component';
-import { ClassComponent, ClassDialogComponent } from '../class/class.component';
-import { FamilyComponent, FamilyDialogComponent } from '../family/family.component';
-import { SegmentComponent, SegmentDialogComponent } from '../segment/segment.component';
+import { BrickDialogComponent } from '../brick/brick.component';
+import { ClassDialogComponent } from '../class/class.component';
+import { FamilyDialogComponent } from '../family/family.component';
+import { SegmentDialogComponent } from '../segment/segment.component';
 import { ClassService } from '../class/class.service';
 import { GtinService } from './gtin.service';
 import { SegmentService } from '../segment/segment.service';
@@ -23,6 +23,7 @@ import { FamilyService } from '../family/family.service';
 export class GtinComponent implements OnInit {
 
   gtin: GtinModel;
+  gtinFilter: GtinModel;
   gtinBricks: SelectItem[];
   gtinClasses: SelectItem[];
   gtinFamilies: SelectItem[];

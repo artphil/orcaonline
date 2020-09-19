@@ -12,53 +12,18 @@ export class NavbarComponent {
 
   items: MenuItem[] = [
     {
-      label: 'Inicio',
+      label: 'Início',
       icon: 'pi pi-fw pi-home',
       routerLink: '/'
     },
     {
       label: 'Produtos',
-      icon: 'pi pi-fw pi-briefcase',
+      icon: 'pi pi-fw pi-shopping-cart',
       items: [
         {
           label: 'Cadastro',
-          icon: 'pi pi-fw pi-briefcase',
-          items: [
-            {
-              label: 'Produto',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt'
-            }, {
-              label: 'NCM',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/ncm'
-            },
-            {
-              label: 'Segmento',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/seg'
-            },
-            {
-              label: 'Família',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/fam'
-            },
-            {
-              label: 'Classe',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/cls'
-            },
-            {
-              label: 'Brick',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/brk'
-            },
-            {
-              label: 'Gtin',
-              icon: 'pi pi-fw pi-plus',
-              routerLink: '/pdt/gtn'
-            }
-          ]
+          icon: 'pi pi-fw pi-plus',
+          routerLink: '/pdt',          
         },
         {
           label: 'Lista',
@@ -66,6 +31,11 @@ export class NavbarComponent {
           routerLink: '/pdt/list'
         }
       ]
+    },
+    {
+      label: 'Usuários',
+      icon: 'pi pi-fw pi-users',
+      routerLink: '/usr'
     }
   ];
 

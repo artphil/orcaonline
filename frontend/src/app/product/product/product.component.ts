@@ -19,7 +19,7 @@ import { NcmComponent, NcmDialogComponent } from '../ncm/ncm.component';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  product: ProductModel;
+  product = new ProductModel();
   productNCMs: SelectItem[];
   productGTINs: SelectItem[];
 
@@ -150,13 +150,7 @@ export class ProductComponent implements OnInit {
 
 
   showGtinDialog(): void {
-    const ref = this.dialogService.open(GtinDialogComponent, {
-       width: '50%'
-    });
-
-    ref.onClose.subscribe(() => {
-      setTimeout(() => { this.getGtins(); }, 300);
-    });
+    this.router.navigateByUrl('/pdt/gtn');
   }
 
 

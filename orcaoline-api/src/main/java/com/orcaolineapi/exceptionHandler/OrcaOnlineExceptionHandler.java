@@ -26,6 +26,7 @@ public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private @Autowired MessageSource messageSource;
 
+	//Trata exceções geradas ao receber um json incorreto com parametros extras por exemplo.
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -35,6 +36,7 @@ public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
+	//Exceções geradas pelo validation @notnull etc.
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -42,6 +44,7 @@ public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
+	//Exceções geradas ao buscar ou apagar um recurso que não existe.
 	@ExceptionHandler({ EmptyResultDataAccessException.class, NoSuchElementException.class })
 	public ResponseEntity<Object> handleEmptyResultDataAccessExeption(RuntimeException ex, WebRequest request) {
 		String mensagemUsuario = messageSource.getMessage("recurso.noa-encontrado", null,

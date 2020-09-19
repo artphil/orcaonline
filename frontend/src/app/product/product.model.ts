@@ -19,14 +19,14 @@ export class ProductModel {
   id: number;
   nome: string;
   descricao: string;
-  ncm: string;
+  ncm: NcmModel;
   gtin: GtinModel;
 
   constructor() {
     this.id = null;
     this.nome = null;
     this.descricao = null;
-    this.ncm = null;
+    this.ncm = new NcmModel();
     this.gtin = new GtinModel();
   }
 }
