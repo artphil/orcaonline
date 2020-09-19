@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ProductModule } from './product/product.module';
 import { PersonModule } from './person/person.module';
+import { SecurityModule } from './security/security.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PersonModule } from './person/person.module';
 
     CoreModule,
     ProductModule,
-    PersonModule
+    PersonModule,
+    SecurityModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
