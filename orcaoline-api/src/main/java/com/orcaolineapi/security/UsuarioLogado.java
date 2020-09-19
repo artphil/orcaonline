@@ -7,8 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.orcaolineapi.modelo.Usuario;
-import com.orcaolineapi.repository.UsuarioRepository;
+import com.orcaolineapi.modelo.usuario.Usuario;
+import com.orcaolineapi.repository.usuario.UsuarioRepository;
 
 @Service
 public class UsuarioLogado {

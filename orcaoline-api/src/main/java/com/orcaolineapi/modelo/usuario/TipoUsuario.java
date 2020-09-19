@@ -1,4 +1,4 @@
-package com.orcaolineapi.modelo;
+package com.orcaolineapi.modelo.usuario;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+
+import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
 @Table(name="tipo_usuario")

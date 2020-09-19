@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.orcaolineapi.modelo.Usuario;
+import com.orcaolineapi.modelo.usuario.Usuario;
 
 public class UsuarioSistema extends User {
 	

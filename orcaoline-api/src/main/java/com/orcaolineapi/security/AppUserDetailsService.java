@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.orcaolineapi.modelo.Usuario;
-import com.orcaolineapi.repository.UsuarioRepository;
+import com.orcaolineapi.modelo.usuario.Usuario;
+import com.orcaolineapi.repository.usuario.UsuarioRepository;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService{

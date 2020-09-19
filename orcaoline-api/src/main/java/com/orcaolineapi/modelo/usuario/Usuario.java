@@ -1,4 +1,4 @@
-package com.orcaolineapi.modelo;
+package com.orcaolineapi.modelo.usuario;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
 public class Usuario extends AbstractModel{
