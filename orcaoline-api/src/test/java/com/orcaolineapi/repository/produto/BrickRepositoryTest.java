@@ -1,5 +1,4 @@
-package com.orcaolineapi.repository;
-
+package com.orcaolineapi.repository.produto;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,14 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
+import com.orcaolineapi.modelo.produto.Brick;
 import com.orcaolineapi.modelo.produto.Classe;
 import com.orcaolineapi.modelo.produto.Familia;
 import com.orcaolineapi.modelo.produto.Segmento;
-import com.orcaolineapi.modelo.produto.Brick;
-import com.orcaolineapi.repository.produto.BrickRepository;
-import com.orcaolineapi.repository.produto.ClasseRepository;
-import com.orcaolineapi.repository.produto.FamiliaRepository;
-import com.orcaolineapi.repository.produto.SegmentoRepository;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
