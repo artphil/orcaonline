@@ -96,15 +96,3 @@ export class UserComponent implements OnInit {
 }
 
 
-export class UserDialogComponent {
-
-  constructor(
-    public ref: DynamicDialogRef,
-    public config: DynamicDialogConfig
-  ) {
-  }
-
-  close(e: string): void {
-    this.ref.close(e);
-  }
-}
