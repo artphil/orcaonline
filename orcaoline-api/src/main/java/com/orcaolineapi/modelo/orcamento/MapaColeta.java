@@ -30,7 +30,7 @@ public class MapaColeta extends AbstractModel {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "id_comprador")
 	private Usuario comprador;
 	
 	@NotNull
