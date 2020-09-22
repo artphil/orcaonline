@@ -1,5 +1,8 @@
 package com.orcaolineapi.modelo.usuario;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +15,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
+import com.orcaolineapi.modelo.orcamento.Status;
 
 @Entity
 public class Usuario extends AbstractModel{
@@ -114,5 +118,12 @@ public class Usuario extends AbstractModel{
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+	
+	public static List<Status> usedStatus(){
+		List<Status> list = new ArrayList<>();
+		list.add(Status.ATIVO);
+		list.add(Status.INATIVO);
+		return list;
 	}
 }
