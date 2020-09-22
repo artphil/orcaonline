@@ -18,57 +18,59 @@ export class AuthService {
   constructor(private http: HttpClient) {
     this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
     this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
-    this.carregarToken();
+    this.loadToken();
   }
 
-  login(usuario: string, senha: string) {
-    this.limparToken();
-    const headers =  new HttpHeaders()
-                          .append('Content-Type', 'application/x-www-form-urlencoded')
-                          .append('Authorization' , 'Basic YW5ndWxhcjpAbmd1bEByMA==' );
-    const body = `username=${usuario}&password=${senha}&grant_type=password`;
-    return this.http.post<any>(this.oauthTokenUrl, body, { headers } )
-    .toPromise()
-    .then(response => {
-      this.armazenarToken(response.access_token);
-    })
-    .catch(response => {
+  login(user: string, password: string) {
+    this.clearToken();
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+    const body = `username=${user}&password=${password}&grant_type=password`;
 
-    });
-  }
-
-  logout() {
-    return this.http.delete(this.tokensRevokeUrl, {withCredentials: true})
+    return this.http.post<any>(this.oauthTokenUrl, body, { headers })
       .toPromise()
-      .then(() => {
-      this.limparToken();
+      .then(response => {
+        console.log(response);
+        this.saveToken(response.access_token);
+      })
+      .catch(response => {
+
       });
   }
 
-  public armazenarToken(token: string) {
-   this.jwtPayload = this.helper.decodeToken(token);
-   localStorage.setItem('token', token);
+  logout() {
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(() => {
+        this.clearToken();
+      });
   }
 
-  public limparToken() {
+  public saveToken(token: string) {
+    this.jwtPayload = this.helper.decodeToken(token);
+    localStorage.setItem('token', token);
+  }
+
+  public clearToken() {
     localStorage.removeItem('token');
     this.jwtPayload = null;
   }
 
-  private carregarToken() {
+  private loadToken() {
     const token = localStorage.getItem('token');
 
     if (token) {
-      this.armazenarToken(token);
+      this.saveToken(token);
 
     }
   }
 
   public getToken(): string {
     const token = localStorage.getItem('token');
-    if (token  == null || token.length === 0) {
+    if (token == null || token.length === 0) {
       return 'Basic YW5ndWxhcjpAbmd1bEByMA==';
     }
-    return 'Bearer '  + localStorage.getItem('token');
+    return 'Bearer ' + localStorage.getItem('token');
   }
 }

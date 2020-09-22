@@ -9,14 +9,17 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent {
 
+  user: string;
+  pass: string;
+
   constructor(
     private auth: AuthService,
     private router: Router
   ) { }
 
-  login(email: string, senha: string) {
-    this.auth.login(email, senha);
-    this.router.navigate(['/']);
+  login() {
+    this.auth.login(this.user, this.pass);
+    // this.router.navigate(['/']);
   }
 
 }

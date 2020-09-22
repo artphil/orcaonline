@@ -1,27 +1,39 @@
 <div class="container-login">
 
+  <form #loginForm="ngForm">
 
+    <div class="p-grid">
 
-  <div class="p-grid">
-    <div class="p-col-12 p-fluid text-center">
-      <h1>Bem Vindo ao OrçaOnline</h1>
+      <div class="p-col-12 p-fluid text-center">
+        <h1>Bem Vindo ao OrçaOnline</h1>
+      </div>
+
+      <div class="p-col-12  p-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" placeholder="Email" name="user" [(ngModel)]='user' #username="ngModel" required email />
+
+        <app-msg-validation [control]="username" error="required" text="Informe o nome de usuário.">
+        </app-msg-validation>
+
+        <app-msg-validation [control]="username" error="email" text="Formato de email inválido.">
+        </app-msg-validation>
+      </div>
+
+      <div class="p-col-12 p-fluid">
+        <label>Senha</label>
+        <input pInputText type="password" placeholder="Senha" name="pass" [(ngModel)]='pass' #password="ngModel" required />
+
+        <app-msg-validation [control]="password" error="required" text="Informe a senha.">
+        </app-msg-validation>
+      </div>
+
+      <div class="p-col-12">
+        <br>
+        <button pButton label="Login" (click)="login()"
+        [disabled]="loginForm.invalid" ></button>
+      </div>
+
     </div>
-
-    <div class="p-col-12  p-fluid">
-      <label>Nome</label>
-      <input pInputText type="text" placeholder="Email" #email />
-    </div>
-
-    <div class="p-col-12 p-fluid">
-      <label>Senha</label>
-      <input pInputText type="text" placeholder="Senha" #senha />
-    </div>
-
-    <div class="p-col-12">
-      <br>
-      <button pButton label="Login" (click)="login(email.value, senha.value)"></button>
-    </div>
-
-  </div>
+  </form>
 
 </div>
