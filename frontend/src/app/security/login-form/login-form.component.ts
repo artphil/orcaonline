@@ -7,9 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent  {
+export class LoginFormComponent {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
+
   login(email: string, senha: string) {
     this.auth.login(email, senha);
     this.router.navigate(['/']);
