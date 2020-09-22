@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,7 +15,8 @@ export class LoginFormComponent {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   login() {
@@ -22,7 +24,9 @@ export class LoginFormComponent {
     .then(() => {
       this.router.navigate(['/']);
     })
-    .catch();
+    .catch((erro) =>  {
+      this.errorHandler.handle(erro);
+    });
   }
 
 }

@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 
 import { AuthService } from '../security/auth.service';
+import { ErrorHandlerService } from './error-handler.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthService } from '../security/auth.service';
   ],
   providers: [
     MessageService,
+    ErrorHandlerService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,
