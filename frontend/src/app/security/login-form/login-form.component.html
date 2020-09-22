@@ -23,13 +23,13 @@
         <label>Senha</label>
         <input pInputText type="password" placeholder="Senha" name="pass" [(ngModel)]='pass' #password="ngModel" required />
 
-        <app-msg-validation [control]="password" error="required" text="Informe a senha.">
+        <app-msg-validation [control]="password" error="required" text="Informe a senha correta.">
         </app-msg-validation>
       </div>
 
       <div class="p-col-12">
         <br>
-        <button pButton label="Login" (click)="login()"
+        <button pButton label="Login" (click)="login(); pass= '';"
         [disabled]="loginForm.invalid" ></button>
       </div>
 

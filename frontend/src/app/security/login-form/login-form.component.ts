@@ -18,8 +18,11 @@ export class LoginFormComponent {
   ) { }
 
   login() {
-    this.auth.login(this.user, this.pass);
-    // this.router.navigate(['/']);
+    this.auth.login(this.user, this.pass)
+    .then(() => {
+      this.router.navigate(['/']);
+    })
+    .catch();
   }
 
 }
