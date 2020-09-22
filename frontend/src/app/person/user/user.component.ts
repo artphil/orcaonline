@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { UserModel} from './user.model';
+import { UserModel} from '../person.model';
 import { UserService} from './user.service'
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute} from '@angular/router';
