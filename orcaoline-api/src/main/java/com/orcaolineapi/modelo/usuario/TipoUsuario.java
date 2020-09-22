@@ -7,11 +7,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
@@ -23,14 +25,30 @@ public class TipoUsuario extends AbstractModel{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
+	@Size(min = 5, max = 200)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
+	@NotBlank
 	private String nome;
 	
+	@Size(min = 5, max = 200)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
+	@NotBlank
 	private String descricao;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "permissao_tipo_usuario", joinColumns = @JoinColumn(name = "id_tipo_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	private List<Permissao> permissoes;
+	
+	public TipoUsuario() {
+		
+	}
+	
+	public TipoUsuario(String nome, String descricao, List<Permissao> permissoes) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.permissoes = permissoes;
+	}
+	
 
 	public Long getId() {
 		return id;

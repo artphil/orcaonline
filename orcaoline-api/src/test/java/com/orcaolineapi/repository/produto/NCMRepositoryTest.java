@@ -1,4 +1,4 @@
-package com.orcaolineapi.repository;
+package com.orcaolineapi.repository.produto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.orcaolineapi.modelo.produto.NCM;
-import com.orcaolineapi.repository.produto.NCMRepository;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

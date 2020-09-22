@@ -6,7 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
 
@@ -17,21 +20,45 @@ public class Usuario extends AbstractModel{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	@Size(min = 5, max = 150)
+	@Pattern(regexp = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/")
+	@NotBlank
 	private String email;
 	
-	@NotNull
+	@Size(min = 5, max = 300)
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
+	@NotBlank	
 	private String senha;
 	
+	@Digits(integer = 14, fraction = 0)
+	@Size(min = 14, max = 14)
 	private String cnpj;
 	
+	@Size(min = 0, max = 300)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String razaoSocial;
 	
+	@Size(min = 0, max = 300)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String nomeFantasia;
 	
 	@ManyToOne
 	@JoinColumn(name="id_tipo_usuario")
 	private TipoUsuario tipoUsuario;
+	
+	public Usuario() {
+
+	}
+	
+	public Usuario(String email, String senha, String cnpj, String razaoSocial, String nomeFantasia, TipoUsuario tipoUsuario) {
+		this.email = email;
+		this.senha = senha;
+		this.cnpj = cnpj;
+		this.razaoSocial = razaoSocial;
+		this.nomeFantasia = nomeFantasia;
+		this.tipoUsuario = tipoUsuario;
+	
+	}
 
 	public Long getId() {
 		return id;
