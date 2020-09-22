@@ -4,14 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api/selectitem';
 import { MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { ProductModel, GtinModel, NcmModel } from '../product.model';
+
+import { GtinDialogComponent } from '../gtin/gtin.component';
+import { NcmDialogComponent } from '../ncm/ncm.component';
+
 import { ProductService } from './product.service';
 import { GtinService } from '../gtin/gtin.service';
-import { DialogService } from 'primeng/dynamicdialog';
-import { GtinComponent, GtinDialogComponent } from '../gtin/gtin.component';
 import { NcmService } from '../ncm/ncm.service';
-import { NcmComponent, NcmDialogComponent } from '../ncm/ncm.component';
 
 @Component({
   selector: 'app-product',

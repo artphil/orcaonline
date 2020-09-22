@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api/selectitem';
 
 import { ProductFilterModel, ProductModel, SegmentModel, FamilyModel, ClassModel, BrickModel } from '../product.model';
+
 import { ProductService } from '../product/product.service';
 import { SegmentService } from '../segment/segment.service';
 import { FamilyService } from '../family/family.service';

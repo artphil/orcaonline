@@ -1,13 +1,17 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FamilyModel, SegmentModel } from '../product.model';
-import { SelectItem } from 'primeng/api/selectitem';
 import { ActivatedRoute } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { FamilyService } from './family.service';
 import { NgForm } from '@angular/forms';
+
+import { SelectItem } from 'primeng/api/selectitem';
+import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+
+import { FamilyModel, SegmentModel } from '../product.model';
+
+import { SegmentDialogComponent } from '../segment/segment.component';
+
+import { FamilyService } from './family.service';
 import { SegmentService } from '../segment/segment.service';
-import { SegmentComponent, SegmentDialogComponent } from '../segment/segment.component';
 
 @Component({
   selector: 'app-family',

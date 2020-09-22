@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SegmentModel } from '../product.model';
-import { SegmentService } from './segment.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+
+import { SegmentModel } from '../product.model';
+
+import { SegmentService } from './segment.service';
 
 @Component({
   selector: 'app-segment',

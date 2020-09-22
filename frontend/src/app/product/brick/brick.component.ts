@@ -6,7 +6,9 @@ import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { BrickModel, ClassModel } from '../product.model';
-import { ClassComponent, ClassDialogComponent } from '../class/class.component';
+
+import { ClassDialogComponent } from '../class/class.component';
+
 import { BrickService } from './brick.service';
 import { ClassService } from '../class/class.service';
 

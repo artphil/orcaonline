@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgForm, SelectMultipleControlValueAccessor } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { ClassModel, FamilyModel } from '../product.model';
+
 import { FamilyDialogComponent } from '../family/family.component';
+
 import { ClassService } from './class.service';
 import { FamilyService } from '../family/family.service';
 

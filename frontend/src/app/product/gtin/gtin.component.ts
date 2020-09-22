@@ -1,13 +1,17 @@
 import { Component, OnInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+
 import { SelectItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+
 import { GtinModel, BrickModel, ClassModel, FamilyModel, SegmentModel } from '../product.model';
+
 import { BrickDialogComponent } from '../brick/brick.component';
 import { ClassDialogComponent } from '../class/class.component';
 import { FamilyDialogComponent } from '../family/family.component';
 import { SegmentDialogComponent } from '../segment/segment.component';
+
 import { ClassService } from '../class/class.service';
 import { GtinService } from './gtin.service';
 import { SegmentService } from '../segment/segment.service';

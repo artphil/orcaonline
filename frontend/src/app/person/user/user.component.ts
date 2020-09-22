@@ -1,10 +1,12 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { UserModel} from '../person.model';
-import { UserService} from './user.service'
-import { MessageService } from 'primeng/api';
-import { ActivatedRoute} from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ActivatedRoute} from '@angular/router';
+
+import { MessageService } from 'primeng/api';
+
+import { UserModel} from '../person.model';
+
+import { UserService} from './user.service'
 
 @Component({
   selector: 'app-user',
