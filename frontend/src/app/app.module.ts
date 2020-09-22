@@ -25,9 +25,10 @@ import { SecurityModule } from './security/security.module';
     ToastModule,
 
     CoreModule,
+    SecurityModule,
+
     ProductModule,
-    PersonModule,
-    SecurityModule
+    PersonModule
   ],
   bootstrap: [AppComponent]
 })

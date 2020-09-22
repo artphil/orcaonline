@@ -1,27 +1,24 @@
-import { AuthService } from './auth.service';
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+import { AuthService } from './auth.service';
 
-import { SharedModule } from '../shared/shared.module';
-import { LoginFormComponent } from './login-form/login-form.component';
-
+import { TokenInterceptor } from './token.interceptor';
 
 @NgModule({
-  declarations: [LoginFormComponent],
+  declarations: [],
   imports: [
-    CommonModule,
-    FormsModule,
-    InputTextModule,
-    ButtonModule,
-
-    SharedModule
+    CommonModule
   ],
-  exports: [LoginFormComponent],
-  providers: [AuthService]
+  exports: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ]
 })
 export class SecurityModule { }

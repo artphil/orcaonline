@@ -13,7 +13,7 @@ import { ClassComponent } from './product/class/class.component';
 import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
-import { LoginFormComponent } from './security/login-form/login-form.component';
+import { LoginFormComponent } from './core/login-form/login-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

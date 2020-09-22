@@ -15,6 +15,7 @@ export class AuthService {
 
   jwtPayload: any;
   helper = new JwtHelperService();
+
   constructor(private http: HttpClient) {
     this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
     this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
@@ -31,7 +32,6 @@ export class AuthService {
     return this.http.post<any>(this.oauthTokenUrl, body, { headers })
       .toPromise()
       .then(response => {
-        console.log(response);
         this.saveToken(response.access_token);
       })
       .catch(response => {

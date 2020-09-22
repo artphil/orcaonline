@@ -12,9 +12,6 @@
         <label>Nome</label>
         <input pInputText type="text" placeholder="Email" name="user" [(ngModel)]='user' #username="ngModel" required email />
 
-        <app-msg-validation [control]="username" error="required" text="Informe o nome de usuário.">
-        </app-msg-validation>
-
         <app-msg-validation [control]="username" error="email" text="Formato de email inválido.">
         </app-msg-validation>
       </div>
@@ -23,8 +20,6 @@
         <label>Senha</label>
         <input pInputText type="password" placeholder="Senha" name="pass" [(ngModel)]='pass' #password="ngModel" required />
 
-        <app-msg-validation [control]="password" error="required" text="Informe a senha correta.">
-        </app-msg-validation>
       </div>
 
       <div class="p-col-12">
