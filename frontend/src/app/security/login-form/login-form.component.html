@@ -1,23 +1,27 @@
 <div class="container-login">
 
-    <!-- {{ auth.jwtPayload | json}} -->
 
-    <div class="p-grid">
-        <div class="p-col-12  p-fluid">
-            <label>Nome</label>
-            <input pInputText type="text" placeholder="Email" #email />
-        </div>
 
-        <div class="p-col-12 p-fluid">
-            <label>Senha</label>
-            <input pInputText type="text" placeholder="Senha" #senha />
-        </div>
-
-        <div class="p-col-12">
-            <br>
-            <button pButton label="Login" (click)="login(email.value, senha.value)"></button>
-        </div>
-
+  <div class="p-grid">
+    <div class="p-col-12 p-fluid text-center">
+      <h1>Bem Vindo ao OrçaOnline</h1>
     </div>
+
+    <div class="p-col-12  p-fluid">
+      <label>Nome</label>
+      <input pInputText type="text" placeholder="Email" #email />
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Senha</label>
+      <input pInputText type="text" placeholder="Senha" #senha />
+    </div>
+
+    <div class="p-col-12">
+      <br>
+      <button pButton label="Login" (click)="login(email.value, senha.value)"></button>
+    </div>
+
+  </div>
 
 </div>
