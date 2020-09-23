@@ -47,30 +47,26 @@ export class AuthService {
       });
   }
 
-  logout() {
-    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
-      .toPromise()
-      .then(() => {
-        this.clearToken();
-      });
+  logout(): void {
+    this.http.delete(this.tokensRevokeUrl, { withCredentials: true });
+    this.clearToken();
   }
 
-  public saveToken(token: string) {
+  public saveToken(token: string): void {
     this.jwtPayload = this.helper.decodeToken(token);
     localStorage.setItem('token', token);
   }
 
-  public clearToken() {
+  public clearToken(): void {
     localStorage.removeItem('token');
     this.jwtPayload = null;
   }
 
-  private loadToken() {
+  private loadToken(): void {
     const token = localStorage.getItem('token');
 
     if (token) {
       this.saveToken(token);
-
     }
   }
 
