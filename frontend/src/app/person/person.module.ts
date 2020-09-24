@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
-import { InputMaskModule } from 'primeng/inputmask/inputmask';
+import { InputMaskModule } from 'primeng/inputmask';
 
 import { UserComponent } from './user/user.component';
 import { PermissaoComponent } from './permissao/permissao.component';
