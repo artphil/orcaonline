@@ -1,6 +1,7 @@
 package com.orcaolineapi.modelo.orcamento;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -106,4 +107,13 @@ public class Orcamento extends AbstractModel {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
+	public static List<Status> usedStatus(){
+		List<Status> list = new ArrayList<>();
+		list.add(Status.ABERTO);
+		list.add(Status.EM_ANDAMENTO);
+		list.add(Status.FECHADO);
+		return list;
+	}
+	
 }

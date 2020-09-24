@@ -1,6 +1,7 @@
 package com.orcaolineapi.modelo.orcamento;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -95,5 +96,13 @@ public class MapaColeta extends AbstractModel {
 	
 	public void setOrcamento(List<Orcamento> orcamento) {
 		this.orcamento = orcamento;
+	}
+	
+	public static List<Status> usedStatus(){
+		List<Status> list = new ArrayList<>();
+		list.add(Status.ABERTO);
+		list.add(Status.EM_ANDAMENTO);
+		list.add(Status.FECHADO);
+		return list;
 	}
 }
