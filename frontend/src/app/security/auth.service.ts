@@ -15,6 +15,7 @@ export class AuthService {
 
   jwtPayload: any;
   helper = new JwtHelperService();
+  private refreshTokenTimeout: any;
 
   constructor(private http: HttpClient) {
     this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
@@ -22,14 +23,14 @@ export class AuthService {
     this.loadToken();
   }
 
-  login(user: string, password: string) {
+  login(user: string, password: string): Promise<void> {
     this.clearToken();
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
       .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
     const body = `username=${user}&password=${password}&grant_type=password`;
 
-    return this.http.post<any>(this.oauthTokenUrl, body, { headers })
+    return this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
       .toPromise()
       .then(response => {
         this.saveToken(response.access_token);
@@ -47,8 +48,41 @@ export class AuthService {
       });
   }
 
+  refreshToken(): Promise<void> {
+    this.clearToken();
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+    const body = `grant_type=refresh_token`;
+
+    return this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
+      .toPromise()
+      .then(response => {
+        this.saveToken(response.access_token);
+        this.startRefreshTokenTimer();
+        return Promise.resolve(null);
+      })
+      .catch(response => {
+        console.log('Erro ao renovar token', response);
+        return Promise.resolve(null);
+      });
+  }
+
+
+  private startRefreshTokenTimer(): void {
+
+    const expires = new Date(this.jwtPayload.exp);
+    const timeout = expires.getTime() - Date.now() - (60 * 1000);
+    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().then(), timeout);
+  }
+
+  private stopRefreshTokenTimer(): void {
+    clearTimeout(this.refreshTokenTimeout);
+  }
+
   logout(): void {
     this.http.delete(this.tokensRevokeUrl, { withCredentials: true });
+    this.stopRefreshTokenTimer();
     this.clearToken();
   }
 
@@ -76,5 +110,9 @@ export class AuthService {
       return 'Basic YW5ndWxhcjpAbmd1bEByMA==';
     }
     return 'Bearer ' + localStorage.getItem('token');
+  }
+
+  hasPermission(permission: string): boolean {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
   }
 }
