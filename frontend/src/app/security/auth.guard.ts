@@ -9,14 +9,15 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard implements CanActivate {
 
-constructor(
-  private auth: AuthService,
-  private router: Router
-) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return true; // retirar para restringir acesso as paginas
 
     if (next.data.roles && this.auth.hasAnyPermission(next.data.roles)) {
       return true;
