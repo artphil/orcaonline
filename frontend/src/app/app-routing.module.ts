@@ -4,19 +4,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './core/home/home.component';
+import { LoginFormComponent } from './core/login-form/login-form.component';
+import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import { UserComponent } from './person/user/user.component';
-import { ProductComponent } from './product/product/product.component';
+import { PermissaoComponent } from './person/permissao/permissao.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
+import { ProductComponent } from './product/product/product.component';
 import { SegmentComponent } from './product/segment/segment.component';
 import { FamilyComponent } from './product/family/family.component';
 import { ClassComponent } from './product/class/class.component';
 import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
-import { LoginFormComponent } from './core/login-form/login-form.component';
-import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 
 import { AuthGuard } from './security/auth.guard';
+
+
 
 
 const routes: Routes = [
@@ -47,7 +50,9 @@ const routes: Routes = [
   { path: 'pdt/ncm', component: NcmComponent, canActivate: [AuthGuard], data: { roles: [] } },
   { path: 'pdt/ncm/:cod', component: NcmComponent, canActivate: [AuthGuard], data: { roles: [] } },
 
-  { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } }
+  { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
+
+  { path: 'per', component: PermissaoComponent },
 ];
 
 @NgModule({

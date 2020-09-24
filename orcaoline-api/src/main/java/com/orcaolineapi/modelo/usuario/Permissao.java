@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
@@ -18,12 +18,10 @@ public class Permissao extends AbstractModel{
 	private Long id;
 	
 	@Size(min = 5, max = 100)
-	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
 	
 	@Size(min = 5, max = 200)
-	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String descricao;
 	
@@ -59,4 +57,10 @@ public class Permissao extends AbstractModel{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	@PrePersist
+	public void prepersist() {
+		setNome(getNome().toUpperCase());
+	}
+	
 }
