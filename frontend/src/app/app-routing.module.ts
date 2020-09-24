@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './core/home/home.component';
 import { UserComponent } from './person/user/user.component';
+import { PermissaoComponent } from './person/permissao/permissao.component';
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { SegmentComponent } from './product/segment/segment.component';
@@ -14,6 +15,8 @@ import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
 import { LoginFormComponent } from './security/login-form/login-form.component';
+
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,7 +44,9 @@ const routes: Routes = [
   { path: 'pdt/ncm', component: NcmComponent },
   { path: 'pdt/ncm/:cod', component: NcmComponent },
 
-  { path: 'pdt/:cod', component: ProductComponent }
+  { path: 'pdt/:cod', component: ProductComponent },
+
+  { path: 'per', component: PermissaoComponent },
 ];
 
 @NgModule({
