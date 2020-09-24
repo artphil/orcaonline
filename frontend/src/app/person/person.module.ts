@@ -1,25 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
-import { TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
-
-import { SharedModule } from './../shared/shared.module';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InputMaskModule } from 'primeng/inputmask';
 
 import { UserComponent } from './user/user.component';
 import { PermissaoComponent } from './permissao/permissao.component';
+import { SharedModule } from './../shared/shared.module';
 
 import { PermissionService } from './permissao/permission.service';
 import { TipoUsuarioComponent } from './tipo-usuario/tipo-usuario.component';
+import { UserService } from './user/user.service';
+import { UserTypeService } from './user-type.service';
 
 @NgModule({
   declarations: [
@@ -30,24 +28,26 @@ import { TipoUsuarioComponent } from './tipo-usuario/tipo-usuario.component';
   imports: [
     CommonModule,
     FormsModule,
-    TableModule,
     HttpClientModule,
+
     InputTextModule,
     ButtonModule,
-    TooltipModule,
     DropdownModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    ToastModule,   
+    TableModule,
+    InputMaskModule,
+    TooltipModule,
+
     SharedModule
+  ],
+  providers: [
+    UserService,
+    UserTypeService,
+    PermissionService
   ],
   exports: [
     UserComponent,
     PermissaoComponent,
     TipoUsuarioComponent
   ],
-  providers: [
-    PermissionService
-  ]
 })
 export class PersonModule { }

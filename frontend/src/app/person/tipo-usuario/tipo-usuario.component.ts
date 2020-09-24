@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TipoUsuarioModel } from '../person.model';
+import { UserTypeModel } from '../person.model';
 
 @Component({
   selector: 'app-tipo-usuario',
@@ -9,7 +9,7 @@ import { TipoUsuarioModel } from '../person.model';
 })
 export class TipoUsuarioComponent implements OnInit {
 
-  tipo = new TipoUsuarioModel();
+  tipo = new UserTypeModel();
   tipos = [];
 
 
@@ -42,7 +42,7 @@ export class TipoUsuarioComponent implements OnInit {
     // });
   }
   
-  editar(t: TipoUsuarioModel) {
+  editar(t: UserTypeModel) {
     this.tipo = t;
   }
 

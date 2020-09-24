@@ -1,12 +1,14 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute} from '@angular/router';
 
 import { MessageService } from 'primeng/api';
+import { SelectItem } from 'primeng/api/selectitem';
 
-import { UserModel} from '../person.model';
+import { UserModel, UserTypeModel} from '../person.model';
+import { UserTypeService } from '../user-type.service';
 
-import { UserService} from './user.service'
+import { UserService} from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -15,15 +17,14 @@ import { UserService} from './user.service'
 })
 export class UserComponent implements OnInit {
   user = new UserModel();
+  userTypes: SelectItem[];
 
   idUser: number;
-  @Input() isPopup: boolean;
-  @Output() savePopup = new EventEmitter<string>();
-
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
+    private userTypeService: UserTypeService,
     private messageService: MessageService
   ) { }
 
@@ -46,6 +47,21 @@ export class UserComponent implements OnInit {
           this.user = new UserModel();
         });
     }
+  }
+
+  getUserTypes(): void {
+    this.userTypeService.getList()
+      .then((userTypeList: UserTypeModel[]) => {
+        this.userTypes = [];
+        userTypeList.forEach(item => {
+          this.userTypes.push({ label: item.nome, value: item.id });
+        });
+      })
+      .catch(() => {
+        this.userTypes = [
+          { label: 'Nenhum Tipo de Usuário cadastrado', value: null }
+        ];
+      });
   }
 
   saveUser(form: NgForm): void {
