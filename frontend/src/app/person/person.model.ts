@@ -15,3 +15,14 @@ export class PermissionModel {
   }
 }
 
+export class TipoUsuarioModel {
+  id: number;
+  nome: string;
+  descricao: string;
+  
+  constructor() {
+    this.id = null;
+    this.nome = null;
+    this.descricao = null;
+  }
+}

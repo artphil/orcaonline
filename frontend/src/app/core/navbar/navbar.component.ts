@@ -95,6 +95,11 @@ export class NavbarComponent implements OnInit {
             routerLink: '/pdt',
           },
           {
+            label: 'Tipo de Usuário',
+            icon: 'pi pi-fw pi-th-large',
+            routerLink: '/tipousr'
+          },
+          {
             label: 'Permissão',
             icon: 'pi pi-fw pi-th-large',
             routerLink: '/per'

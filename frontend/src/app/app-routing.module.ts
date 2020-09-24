@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
 import { UserComponent } from './person/user/user.component';
 import { PermissaoComponent } from './person/permissao/permissao.component';
+import { TipoUsuarioComponent } from './person/tipo-usuario/tipo-usuario.component';
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { SegmentComponent } from './product/segment/segment.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'pdt/:cod', component: ProductComponent },
 
   { path: 'per', component: PermissaoComponent },
+  { path: 'tipousr', component: TipoUsuarioComponent }
 ];
 
 @NgModule({

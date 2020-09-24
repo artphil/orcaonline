@@ -19,11 +19,13 @@ import { UserComponent } from './user/user.component';
 import { PermissaoComponent } from './permissao/permissao.component';
 
 import { PermissionService } from './permissao/permission.service';
+import { TipoUsuarioComponent } from './tipo-usuario/tipo-usuario.component';
 
 @NgModule({
   declarations: [
     UserComponent,
-    PermissaoComponent
+    PermissaoComponent,
+    TipoUsuarioComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import { PermissionService } from './permissao/permission.service';
   ],
   exports: [
     UserComponent,
-    PermissaoComponent
+    PermissaoComponent,
+    TipoUsuarioComponent
   ],
   providers: [
     PermissionService

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -58,7 +59,7 @@ public class Permissao extends AbstractModel{
 		this.descricao = descricao;
 	}
 	
-	@PrePersist
+	@PrePersist @PreUpdate
 	public void prepersist() {
 		setNome(getNome().toUpperCase());
 	}
