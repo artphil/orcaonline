@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -10,7 +8,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask/inputmask';
 
 import { UserComponent } from './user/user.component';
@@ -36,29 +33,18 @@ import { UserTypeService } from './user-type.service';
     DropdownModule,
     TableModule,
     InputMaskModule,
+    TooltipModule,
 
     SharedModule
   ],
   providers: [
     UserService,
     UserTypeService,
-    TableModule,
-    HttpClientModule,
-    InputTextModule,
-    ButtonModule,
-    TooltipModule,
-    DropdownModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    ToastModule,
-    SharedModule
+    PermissionService
   ],
   exports: [
     UserComponent,
     PermissaoComponent
   ],
-  providers: [
-    PermissionService
-  ]
 })
 export class PersonModule { }

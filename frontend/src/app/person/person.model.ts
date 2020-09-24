@@ -44,16 +44,3 @@ export class PermissionModel {
     this.descricao = null;
   }
 }
-
-export class PermissionModel {
-  id: number;
-  nome: string;
-  descricao: string;
-  
-  constructor() {
-    this.id = null;
-    this.nome = null;
-    this.descricao = null;
-  }
-}
-

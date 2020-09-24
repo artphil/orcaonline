@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'forbidden', component: ForbiddenComponent },
 
-  { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: '', component: HomeComponent},
 
   { path: 'usr', component: UserComponent, canActivate: [AuthGuard], data: { roles: [] } },
   { path: 'pdt', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
