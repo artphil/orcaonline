@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute} from '@angular/router';
 
 import { MessageService } from 'primeng/api';
+import { SelectItem } from 'primeng/api/selectitem';
 
 import { UserModel, UserTypeModel} from '../person.model';
 import { UserTypeService } from '../user-type.service';
@@ -16,7 +17,7 @@ import { UserService} from './user.service'
 })
 export class UserComponent implements OnInit {
   user = new UserModel();
-  userTypes: UserTypeModel[];
+  userTypes: SelectItem[];
 
   idUser: number;
 

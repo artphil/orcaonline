@@ -63,6 +63,7 @@ export class AuthService {
       })
       .catch(response => {
         console.log('Erro ao renovar token', response);
+        this.clearToken();
         return Promise.resolve(null);
       });
   }
@@ -70,7 +71,7 @@ export class AuthService {
 
   private startRefreshTokenTimer(): void {
     const expires = new Date(this.jwtPayload.exp);
-    const timeout =   expires.getTime()*1000 - Date.now();
+    const timeout = expires.getTime() * 1000 - Date.now();
     console.log('tempo:', expires.getTime(), Date.now(), timeout)
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().then(), timeout);
   }
