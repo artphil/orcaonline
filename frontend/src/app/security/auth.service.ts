@@ -59,7 +59,6 @@ export class AuthService {
       .toPromise()
       .then(response => {
         this.saveToken(response.access_token);
-        this.startRefreshTokenTimer();
         return Promise.resolve(null);
       })
       .catch(response => {
@@ -70,9 +69,9 @@ export class AuthService {
 
 
   private startRefreshTokenTimer(): void {
-
     const expires = new Date(this.jwtPayload.exp);
-    const timeout = expires.getTime() - Date.now() - (60 * 1000);
+    const timeout =   expires.getTime()*1000 - Date.now();
+    console.log('tempo:', expires.getTime(), Date.now(), timeout)
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().then(), timeout);
   }
 
@@ -88,6 +87,7 @@ export class AuthService {
 
   public saveToken(token: string): void {
     this.jwtPayload = this.helper.decodeToken(token);
+    this.startRefreshTokenTimer();
     localStorage.setItem('token', token);
   }
 
