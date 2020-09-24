@@ -113,7 +113,16 @@ export class AuthService {
     return 'Bearer ' + localStorage.getItem('token');
   }
 
-  hasPermission(permission: string): boolean {
-    return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
+  hasPermission(role: string): boolean {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(role);
+  }
+
+  hasAnyPermission(roles): boolean {
+    roles.forEach(role => {
+      if (this.hasAnyPermission(role)) {
+        return true;
+      }
+    });
+    return false;
   }
 }

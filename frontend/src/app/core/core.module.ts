@@ -13,12 +13,14 @@ import { LoginFormComponent } from './login-form/login-form.component';
 
 import { SharedModule } from '../shared/shared.module';
 import { ErrorHandlerService } from './error-handler.service';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     HomeComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    ForbiddenComponent
   ],
   imports: [
     CommonModule,

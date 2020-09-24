@@ -14,8 +14,10 @@
       <div class="p-col-2 navbar-user">
         <label>{{logedUser()}}</label>
       </div>
-      <div class="p-col-1">
-        <button pButton class="p-button-danger" label="Logout" (click)="logout()"></button>
+
+      <div class="p-col-1 p-fluid">
+        <button *ngIf="logedUser()" pButton class="p-button-danger" label="Logout" (click)="logout()"></button>
+        <button *ngIf="!logedUser()" pButton class="p-button-success" label="Login" routerLink="/login"></button>
       </div>
 
     </div>
