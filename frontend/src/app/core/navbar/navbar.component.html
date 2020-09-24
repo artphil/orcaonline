@@ -7,11 +7,14 @@
         <a class="navbar-toggle" (click)="menu.toggle($event)" ><i class="pi pi-bars" style="font-size: 2em;"></i></a>
       </div>
 
-      <div class="p-col-8 navbar-title">
+      <div class="p-col-7 navbar-title">
         <label>Orça Online</label>
       </div>
 
       <div class="p-col-2 navbar-user">
+        <label>{{logedUser()}}</label>
+      </div>
+      <div class="p-col-1">
         <button pButton class="p-button-danger" label="Logout" (click)="logout()"></button>
       </div>
 
@@ -20,10 +23,6 @@
 
 </nav>
 
-  <div >
-    <p-tieredMenu #menu [model]="items"[popup]="true"
-    [style]="{'top':'0px', 'left':'0px'}"
-    ></p-tieredMenu>
-    <!-- appendToBody="true" -->
-  </div>
-
+<div>
+  <p-tieredMenu #menu [model]="items" [popup]="true" [style]="{'top':'0px', 'left':'0px'}"></p-tieredMenu>
+</div>

@@ -1,28 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MessageService } from 'primeng/api';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { TokenInterceptor } from '../security/token.interceptor';
+import { LoginFormComponent } from './login-form/login-form.component';
 
-import { AuthService } from '../security/auth.service';
+import { SharedModule } from '../shared/shared.module';
 import { ErrorHandlerService } from './error-handler.service';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
 
     ButtonModule,
-    TieredMenuModule
+    InputTextModule,
+    TieredMenuModule,
+
+    SharedModule
   ],
   exports: [
     NavbarComponent,
@@ -31,13 +37,7 @@ import { ErrorHandlerService } from './error-handler.service';
   providers: [
     MessageService,
 
-    ErrorHandlerService,
-    AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    ErrorHandlerService
   ],
 })
 export class CoreModule { }

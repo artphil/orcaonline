@@ -1,5 +1,6 @@
 import { MenuItem } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/security/auth.service';
 
@@ -17,31 +18,72 @@ export class NavbarComponent implements OnInit {
     routerLink: '/'
   }];
 
+  prod: MenuItem = {
+    label: 'Produtos',
+    icon: 'pi pi-fw pi-shopping-cart',
+    items: [
+      {
+        label: 'Lista',
+        icon: 'pi pi-fw pi-th-large',
+        routerLink: '/pdt/list'
+      }
+    ]
+  };
+
+  prodCadastro: MenuItem = {
+    label: 'Cadastro',
+    icon: 'pi pi-fw pi-plus',
+    items: [
+      {
+        label: 'Produtos',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt',
+      },
+      {
+        label: 'NCM',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt/ncm',
+      },
+      {
+        label: 'Segmentos',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt/seg',
+      },
+      {
+        label: 'Familia',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt/fam',
+      },
+      {
+        label: 'Classe',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt/cls',
+      },
+      {
+        label: 'Bricks',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt/brk',
+      },
+      {
+        label: 'GTIN',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/pdt/gtn',
+      }
+    ]
+  };
+
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    if (this.auth.jwtPayload) {
+      this.prod.items.push(this.prodCadastro);
+      this.items.push(this.prod);
+    }
 
-    if (this.auth.jwtPayload)
-    this.items.push(
-      {
-        label: 'Produtos',
-        icon: 'pi pi-fw pi-shopping-cart',
-        items: [
-          {
-            label: 'Cadastro',
-            icon: 'pi pi-fw pi-plus',
-            routerLink: '/pdt',
-          },
-          {
-            label: 'Lista',
-            icon: 'pi pi-fw pi-th-large',
-            routerLink: '/pdt/list'
-          }
-        ]
-      }
-    );
+
     this.items.push(
       {
         label: 'Usuários',
@@ -65,5 +107,11 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+    this.router.navigate(['/login']);
   }
+
+  logedUser(): boolean{
+    return this.auth.jwtPayload?.user_name;
+  }
+
 }
