@@ -17,7 +17,7 @@ import { SharedModule } from './../shared/shared.module';
 import { PermissionService } from './permissao/permission.service';
 import { TipoUsuarioComponent } from './tipo-usuario/tipo-usuario.component';
 import { UserService } from './user/user.service';
-import { UserTypeService } from './user-type.service';
+import { UserTypeService } from './tipo-usuario/user-type.service';
 
 @NgModule({
   declarations: [

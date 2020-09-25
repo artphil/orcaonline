@@ -11,7 +11,6 @@ import { PermissaoComponent } from './person/permissao/permissao.component';
 import { TipoUsuarioComponent } from './person/tipo-usuario/tipo-usuario.component';
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
-import { ProductComponent } from './product/product/product.component';
 import { SegmentComponent } from './product/segment/segment.component';
 import { FamilyComponent } from './product/family/family.component';
 import { ClassComponent } from './product/class/class.component';

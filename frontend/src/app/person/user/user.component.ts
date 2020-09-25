@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
 
 import { UserModel, UserTypeModel} from '../person.model';
-import { UserTypeService } from '../user-type.service';
+import { UserTypeService } from '../tipo-usuario/user-type.service';
 
 import { UserService} from './user.service';
 

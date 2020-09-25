@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserTypeModel } from '../person.model';
+import { UserTypeService } from './user-type.service';
 
 @Component({
   selector: 'app-tipo-usuario',
@@ -13,33 +14,32 @@ export class TipoUsuarioComponent implements OnInit {
   tipos = [];
 
 
-  constructor() { }
+  constructor(private userTypeService: UserTypeService) { }
 
   ngOnInit(): void {
+    this.consultar();
   }
 
   adicionar() {
-    console.log(this.tipo.nome);
-    // this.permissionService.create(this.permission)
-    //     .then(permission => {
-    //       this.consultar();
-    //       this.permission = new PermissionModel();
-    //     });
+    this.userTypeService.create(this.tipo)
+        .then(tipo => {
+          this.consultar();
+          this.tipo = new UserTypeModel();
+        });
   }
 
   excluir(id: number) {
-    // console.log(id);
-    // this.permissionService.delete(id)
-    // .then(() => {
-    //   this.consultar();
-    // });
+    this.userTypeService.delete(id)
+    .then(() => {
+      this.consultar();
+    });
   }
 
   consultar(){
-    // this.permissionService.getList()
-    // .then(permissions => {
-    //   this.permissions = permissions;
-    // });
+    this.userTypeService.getList()
+    .then(tipos => {
+      this.tipos = tipos;
+    });
   }
   
   editar(t: UserTypeModel) {

@@ -28,7 +28,6 @@ export class PermissaoComponent implements OnInit {
   }
 
   excluir(id: number) {
-    console.log(id);
     this.permissionService.delete(id)
     .then(() => {
       this.consultar();
