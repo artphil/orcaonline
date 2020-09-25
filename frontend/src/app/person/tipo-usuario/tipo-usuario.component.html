@@ -36,7 +36,8 @@
                   <td>{{t.descricao}}</td>
                   <td>
                      <a pButton icon="pi pi-pencil" (click)="editar(t)" pTooltip="Editar" tooltipPosition="top"></a>
-                     <a pButton icon="pi pi-trash" (click)="excluir(t.id)"  pTooltip="Excluir" tooltipPosition="top" style="margin-left: 5px"></a>
+                     <a pButton icon="pi pi-trash" (click)="excluir(t.id)"  pTooltip="Excluir" tooltipPosition="top" style="margin-left: 10px"></a>
+                     <a pButton icon="pi pi-unlock" (click)="excluir(t.id)" pTooltip="Permissões" tooltipPosition="top" style="margin-left: 10px"></a>
                   </td>
                 </tr>
           </ng-template>

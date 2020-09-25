@@ -36,14 +36,25 @@ export class UserTypeModel {
 export class PermissionModel {
   id: number;
   nome: string;
+  modulo: string;
   descricao: string;
 
   constructor() {
     this.id = null;
     this.nome = null;
+    this.modulo = null;
     this.descricao = null;
   }
 }
 
+export class Modulo{
+   numero: number;
+   nome: string;
+  
+   constructor() {
+    this.numero = null;
+    this.nome = null;
+  }     
+}
 
 

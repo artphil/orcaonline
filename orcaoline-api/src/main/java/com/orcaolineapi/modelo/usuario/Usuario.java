@@ -14,6 +14,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.lang.NonNull;
+
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.orcamento.Status;
 
@@ -40,7 +42,7 @@ public class Usuario extends AbstractModel{
 	
 	@Size(min = 0, max = 300)
 	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
-	private String razaoSocial;
+	private String nome;
 	
 	@Size(min = 0, max = 300)
 	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
@@ -48,6 +50,7 @@ public class Usuario extends AbstractModel{
 	
 	@ManyToOne
 	@JoinColumn(name="id_tipo_usuario")
+	@NonNull
 	private TipoUsuario tipoUsuario;
 	
 	public Usuario() {
@@ -58,7 +61,7 @@ public class Usuario extends AbstractModel{
 		this.email = email;
 		this.senha = senha;
 		this.cnpj = cnpj;
-		this.razaoSocial = razaoSocial;
+		this.nome = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.tipoUsuario = tipoUsuario;
 	
@@ -96,12 +99,12 @@ public class Usuario extends AbstractModel{
 		this.cnpj = cnpj;
 	}
 
-	public String getRazaoSocial() {
-		return razaoSocial;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getNomeFantasia() {

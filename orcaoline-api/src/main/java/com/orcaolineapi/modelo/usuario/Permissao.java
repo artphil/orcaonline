@@ -1,6 +1,8 @@
 package com.orcaolineapi.modelo.usuario;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,7 +11,10 @@ import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.lang.NonNull;
+
 import com.orcaolineapi.modelo.AbstractModel;
+import com.orcaolineapi.modelo.sistema.Modulo;
 
 @Entity
 public class Permissao extends AbstractModel{
@@ -25,6 +30,10 @@ public class Permissao extends AbstractModel{
 	@Size(min = 5, max = 200)
 	@NotBlank
 	private String descricao;
+	
+	@Enumerated(EnumType.STRING)
+	@NonNull
+	private Modulo modulo;
 	
 	public Permissao() {
 
@@ -59,6 +68,14 @@ public class Permissao extends AbstractModel{
 		this.descricao = descricao;
 	}
 	
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
+	}
+
 	@PrePersist @PreUpdate
 	public void prepersist() {
 		setNome(getNome().toUpperCase());

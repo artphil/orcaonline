@@ -29,14 +29,12 @@ import { UserTypeService } from './tipo-usuario/user-type.service';
     CommonModule,
     FormsModule,
     HttpClientModule,
-
     InputTextModule,
     ButtonModule,
     DropdownModule,
     TableModule,
     InputMaskModule,
     TooltipModule,
-
     SharedModule
   ],
   providers: [

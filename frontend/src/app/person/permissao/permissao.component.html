@@ -8,7 +8,11 @@
       <label>Nome</label>
       <input pInputText type="text" name="nome" [(ngModel)]="permission.nome" />
     </div>
-    <div class="p-col-7 p-fluid">
+    <div class="p-col-2  p-fluid">
+      <label>Módulo</label>
+      <p-dropdown [options]="modulos" name="modulo" [(ngModel)]="permission.modulo" placeholder="Selecione"></p-dropdown>
+    </div>
+    <div class="p-col-5 p-fluid">
       <label>Descrição</label>
       <input pInputText type="text" name="descricao" [(ngModel)]="permission.descricao" />
     </div>
@@ -35,16 +39,16 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th class="p-col-2">Código</th>
-          <th class="p-col-6">Nome</th>
-          <th class="p-col-10">Descrição</th>
+          <th class="p-col-7">Nome</th>
+          <th class="p-col-3">Módulo</th>
+          <th class="p-col-8">Descrição</th>
           <th class="p-col-2"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-p>
         <tr>
-          <td>{{p.id}}</td>
           <td>{{p.nome}}</td>
+          <td>{{p.modulo}}</td>
           <td>{{p.descricao}}</td>
           <td>
             <a pButton icon="pi pi-pencil" (click)="editar(p)" pTooltip="Editar" tooltipPosition="top"></a>
