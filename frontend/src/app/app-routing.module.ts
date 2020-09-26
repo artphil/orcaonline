@@ -19,6 +19,7 @@ import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
 
 import { AuthGuard } from './security/auth.guard';
+import { TypeUserPermissionComponent } from './person/type-user-permission/type-user-permission.component';
 
 
 
@@ -54,7 +55,8 @@ const routes: Routes = [
   { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
 
   { path: 'per', component: PermissaoComponent },
-  { path: 'tipousr', component: TipoUsuarioComponent }
+  { path: 'tipousr', component: TipoUsuarioComponent },
+  { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent }
 ];
 
 @NgModule({
