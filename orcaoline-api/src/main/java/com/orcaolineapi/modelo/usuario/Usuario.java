@@ -20,51 +20,52 @@ import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.orcamento.Status;
 
 @Entity
-public class Usuario extends AbstractModel{
+public class Usuario extends AbstractModel {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Size(min = 5, max = 150)
-	@Pattern(regexp = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/")
+	@Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
 	@NotBlank
 	private String email;
-	
-	@Size(min = 5, max = 300)
-	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
-	@NotBlank	
+
+	@Size(min = 8, max = 300)
+	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,300}$")
+	@NotBlank
 	private String senha;
-	
+
 	@Digits(integer = 14, fraction = 0)
 	@Size(min = 14, max = 14)
 	private String cnpj;
-	
+
 	@Size(min = 0, max = 300)
 	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String nome;
-	
+
 	@Size(min = 0, max = 300)
 	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String nomeFantasia;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_tipo_usuario")
+	@JoinColumn(name = "id_tipo_usuario")
 	@NonNull
 	private TipoUsuario tipoUsuario;
-	
+
 	public Usuario() {
 
 	}
-	
-	public Usuario(String email, String senha, String cnpj, String razaoSocial, String nomeFantasia, TipoUsuario tipoUsuario) {
+
+	public Usuario(String email, String senha, String cnpj, String razaoSocial, String nomeFantasia,
+			TipoUsuario tipoUsuario) {
 		this.email = email;
 		this.senha = senha;
 		this.cnpj = cnpj;
 		this.nome = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.tipoUsuario = tipoUsuario;
-	
+
 	}
 
 	public Long getId() {
@@ -122,8 +123,8 @@ public class Usuario extends AbstractModel{
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	
-	public static List<Status> usedStatus(){
+
+	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ATIVO);
 		list.add(Status.INATIVO);

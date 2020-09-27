@@ -23,7 +23,7 @@ public class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

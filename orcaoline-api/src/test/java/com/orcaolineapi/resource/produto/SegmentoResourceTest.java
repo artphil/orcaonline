@@ -27,46 +27,37 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.*;
 public class SegmentoResourceTest {
 
 	private @Autowired SegmentoResource resource;
-	
+
 	private @MockBean SegmentoRepository repository;
-	
+
 	private @MockBean SegmentoService service;
-	
+
 	private @MockBean HttpServletResponse response;
-	
+
 	@BeforeEach
 	public void setup() {
 		standaloneSetup(this.resource);
 	}
-	
-	//nomeDoMetodo / resultadoEsperado / emQueSituação 
+
+	// nomeDoMetodo / resultadoEsperado / emQueSituação
 	@Test()
 	public void getById_Sucesso_BuscarUmRecursoExistente() {
-	
+
 		Segmento seg = new Segmento("Nome", "descricao");
 		seg.setId(1L);
-		
+
 		when(this.repository.findById(1L)).thenReturn(Optional.of(seg));
-		
-		given()
-			.accept(ContentType.JSON)
-		.when()
-			.get("/segmentos/{id}", 1L)
-		.then()
-			.statusCode(HttpStatus.OK.value());
-		
+
+		given().accept(ContentType.JSON).when().get("/segmentos/{id}", 1L).then().statusCode(HttpStatus.OK.value());
+
 	}
-	
+
 //	@Test
 	public void getById_Falha_BuscarUmRecursoInexistente() {
 		when(this.repository.findById(1L)).thenReturn(null);
-		
-		given()
-			.accept(ContentType.JSON)
-		.when()
-			.get("/segmentos/{id}", 140L)
-		.then()
-			.statusCode(HttpStatus.NOT_FOUND.value());
+
+		given().accept(ContentType.JSON).when().get("/segmentos/{id}", 140L).then()
+				.statusCode(HttpStatus.NOT_FOUND.value());
 	}
-	
+
 }

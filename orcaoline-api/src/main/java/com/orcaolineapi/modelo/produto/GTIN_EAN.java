@@ -28,9 +28,9 @@ public class GTIN_EAN extends AbstractModel {
 	@ManyToOne
 	@JoinColumn(name = "id_brick")
 	private Brick brick;
-	
+
 	public GTIN_EAN() {
-		
+
 	}
 
 	public GTIN_EAN(BigInteger numero, Brick brick) {

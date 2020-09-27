@@ -30,10 +30,10 @@ public class ProdutoResource extends AbstractResource<Produto> {
 	public ProdutoService getService() {
 		return this.service;
 	}
-	
+
 	@CrossOrigin
 	@GetMapping("pesquisar")
-	public List<Produto> pesquisar(ProdutoFilter filter){
+	public List<Produto> pesquisar(ProdutoFilter filter) {
 		return repository.filtrar(filter);
 	}
 

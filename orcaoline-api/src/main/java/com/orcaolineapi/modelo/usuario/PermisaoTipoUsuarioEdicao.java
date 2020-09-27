@@ -5,15 +5,15 @@ import com.orcaolineapi.modelo.sistema.Modulo;
 public class PermisaoTipoUsuarioEdicao {
 
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private String descricao;
-	
+
 	private Modulo modulo;
-	
+
 	private boolean vinculado;
-	
+
 	public PermisaoTipoUsuarioEdicao(Long long1, String nome, String descricao, Modulo modulo, boolean vinculado) {
 		this.id = long1;
 		this.nome = nome;
@@ -61,5 +61,5 @@ public class PermisaoTipoUsuarioEdicao {
 	public void setVinculado(boolean vinculado) {
 		this.vinculado = vinculado;
 	}
-	
+
 }

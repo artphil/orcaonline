@@ -16,12 +16,12 @@ import com.orcaolineapi.service.usuario.PermissaoService;
 
 @RestController
 @RequestMapping("/permissoes")
-public class PermissaoResource extends AbstractResource<Permissao>{
+public class PermissaoResource extends AbstractResource<Permissao> {
 
 	private @Autowired PermissaoRepository repository;
-	
+
 	private @Autowired PermissaoService service;
-	
+
 	@Override
 	public PermissaoRepository getRepository() {
 		return repository;
@@ -31,7 +31,7 @@ public class PermissaoResource extends AbstractResource<Permissao>{
 	public PermissaoService getService() {
 		return service;
 	}
-	
+
 	@CrossOrigin
 	@GetMapping
 	public List<Permissao> getRecursos() {
@@ -39,7 +39,7 @@ public class PermissaoResource extends AbstractResource<Permissao>{
 		result.sort((a, b) -> a.getModulo().getDescricao().compareToIgnoreCase(b.getModulo().getDescricao()));
 		return result;
 	}
-	
+
 	@CrossOrigin
 	@GetMapping("modulos")
 	public Modulo[] getModulos() {

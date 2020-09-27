@@ -8,7 +8,7 @@ import com.orcaolineapi.repository.usuario.PermissaoRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class PermissaoService extends AbstractService<Permissao>{
+public class PermissaoService extends AbstractService<Permissao> {
 
 	private @Autowired PermissaoRepository repository;
 

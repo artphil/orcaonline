@@ -21,30 +21,30 @@ public class ItemMapa extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	//@Size(min = 0, max = 200)
+	// @Size(min = 0, max = 200)
 	private Double quantidade;
+	
+	private String marca;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private UnidadeMedida unidade;
-	
-	private String marca;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_mapa")
 	private MapaColeta mapa;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_brick")
 	private Brick brick;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
-	
+
 	public ItemMapa() {
-		
+
 	}
 
 	public ItemMapa(Double quantidade, @NotNull UnidadeMedida unidade, String marca, @NotNull MapaColeta mapa,
@@ -112,5 +112,5 @@ public class ItemMapa extends AbstractModel {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
+
 }

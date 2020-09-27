@@ -11,12 +11,12 @@ import com.orcaolineapi.service.orcamento.OrcamentoService;
 
 @RestController
 @RequestMapping("/orcamentos")
-public class OrcamentoResource extends AbstractResource<Orcamento>{
+public class OrcamentoResource extends AbstractResource<Orcamento> {
 
 	private @Autowired OrcamentoRepository repository;
-	
+
 	private @Autowired OrcamentoService service;
-	
+
 	@Override
 	public OrcamentoRepository getRepository() {
 		return repository;

@@ -8,13 +8,13 @@ import com.orcaolineapi.repository.usuario.UsuarioRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class UsuarioService extends AbstractService<Usuario>{
+public class UsuarioService extends AbstractService<Usuario> {
 
 	private @Autowired UsuarioRepository repository;
-	
+
 	@Override
 	public UsuarioRepository getRepository() {
-		return this.repository; 
+		return this.repository;
 	}
 
 }

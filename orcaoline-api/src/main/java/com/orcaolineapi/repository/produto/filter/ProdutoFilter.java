@@ -3,21 +3,21 @@ package com.orcaolineapi.repository.produto.filter;
 public class ProdutoFilter {
 
 	private Integer id;
-	
+
 	private String nome;
-	
+
 	private String descricao;
-	
+
 	private Integer ncm;
-	
+
 	private Integer segmento;
-	
+
 	private Integer familia;
-	
+
 	private Integer classe;
-	
+
 	private Integer brick;
-	
+
 	private Integer gtin;
 
 	public Integer getId() {
@@ -91,5 +91,5 @@ public class ProdutoFilter {
 	public void setGtin(Integer gtin) {
 		this.gtin = gtin;
 	}
-	
+
 }

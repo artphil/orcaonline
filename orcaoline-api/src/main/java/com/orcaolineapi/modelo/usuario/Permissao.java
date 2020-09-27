@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.lang.NonNull;
@@ -17,24 +18,26 @@ import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.sistema.Modulo;
 
 @Entity
-public class Permissao extends AbstractModel{
+public class Permissao extends AbstractModel {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Size(min = 5, max = 100)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String nome;
-	
+
 	@Size(min = 5, max = 200)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	@NotBlank
 	private String descricao;
-	
+
 	@Enumerated(EnumType.STRING)
 	@NonNull
 	private Modulo modulo;
-	
+
 	public Permissao() {
 
 	}
@@ -67,7 +70,7 @@ public class Permissao extends AbstractModel{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public Modulo getModulo() {
 		return modulo;
 	}
@@ -76,9 +79,10 @@ public class Permissao extends AbstractModel{
 		this.modulo = modulo;
 	}
 
-	@PrePersist @PreUpdate
+	@PrePersist
+	@PreUpdate
 	public void prepersist() {
 		setNome(getNome().toUpperCase());
 	}
-	
+
 }

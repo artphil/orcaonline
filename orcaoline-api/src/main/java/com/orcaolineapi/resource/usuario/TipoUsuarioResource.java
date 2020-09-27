@@ -17,13 +17,12 @@ import com.orcaolineapi.service.usuario.TipoUsuarioService;
 
 @RestController
 @RequestMapping("/tiposUsuarios")
-public class TipoUsuarioResource extends AbstractResource<TipoUsuario>{
+public class TipoUsuarioResource extends AbstractResource<TipoUsuario> {
 
 	private @Autowired TipoUsuarioRepository repository;
-	
+
 	private @Autowired TipoUsuarioService service;
-	
-	
+
 	@Override
 	public AbstractRepository<TipoUsuario, Long> getRepository() {
 		return repository;
@@ -33,18 +32,17 @@ public class TipoUsuarioResource extends AbstractResource<TipoUsuario>{
 	public AbstractService<TipoUsuario> getService() {
 		return service;
 	}
-	
+
 	@GetMapping("permissoesTipoUsuarioEdicao")
-	public List<PermisaoTipoUsuarioEdicao> getPermissoesTipoUsuarioEdicao(FilterTipoUsuarioPermissao filtro){
-		List<PermisaoTipoUsuarioEdicao>  result = service.getPermissaoTipoUsuarioEdicao(filtro);
+	public List<PermisaoTipoUsuarioEdicao> getPermissoesTipoUsuarioEdicao(FilterTipoUsuarioPermissao filtro) {
+		List<PermisaoTipoUsuarioEdicao> result = service.getPermissaoTipoUsuarioEdicao(filtro);
 		return result;
 	}
-	
+
 	@GetMapping("changePermissao")
 	public List<PermisaoTipoUsuarioEdicao> changePermissao(FilterTipoUsuarioPermissao filtro) {
-		List<PermisaoTipoUsuarioEdicao>  result = service.changePermissao(filtro);
+		List<PermisaoTipoUsuarioEdicao> result = service.changePermissao(filtro);
 		return result;
 	}
-	
-	
+
 }

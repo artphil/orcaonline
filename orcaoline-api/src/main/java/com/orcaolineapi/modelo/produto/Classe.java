@@ -33,9 +33,9 @@ public class Classe extends AbstractModel {
 	@ManyToOne
 	@JoinColumn(name = "id_familia")
 	private Familia familia;
-	
+
 	public Classe() {
-		
+
 	}
 
 	public Classe(String nome, String descricao, Familia familia) {

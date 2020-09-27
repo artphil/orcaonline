@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class MapaColetaService extends AbstractService<MapaColeta>{
+public class MapaColetaService extends AbstractService<MapaColeta> {
 
 	private @Autowired MapaColetaRepository repository;
-	
+
 	@Override
 	public MapaColetaRepository getRepository() {
 		return repository;

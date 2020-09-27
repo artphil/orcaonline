@@ -11,12 +11,12 @@ import com.orcaolineapi.service.orcamento.MapaColetaService;
 
 @RestController
 @RequestMapping("/mapas")
-public class MapaColetaResource extends AbstractResource<MapaColeta>{
+public class MapaColetaResource extends AbstractResource<MapaColeta> {
 
 	private @Autowired MapaColetaRepository repository;
-	
+
 	private @Autowired MapaColetaService service;
-	
+
 	@Override
 	public MapaColetaRepository getRepository() {
 		return repository;

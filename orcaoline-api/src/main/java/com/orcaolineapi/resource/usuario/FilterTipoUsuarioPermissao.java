@@ -5,9 +5,9 @@ import com.orcaolineapi.modelo.sistema.Modulo;
 public class FilterTipoUsuarioPermissao {
 
 	private Long idTipoUsuario;
-	
+
 	private Long idPermissao;
-	
+
 	private Modulo modulo;
 
 	public Long getIdTipoUsuario() {

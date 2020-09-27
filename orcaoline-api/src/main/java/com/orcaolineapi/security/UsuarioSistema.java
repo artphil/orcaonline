@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
 public class UsuarioSistema extends User {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Usuario usuario;
