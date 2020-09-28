@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+
 import { UserModel } from '../person.model';
+
 import { UserDialogComponent } from '../user/user.component';
 import { UserService } from '../user/user.service';
 
@@ -15,7 +19,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -53,5 +58,17 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  removeUser(id: number): void {
+    this.userService.delete(id)
+      .then(() => {
+        this.messageService.add(
+          { severity: 'success', summary: 'Usuário Excluido com Sucesso.', detail: `O id ${id} não pode mais ser acessado` }
+        );
+      })
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Usuário.', detail: msg });
+      });
+  }
 
 }

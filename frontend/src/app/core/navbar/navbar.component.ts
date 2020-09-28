@@ -82,6 +82,11 @@ export class NavbarComponent implements OnInit {
         routerLink: '/usr',
       },
       {
+        label: 'Lista de Usuário',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/usr/list'
+      },
+      {
         label: 'Tipo de Usuário',
         icon: 'pi pi-fw pi-plus',
         routerLink: '/tipousr'
