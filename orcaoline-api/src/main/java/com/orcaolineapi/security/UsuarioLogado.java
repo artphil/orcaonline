@@ -19,7 +19,8 @@ public class UsuarioLogado {
 	public Usuario usuarioLogado() {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
-		Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha inválidos"));
+		Usuario usuario = usuarioOptional
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha inválidos"));
 		return usuario;
 	}
 }

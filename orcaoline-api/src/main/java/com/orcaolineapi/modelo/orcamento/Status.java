@@ -18,14 +18,14 @@ public class Status extends AbstractModel {
 	public static final Long STATUS_CANCELADO = 4L;
 	public static final Long STATUS_INATIVO = 5L;
 	public static final Long STATUS_EM_ANDAMENTO = 6L;
-	
+
 	public static final Status ABERTO = new Status(STATUS_ABERTO);
-	public static final Status ATIVO = new Status(STATUS_ATIVO );
+	public static final Status ATIVO = new Status(STATUS_ATIVO);
 	public static final Status FECHADO = new Status(STATUS_FECHADO);
-	public static final Status CANCELADO= new Status(STATUS_CANCELADO);
+	public static final Status CANCELADO = new Status(STATUS_CANCELADO);
 	public static final Status INATIVO = new Status(STATUS_INATIVO);
 	public static final Status EM_ANDAMENTO = new Status(STATUS_EM_ANDAMENTO);
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -34,40 +34,35 @@ public class Status extends AbstractModel {
 	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String nome;
 
-	public Status() {}
+	public Status() {
+	}
 
 	public Status(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public Status(Long idStatus) {
 		id = idStatus;
 		nome = getNome(id);
 	}
 
 	public static String getNome(Long id) {
-		if(STATUS_ABERTO.equals(id)) {
+		if (STATUS_ABERTO.equals(id)) {
 			return "Aberto";
-		}
-		else if(STATUS_ATIVO.equals(id)) {
+		} else if (STATUS_ATIVO.equals(id)) {
 			return "Ativo";
-		}
-		else if(STATUS_FECHADO.equals(id)) {
+		} else if (STATUS_FECHADO.equals(id)) {
 			return "Fechado";
-		}
-		else if(STATUS_CANCELADO.equals(id)) {
+		} else if (STATUS_CANCELADO.equals(id)) {
 			return "Cancelado";
-		}
-		else if(STATUS_INATIVO.equals(id)) {
+		} else if (STATUS_INATIVO.equals(id)) {
 			return "Inativo";
-		}
-		else if(STATUS_EM_ANDAMENTO.equals(id)) {
+		} else if (STATUS_EM_ANDAMENTO.equals(id)) {
 			return "Em andamento";
 		}
 		return "Sem status";
 	}
-	
-	
+
 	public Long getId() {
 		return id;
 	}

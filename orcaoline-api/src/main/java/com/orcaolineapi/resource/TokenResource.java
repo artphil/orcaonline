@@ -16,8 +16,8 @@ import com.orcaolineapi.config.property.OrcaOnlineApiProperty;
 public class TokenResource {
 
 	@Autowired
-	private OrcaOnlineApiProperty orcaonlineApiProperty; 
-	
+	private OrcaOnlineApiProperty orcaonlineApiProperty;
+
 	@RequestMapping("/revoke")
 	public void revoke(HttpServletRequest req, HttpServletResponse resp) {
 		Cookie cookie = new Cookie("refreshToken", null);

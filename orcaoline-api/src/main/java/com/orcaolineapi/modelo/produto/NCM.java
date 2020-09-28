@@ -20,19 +20,19 @@ public class NCM extends AbstractModel {
 	@Digits(integer = 8, fraction = 0)
 	@Size(min = 8, max = 8)
 	private String numero;
-	
+
 	@Size(min = 0, max = 200)
 	@Pattern(regexp = "^$|[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
+
 	public NCM() {
-		
+
 	}
-	
+
 	public NCM(String numero, String descricao) {
 		this.numero = numero;
 		this.descricao = descricao;
-	}	
+	}
 
 	public Long getId() {
 		return id;
@@ -49,11 +49,11 @@ public class NCM extends AbstractModel {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}

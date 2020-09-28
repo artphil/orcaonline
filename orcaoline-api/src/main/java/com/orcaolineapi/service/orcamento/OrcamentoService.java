@@ -8,10 +8,10 @@ import com.orcaolineapi.repository.orcamento.OrcamentoRepository;
 import com.orcaolineapi.service.AbstractService;
 
 @Service
-public class OrcamentoService extends AbstractService<Orcamento>{
+public class OrcamentoService extends AbstractService<Orcamento> {
 
 	private @Autowired OrcamentoRepository repository;
-	
+
 	@Override
 	public OrcamentoRepository getRepository() {
 		return repository;

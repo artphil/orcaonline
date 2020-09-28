@@ -31,16 +31,18 @@ public class SegmentoRepositoryTest {
 			assertThat(seg.getId()).isNotNull();
 		});
 	}
-	
+
 	@Test
 	public void saveSegmentoNullShouldThrowsInvalidDataAccessApiUsageException() {
-		
+
 		Throwable exception = assertThrows(InvalidDataAccessApiUsageException.class, () -> {
 			Segmento seg = null;
-			this.repository.save(seg);		
+			this.repository.save(seg);
 		});
-		
-		assertEquals("Target object must not be null; nested exception is java.lang.IllegalArgumentException: Target object must not be null", exception.getMessage());
+
+		assertEquals(
+				"Target object must not be null; nested exception is java.lang.IllegalArgumentException: Target object must not be null",
+				exception.getMessage());
 	}
 
 	@Test
@@ -50,8 +52,10 @@ public class SegmentoRepositoryTest {
 			Segmento seg = new Segmento("", "Descrição do Segmento");
 			this.repository.save(seg);
 		});
-		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} não pode estar em branco(a).'") && (exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'") && (exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 150.'"));
+
+		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} não pode estar em branco(a).'")
+				&& (exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'")
+				&& (exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 150.'"));
 	}
 
 	@Test
@@ -74,7 +78,7 @@ public class SegmentoRepositoryTest {
 
 		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
 	}
-	
+
 	@Test
 	public void saveSegmentoWithNumbersInDescriptionShouldThrowsConstraintViolationException() {
 
@@ -86,7 +90,7 @@ public class SegmentoRepositoryTest {
 		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
 
 	}
-	
+
 	@Test
 	public void saveSegmentoWithBlankSpacesInNameShouldThrowsConstraintViolationException() {
 
@@ -94,10 +98,10 @@ public class SegmentoRepositoryTest {
 			Segmento seg = new Segmento("        ", "Descrição do Segmento");
 			this.repository.save(seg);
 		});
-		
+
 		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} não pode estar em branco(a).'");
 	}
-	
+
 	@Test
 	public void saveSegmentoWithSpecialCharactersInNameShouldThrowsConstraintViolationException() {
 
@@ -108,7 +112,7 @@ public class SegmentoRepositoryTest {
 
 		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
 	}
-	
+
 	@Test
 	public void saveSegmentoWithSpecialCharactersInDescriptionShouldThrowsConstraintViolationException() {
 
@@ -119,39 +123,42 @@ public class SegmentoRepositoryTest {
 
 		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
 	}
-	
+
 	@Test
 	public void saveSegmentoWithTooLongNameShouldThrowsConstraintViolationException() {
-		
+
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Segmento seg = new Segmento("Nome do SegmentoNome do SegmentoNome do SegmentoNome do SegmentoNome do SegmentoNome do Segmento"+
-					"Nome do SegmentoNome do SegmentoNome do SegmentoNome do Segmento", "Descrição do Segmento");
+			Segmento seg = new Segmento(
+					"Nome do SegmentoNome do SegmentoNome do SegmentoNome do SegmentoNome do SegmentoNome do Segmento"
+							+ "Nome do SegmentoNome do SegmentoNome do SegmentoNome do Segmento",
+					"Descrição do Segmento");
 			this.repository.save(seg);
 		});
 
-	    assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 150.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 150.'");
 	}
-	
+
 	@Test
 	public void saveSegmentoWithTooShortNameShouldThrowsConstraintViolationException() {
-		
+
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			Segmento seg = new Segmento("Nome", "Descrição do Segmento");
 			this.repository.save(seg);
 		});
 
-	    assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 150.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 150.'");
 	}
-	
+
 	@Test
 	public void saveSegmentoWithTooLongDescriptionShouldThrowsConstraintViolationException() {
-		
+
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Segmento seg = new Segmento("Nome do Segmento", "Descrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do Segmento"+
-					"Descrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do Segmento");
+			Segmento seg = new Segmento("Nome do Segmento",
+					"Descrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do Segmento"
+							+ "Descrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do SegmentoDescrição do Segmento");
 			this.repository.save(seg);
 		});
 
-	    assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 0 e 200.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 0 e 200.'");
 	}
 }

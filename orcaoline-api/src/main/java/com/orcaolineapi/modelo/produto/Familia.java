@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
 import com.orcaolineapi.modelo.AbstractModel;
 
 @Entity
@@ -34,17 +33,17 @@ public class Familia extends AbstractModel {
 	@ManyToOne
 	@JoinColumn(name = "id_segmento")
 	private Segmento segmento;
-	
+
 	public Familia() {
-		
+
 	}
-	
+
 	public Familia(String nome, String descricao, Segmento segmento) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.segmento = segmento;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

@@ -131,6 +131,15 @@ produtos.
 * Telas de listagem e cadastro de Produto
 * Testes de integração de resources e repositório de Produto
 
+## Sprint #1
+
+* Modelagem da classe de Orcamento
+* Modelagem da classe de Usuario
+* Telas de listagem e cadastro de Usuario
+* Telas de listagem e cadastro de Orcamento
+* Testes de integração de resources e repositório de Orcamento
+* Testes de integração de resources e repositório de Usuario
+
 ## Gerenciamento de Projeto
 
 [Pipefy](https://app.pipefy.com/pipes/1238697)

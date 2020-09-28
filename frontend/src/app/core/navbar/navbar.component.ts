@@ -72,6 +72,28 @@ export class NavbarComponent implements OnInit {
     ]
   };
 
+  users: MenuItem = {
+    label: 'Usuários',
+    icon: 'pi pi-fw pi-plus',
+    items: [
+      {
+        label: 'Usuário',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/usr',
+      },
+      {
+        label: 'Tipo de Usuário',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/tipousr'
+      },
+      {
+        label: 'Permissão',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/per'
+      }
+    ]
+  };
+
   constructor(
     private auth: AuthService,
     private router: Router
@@ -81,31 +103,12 @@ export class NavbarComponent implements OnInit {
     if (this.auth.jwtPayload) {
       this.prod.items.push(this.prodCadastro);
       this.items.push(this.prod);
+      this.items.push(this.users);
     }
-
-
-    this.items.push(
-      {
-        label: 'Usuários',
-        icon: 'pi pi-fw pi-users',
-        items: [
-          {
-            label: 'Cadastro',
-            icon: 'pi pi-fw pi-plus',
-            routerLink: '/usr',
-          },
-          {
-            label: 'Permissão',
-            icon: 'pi pi-fw pi-th-large',
-            routerLink: '/per'
-          }
-        ]
-      }
-    );
 
   }
 
-  logout() {
+  logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
   }

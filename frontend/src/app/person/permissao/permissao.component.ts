@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PermissionModel } from '../person.model';
+import { SelectItem } from 'primeng/api';
+
+import { PermissionModel, Modulo } from '../person.model';
 import { PermissionService } from './permission.service';
 
 @Component({
@@ -12,11 +14,13 @@ export class PermissaoComponent implements OnInit {
 
   permission = new PermissionModel();
   permissions = [];
+  modulos: SelectItem[];
 
   constructor(private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     this.consultar();
+    this.iniciaModulos();
   }
 
   adicionar() {
@@ -28,7 +32,6 @@ export class PermissaoComponent implements OnInit {
   }
 
   excluir(id: number) {
-    console.log(id);
     this.permissionService.delete(id)
     .then(() => {
       this.consultar();
@@ -41,7 +44,24 @@ export class PermissaoComponent implements OnInit {
       this.permissions = permissions;
     });
   }
-  
+
+  iniciaModulos(): void {
+    this.permissionService.getModulos()
+      .then(itens => {
+        this.modulos = [];
+        for(var a of itens){
+          this.modulos.push({ label: a, value: a });
+        }
+      })
+      .catch(() => {
+        this.modulos = [
+          { label: 'Nenhum módulo cadastrado', value: null }
+        ];
+      });
+  }
+
+
+
   editar(p: PermissionModel) {
     this.permission = p;
   }

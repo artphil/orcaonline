@@ -38,9 +38,9 @@ public class Produto extends AbstractModel {
 	@ManyToOne
 	@JoinColumn(name = "id_gtin_ean")
 	private GTIN_EAN gtin;
-	
+
 	public Produto() {
-		
+
 	}
 
 	public Produto(String nome, String descricao, NCM ncm, GTIN_EAN gtin_ean) {

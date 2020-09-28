@@ -13,42 +13,33 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter{
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
-	private AuthenticationManager  authenticationManager; 
-	
+	private AuthenticationManager authenticationManager;
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
-			.withClient("angular")
-			.secret("$2a$10$uSvrP5fyUCj1TbWoTsQIfeG7xgDNNox1V0UKwRM32449rKtlC7xSi") //@ngul@r0
-			.scopes("read", "write")
-			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(60)
-			.refreshTokenValiditySeconds(60*15);
+		clients.inMemory().withClient("angular").secret("$2a$10$uSvrP5fyUCj1TbWoTsQIfeG7xgDNNox1V0UKwRM32449rKtlC7xSi") // @ngul@r0
+				.scopes("read", "write").authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(60 * 1).refreshTokenValiditySeconds(60 * 15);
 	}
-	
+
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints
-			.tokenStore(tokenStore())
-			.accessTokenConverter(accessTokenConverter())
-			.reuseRefreshTokens(false)
-			.userDetailsService(userDetailsService)
-			.authenticationManager(authenticationManager);
+		endpoints.tokenStore(tokenStore()).accessTokenConverter(accessTokenConverter()).reuseRefreshTokens(false)
+				.userDetailsService(userDetailsService).authenticationManager(authenticationManager);
 	}
-	
+
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
 		accessTokenConverter.setSigningKey("pds_senha"); // Senha que valida o jwt token
 		return accessTokenConverter;
 	}
-	
 
 	@Bean
 	public TokenStore tokenStore() {

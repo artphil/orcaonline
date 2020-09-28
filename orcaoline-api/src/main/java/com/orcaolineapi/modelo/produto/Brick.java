@@ -33,11 +33,11 @@ public class Brick extends AbstractModel {
 	@ManyToOne
 	@JoinColumn(name = "id_classe")
 	private Classe classe;
-	
+
 	public Brick() {
-			
-		}
-	
+
+	}
+
 	public Brick(String nome, String descricao, Classe classe) {
 		this.nome = nome;
 		this.descricao = descricao;

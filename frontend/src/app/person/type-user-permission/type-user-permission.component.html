@@ -1,0 +1,55 @@
+<form #userTypePermissionForm="ngForm">
+    <div class="p-grid">
+      <div class="p-col-12">
+          <h1>Tipos de Usuários x Permissões</h1>
+      </div>
+
+        <div class="p-col-4  p-fluid">
+            <label>Tipo de Usário</label>
+            <p-dropdown [options]="userTypes" name="tipo"  (onChange)="changeIdUserTipe($event)"></p-dropdown>
+        </div>
+        <div class="p-col-4  p-fluid">
+            <label>Módulo</label>
+            <p-dropdown [options]="modulos" name="modulo" (onChange)="changeModulo($event)"></p-dropdown>
+        </div>
+    </div>
+  </form>
+
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-table #dt [value]="permissions" [paginator]="true" [rows]="10" [responsive]="true"
+        [globalFilterFields]="['nome','descricao']">
+        <ng-template pTemplate="caption">
+          <div class="table-header">
+              Lista de Permissões
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  placeholder="Pesquisar" />
+              </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="p-col-7">Nome</th>
+            <th class="p-col-3">Módulo</th>
+            <th class="p-col-8">Descrição</th>
+            <th class="p-col-2"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-p>
+          <tr>
+            <td>{{p.nome}}</td>
+            <td>{{p.modulo}}</td>
+            <td>{{p.descricao}}</td>
+            
+            <td>
+                <a *ngIf="p.vinculado" [ngClass]="{'red': p.vinculado === false, 'green': p.vinculado === true}" pButton icon="pi pi-check" (click)="changePermission(p)" pTooltip="Desativar"  tooltipPosition="top"></a>
+                <a *ngIf="!p.vinculado" [ngClass]="{'red': p.vinculado === false, 'green': p.vinculado === true}" pButton icon="pi pi-times" (click)="changePermission(p)" pTooltip="Ativar"  tooltipPosition="top"></a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  

@@ -17,36 +17,34 @@ public class ItemOrcamento extends AbstractModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Double valorUnitario;
 
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_orcamento")
 	private Orcamento orcamento;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_item_mapa")
 	private ItemMapa itemMapa;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
-	
-	
+
 	public ItemOrcamento() {
-		
+
 	}
-	
+
 	public ItemOrcamento(Double valorUnitario, Orcamento orcamento, ItemMapa itemMapa, Produto produto) {
 		this.valorUnitario = valorUnitario;
 		this.orcamento = orcamento;
 		this.itemMapa = itemMapa;
 		this.produto = produto;
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -55,27 +53,27 @@ public class ItemOrcamento extends AbstractModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Double getValorUnitario() {
 		return valorUnitario;
 	}
-	
+
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	
+
 	public Orcamento getOrcamento() {
 		return orcamento;
 	}
-	
+
 	public void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
 	}
-	
+
 	public ItemMapa getItemMapa() {
 		return itemMapa;
 	}
-	
+
 	public void setItemMapa(ItemMapa itemMapa) {
 		this.itemMapa = itemMapa;
 	}

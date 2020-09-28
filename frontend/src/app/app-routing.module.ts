@@ -8,8 +8,9 @@ import { LoginFormComponent } from './core/login-form/login-form.component';
 import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import { UserComponent } from './person/user/user.component';
 import { PermissaoComponent } from './person/permissao/permissao.component';
-import { ProductListComponent } from './product/product-list/product-list.component';
+import { TipoUsuarioComponent } from './person/tipo-usuario/tipo-usuario.component';
 import { ProductComponent } from './product/product/product.component';
+import { ProductListComponent } from './product/product-list/product-list.component';
 import { SegmentComponent } from './product/segment/segment.component';
 import { FamilyComponent } from './product/family/family.component';
 import { ClassComponent } from './product/class/class.component';
@@ -18,6 +19,7 @@ import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
 
 import { AuthGuard } from './security/auth.guard';
+import { TypeUserPermissionComponent } from './person/type-user-permission/type-user-permission.component';
 
 
 
@@ -53,6 +55,8 @@ const routes: Routes = [
   { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
 
   { path: 'per', component: PermissaoComponent },
+  { path: 'tipousr', component: TipoUsuarioComponent },
+  { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent }
 ];
 
 @NgModule({

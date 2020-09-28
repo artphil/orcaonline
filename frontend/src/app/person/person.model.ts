@@ -23,24 +23,38 @@ export class UserTypeModel {
   id: number;
   nome: string;
   descricao: string;
-  permissoes: PermissionModel;
+  permissoes: [];
 
   constructor() {
     this.id = null;
     this.nome = null;
     this.descricao = null;
-    this.permissoes = new PermissionModel();
+    this.permissoes = [];
   }
 }
-
+  
 export class PermissionModel {
   id: number;
   nome: string;
+  modulo: string;
   descricao: string;
 
   constructor() {
     this.id = null;
     this.nome = null;
+    this.modulo = null;
     this.descricao = null;
   }
 }
+
+export class Modulo{
+   numero: number;
+   nome: string;
+  
+   constructor() {
+    this.numero = null;
+    this.nome = null;
+  }     
+}
+
+

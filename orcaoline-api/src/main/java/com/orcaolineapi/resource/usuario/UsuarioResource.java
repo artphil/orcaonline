@@ -16,9 +16,9 @@ import com.orcaolineapi.service.usuario.UsuarioService;
 public class UsuarioResource extends AbstractResource<Usuario> {
 
 	private @Autowired UsuarioRepository repository;
-	
+
 	private @Autowired UsuarioService service;
-	
+
 	@Override
 	public AbstractRepository<Usuario, Long> getRepository() {
 		return repository;
