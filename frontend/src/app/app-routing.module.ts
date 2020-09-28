@@ -7,6 +7,7 @@ import { HomeComponent } from './core/home/home.component';
 import { LoginFormComponent } from './core/login-form/login-form.component';
 import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 import { UserComponent } from './person/user/user.component';
+import { UserListComponent } from './person/user-list/user-list.component';
 import { PermissaoComponent } from './person/permissao/permissao.component';
 import { TipoUsuarioComponent } from './person/tipo-usuario/tipo-usuario.component';
 import { ProductComponent } from './product/product/product.component';
@@ -31,6 +32,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
 
   { path: 'usr', component: UserComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'usr/list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [] } },
+
   { path: 'pdt', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
   { path: 'pdt/list', component: ProductListComponent, canActivate: [AuthGuard], data: { roles: [] } },
 

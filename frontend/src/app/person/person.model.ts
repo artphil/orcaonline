@@ -4,7 +4,7 @@ export class UserModel {
   email: string;
   senha: string;
   cnpj: string;
-  razaoSocial: string;
+  // razaoSocial: string;
   nomeFantasia: string;
   tipoUsuario: UserTypeModel;
 

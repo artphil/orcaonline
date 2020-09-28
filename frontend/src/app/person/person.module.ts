@@ -26,13 +26,12 @@ import { UserListComponent } from './user-list/user-list.component';
 @NgModule({
   declarations: [
     UserComponent,
+    UserListComponent,
     PermissaoComponent,
     TipoUsuarioComponent,
     TypeUserPermissionComponent,
 
-    UserDialogComponent,
-
-    UserListComponent
+    UserDialogComponent
   ],
   imports: [
     CommonModule,

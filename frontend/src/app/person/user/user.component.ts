@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
-import { UserModel, UserTypeModel} from '../person.model';
+import { UserModel, UserTypeModel } from '../person.model';
 import { UserTypeService } from '../tipo-usuario/user-type.service';
 
-import { UserService} from './user.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
 
   idUser: number;
 
+  @Input() userId: number;
   @Input() isPopup: boolean;
   @Output() savePopup = new EventEmitter<string>();
 
@@ -34,6 +35,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = Number(this.route.snapshot.paramMap.get('cod'));
+    if (this.userId) {
+      this.idUser = this.userId;
+      console.log(this.idUser)
+    }
 
     this.consult();
     this.getUserTypes();
@@ -122,16 +127,21 @@ export class UserComponent implements OnInit {
 @Component({
   selector: 'app-dialog-user',
   template: `
-  <app-user isPopup="true" (savePopup)="close($event)"></app-user>
+  <app-user isPopup="true" [userId]="userId" (savePopup)="close($event)"></app-user>
   `,
   styles: ['']
 })
 export class UserDialogComponent {
 
+  userId: number;
+
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig
   ) {
+    if (this.config.data) {
+      this.userId = this.config.data.id;
+    }
   }
 
   close(e: string): void {
