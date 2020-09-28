@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
 import com.orcaolineapi.modelo.usuario.Permissao;
@@ -70,22 +71,23 @@ public class UsuarioRepositoryTest {
 	}
 
 	@Test
-	public void saveUsuarioWithNullTipoUsuarioShouldThrowsNoneException() {
-
-		assertDoesNotThrow(() -> {
+	public void saveUsuarioWithNullTipoUsuarioShouldThrowsDataIntegrityViolationException() {
+		
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
 			TipoUsuario tip = null;
 
-			Usuario usu = new Usuario("usuariousuario.com.br", "123Usuario@", "12345678910111",
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
 					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 			this.repositoryU.save(usu);
-			assertThat(usu.getId()).isNotNull();
 		});
+		
+		assertThat(exception.getMessage()).contains("could not execute statement; SQL [n/a]");
 	}
 
 	@Test
 	public void saveUsuarioWithInvalidIdTipoUsuarioShouldThrowsDataIntegrityViolationException() {
 
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
+		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
 
 			TipoUsuario tip = validTipoUsuario();
 			tip.setId(Long.valueOf(999999999));
@@ -95,7 +97,7 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
+		assertThat(exception.getMessage()).contains("could not execute statement; SQL [n/a]");
 
 	}
 
@@ -258,7 +260,7 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 300.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 0 e 300.'");
 	}
 
 	@Test
@@ -320,6 +322,8 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 5 e 300.'");
+		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'")
+				&& (exception.getMessage()).contains("interpolatedMessage='{0} deve ter o tamanho entre 8 e 300.'"));
+	
 	}
 }
