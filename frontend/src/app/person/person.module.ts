@@ -10,8 +10,9 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { InputMaskModule } from 'primeng/inputmask';
+import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 
-import { UserComponent } from './user/user.component';
+import { UserComponent, UserDialogComponent } from './user/user.component';
 import { PermissaoComponent } from './permissao/permissao.component';
 import { SharedModule } from './../shared/shared.module';
 
@@ -20,31 +21,44 @@ import { TipoUsuarioComponent } from './tipo-usuario/tipo-usuario.component';
 import { UserService } from './user/user.service';
 import { UserTypeService } from './tipo-usuario/user-type.service';
 import { TypeUserPermissionComponent } from './type-user-permission/type-user-permission.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     PermissaoComponent,
     TipoUsuarioComponent,
-    TypeUserPermissionComponent
+    TypeUserPermissionComponent,
+
+    UserDialogComponent,
+
+    UserListComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     HttpClientModule,
+
     InputTextModule,
     ButtonModule,
     DropdownModule,
     TableModule,
     InputMaskModule,
     TooltipModule,
-    SharedModule,
-    RouterModule
+    DynamicDialogModule,
+
+    SharedModule
+  ],
+  entryComponents: [
+    UserDialogComponent
   ],
   providers: [
     UserService,
     UserTypeService,
-    PermissionService
+    PermissionService,
+
+    DialogService
   ],
   exports: [
     UserComponent,

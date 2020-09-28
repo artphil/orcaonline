@@ -6,22 +6,40 @@
       <h1 *ngIf="idUser">Editar Usuário</h1>
     </div>
 
-    <div class="p-col-6 p-md-3 p-fluid">
-      <label>Código</label>
-      <input type="text" pInputText name="id" [(ngModel)]="user.id" disabled>
-    </div>
-    <div class="p-col-6 "></div>
-
-
-    <div class="p-col-12 p-md-8 p-fluid">
+    <div class="p-col-12 p-fluid">
       <label>Nome</label>
-      <input type="text" pInputText name="nome" #userName="ngModel" [(ngModel)]="user.nome" required minlength="10">
+      <input type="text" pInputText name="nome" #userName="ngModel" [(ngModel)]="user.nome" required minlength="5">
 
       <app-msg-validation [control]="userName" error="required" text="Informe o nome do Usuário.">
       </app-msg-validation>
 
       <app-msg-validation [control]="userName" error="minlength"
         text="O nome do Usuário deve ter no mínimo {{ userName.errors?.minlength?.requiredLength }} caracteres.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-fluid">
+      <label>Nome Fantasia</label>
+      <input type="text" pInputText name="nomeFantasia" #userAlias="ngModel" [(ngModel)]="user.nomeFantasia" required>
+
+      <app-msg-validation [control]="userAlias" error="required" text="Informe o CNPJ do Usuário.">
+      </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-2 p-fluid">
+      <label>CNPJ</label>
+      <p-inputMask name="cnpj" #userCNPJ="ngModel" [(ngModel)]="user.cnpj" mask="99.999.999/9999-99" unmask="true"
+        required></p-inputMask>
+
+      <app-msg-validation [control]="userCNPJ" error="required" text="Informe o CNPJ."> </app-msg-validation>
+    </div>
+
+    <div class="p-col-12 p-md-4 p-fluid">
+      <label>Tipo</label>
+      <p-dropdown [options]="userTypes" name="tipoUsuario" #userType="ngModel" [(ngModel)]="user.tipoUsuario.id"
+        [filter]="true" placeholder="Selecione" required></p-dropdown>
+
+      <app-msg-validation [control]="userType" error="required" text="Informe o segmento do Usuário.">
       </app-msg-validation>
     </div>
 
@@ -36,40 +54,15 @@
       </app-msg-validation>
     </div>
 
+
     <div class="p-col-12 p-md-2 p-fluid">
-      <label>CNPJ</label>
-      <p-inputMask name="cnpj" #userCNPJ="ngModel" [(ngModel)]="user.cnpj" mask="99.999.999/9999-99" required></p-inputMask>
+      <label>Senha</label>
+      <input type="text" pInputText name="senha" #userPass="ngModel" [(ngModel)]="user.senha" required>
 
-      <app-msg-validation [control]="userCNPJ" error="required" text="Informe o CNPJ.">      </app-msg-validation>
-    </div>
-
-    <div class="p-col-12 p-md-10 p-fluid">
-      <label>Razão Social</label>
-      <input type="text" pInputText name="razaoSocial" #userSocial="ngModel" [(ngModel)]="user.razaoSocial" required>
-
-      <app-msg-validation [control]="userSocial" error="required" text="Informe o CNPJ do Usuário.">
+      <app-msg-validation [control]="userPass" error="required" text="Informe o CNPJ do Usuário.">
       </app-msg-validation>
     </div>
 
-    <div class="p-col-12 p-fluid">
-      <label>Nome Fantasia</label>
-      <input type="text" pInputText name="nomeFantasia" #userAlias="ngModel" [(ngModel)]="user.nomeFantasia" required>
-
-      <app-msg-validation [control]="userAlias" error="required" text="Informe o CNPJ do Usuário.">
-      </app-msg-validation>
-    </div>
-
-      <div class="p-col-12 p-md-4 p-fluid">
-      <label>Tipo</label>
-
-      <div class="p-col-12">
-        <p-dropdown [options]="userTypes" name="tipoUsuario" #userType="ngModel" [(ngModel)]="user.tipoUsuario"
-          [filter]="true" placeholder="Selecione" required></p-dropdown>
-      </div>
-
-      <app-msg-validation [control]="userType" error="required" text="Informe o segmento do Usuário.">
-      </app-msg-validation>
-    </div>
 
     <div class="p-col-12 buttonGroup">
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveUser(userForm)"

@@ -8,14 +8,26 @@ export class UserModel {
   nomeFantasia: string;
   tipoUsuario: UserTypeModel;
 
-  constructor() {
-     this.id = null;
-     this.email = null;
-     this.senha = null;
-     this.cnpj = null;
-     this.razaoSocial = null;
-     this.nomeFantasia = null;
-     this.tipoUsuario = new UserTypeModel();
+  constructor(data = null) {
+    if (data) {
+      this.id = data.id;
+      this.email = data.email;
+      this.senha = data.senha;
+      this.cnpj = data.cnpj;
+      this.nome = data.nome;
+      this.nomeFantasia = data.nomeFantasia;
+      this.tipoUsuario = data.tipoUsuario;
+
+    } else {
+      this.id = null;
+      this.email = null;
+      this.senha = null;
+      this.cnpj = null;
+      this.nome = null;
+      this.nomeFantasia = null;
+      this.tipoUsuario = new UserTypeModel();
+
+    }
   }
 }
 
@@ -32,7 +44,7 @@ export class UserTypeModel {
     this.permissoes = [];
   }
 }
-  
+
 export class PermissionModel {
   id: number;
   nome: string;
@@ -50,11 +62,11 @@ export class PermissionModel {
 export class Modulo{
    numero: number;
    nome: string;
-  
+
    constructor() {
     this.numero = null;
     this.nome = null;
-  }     
+  }
 }
 
 
