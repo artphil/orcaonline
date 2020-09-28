@@ -92,7 +92,7 @@ export class NavbarComponent implements OnInit {
           {
             label: 'Cadastro',
             icon: 'pi pi-fw pi-plus',
-            routerLink: '/pdt',
+            routerLink: '/usr',
           },
           {
             label: 'Permissão',
