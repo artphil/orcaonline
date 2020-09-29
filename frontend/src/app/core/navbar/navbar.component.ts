@@ -99,6 +99,19 @@ export class NavbarComponent implements OnInit {
     ]
   };
 
+  orcamento: MenuItem = {
+    label: 'Orçamento',
+    icon: 'pi pi-fw pi-plus',
+    items: [
+      {
+        label: 'Mapa de coleta',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/mapc',
+      }
+    ]
+  };
+
+
   constructor(
     private auth: AuthService,
     private router: Router
@@ -109,6 +122,7 @@ export class NavbarComponent implements OnInit {
       this.prod.items.push(this.prodCadastro);
       this.items.push(this.prod);
       this.items.push(this.users);
+      this.items.push(this.orcamento);
     }
 
   }

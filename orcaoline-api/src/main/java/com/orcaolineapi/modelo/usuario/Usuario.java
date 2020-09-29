@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -18,6 +20,7 @@ import org.springframework.lang.NonNull;
 
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.orcamento.Status;
+import com.orcaolineapi.security.util.GeradorSenha;
 
 @Entity
 public class Usuario extends AbstractModel {
@@ -27,12 +30,11 @@ public class Usuario extends AbstractModel {
 	private Long id;
 
 	@Size(min = 5, max = 150)
-	@Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
+	@Email
 	@NotBlank
 	private String email;
 
 	@Size(min = 8, max = 300)
-	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,300}$")
 	@NotBlank
 	private String senha;
 
@@ -129,5 +131,10 @@ public class Usuario extends AbstractModel {
 		list.add(Status.ATIVO);
 		list.add(Status.INATIVO);
 		return list;
+	}
+	
+	@PrePersist
+	public void encodaSenha() {
+		setSenha(GeradorSenha.gerarSenha(getSenha()));
 	}
 }
