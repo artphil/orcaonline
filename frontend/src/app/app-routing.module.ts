@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'usr/list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
   { path: 'pdt', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
-  { path: 'pdt/list', component: ProductListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VER_PRODUTO'] } },
+  { path: 'pdt/list', component: ProductListComponent},
 
   { path: 'pdt/seg', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
   { path: 'pdt/seg/:cod', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
