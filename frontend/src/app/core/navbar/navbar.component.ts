@@ -111,6 +111,18 @@ export class NavbarComponent implements OnInit {
     ]
   };
 
+  orcCadastro: MenuItem = {
+    label: 'Cadastro',
+    icon: 'pi pi-fw pi-plus',
+    items: [
+      {
+        label: 'Orçamento',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/',
+      }
+    ]
+  };
+
 
   constructor(
     private auth: AuthService,
@@ -119,9 +131,16 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.jwtPayload) {
-      this.prod.items.push(this.prodCadastro);
+      if (this.auth.hasPermission('ROLE_CADASTRAR_PRODUTO')) {
+        this.prod.items.push(this.prodCadastro);
+      }
       this.items.push(this.prod);
-      this.items.push(this.users);
+      if (this.auth.hasPermission('ROLE_CADASTRAR_USUARIO')) {
+        this.items.push(this.users);
+      }
+      if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
+        this.orcamento.items.push(this.orcCadastro);
+      }
       this.items.push(this.orcamento);
     }
 

@@ -32,38 +32,39 @@ const routes: Routes = [
 
   { path: '', component: HomeComponent},
 
-  { path: 'usr', component: UserComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'usr/list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'usr/new', component: UserComponent},
+  { path: 'usr', component: UserComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'usr/list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
-  { path: 'pdt', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/list', component: ProductListComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/list', component: ProductListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_VER_PRODUTO'] } },
 
-  { path: 'pdt/seg', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/seg/:cod', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/seg', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/seg/:cod', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'pdt/fam', component: FamilyComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/fam/:cod', component: FamilyComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/fam', component: FamilyComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/fam/:cod', component: FamilyComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'pdt/cls', component: ClassComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/cls/:cod', component: ClassComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/cls', component: ClassComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/cls/:cod', component: ClassComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'pdt/brk', component: BrickComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/brk/:cod', component: BrickComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/brk', component: BrickComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/brk/:cod', component: BrickComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'pdt/gtn', component: GtinComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/gtn/:cod', component: GtinComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/gtn', component: GtinComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/gtn/:cod', component: GtinComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'pdt/ncm', component: NcmComponent, canActivate: [AuthGuard], data: { roles: [] } },
-  { path: 'pdt/ncm/:cod', component: NcmComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/ncm', component: NcmComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
+  { path: 'pdt/ncm/:cod', component: NcmComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: [] } },
+  { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'per', component: PermissaoComponent },
-  { path: 'tipousr', component: TipoUsuarioComponent },
-  { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent },
+  { path: 'per', component: PermissaoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'tipousr', component: TipoUsuarioComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
   { path: 'mapc', component: MapaColetaComponent }
-  
+
 ];
 
 @NgModule({
