@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
 
 import { UserTypeModel } from '../person.model';
 import { UserTypeService } from './user-type.service';
@@ -12,12 +13,13 @@ export class TipoUsuarioComponent implements OnInit {
 
   tipo = new UserTypeModel();
   tipos = [];
-
+  modalidades: SelectItem[];
 
   constructor(private userTypeService: UserTypeService) { }
 
   ngOnInit(): void {
     this.consultar();
+    this.iniciaModalidades();
   }
 
   adicionar() {
@@ -44,6 +46,21 @@ export class TipoUsuarioComponent implements OnInit {
   
   editar(t: UserTypeModel) {
     this.tipo = t;
+  }
+
+  iniciaModalidades(): void {
+    this.userTypeService.getModalidades()
+      .then(itens => {
+        this.modalidades = [];
+        for(var a of itens){
+          this.modalidades.push({ label: a, value: a });
+        }
+      })
+      .catch(() => {
+        this.modalidades = [
+          { label: 'Nenhum módulo cadastrado', value: null }
+        ];
+      });
   }
 
 }

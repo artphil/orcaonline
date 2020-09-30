@@ -8,9 +8,13 @@
             <label>Nome</label>
             <input pInputText type="text" name="nome" [(ngModel)]="tipo.nome"/>
         </div>
-        <div class="p-col-7 p-fluid">
+        <div class="p-col-5 p-fluid">
           <label>Descrição</label>
           <input pInputText type="text" name="descricao" [(ngModel)]="tipo.descricao"/>
+        </div>
+        <div class="p-col-2  p-fluid">
+          <label>Modalidade</label>
+          <p-dropdown [options]="modalidades" name="modalidade" [(ngModel)]="tipo.modalidade" placeholder="Selecione"></p-dropdown>
         </div>
         <div class="p-col-1 p-fluid">
           <br>

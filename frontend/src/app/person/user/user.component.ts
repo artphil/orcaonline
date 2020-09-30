@@ -8,6 +8,7 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { UserModel, UserTypeModel } from '../person.model';
 import { UserTypeService } from '../tipo-usuario/user-type.service';
+import { AuthService } from 'src/app/security/auth.service';
 
 import { UserService } from './user.service';
 
@@ -30,7 +31,8 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private userTypeService: UserTypeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +43,13 @@ export class UserComponent implements OnInit {
     }
 
     this.consult();
-    this.getUserTypes();
-
+    if(this.logedUser()){
+      this.getAllUserTypes();
+    }
+    else{
+      this.getExternalUserTypes();
+    }
+    
   }
 
   consult(): void {
@@ -59,8 +66,23 @@ export class UserComponent implements OnInit {
     }
   }
 
-  getUserTypes(): void {
+  getAllUserTypes(): void {
     this.userTypeService.getList()
+      .then((userTypeList: UserTypeModel[]) => {
+        this.userTypes = [];
+        userTypeList.forEach(item => {
+          this.userTypes.push({ label: item.nome, value: item.id });
+        });
+      })
+      .catch(() => {
+        this.userTypes = [
+          { label: 'Nenhum Tipo de Usuário cadastrado', value: null }
+        ];
+      });
+  }
+
+  getExternalUserTypes(): void {
+    this.userTypeService.getListExternos()
       .then((userTypeList: UserTypeModel[]) => {
         this.userTypes = [];
         userTypeList.forEach(item => {
@@ -121,6 +143,9 @@ export class UserComponent implements OnInit {
       });
   }
 
+  logedUser(): boolean{
+    return this.auth.jwtPayload?.user_name;
+  }
 }
 
 

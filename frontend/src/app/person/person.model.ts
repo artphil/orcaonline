@@ -35,12 +35,14 @@ export class UserTypeModel {
   id: number;
   nome: string;
   descricao: string;
+  modalidade: string;
   permissoes: [];
 
   constructor() {
     this.id = null;
     this.nome = null;
     this.descricao = null;
+    this.modalidade = null;
     this.permissoes = [];
   }
 }

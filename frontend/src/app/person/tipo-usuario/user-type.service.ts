@@ -12,7 +12,7 @@ export class UserTypeService {
   apiPath: string;
 
   headers = new HttpHeaders({
-    'Content-Type': 'application/json; charset=utf-8'
+    'Content-Type': 'application/json'
   });
 
   constructor(private http: HttpClient) {
@@ -27,6 +27,12 @@ export class UserTypeService {
 
   getList(query: string = ''): Promise<any> {
     return this.http.get<any>(`${this.apiPath}/${query}`, { headers: this.headers })
+      .toPromise()
+      .then(res => res);
+  }
+
+  getListExternos(query: string = ''): Promise<any> {
+    return this.http.get<any>(`${this.apiPath}/tiposExternos`, { headers: this.headers })
       .toPromise()
       .then(res => res);
   }
@@ -70,5 +76,10 @@ export class UserTypeService {
     .then(res => res);
   }
 
+  getModalidades(): Promise<any> {
+    return this.http.get<any>(`${this.apiPath}/modalidades`, { headers: this.headers })
+      .toPromise()
+      .then(res => res);
+  }
 
 }
