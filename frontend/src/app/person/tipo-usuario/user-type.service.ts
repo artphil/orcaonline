@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from 'src/app/security/auth.service';
 
 import { environment } from 'src/environments/environment';
 
@@ -15,7 +16,7 @@ export class UserTypeService {
     'Content-Type': 'application/json'
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {
     this.apiPath = `${environment.apiUrl}/tiposUsuarios`;
   }
 
@@ -26,16 +27,17 @@ export class UserTypeService {
   }
 
   getList(query: string = ''): Promise<any> {
-    return this.http.get<any>(`${this.apiPath}/${query}`, { headers: this.headers })
+    let url = this.logedUser() ? this.apiPath : `${this.apiPath}/tiposExternos`;
+    return this.http.get<any>(url, { headers: this.headers })
       .toPromise()
       .then(res => res);
   }
 
-  getListExternos(query: string = ''): Promise<any> {
-    return this.http.get<any>(`${this.apiPath}/tiposExternos`, { headers: this.headers })
-      .toPromise()
-      .then(res => res);
-  }
+  // getListExternos(query: string = ''): Promise<any> {
+  //   return this.http.get<any>(`${this.apiPath}/tiposExternos`, { headers: this.headers })
+  //     .toPromise()
+  //     .then(res => res);
+  // }
 
   create(data: any): Promise<any> {
     return this.http.post<any>(this.apiPath, data, { headers: this.headers })
@@ -80,6 +82,10 @@ export class UserTypeService {
     return this.http.get<any>(`${this.apiPath}/modalidades`, { headers: this.headers })
       .toPromise()
       .then(res => res);
+  }
+
+  logedUser(): boolean{
+    return this.auth.jwtPayload?.user_name;
   }
 
 }

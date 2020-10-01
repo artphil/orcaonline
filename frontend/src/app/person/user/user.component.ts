@@ -8,7 +8,6 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { UserModel, UserTypeModel } from '../person.model';
 import { UserTypeService } from '../tipo-usuario/user-type.service';
-import { AuthService } from 'src/app/security/auth.service';
 
 import { UserService } from './user.service';
 
@@ -32,7 +31,6 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private userTypeService: UserTypeService,
     private messageService: MessageService,
-    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -43,13 +41,7 @@ export class UserComponent implements OnInit {
     }
 
     this.consult();
-    if(this.logedUser()){
-      this.getAllUserTypes();
-    }
-    else{
-      this.getExternalUserTypes();
-    }
-    
+    this.getUserTypes();
   }
 
   consult(): void {
@@ -66,23 +58,8 @@ export class UserComponent implements OnInit {
     }
   }
 
-  getAllUserTypes(): void {
+  getUserTypes(): void {
     this.userTypeService.getList()
-      .then((userTypeList: UserTypeModel[]) => {
-        this.userTypes = [];
-        userTypeList.forEach(item => {
-          this.userTypes.push({ label: item.nome, value: item.id });
-        });
-      })
-      .catch(() => {
-        this.userTypes = [
-          { label: 'Nenhum Tipo de Usuário cadastrado', value: null }
-        ];
-      });
-  }
-
-  getExternalUserTypes(): void {
-    this.userTypeService.getListExternos()
       .then((userTypeList: UserTypeModel[]) => {
         this.userTypes = [];
         userTypeList.forEach(item => {
@@ -141,10 +118,6 @@ export class UserComponent implements OnInit {
         const msg = err.error[0].mensagemUsuario;
         this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Usuário.', detail: msg });
       });
-  }
-
-  logedUser(): boolean{
-    return this.auth.jwtPayload?.user_name;
   }
 }
 

@@ -36,6 +36,12 @@ public class UsuarioResource extends AbstractResource<Usuario> {
 		return ResponseEntity.status(HttpStatus.CREATED).body(resourceSave);
 	}
 	
+	@CrossOrigin
+	@PostMapping("saveWithoutToken")
+	public ResponseEntity<Usuario> WithoutToken(@Valid @RequestBody Usuario resource, HttpServletResponse response) {
+		return save(resource, response); 
+	}
+	
 	@Override
 	public AbstractRepository<Usuario, Long> getRepository() {
 		return repository;
