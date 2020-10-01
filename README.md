@@ -131,10 +131,11 @@ produtos.
 * Telas de listagem e cadastro de Produto
 * Testes de integração de resources e repositório de Produto
 
-## Sprint #1
+## Sprint #2
 
 * Modelagem da classe de Orcamento
-* Modelagem da classe de Usuario
+* Modelagem da classe de Usuario/Fornecedor e Usuario/Cliente
+* Modelagem da classe de Login de Usuario/Fornecedor e Usuario/Cliente
 * Telas de listagem e cadastro de Usuario
 * Telas de listagem e cadastro de Orcamento
 * Testes de integração de resources e repositório de Orcamento

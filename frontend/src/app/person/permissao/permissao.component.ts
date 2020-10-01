@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SelectItem } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { PermissionModel, Modulo } from '../person.model';
 import { PermissionService } from './permission.service';
@@ -16,7 +17,10 @@ export class PermissaoComponent implements OnInit {
   permissions = [];
   modulos: SelectItem[];
 
-  constructor(private permissionService: PermissionService) { }
+  constructor(
+    private permissionService: PermissionService,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   ngOnInit(): void {
     this.consultar();
@@ -25,31 +29,40 @@ export class PermissaoComponent implements OnInit {
 
   adicionar() {
     this.permissionService.create(this.permission)
-        .then(permission => {
-          this.consultar();
-          this.permission = new PermissionModel();
-        });
+      .then(permission => {
+        this.consultar();
+        this.permission = new PermissionModel();
+      })
+      .catch((erro) =>  {
+        this.errorHandler.handle(erro);
+      });
   }
 
   excluir(id: number) {
     this.permissionService.delete(id)
-    .then(() => {
-      this.consultar();
-    });
+      .then(() => {
+        this.consultar();
+      })
+      .catch((erro) =>  {
+        this.errorHandler.handle(erro);
+      });
   }
 
-  consultar(){
+  consultar() {
     this.permissionService.getList()
-    .then(permissions => {
-      this.permissions = permissions;
-    });
+      .then(permissions => {
+        this.permissions = permissions;
+      })
+      .catch((erro) =>  {
+        this.errorHandler.handle(erro);
+      });
   }
 
   iniciaModulos(): void {
     this.permissionService.getModulos()
       .then(itens => {
         this.modulos = [];
-        for(var a of itens){
+        for (var a of itens) {
           this.modulos.push({ label: a, value: a });
         }
       })

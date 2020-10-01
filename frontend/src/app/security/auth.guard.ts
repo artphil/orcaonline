@@ -17,13 +17,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true; // retirar para restringir acesso as paginas
+    // return true; // retirar para restringir acesso as paginas
 
-    if (next.data.roles && this.auth.hasAnyPermission(next.data.roles)) {
-      return true;
+    if (next.data.roles && !this.auth.hasAnyPermission(next.data.roles)) {
+      this.router.navigate(['/forbidden']);
+      return false;
     }
-    this.router.navigate(['/forbidden']);
-    return false;
+    return true;
   }
 
 }
