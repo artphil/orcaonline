@@ -10,7 +10,8 @@
 
       <div class="p-col-12  p-fluid">
         <label>Nome</label>
-        <input pInputText type="text" placeholder="Email" name="user" [(ngModel)]='user' #username="ngModel" required email />
+        <input pInputText type="text" placeholder="Email" name="user" [(ngModel)]='user' #username="ngModel" required
+          email />
 
         <app-msg-validation [control]="username" error="email" text="Formato de email inválido.">
         </app-msg-validation>
@@ -18,16 +19,20 @@
 
       <div class="p-col-12 p-fluid">
         <label>Senha</label>
-        <input pInputText type="password" placeholder="Senha" name="pass" [(ngModel)]='pass' #password="ngModel" required />
-
+        <input pInputText type="password" placeholder="Senha" name="pass" [(ngModel)]='pass' #password="ngModel"
+          required />
       </div>
 
-      <div class="p-col-12">
-        <br>
-        <button pButton label="Login" (click)="login(); pass= '';"
-        [disabled]="loginForm.invalid" ></button>
-      </div>
+      <!-- <div class="p-col-12 p-fluid">
+        <a routerLink="/usr">Cadastrar</a>
+      </div> -->
 
+      <div class="p-col-12 buttonGroup">
+        <p-button label="Login" (click)="login(); pass= '';" [disabled]="loginForm.invalid"></p-button>
+
+        <p-button styleClass="p-button-success" label="Cadastrar" routerLink="/usr/new"></p-button>
+
+      </div>
     </div>
   </form>
 

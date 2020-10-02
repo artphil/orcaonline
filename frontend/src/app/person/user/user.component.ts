@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
-import { UserModel, UserTypeModel} from '../person.model';
+import { UserModel, UserTypeModel } from '../person.model';
 import { UserTypeService } from '../tipo-usuario/user-type.service';
 
-import { UserService} from './user.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -21,18 +22,26 @@ export class UserComponent implements OnInit {
 
   idUser: number;
 
+  @Input() userId: number;
+  @Input() isPopup: boolean;
+  @Output() savePopup = new EventEmitter<string>();
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private userTypeService: UserTypeService,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
     this.idUser = Number(this.route.snapshot.paramMap.get('cod'));
+    if (this.userId) {
+      this.idUser = this.userId;
+      console.log(this.idUser)
+    }
 
     this.consult();
-
+    this.getUserTypes();
   }
 
   consult(): void {
@@ -110,7 +119,30 @@ export class UserComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Usuário.', detail: msg });
       });
   }
-
 }
 
 
+@Component({
+  selector: 'app-dialog-user',
+  template: `
+  <app-user isPopup="true" [userId]="userId" (savePopup)="close($event)"></app-user>
+  `,
+  styles: ['']
+})
+export class UserDialogComponent {
+
+  userId: number;
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+    if (this.config.data) {
+      this.userId = this.config.data.id;
+    }
+  }
+
+  close(e: string): void {
+    this.ref.close(e);
+  }
+}

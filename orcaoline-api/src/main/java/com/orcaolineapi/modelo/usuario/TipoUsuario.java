@@ -3,6 +3,8 @@ package com.orcaolineapi.modelo.usuario;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,10 +37,13 @@ public class TipoUsuario extends AbstractModel {
 	@NotBlank
 	private String descricao;
 
+	@Enumerated(EnumType.STRING)
+	private ModalidadeTipoUsuario modalidade;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "permissao_tipo_usuario", joinColumns = @JoinColumn(name = "id_tipo_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	private List<Permissao> permissoes;
-
+	
 	public TipoUsuario() {
 
 	}
@@ -70,6 +75,14 @@ public class TipoUsuario extends AbstractModel {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public ModalidadeTipoUsuario getModalidade() {
+		return modalidade;
+	}
+
+	public void setModalidade(ModalidadeTipoUsuario modalidade) {
+		this.modalidade = modalidade;
 	}
 
 	public List<Permissao> getPermissoes() {

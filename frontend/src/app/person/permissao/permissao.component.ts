@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { PermissionModel, Modulo } from '../person.model';
 import { PermissionService } from './permission.service';
@@ -16,7 +17,11 @@ export class PermissaoComponent implements OnInit {
   permissions = [];
   modulos: SelectItem[];
 
-  constructor(private permissionService: PermissionService) { }
+  constructor(
+    private permissionService: PermissionService,
+    private errorHandler: ErrorHandlerService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.consultar();
@@ -25,31 +30,46 @@ export class PermissaoComponent implements OnInit {
 
   adicionar() {
     this.permissionService.create(this.permission)
-        .then(permission => {
-          this.consultar();
-          this.permission = new PermissionModel();
-        });
+      .then(permission => {
+        this.messageService.add(
+          { severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: permission.nome }
+        );
+        this.consultar();
+        this.permission = new PermissionModel();
+      })
+      .catch(erro =>  {
+        this.errorHandler.handle(erro);
+      });
   }
 
   excluir(id: number) {
     this.permissionService.delete(id)
-    .then(() => {
-      this.consultar();
-    });
+      .then(() => {
+        this.messageService.add(
+          { severity: 'success', summary: 'Permissão Excluida com Sucesso.', detail: `O id ${id} não pode mais ser acessado` }
+        );
+        this.consultar();
+      })
+      .catch(erro =>  {
+        this.errorHandler.handle(erro);
+      });
   }
 
-  consultar(){
+  consultar() {
     this.permissionService.getList()
-    .then(permissions => {
-      this.permissions = permissions;
-    });
+      .then(permissions => {
+        this.permissions = permissions;
+      })
+      .catch(erro =>  {
+        this.errorHandler.handle(erro);
+      });
   }
 
   iniciaModulos(): void {
     this.permissionService.getModulos()
       .then(itens => {
         this.modulos = [];
-        for(var a of itens){
+        for (var a of itens) {
           this.modulos.push({ label: a, value: a });
         }
       })

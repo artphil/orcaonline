@@ -79,7 +79,12 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Usuário',
         icon: 'pi pi-fw pi-plus',
-        routerLink: '/pdt',
+        routerLink: '/usr',
+      },
+      {
+        label: 'Lista de Usuários',
+        icon: 'pi pi-fw pi-align-justify',
+        routerLink: '/usr/list'
       },
       {
         label: 'Tipo de Usuário',
@@ -94,6 +99,31 @@ export class NavbarComponent implements OnInit {
     ]
   };
 
+  orcamento: MenuItem = {
+    label: 'Orçamento',
+    icon: 'pi pi-fw pi-plus',
+    items: [
+      {
+        label: 'Mapa de coleta',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/mapc',
+      }
+    ]
+  };
+
+  orcCadastro: MenuItem = {
+    label: 'Cadastro',
+    icon: 'pi pi-fw pi-plus',
+    items: [
+      {
+        label: 'Orçamento',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/',
+      }
+    ]
+  };
+
+
   constructor(
     private auth: AuthService,
     private router: Router
@@ -101,39 +131,22 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.jwtPayload) {
-      this.prod.items.push(this.prodCadastro);
+      if (this.auth.hasPermission('ROLE_CADASTRAR_PRODUTO')) {
+        this.prod.items.push(this.prodCadastro);
+      }
       this.items.push(this.prod);
-      this.items.push(this.users);
+      if (this.auth.hasPermission('ROLE_CADASTRAR_USUARIO')) {
+        this.items.push(this.users);
+      }
+      if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
+        this.orcamento.items.push(this.orcCadastro);
+      }
+      this.items.push(this.orcamento);
     }
-
-
-    // this.items.push(
-    //   {
-    //     label: 'Usuários',
-    //     icon: 'pi pi-fw pi-users',
-    //     items: [
-    //       {
-    //         label: 'Cadastro',
-    //         icon: 'pi pi-fw pi-plus',
-    //         routerLink: '/pdt',
-    //       },
-    //       {
-    //         label: 'Tipo de Usuário',
-    //         icon: 'pi pi-fw pi-th-large',
-    //         routerLink: '/tipousr'
-    //       },
-    //       {
-    //         label: 'Permissão',
-    //         icon: 'pi pi-fw pi-th-large',
-    //         routerLink: '/per'
-    //       }
-    //     ]
-    //   }
-    // );
 
   }
 
-  logout() {
+  logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
   }

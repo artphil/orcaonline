@@ -1,0 +1,38 @@
+<h1>Usuários Cadastrados</h1>
+
+<button pButton (click)="newUser()" label="Novo" style="margin: 10px;"></button>
+
+<p-table [value]="users" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Pesquisar" />
+        </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="p-col-1">Código</th>
+      <th class="p-col-3">Nome</th>
+      <th class="p-col-2">CNPJ</th>
+      <th class="p-col">Tipo</th>
+      <th class="p-col-2"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-t>
+    <tr>
+      <td>{{t.id}}</td>
+      <td>{{t.nome}}</td>
+      <td>{{t.cnpj}}</td>
+      <td>{{t.tipoUsuario?.nome}}</td>
+      <td>
+        <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>
+        <a pButton icon="pi pi-trash" (click)="removeUser(t.id)" pTooltip="Excluir" tooltipPosition="top"
+          style="margin-left: 10px"></a>
+
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
