@@ -16,5 +16,19 @@ public class UsuarioService extends AbstractService<Usuario> {
 	public UsuarioRepository getRepository() {
 		return this.repository;
 	}
+	
+	public Usuario save(Usuario usuario) {
+		if(usuario.getId() != null) {
+			Usuario usuarioSalvo = repository.findById(usuario.getId()).get();
+			if(!usuarioSalvo.getSenha().equals(usuario.getSenha())) {
+				usuario.encodaSenha();
+			}
+			return repository.save(usuario);
+		}
+		else {
+			usuario.encodaSenha();
+			return repository.save(usuario);
+		}
+	}
 
 }

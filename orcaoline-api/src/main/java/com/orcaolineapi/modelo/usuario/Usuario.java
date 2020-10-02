@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -34,7 +33,7 @@ public class Usuario extends AbstractModel {
 	@NotBlank
 	private String email;
 
-	@Size(min = 8, max = 300)
+	@Size(min = 6, max = 300)
 	@NotBlank
 	private String senha;
 
@@ -133,7 +132,6 @@ public class Usuario extends AbstractModel {
 		return list;
 	}
 	
-	@PrePersist
 	public void encodaSenha() {
 		setSenha(GeradorSenha.gerarSenha(getSenha()));
 	}

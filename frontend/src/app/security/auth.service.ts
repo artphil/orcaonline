@@ -114,7 +114,8 @@ export class AuthService {
   }
 
   hasPermission(role: string): boolean {
-    return this.jwtPayload && this.jwtPayload.authorities.includes(role);
+    console.log(this.jwtPayload.authorities)
+    return this.jwtPayload.authorities && this.jwtPayload.authorities.includes(role);
   }
 
   hasAnyPermission(roles: Array<string>): boolean {

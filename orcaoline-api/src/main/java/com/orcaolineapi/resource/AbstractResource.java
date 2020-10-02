@@ -66,4 +66,8 @@ public abstract class AbstractResource<T extends AbstractModel> {
 	public void delete(@PathVariable Long id) {
 		getRepository().deleteById(id);
 	}
+	
+	protected ApplicationEventPublisher getPublisher() {
+		return this.publisher;
+	}
 }

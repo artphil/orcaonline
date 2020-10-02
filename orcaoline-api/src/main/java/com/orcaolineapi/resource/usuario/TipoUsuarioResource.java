@@ -1,12 +1,15 @@
 package com.orcaolineapi.resource.usuario;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.orcaolineapi.modelo.usuario.ModalidadeTipoUsuario;
 import com.orcaolineapi.modelo.usuario.PermisaoTipoUsuarioEdicao;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 import com.orcaolineapi.repository.AbstractRepository;
@@ -44,5 +47,19 @@ public class TipoUsuarioResource extends AbstractResource<TipoUsuario> {
 		List<PermisaoTipoUsuarioEdicao> result = service.changePermissao(filtro);
 		return result;
 	}
-
+	
+	@CrossOrigin
+	@GetMapping("tiposExternos")
+	public List<TipoUsuario> getTiposEsternos() {
+		return getRepository().findAll().stream()
+				.filter(t -> t.getModalidade().equals(ModalidadeTipoUsuario.EXTERNO))
+				.collect(Collectors.toList());
+	}
+	
+	@CrossOrigin
+	@GetMapping("modalidades")
+	public ModalidadeTipoUsuario[] getModalidades() {
+		return ModalidadeTipoUsuario.values();
+	}
+	
 }

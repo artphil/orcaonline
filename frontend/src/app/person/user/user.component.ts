@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private userTypeService: UserTypeService,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +42,6 @@ export class UserComponent implements OnInit {
 
     this.consult();
     this.getUserTypes();
-
   }
 
   consult(): void {
@@ -120,7 +119,6 @@ export class UserComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Falha ao Excluir Usuário.', detail: msg });
       });
   }
-
 }
 
 

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+=======
+import { SelectItem } from 'primeng/api';
+>>>>>>> d4f42ba68354b449af1baac3289825343715068d
 
 import { UserTypeModel } from '../person.model';
 import { UserTypeService } from './user-type.service';
@@ -14,7 +18,7 @@ export class TipoUsuarioComponent implements OnInit {
 
   tipo = new UserTypeModel();
   tipos = [];
-
+  modalidades: SelectItem[];
 
   constructor(
     private userTypeService: UserTypeService,
@@ -24,6 +28,7 @@ export class TipoUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.consultar();
+    this.iniciaModalidades();
   }
 
   adicionar() {
@@ -62,6 +67,21 @@ export class TipoUsuarioComponent implements OnInit {
 
   editar(t: UserTypeModel) {
     this.tipo = t;
+  }
+
+  iniciaModalidades(): void {
+    this.userTypeService.getModalidades()
+      .then(itens => {
+        this.modalidades = [];
+        for(var a of itens){
+          this.modalidades.push({ label: a, value: a });
+        }
+      })
+      .catch(() => {
+        this.modalidades = [
+          { label: 'Nenhum módulo cadastrado', value: null }
+        ];
+      });
   }
 
 }
