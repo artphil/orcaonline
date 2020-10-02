@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
+
 import { MessageService } from 'primeng/api';
-import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-=======
 import { SelectItem } from 'primeng/api';
->>>>>>> d4f42ba68354b449af1baac3289825343715068d
 
 import { UserTypeModel } from '../person.model';
+
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { UserTypeService } from './user-type.service';
 
 @Component({
