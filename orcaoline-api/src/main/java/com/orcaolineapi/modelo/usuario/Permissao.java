@@ -10,6 +10,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
@@ -38,9 +39,10 @@ public class Permissao extends AbstractModel {
 
 	}
 
-	public Permissao(String nome, String descricao) {
+	public Permissao(String nome, String descricao, Modulo modulo) {
 		this.nome = nome;
 		this.descricao = descricao;
+		this.modulo = modulo;
 	}
 
 	public Long getId() {

@@ -60,9 +60,7 @@ class ItemMapaRepositoryTest {
 	private @Autowired TipoUsuarioRepository repositoryT;
 
 	private @Autowired PermissaoRepository repositoryPe;
-	
-	private @Autowired StatusRepository repositoryS;
-	
+		
 	/* PRODUTO + BRICK REPOSITORY */
 	
 	private @Autowired BrickRepository repositoryBri;
