@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 import { PermissionModel, Modulo } from '../person.model';
@@ -19,7 +19,8 @@ export class PermissaoComponent implements OnInit {
 
   constructor(
     private permissionService: PermissionService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -30,10 +31,13 @@ export class PermissaoComponent implements OnInit {
   adicionar() {
     this.permissionService.create(this.permission)
       .then(permission => {
+        this.messageService.add(
+          { severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: permission.nome }
+        );
         this.consultar();
         this.permission = new PermissionModel();
       })
-      .catch((erro) =>  {
+      .catch(erro =>  {
         this.errorHandler.handle(erro);
       });
   }
@@ -41,9 +45,12 @@ export class PermissaoComponent implements OnInit {
   excluir(id: number) {
     this.permissionService.delete(id)
       .then(() => {
+        this.messageService.add(
+          { severity: 'success', summary: 'Permissão Excluida com Sucesso.', detail: `O id ${id} não pode mais ser acessado` }
+        );
         this.consultar();
       })
-      .catch((erro) =>  {
+      .catch(erro =>  {
         this.errorHandler.handle(erro);
       });
   }
@@ -53,7 +60,7 @@ export class PermissaoComponent implements OnInit {
       .then(permissions => {
         this.permissions = permissions;
       })
-      .catch((erro) =>  {
+      .catch(erro =>  {
         this.errorHandler.handle(erro);
       });
   }
