@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -17,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
+import com.orcaolineapi.modelo.orcamento.Status;
+import com.orcaolineapi.modelo.sistema.Modulo;
 import com.orcaolineapi.modelo.usuario.Permissao;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 import com.orcaolineapi.modelo.usuario.Usuario;
@@ -29,19 +32,26 @@ public class UsuarioRepositoryTest {
 
 	private @Autowired TipoUsuarioRepository repositoryT;
 
-	private @Autowired PermissaoRepository repositoryP;
-
 	public TipoUsuario validTipoUsuario() {
-		List<Permissao> permissoes = validPermissao();
-		TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "Descricao do TipoUsuario", permissoes);
+		TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "Descricao do TipoUsuario");
 		this.repositoryT.save(tip);
 		return tip;
 	}
+	
+	/*@Test
+	public void saveUsuarioWithUsedStatusShouldThrowsNoneException() {
 
-	public List<Permissao> validPermissao() {
-		List<Permissao> permissoes = null;
-		return permissoes;
-	}
+		assertDoesNotThrow(() -> {
+			TipoUsuario tip = validTipoUsuario();
+
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "12345678Usuario@", "12345678910111",
+					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
+			this.repositoryU.save(usu);
+			
+			List<Status> list = new ArrayList<>();
+			list = Usuario.usedStatus();
+			assertEquals(Usuario.usedStatus());
+	}*/
 
 	@Test
 	public void saveUsuarioWithNotNullIdShouldThrowsNoneException() {
@@ -52,7 +62,7 @@ public class UsuarioRepositoryTest {
 			Usuario usu = new Usuario("usuario.usuario@gmail.com", "12345678Usuario@", "12345678910111",
 					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 			this.repositoryU.save(usu);
-			assertThat(tip.getId()).isNotNull();
+			assertThat(usu.getId()).isNotNull();
 		});
 
 	}

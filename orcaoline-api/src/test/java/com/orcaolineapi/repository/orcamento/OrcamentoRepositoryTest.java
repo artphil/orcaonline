@@ -10,5 +10,7 @@ class OrcamentoRepositoryTest {
 	void test() {
 		fail("Not yet implemented");
 	}
+	
+	//tem q testar metodo getusedstatus
 
 }
