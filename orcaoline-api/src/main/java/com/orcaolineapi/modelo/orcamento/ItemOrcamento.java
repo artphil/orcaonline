@@ -20,6 +20,8 @@ public class ItemOrcamento extends AbstractModel {
 
 	private Double valorUnitario;
 
+	private Double valorUnitarioPrazo;
+	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_orcamento")
@@ -60,6 +62,14 @@ public class ItemOrcamento extends AbstractModel {
 
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
+	}
+	
+	public Double getValorUnitarioPrazo() {
+		return valorUnitarioPrazo;
+	}
+
+	public void setValorUnitarioPrazo(Double valorUnitarioPrazo) {
+		this.valorUnitarioPrazo = valorUnitarioPrazo;
 	}
 
 	public Orcamento getOrcamento() {

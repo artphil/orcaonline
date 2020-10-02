@@ -29,6 +29,8 @@ public class Orcamento extends AbstractModel {
 	@DateTimeFormat
 	private LocalDate dataRegistro;
 
+	private Boolean aprovado;
+	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
@@ -74,6 +76,22 @@ public class Orcamento extends AbstractModel {
 
 	public void setDataRegistro(LocalDate dataRegistro) {
 		this.dataRegistro = dataRegistro;
+	}
+	
+	public Boolean getAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(Boolean aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	public Usuario getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Usuario fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	public Usuario getComprador() {

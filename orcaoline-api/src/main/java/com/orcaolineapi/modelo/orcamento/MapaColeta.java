@@ -29,6 +29,8 @@ public class MapaColeta extends AbstractModel {
 	@DateTimeFormat
 	private LocalDate dataRegistro;
 
+	private String descricao;
+	
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_comprador")
@@ -72,6 +74,22 @@ public class MapaColeta extends AbstractModel {
 
 	public void setDataRegistro(LocalDate dataRegistro) {
 		this.dataRegistro = dataRegistro;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Usuario getComprador() {
