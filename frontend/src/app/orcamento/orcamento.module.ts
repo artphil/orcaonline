@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapaColetaComponent } from './mapa-coleta/mapa-coleta.component';
-import { BudgetComponent } from './budget/budget.component';
+import { FormsModule } from '@angular/forms';
 
+import {CalendarModule} from 'primeng/calendar';
+
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+
+import { BudgetComponent } from './budget/budget.component';
+import { MapaColetaComponent } from './mapa-coleta/mapa-coleta.component';
 
 
 @NgModule({
@@ -11,7 +17,12 @@ import { BudgetComponent } from './budget/budget.component';
     BudgetComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+
+    CalendarModule,
+    TableModule,
+    InputTextModule
   ],
   exports: [
     MapaColetaComponent
