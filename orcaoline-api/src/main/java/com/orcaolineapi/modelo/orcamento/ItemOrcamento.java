@@ -37,14 +37,17 @@ public class ItemOrcamento extends AbstractModel {
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
-	public ItemOrcamento() {
+	public ItemOrcamento() { }
 
-	}
-
-	public ItemOrcamento(Double valorUnitario, Orcamento orcamento, ItemMapa itemMapa, Produto produto) {
-		this.valorUnitario = valorUnitario;
+	public ItemOrcamento(Orcamento orcamento, ItemMapa itemMapa) {
 		this.orcamento = orcamento;
 		this.itemMapa = itemMapa;
+		setProduto(itemMapa.getProduto());
+	}
+	
+	public ItemOrcamento(Double valorUnitario, Orcamento orcamento, ItemMapa itemMapa, Produto produto) {
+		this(orcamento, itemMapa);
+		this.valorUnitario = valorUnitario;
 		this.produto = produto;
 	}
 

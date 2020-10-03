@@ -52,7 +52,7 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 	@CrossOrigin
 	@PutMapping("addItem")
 	public ResponseEntity<MapaColeta> addItem(@Valid ItemMapa item) {
-		return ResponseEntity.ok(getService().deleteItem(item));
+		return ResponseEntity.ok(getService().addItem(item));
 	}
 	
 	@CrossOrigin
@@ -71,6 +71,12 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 	@PutMapping("encerrar/{id}")
 	public ResponseEntity<MapaColeta> encerrar(@PathVariable Long id) {
 		return ResponseEntity.ok(getService().encerrar(id));
+	}
+	
+	@CrossOrigin
+	@PutMapping("aprovarOrcamento/{id}")
+	public ResponseEntity<MapaColeta> aprovarOrcamento(@PathVariable Long id, Long idOrcamento) {
+		return ResponseEntity.ok(service.aprovarOrcamento(id, idOrcamento));
 	}
 	
 	@CrossOrigin
