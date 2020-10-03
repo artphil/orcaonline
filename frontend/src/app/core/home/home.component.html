@@ -1,0 +1,11 @@
+<div class="p-grid" *ngIf="logedUser()">
+  <div class="p-col-12">
+    <h1>Tela Inicial</h1>
+  </div>
+  <div class="p-col" *ngIf="hasBudgets()">
+    <h2>Meus Orçamentos</h2>
+  </div>
+  <div class="p-col" *ngIf="hasProposals()">
+    <h2>Minhas Propostas</h2>
+  </div>
+</div>

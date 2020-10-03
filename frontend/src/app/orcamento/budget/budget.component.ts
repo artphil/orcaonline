@@ -50,7 +50,7 @@ export class BudgetComponent implements OnInit {
     if (!this.idBudget) {
       this.budgetServices.create(this.budget)
         .then((budget: BudgetModel) => {
-          this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: budget.nome });
+          this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: budget.id.toString() });
           this.idBudget = budget.id;
           this.consult();
         })
@@ -62,7 +62,7 @@ export class BudgetComponent implements OnInit {
     else {
       this.budgetServices.update(this.budget)
         .then((budget: BudgetModel) => {
-          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.nome });
+          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
           this.consult();
         })
         .catch((err) => {
