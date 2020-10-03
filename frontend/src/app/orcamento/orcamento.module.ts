@@ -9,6 +9,8 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { BudgetComponent } from './budget/budget.component';
 import { MapaColetaComponent } from './mapa-coleta/mapa-coleta.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BudgetService } from './budget/budget.service';
 
 
 @NgModule({
@@ -19,13 +21,17 @@ import { MapaColetaComponent } from './mapa-coleta/mapa-coleta.component';
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
 
     CalendarModule,
     TableModule,
     InputTextModule
   ],
   exports: [
-    MapaColetaComponent
+    MapaColetaComponent,
+  ],
+  providers: [
+    BudgetService
   ]
 })
 export class OrcamentoModule { }
