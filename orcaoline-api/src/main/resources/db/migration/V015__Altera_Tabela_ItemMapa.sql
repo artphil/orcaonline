@@ -1,0 +1,2 @@
+ALTER TABLE itemMapa DROP COLUMN marca;
+

@@ -23,8 +23,6 @@ public class ItemMapa extends AbstractModel {
 
 	// @Size(min = 0, max = 200)
 	private Double quantidade;
-	
-	private String marca;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -47,11 +45,10 @@ public class ItemMapa extends AbstractModel {
 
 	}
 
-	public ItemMapa(Double quantidade, @NotNull UnidadeMedida unidade, String marca, @NotNull MapaColeta mapa,
+	public ItemMapa(Double quantidade, @NotNull UnidadeMedida unidade, @NotNull MapaColeta mapa,
 			Brick brick, Produto produto) {
 		this.quantidade = quantidade;
 		this.unidade = unidade;
-		this.marca = marca;
 		this.mapa = mapa;
 		this.brick = brick;
 		this.produto = produto;
@@ -79,14 +76,6 @@ public class ItemMapa extends AbstractModel {
 
 	public void setUnidade(UnidadeMedida unidade) {
 		this.unidade = unidade;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public MapaColeta getMapa() {

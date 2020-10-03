@@ -45,10 +45,11 @@ public class MapaColeta extends AbstractModel {
 	private List<ItemMapa> itens;
 
 	@OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Orcamento> orcamento;
+	private List<Orcamento> orcamentos;
 
 	public MapaColeta() {
-
+		this.dataRegistro = LocalDate.now();
+		this.status = Status.ABERTO;
 	}
 
 	public MapaColeta(LocalDate dataRegistro, Usuario comprador, Status status, List<ItemMapa> itens,
@@ -57,7 +58,7 @@ public class MapaColeta extends AbstractModel {
 		this.comprador = comprador;
 		this.status = status;
 		this.itens = itens;
-		this.orcamento = Orcamento;
+		this.orcamentos = Orcamento;
 	}
 
 	public Long getId() {
@@ -101,6 +102,9 @@ public class MapaColeta extends AbstractModel {
 	}
 
 	public List<ItemMapa> getItens() {
+		if(this.itens == null) {
+			this.itens = new ArrayList<>();
+		}
 		return itens;
 	}
 
@@ -108,12 +112,15 @@ public class MapaColeta extends AbstractModel {
 		this.itens = itens;
 	}
 
-	public List<Orcamento> getOrcamento() {
-		return orcamento;
+	public List<Orcamento> getOrcamentos() {
+		if(this.orcamentos == null) {
+			this.orcamentos = new ArrayList<>();
+		}
+		return orcamentos;
 	}
 
-	public void setOrcamento(List<Orcamento> orcamento) {
-		this.orcamento = orcamento;
+	public void setOrcamentos(List<Orcamento> orcamentos) {
+		this.orcamentos = orcamentos;
 	}
 
 	public static List<Status> usedStatus() {
