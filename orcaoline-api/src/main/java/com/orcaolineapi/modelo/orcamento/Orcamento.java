@@ -29,6 +29,8 @@ public class Orcamento extends AbstractModel {
 	@DateTimeFormat
 	private LocalDate dataRegistro;
 
+	private LocalDate dataEnvio;
+	
 	private Boolean aprovado;
 	
 	@NotNull
@@ -79,6 +81,14 @@ public class Orcamento extends AbstractModel {
 		this.dataRegistro = dataRegistro;
 	}
 	
+	public LocalDate getDataEnvio() {
+		return dataEnvio;
+	}
+
+	public void setDataEnvio(LocalDate dataEnvio) {
+		this.dataEnvio = dataEnvio;
+	}
+
 	public Boolean getAprovado() {
 		return aprovado;
 	}
@@ -104,6 +114,9 @@ public class Orcamento extends AbstractModel {
 	}
 
 	public List<ItemOrcamento> getItens() {
+		if(this.itens == null) {
+			this.itens = new ArrayList<>();
+		}
 		return itens;
 	}
 
@@ -127,12 +140,31 @@ public class Orcamento extends AbstractModel {
 		this.status = status;
 	}
 
+	public boolean isOpen() {
+		return getStatus().equals(Status.ABERTO);
+	}
+	
+	public boolean isRunning() {
+		return getStatus().equals(Status.EM_ANDAMENTO);
+	}
+	
+	public boolean isClosed() {
+		return getStatus().equals(Status.FECHADO);
+	}
+	
 	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ABERTO);
 		list.add(Status.EM_ANDAMENTO);
 		list.add(Status.FECHADO);
 		return list;
+	}
+	
+	public void enviar() {
+		if(isOpen()) {
+			setStatus(Status.EM_ANDAMENTO);
+			setDataEnvio(LocalDate.now());
+		}
 	}
 
 }

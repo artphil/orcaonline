@@ -57,13 +57,20 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 	
 	public MapaColeta encerrar(Long idMapa) {
 		if(idMapa != null) {
-			MapaColeta mapaSalvo = repository.findById(idMapa).get();
-			mapaSalvo.setStatus(Status.FECHADO);
-			return repository.save(mapaSalvo);
+			MapaColeta mapa = repository.findById(idMapa).get();
+			mapa.encerrar();
+			return repository.save(mapa);
 		}
 		return null;
 	}
 	
-	
+	public MapaColeta aprovarOrcamento(Long idMapa, Long idOrcamento) {
+		if(idMapa != null) {
+			MapaColeta mapa = repository.findById(idMapa).get();
+			mapa.aprovarOrcamento(idOrcamento);
+			return repository.save(mapa);
+		}
+		return null;
+	}
 
 }
