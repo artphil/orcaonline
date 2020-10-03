@@ -50,7 +50,8 @@ public class Orcamento extends AbstractModel {
 	private List<ItemOrcamento> itens;
 
 	public Orcamento() {
-
+		this.dataRegistro = LocalDate.now();
+		this.status = Status.ABERTO;
 	}
 
 	public Orcamento(LocalDate dataRegistro, Usuario fornecedor, Status status, List<ItemOrcamento> itens,

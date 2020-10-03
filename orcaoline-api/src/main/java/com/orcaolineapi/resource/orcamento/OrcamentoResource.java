@@ -26,5 +26,4 @@ public class OrcamentoResource extends AbstractResource<Orcamento> {
 	public OrcamentoService getService() {
 		return service;
 	}
-
 }
