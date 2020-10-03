@@ -29,6 +29,8 @@ import { TypeUserPermissionComponent } from './person/type-user-permission/type-
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
+  { path: 'sing-in', component: UserComponent },
+
   { path: 'forbidden', component: ForbiddenComponent },
 
   { path: '', component: HomeComponent},
