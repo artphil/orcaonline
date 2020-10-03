@@ -38,7 +38,6 @@ export class BudgetItemModel {
   orcamento: any;
   itemMapa: MapaColetaItemModel;
   produto: ProductModel;
-  marca: string;
 }
 
 export class MapaColetaModel { }
