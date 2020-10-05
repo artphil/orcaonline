@@ -72,7 +72,7 @@ export class AuthService {
   private startRefreshTokenTimer(): void {
     const expires = new Date(this.jwtPayload.exp);
     const timeout = expires.getTime() * 1000 - Date.now();
-    console.log('tempo:', expires.getTime(), Date.now(), timeout)
+    // console.log('tempo:', expires.getTime(), Date.now(), timeout)
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().then(), timeout);
   }
 
@@ -114,7 +114,6 @@ export class AuthService {
   }
 
   hasPermission(role: string): boolean {
-    console.log(this.jwtPayload.authorities)
     return this.jwtPayload.authorities && this.jwtPayload.authorities.includes(role);
   }
 
