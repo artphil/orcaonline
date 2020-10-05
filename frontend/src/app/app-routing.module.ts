@@ -9,8 +9,8 @@ import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 
 import { UserComponent } from './person/user/user.component';
 import { UserListComponent } from './person/user-list/user-list.component';
-import { PermissaoComponent } from './person/permissao/permissao.component';
-import { TipoUsuarioComponent } from './person/tipo-usuario/tipo-usuario.component';
+import { PermissaoComponent } from './person/permission/permission.component';
+import { TipoUsuarioComponent } from './person/user-type/user-type.component';
 
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';

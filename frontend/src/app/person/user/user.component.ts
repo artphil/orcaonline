@@ -7,7 +7,7 @@ import { SelectItem } from 'primeng/api/selectitem';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { UserModel, UserTypeModel } from '../person.model';
-import { UserTypeService } from '../tipo-usuario/user-type.service';
+import { UserTypeService } from '../user-type/user-type.service';
 
 import { UserService } from './user.service';
 
