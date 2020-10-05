@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 
 import { UserTypeModel } from '../person.model';
-import { UserTypeService } from '../tipo-usuario/user-type.service';
-import { PermissionService } from '../permissao/permission.service';
+import { UserTypeService } from '../user-type/user-type.service';
+import { PermissionService } from '../permission/permission.service';
 
 
 
