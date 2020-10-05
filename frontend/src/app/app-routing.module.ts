@@ -21,7 +21,7 @@ import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
 
-import { MapaColetaComponent } from './orcamento/mapa-coleta/mapa-coleta.component';
+import { MapaColetaComponent } from './orcamento/price-collection-map/price-collection-map.component';
 import { BudgetComponent } from './orcamento/budget/budget.component';
 
 import { AuthGuard } from './security/auth.guard';
