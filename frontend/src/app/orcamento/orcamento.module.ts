@@ -11,12 +11,14 @@ import { BudgetComponent } from './budget/budget.component';
 import { MapaColetaComponent } from './mapa-coleta/mapa-coleta.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetService } from './budget/budget.service';
+import { BudgetListComponent } from './budget-list/budget-list.component';
 
 
 @NgModule({
   declarations: [
     MapaColetaComponent,
-    BudgetComponent
+    BudgetComponent,
+    BudgetListComponent
   ],
   imports: [
     CommonModule,
