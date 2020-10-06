@@ -7,9 +7,9 @@ import { PermissionModel, Modulo } from '../person.model';
 import { PermissionService } from './permission.service';
 
 @Component({
-  selector: 'app-permissao',
-  templateUrl: './permissao.component.html',
-  styleUrls: ['./permissao.component.css']
+  selector: 'app-permission',
+  templateUrl: './permission.component.html',
+  styleUrls: ['./permission.component.css']
 })
 export class PermissaoComponent implements OnInit {
 
