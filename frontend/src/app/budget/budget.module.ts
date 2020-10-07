@@ -8,14 +8,14 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { BudgetComponent } from './budget/budget.component';
-import { MapaColetaComponent } from './price-collection-map/price-collection-map.component';
+import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetService } from './budget/budget.service';
 
 
 @NgModule({
   declarations: [
-    MapaColetaComponent,
+    PriceCollectionMapComponent,
     BudgetComponent
   ],
   imports: [
@@ -28,10 +28,10 @@ import { BudgetService } from './budget/budget.service';
     InputTextModule
   ],
   exports: [
-    MapaColetaComponent,
+  PriceCollectionMapComponent,
   ],
   providers: [
     BudgetService
   ]
 })
-export class OrcamentoModule { }
+export class BudgetModule { }
