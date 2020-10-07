@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapaColetaComponent } from './price-collection-map.component';
+import { PriceCollectionMapComponent } from './price-collection-map.component';
 
-describe('MapaColetaComponent', () => {
-  let component: MapaColetaComponent;
-  let fixture: ComponentFixture<MapaColetaComponent>;
+describe('PriceCollectionMapComponent', () => {
+  let component: PriceCollectionMapComponent;
+  let fixture: ComponentFixture<PriceCollectionMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapaColetaComponent ]
+      declarations: [ PriceCollectionMapComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapaColetaComponent);
+    fixture = TestBed.createComponent(PriceCollectionMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

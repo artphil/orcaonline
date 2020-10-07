@@ -11,7 +11,7 @@ import { PriceCollectionMapService } from './price-collection-map.service';
   templateUrl: './price-collection-map.component.html',
   styleUrls: ['./price-collection-map.component.css']
 })
-export class PriceMapCollectionComponent implements OnInit {
+export class PriceCollectionMapComponent implements OnInit {
 
   priceCollectionMap = new PriceCollectionMapModel();
 
