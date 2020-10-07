@@ -57,7 +57,7 @@ export class PriceMapCollectionComponent implements OnInit {
       });
     }
     else {
-      this.priceCollectionMap.update(this.priceCollectionMap)
+      this.priceCollectionMapServices.update(this.priceCollectionMap)
       .then((priceCollectionMap: PriceCollectionMapModel) => {
         this.messageService.add({severity: 'sucess', summary: 'Alteração realizada com sucesso.', detail: priceCollectionMap.id.toString()});
         this.consult();
