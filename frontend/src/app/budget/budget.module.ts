@@ -6,19 +6,22 @@ import {CalendarModule} from 'primeng/calendar';
 
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { BudgetComponent } from './budget/budget.component';
 import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetService } from './budget/budget.service';
 import { BudgetListComponent } from './budget-list/budget-list.component';
+import { PriceMapListComponent } from './price-map-list/price-map-list.component';
 
 
 @NgModule({
   declarations: [
     PriceCollectionMapComponent,
     BudgetComponent,
-    BudgetListComponent
+    BudgetListComponent,
+    PriceMapListComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ import { BudgetListComponent } from './budget-list/budget-list.component';
 
     CalendarModule,
     TableModule,
-    InputTextModule
+    InputTextModule,
+    DropdownModule
   ],
   exports: [
   PriceCollectionMapComponent,

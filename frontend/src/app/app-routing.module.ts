@@ -26,6 +26,7 @@ import { BudgetComponent } from './budget/budget/budget.component';
 
 import { AuthGuard } from './security/auth.guard';
 import { TypeUserPermissionComponent } from './person/type-user-permission/type-user-permission.component';
+import { PriceMapListComponent } from './budget/price-map-list/price-map-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -68,7 +69,7 @@ const routes: Routes = [
 
   { path: 'mapc', component: PriceCollectionMapComponent },
 
-  { path: 'bdt', component: BudgetComponent},
+  { path: 'bdt', component: PriceMapListComponent},
   { path: 'bdt/:cod', component: BudgetComponent}
 
 ];

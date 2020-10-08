@@ -56,11 +56,11 @@ export class PriceCollectionMapModel {
   }
  }
 
-export class PriceCollectionMapItemModel { 
+export class PriceCollectionMapItemModel {
   id: number;
   brick: BrickModel;
   produto: ProductModel;
-  marca: String;
+  marca: string;
   quantidade: number;
   unidade: UnidadeMedidaModel;
 }
@@ -69,3 +69,19 @@ export class UnidadeMedidaModel {
   descricao: string;
   simbolo: string;
 }
+
+export class PriceMapFilterModel {
+  status: StatusModel;
+  produto: ProductModel;
+  comprador: UserModel;
+  dataInicio: Date;
+  dataFim: Date;
+
+  constructor() {
+    this.dataInicio = new Date();
+    this.dataFim = new Date();
+    this.comprador = new UserModel();
+    this.status = new StatusModel();
+    this.produto = new ProductModel();
+  }
+ }
