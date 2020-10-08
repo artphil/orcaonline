@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
@@ -33,6 +34,8 @@ public class MapaColeta extends AbstractModel {
 	
 	private String descricao;
 	
+	
+	@JsonIgnoreProperties("tipoUsuario")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_comprador")
@@ -43,9 +46,11 @@ public class MapaColeta extends AbstractModel {
 	@JoinColumn(name = "id_status")
 	private Status status;
 
+	@JsonIgnoreProperties("mapa")
 	@OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemMapa> itens;
 
+	@JsonIgnoreProperties("mapa")
 	@OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Orcamento> orcamentos;
 

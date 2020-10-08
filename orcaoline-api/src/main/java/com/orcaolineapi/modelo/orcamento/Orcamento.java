@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
@@ -32,7 +33,8 @@ public class Orcamento extends AbstractModel {
 	private LocalDate dataEnvio;
 	
 	private Boolean aprovado;
-	
+
+	@JsonIgnoreProperties("tipoUsuario")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_fornecedor")
@@ -43,11 +45,13 @@ public class Orcamento extends AbstractModel {
 	@JoinColumn(name = "id_status")
 	private Status status;
 
+	@JsonIgnoreProperties({"comprador", "orcamentos"})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_mapa")
 	private MapaColeta mapa;
 
+	@JsonIgnoreProperties("orcamento")
 	@OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemOrcamento> itens;
 
@@ -102,14 +106,6 @@ public class Orcamento extends AbstractModel {
 	}
 
 	public void setFornecedor(Usuario fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
-	public Usuario getComprador() {
-		return fornecedor;
-	}
-
-	public void setComprador(Usuario fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 

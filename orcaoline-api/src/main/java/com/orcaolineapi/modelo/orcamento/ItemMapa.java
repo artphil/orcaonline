@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.produto.Brick;
 import com.orcaolineapi.modelo.produto.Produto;
@@ -28,6 +29,7 @@ public class ItemMapa extends AbstractModel {
 	@Enumerated(EnumType.STRING)
 	private UnidadeMedida unidade;
 
+	@JsonIgnoreProperties({"itens", "orcamentos"})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_mapa")

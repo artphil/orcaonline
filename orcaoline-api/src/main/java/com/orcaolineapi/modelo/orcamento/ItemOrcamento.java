@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.produto.Produto;
 
@@ -22,11 +23,13 @@ public class ItemOrcamento extends AbstractModel {
 
 	private Double valorUnitarioPrazo;
 	
+	@JsonIgnoreProperties("itens")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_orcamento")
 	private Orcamento orcamento;
 
+	@JsonIgnoreProperties("mapa")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_item_mapa")
