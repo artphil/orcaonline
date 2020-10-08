@@ -13,11 +13,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 
 import { UserComponent, UserDialogComponent } from './user/user.component';
-import { PermissaoComponent } from './permission/permission.component';
+import { PermissionComponent } from './permission/permission.component';
 import { SharedModule } from './../shared/shared.module';
 
 import { PermissionService } from './permission/permission.service';
-import { TipoUsuarioComponent } from './user-type/user-type.component';
+import { UserTypeComponent } from './user-type/user-type.component';
 import { UserService } from './user/user.service';
 import { UserTypeService } from './user-type/user-type.service';
 import { TypeUserPermissionComponent } from './type-user-permission/type-user-permission.component';
@@ -27,8 +27,8 @@ import { UserListComponent } from './user-list/user-list.component';
   declarations: [
     UserComponent,
     UserListComponent,
-    PermissaoComponent,
-    TipoUsuarioComponent,
+    PermissionComponent,
+    UserTypeComponent,
     TypeUserPermissionComponent,
 
     UserDialogComponent
@@ -61,8 +61,8 @@ import { UserListComponent } from './user-list/user-list.component';
   ],
   exports: [
     UserComponent,
-    PermissaoComponent,
-    TipoUsuarioComponent
+    PermissionComponent,
+    UserTypeComponent
   ],
 })
 export class PersonModule { }

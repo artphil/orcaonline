@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PermissionComponent } from './permission.component';
+import { PriceMapListComponent } from './price-map-list.component';
 
-describe('PermissionComponent', () => {
-  let component: PermissionComponent;
-  let fixture: ComponentFixture<PermissionComponent>;
+describe('PriceMapListComponent', () => {
+  let component: PriceMapListComponent;
+  let fixture: ComponentFixture<PriceMapListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PermissionComponent ]
+      declarations: [ PriceMapListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PermissionComponent);
+    fixture = TestBed.createComponent(PriceMapListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

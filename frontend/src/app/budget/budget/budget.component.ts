@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
+import { ProductModel } from 'src/app/product/product.model';
+import { ProductService } from 'src/app/product/product/product.service';
 
 import { BudgetModel } from '../budget.model';
-
 import { BudgetService } from './budget.service';
-
 
 @Component({
   selector: 'app-budget',
@@ -16,13 +16,15 @@ import { BudgetService } from './budget.service';
 export class BudgetComponent implements OnInit {
 
   budget = new BudgetModel();
-
   idBudget: number;
+
+  productList: SelectItem[];
 
   constructor(
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private budgetServices: BudgetService
+    private budgetServices: BudgetService,
+    private productServices: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +47,21 @@ export class BudgetComponent implements OnInit {
     }
   }
 
+  getProducts(): void {
+    this.productServices.getList()
+    .then((familyList: ProductModel[]) => {
+      this.productList = [];
+      familyList.forEach(f => {
+        this.productList.push({ label: f.nome, value: f.id });
+      });
+    })
+    .catch(() => {
+      this.productList = [
+        { label: 'Nenhuma Familia cadastrada', value: null }
+      ];
+    });
+  }
+
   save(): void {
 
     if (!this.idBudget) {
@@ -56,7 +73,7 @@ export class BudgetComponent implements OnInit {
         })
         .catch((err) => {
           const msg = err.error[0].mensagemUsuario;
-          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Família.', detail: msg });
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Orçamento.', detail: msg });
         });
     }
     else {
@@ -67,7 +84,7 @@ export class BudgetComponent implements OnInit {
         })
         .catch((err) => {
           const msg = err.error[0].mensagemUsuario;
-          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Família.', detail: msg });
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
         });
     }
 

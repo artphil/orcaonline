@@ -13,7 +13,7 @@ import { UserTypeService } from './user-type.service';
   templateUrl: './user-type.component.html',
   styleUrls: ['./user-type.component.css']
 })
-export class TipoUsuarioComponent implements OnInit {
+export class UserTypeComponent implements OnInit {
 
   tipo = new UserTypeModel();
   tipos = [];

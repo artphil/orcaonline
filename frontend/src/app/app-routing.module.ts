@@ -9,8 +9,8 @@ import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 
 import { UserComponent } from './person/user/user.component';
 import { UserListComponent } from './person/user-list/user-list.component';
-import { PermissaoComponent } from './person/permission/permission.component';
-import { TipoUsuarioComponent } from './person/user-type/user-type.component';
+import { PermissionComponent } from './person/permission/permission.component';
+import { UserTypeComponent } from './person/user-type/user-type.component';
 
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
@@ -21,11 +21,12 @@ import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
 
-import { MapaColetaComponent } from './budget/price-collection-map/price-collection-map.component';
+import { PriceCollectionMapComponent } from './budget/price-collection-map/price-collection-map.component';
 import { BudgetComponent } from './budget/budget/budget.component';
 
 import { AuthGuard } from './security/auth.guard';
 import { TypeUserPermissionComponent } from './person/type-user-permission/type-user-permission.component';
+import { PriceMapListComponent } from './budget/price-map-list/price-map-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -62,13 +63,13 @@ const routes: Routes = [
 
   { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'per', component: PermissaoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
-  { path: 'tipousr', component: TipoUsuarioComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'per', component: PermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'tipousr', component: UserTypeComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
   { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
-  { path: 'mapc', component: MapaColetaComponent },
+  { path: 'mapc', component: PriceCollectionMapComponent },
 
-  { path: 'bdt', component: BudgetComponent},
+  { path: 'bdt', component: PriceMapListComponent},
   { path: 'bdt/:cod', component: BudgetComponent}
 
 ];

@@ -1,5 +1,5 @@
 import { UserModel } from '../person/person.model';
-import { ProductModel } from '../product/product.model';
+import { BrickModel, ProductModel } from '../product/product.model';
 
 export class BudgetModel {
   id: number;
@@ -7,7 +7,7 @@ export class BudgetModel {
   aprovado: boolean;
   fornecedor: UserModel;
   status: StatusModel;
-  mapa: MapaColetaModel;
+  mapa: PriceCollectionMapModel;
   itens: BudgetItemModel[];
 
   constructor() {
@@ -16,7 +16,7 @@ export class BudgetModel {
     this.aprovado = null;
     this.fornecedor = null;
     this.status = new StatusModel();
-    this.mapa = new MapaColetaModel();
+    this.mapa = new PriceCollectionMapModel();
     this.itens = [];
   }
 }
@@ -36,15 +36,52 @@ export class BudgetItemModel {
   valorUnitario: number;
   valorUnitarioPrazo: number;
   orcamento: any;
-  itemMapa: MapaColetaItemModel;
+  itemMapa: PriceCollectionMapItemModel;
   produto: ProductModel;
 }
 
-export class MapaColetaModel { }
+export class PriceCollectionMapModel {
+  id: number;
+  dataCriacao: Date;
+  comprador: UserModel;
+  status: StatusModel;
+  itens: PriceCollectionMapItemModel[];
 
-export class MapaColetaItemModel { }
+  constructor() {
+    this.id = null;
+    this.dataCriacao = new Date();
+    this.comprador = null;
+    this.status = new StatusModel();
+    this.itens = [];
+  }
+ }
+
+export class PriceCollectionMapItemModel {
+  id: number;
+  brick: BrickModel;
+  produto: ProductModel;
+  marca: string;
+  quantidade: number;
+  unidade: UnidadeMedidaModel;
+}
 
 export class UnidadeMedidaModel {
   descricao: string;
   simbolo: string;
 }
+
+export class PriceMapFilterModel {
+  status: StatusModel;
+  produto: ProductModel;
+  comprador: UserModel;
+  dataInicio: Date;
+  dataFim: Date;
+
+  constructor() {
+    this.dataInicio = new Date();
+    this.dataFim = new Date();
+    this.comprador = new UserModel();
+    this.status = new StatusModel();
+    this.produto = new ProductModel();
+  }
+ }
