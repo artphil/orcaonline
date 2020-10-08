@@ -26,16 +26,16 @@ export class PriceMapItemsComponent implements OnInit {
   }
 
   consult(id: number): void {
-    this.priceItems = [
-      {
-        id: 0,
-        brick: {id:1, numero: 11},
-        produto: null,
-        marca: 'ardidas',
-        quantidade: 1,
-        unidade: {simbolo: 'm²'}
-      }
-    ]
+    // this.priceItems = [
+    //   {
+    //     id: 0,
+    //     brick: {id:1, numero: 11},
+    //     produto: null,
+    //     marca: 'ardidas',
+    //     quantidade: 1,
+    //     unidade: {simbolo: 'm²'}
+    //   }
+    // ];
   }
 
 }
