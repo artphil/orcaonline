@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { GalleriaThumbnails } from 'primeng';
 import { MessageService } from 'primeng/api';
 import { PriceCollectionMapModel } from '../budget.model';
 import { PriceCollectionMapService } from './price-collection-map.service';
