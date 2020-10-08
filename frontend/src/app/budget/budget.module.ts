@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { BudgetComponent } from './budget/budget.component';
-import { MapaColetaComponent } from './mapa-coleta/mapa-coleta.component';
+import { MapaColetaComponent } from './price-collection-map/price-collection-map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetService } from './budget/budget.service';
 import { BudgetListComponent } from './budget-list/budget-list.component';

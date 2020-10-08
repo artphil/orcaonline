@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapaColetaComponent } from './mapa-coleta.component';
+import { MapaColetaComponent } from './price-collection-map.component';
 
 describe('MapaColetaComponent', () => {
   let component: MapaColetaComponent;

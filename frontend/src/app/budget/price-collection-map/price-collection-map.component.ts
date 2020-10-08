@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-mapa-coleta',
-  templateUrl: './mapa-coleta.component.html',
-  styleUrls: ['./mapa-coleta.component.css']
+  templateUrl: './price-collection-map.component.html',
+  styleUrls: ['./price-collection-map.component.css']
 })
 export class MapaColetaComponent implements OnInit {
 
