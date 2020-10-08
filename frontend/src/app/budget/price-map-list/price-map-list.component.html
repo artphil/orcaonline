@@ -63,7 +63,7 @@
 
         <ng-template pTemplate="body" let-i>
           <tr>
-            <td>{{i.dataCriacao}}</td>
+            <td>{{i.dataCriacao | date: 'dd/MM/yyyy' }}</td>
             <td>{{i.comprador?.nome}}</td>
             <td>{{i.status.nome}}</td>
             <td>

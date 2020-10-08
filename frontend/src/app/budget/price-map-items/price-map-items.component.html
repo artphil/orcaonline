@@ -1,0 +1,27 @@
+<p-table #dt [value]="priceItems">
+
+  <ng-template pTemplate="caption">
+    <!-- <div class="table-header"> -->
+    Itens do Mapa de Coleta
+    <!-- </div> -->
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="p-col">Brick</th>
+      <th class="p-col">Produto</th>
+      <th class="p-col">Quantidade</th>
+      <th class="p-col">Unidade</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-i>
+    <tr>
+      <td>{{i.brick?.numero}}</td>
+      <td>{{i.produto?.id}}</td>
+      <td>{{i.quantidade}}</td>
+      <td>{{i.unidade?.simbolo}}</td>
+    </tr>
+  </ng-template>
+
+</p-table>
