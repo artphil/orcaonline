@@ -6,9 +6,7 @@ import { ProductModel } from 'src/app/product/product.model';
 import { ProductService } from 'src/app/product/product/product.service';
 
 import { BudgetModel } from '../budget.model';
-
 import { BudgetService } from './budget.service';
-
 
 @Component({
   selector: 'app-budget',
@@ -75,7 +73,7 @@ export class BudgetComponent implements OnInit {
         })
         .catch((err) => {
           const msg = err.error[0].mensagemUsuario;
-          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Família.', detail: msg });
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Adicionar Orçamento.', detail: msg });
         });
     }
     else {
@@ -86,7 +84,7 @@ export class BudgetComponent implements OnInit {
         })
         .catch((err) => {
           const msg = err.error[0].mensagemUsuario;
-          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Família.', detail: msg });
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
         });
     }
 

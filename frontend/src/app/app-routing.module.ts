@@ -21,7 +21,7 @@ import { BrickComponent } from './product/brick/brick.component';
 import { GtinComponent } from './product/gtin/gtin.component';
 import { NcmComponent } from './product/ncm/ncm.component';
 
-import { MapaColetaComponent } from './budget/price-collection-map/price-collection-map.component';
+import { PriceCollectionMapComponent } from './budget/price-collection-map/price-collection-map.component';
 import { BudgetComponent } from './budget/budget/budget.component';
 
 import { AuthGuard } from './security/auth.guard';
@@ -66,7 +66,7 @@ const routes: Routes = [
   { path: 'tipousr', component: UserTypeComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
   { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
-  { path: 'mapc', component: MapaColetaComponent },
+  { path: 'mapc', component: PriceCollectionMapComponent },
 
   { path: 'bdt', component: BudgetComponent},
   { path: 'bdt/:cod', component: BudgetComponent}
