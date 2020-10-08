@@ -35,7 +35,7 @@ public class Orcamento extends AbstractModel {
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "id_fornecedor")
 	private Usuario fornecedor;
 
 	@NotNull
@@ -45,7 +45,7 @@ public class Orcamento extends AbstractModel {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_mapa_coleta")
+	@JoinColumn(name = "id_mapa")
 	private MapaColeta mapa;
 
 	@OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true)
