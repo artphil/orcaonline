@@ -11,7 +11,7 @@ import { PermissionService } from './permission.service';
   templateUrl: './permission.component.html',
   styleUrls: ['./permission.component.css']
 })
-export class PermissaoComponent implements OnInit {
+export class PermissionComponent implements OnInit {
 
   permission = new PermissionModel();
   permissions = [];

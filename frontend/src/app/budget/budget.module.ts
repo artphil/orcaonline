@@ -31,6 +31,7 @@ import { BudgetListComponent } from './budget-list/budget-list.component';
   ],
   exports: [
     MapaColetaComponent,
+    BudgetListComponent
   ],
   providers: [
     BudgetService

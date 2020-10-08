@@ -9,8 +9,8 @@ import { ForbiddenComponent } from './core/forbidden/forbidden.component';
 
 import { UserComponent } from './person/user/user.component';
 import { UserListComponent } from './person/user-list/user-list.component';
-import { PermissaoComponent } from './person/permission/permission.component';
-import { TipoUsuarioComponent } from './person/user-type/user-type.component';
+import { PermissionComponent } from './person/permission/permission.component';
+import { UserTypeComponent } from './person/user-type/user-type.component';
 
 import { ProductComponent } from './product/product/product.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
@@ -62,8 +62,8 @@ const routes: Routes = [
 
   { path: 'pdt/:cod', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
 
-  { path: 'per', component: PermissaoComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
-  { path: 'tipousr', component: TipoUsuarioComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'per', component: PermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  { path: 'tipousr', component: UserTypeComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
   { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
   { path: 'mapc', component: MapaColetaComponent },
