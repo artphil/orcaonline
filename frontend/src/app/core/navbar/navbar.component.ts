@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/security/auth.service';
 export class NavbarComponent implements OnInit {
 
   closed = true;
+
   items: MenuItem[] = [{
     label: 'Início',
     icon: 'pi pi-fw pi-home',
@@ -118,7 +119,7 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Orçamento',
         icon: 'pi pi-fw pi-plus',
-        routerLink: '/',
+        routerLink: '/bdt',
       }
     ]
   };
@@ -153,6 +154,10 @@ export class NavbarComponent implements OnInit {
 
   logedUser(): boolean{
     return this.auth.jwtPayload?.user_name;
+  }
+
+  toggleMenu(): void {
+    this.closed = !this.closed;
   }
 
 }

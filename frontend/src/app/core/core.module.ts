@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MessageService } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +30,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     ButtonModule,
     InputTextModule,
     TieredMenuModule,
+    MenubarModule,
 
     SharedModule
   ],

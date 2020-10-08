@@ -11,12 +11,14 @@ import { BudgetComponent } from './budget/budget.component';
 import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetService } from './budget/budget.service';
+import { BudgetListComponent } from './budget-list/budget-list.component';
 
 
 @NgModule({
   declarations: [
     PriceCollectionMapComponent,
-    BudgetComponent
+    BudgetComponent,
+    BudgetListComponent
   ],
   imports: [
     CommonModule,
