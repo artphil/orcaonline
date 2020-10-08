@@ -15,6 +15,7 @@ import { BudgetService } from './budget/budget.service';
 import { BudgetListComponent } from './budget-list/budget-list.component';
 import { PriceMapListComponent } from './price-map-list/price-map-list.component';
 import { PriceMapItemsComponent } from './price-map-items/price-map-items.component';
+import { PriceCollectionMapService } from './price-collection-map/price-collection-map.service';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { PriceMapItemsComponent } from './price-map-items/price-map-items.compon
   ],
   providers: [
     BudgetService
+    PriceCollectionMapService
   ]
 })
 export class BudgetModule { }

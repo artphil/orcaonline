@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
 import { PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
+import { PriceCollectionMapService } from '../price-collection-map/price-collection-map.service';
 import { PriceMapItemsComponent } from '../price-map-items/price-map-items.component';
 
 @Component({
@@ -20,27 +21,23 @@ export class PriceMapListComponent implements OnInit {
   productList: SelectItem[];
 
   constructor(
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private priceMapService: PriceCollectionMapService
   ) { }
 
   ngOnInit(): void {
-    const pcmi = {
-      id: 0,
-      brick: null,
-      produto: null,
-      marca: 'ardidas',
-      quantidade: 1,
-      unidade: null
-    };
-
-    const pcm = new PriceCollectionMapModel();
-    pcm.comprador = {nome:'Tião'};
-    pcm.itens.push(pcmi);
-
-    this.priceMapList = [pcm];
+    this.consult();
   }
 
-  consult(): void { }
+  consult(): void {
+    this.priceMapService.getList()
+      .then((priceMaps: PriceCollectionMapModel[]) => {
+        this.priceMapList = priceMaps ? priceMaps : [];
+      })
+      .catch(() => {
+        this.priceMapList = [];
+      });
+  }
 
   showItems(id: number): void {
     const ref = this.dialogService.open(PriceMapItemsComponent, {

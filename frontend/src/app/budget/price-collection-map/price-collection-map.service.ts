@@ -17,7 +17,7 @@ export class PriceCollectionMapService {
   };
 
   constructor(private http: HttpClient) {
-    this.apiPath = `${environment.apiUrl}/mapa-de-coleta`;
+    this.apiPath = `${environment.apiUrl}/mapas`;
   }
 
   getOne(code: number = null): Promise<any> {
