@@ -12,7 +12,7 @@ import { CoreModule } from './core/core.module';
 import { ProductModule } from './product/product.module';
 import { PersonModule } from './person/person.module';
 import { SecurityModule } from './security/security.module';
-import { OrcamentoModule } from './orcamento/orcamento.module'; 
+import { BudgetModule } from './budget/budget.module'; 
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { OrcamentoModule } from './orcamento/orcamento.module';
 
     ProductModule,
     PersonModule,
-    OrcamentoModule
+    BudgetModule
   ],
   bootstrap: [AppComponent]
 })

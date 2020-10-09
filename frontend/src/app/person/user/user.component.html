@@ -72,9 +72,9 @@
       <p-button styleClass="p-button-prymary" label="Salvar" (onClick)="saveUser(userForm)"
         [disabled]="userForm.invalid"></p-button>
 
-      <p-button styleClass="p-button-secondary" label="Limpar" (onClick)="clearUser(userForm)"></p-button>
+      <p-button *ngIf="!isNewUser" styleClass="p-button-secondary" label="Limpar" (onClick)="clearUser(userForm)"></p-button>
 
-      <p-button styleClass="p-button-danger" label="Excluir" (onClick)="removeUser(userForm)" [disabled]="!idUser">
+      <p-button *ngIf="!isNewUser" styleClass="p-button-danger" label="Excluir" (onClick)="removeUser(userForm)" [disabled]="!idUser">
       </p-button>
 
     </div>

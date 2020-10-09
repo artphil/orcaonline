@@ -165,10 +165,12 @@ class ItemMapaRepositoryTest {
 			MapaColeta map = validMapaColeta();
 			Brick bri = validBrick();
 			Produto prod = validProduto();
-			
+/*			
 			System.out.println(map.equals(null) + " " + bri.equals(null) + " " +  prod.equals(null));
 			
 			ItemMapa itemM = new ItemMapa(0.9, UnidadeMedida.KILO, "Marca do ItemMapa", map, bri, prod);
+			*/
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			this.repositoryI.save(itemM);
 			assertThat(itemM.getId()).isNotNull();
 		});
@@ -185,7 +187,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = validProduto();
 			UnidadeMedida unid = validUnidadeMedida();
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			this.repositoryI.save(itemM);
 			assertThat(itemM.getId()).isNotNull();
 		});
@@ -215,7 +217,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = validProduto();
 			UnidadeMedida unid = validUnidadeMedida();
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
@@ -234,7 +236,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = validProduto();
 			UnidadeMedida unid = validUnidadeMedida();
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
@@ -253,7 +255,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = null;
 			UnidadeMedida unid = validUnidadeMedida();
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
@@ -272,7 +274,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = validProduto();
 			UnidadeMedida unid = null;
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
@@ -292,7 +294,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = validProduto();
 			UnidadeMedida unid = null;
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
@@ -315,7 +317,7 @@ class ItemMapaRepositoryTest {
 			Produto prod = validProduto();
 			UnidadeMedida unid = null;
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
@@ -337,7 +339,7 @@ class ItemMapaRepositoryTest {
 			prod.setId(Long.valueOf(999999999));
 			UnidadeMedida unid = null;
 			
-			ItemMapa itemM = new ItemMapa(0.9, unid, "Marca do ItemMapa", map, bri, prod);
+			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 

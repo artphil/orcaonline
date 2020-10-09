@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
@@ -29,6 +30,12 @@ public class MapaColeta extends AbstractModel {
 	@DateTimeFormat
 	private LocalDate dataRegistro;
 
+	private LocalDate dataEncerramento;
+	
+	private String descricao;
+	
+	
+	@JsonIgnoreProperties("tipoUsuario")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_comprador")
@@ -39,20 +46,25 @@ public class MapaColeta extends AbstractModel {
 	@JoinColumn(name = "id_status")
 	private Status status;
 
+	@JsonIgnoreProperties("mapa")
 	@OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemMapa> itens;
 
+	@JsonIgnoreProperties("mapa")
 	@OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Orcamento> orcamento;
+	private List<Orcamento> orcamentos;
 
 	public MapaColeta() {
-
+		this.dataRegistro = LocalDate.now();
+		this.status = Status.ABERTO;
 	}
 
 	public MapaColeta(LocalDate dataRegistro, Usuario comprador, Status status) {
 		this.dataRegistro = dataRegistro;
 		this.comprador = comprador;
 		this.status = status;
+		this.itens = itens;
+		this.orcamentos = Orcamento;
 	}
 
 	public Long getId() {
@@ -71,6 +83,30 @@ public class MapaColeta extends AbstractModel {
 		this.dataRegistro = dataRegistro;
 	}
 
+	public LocalDate getDataEncerramento() {
+		return dataEncerramento;
+	}
+
+	public void setDataEncerramento(LocalDate dataEncerramento) {
+		this.dataEncerramento = dataEncerramento;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
 	public Usuario getComprador() {
 		return comprador;
 	}
@@ -80,6 +116,9 @@ public class MapaColeta extends AbstractModel {
 	}
 
 	public List<ItemMapa> getItens() {
+		if(this.itens == null) {
+			this.itens = new ArrayList<>();
+		}
 		return itens;
 	}
 
@@ -87,14 +126,21 @@ public class MapaColeta extends AbstractModel {
 		this.itens = itens;
 	}
 
-	public List<Orcamento> getOrcamento() {
-		return orcamento;
+	public List<Orcamento> getOrcamentos() {
+		if(this.orcamentos == null) {
+			this.orcamentos = new ArrayList<>();
+		}
+		return orcamentos;
 	}
 
-	public void setOrcamento(List<Orcamento> orcamento) {
-		this.orcamento = orcamento;
+	public void setOrcamentos(List<Orcamento> orcamentos) {
+		this.orcamentos = orcamentos;
 	}
-
+	
+	public Boolean isRunning() {
+		return getStatus().equals(Status.EM_ANDAMENTO);
+	}
+	
 	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ABERTO);
@@ -102,4 +148,36 @@ public class MapaColeta extends AbstractModel {
 		list.add(Status.FECHADO);
 		return list;
 	}
+	
+	public Orcamento criaNovoOrcamento() {
+		if(isRunning()) {
+			Orcamento orcamento = new Orcamento();
+			orcamento.setMapa(this);
+			addItemOrcamento(orcamento);
+			return orcamento;
+		}
+		return null;
+	}
+	
+	private void addItemOrcamento(Orcamento orcamento) {
+		for(ItemMapa item : getItens()) {
+			orcamento.getItens().add(new ItemOrcamento(orcamento, item));
+		}
+	}
+	
+	public void encerrar() {
+		setDataEncerramento(LocalDate.now());
+		setStatus(Status.FECHADO);
+	}
+	
+	public void aprovarOrcamento(Long idOrcamento) {
+		for(Orcamento o : getOrcamentos()) {
+			if(o.getId() == idOrcamento) {
+				o.setAprovado(true);
+				setDataEncerramento(LocalDate.now());
+				setStatus(Status.FECHADO);
+			}
+		}
+	}
+	
 }

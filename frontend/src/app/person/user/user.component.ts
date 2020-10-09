@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 import { UserModel, UserTypeModel } from '../person.model';
-import { UserTypeService } from '../tipo-usuario/user-type.service';
+import { UserTypeService } from '../user-type/user-type.service';
 
 import { UserService } from './user.service';
 
@@ -21,6 +21,7 @@ export class UserComponent implements OnInit {
   userTypes: SelectItem[];
 
   idUser: number;
+  isNewUser:boolean;
 
   @Input() userId: number;
   @Input() isPopup: boolean;
@@ -28,6 +29,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private userTypeService: UserTypeService,
     private messageService: MessageService,
@@ -35,9 +37,12 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = Number(this.route.snapshot.paramMap.get('cod'));
+    console.log(this.route.snapshot.url.toString());
+    this.isNewUser = (this.route.snapshot.url.toString() === 'sing-in');
+
     if (this.userId) {
       this.idUser = this.userId;
-      console.log(this.idUser)
+      console.log(this.idUser);
     }
 
     this.consult();
@@ -98,6 +103,9 @@ export class UserComponent implements OnInit {
         });
     }
 
+    if (this.isNewUser){
+      this.router.navigate(['/login'])
+    }
   }
 
   clearUser(form: NgForm): void {

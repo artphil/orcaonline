@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.produto.Produto;
 
@@ -20,11 +21,15 @@ public class ItemOrcamento extends AbstractModel {
 
 	private Double valorUnitario;
 
+	private Double valorUnitarioPrazo;
+	
+	@JsonIgnoreProperties("itens")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_orcamento")
 	private Orcamento orcamento;
 
+	@JsonIgnoreProperties("mapa")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_item_mapa")
@@ -35,14 +40,17 @@ public class ItemOrcamento extends AbstractModel {
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
-	public ItemOrcamento() {
+	public ItemOrcamento() { }
 
-	}
-
-	public ItemOrcamento(Double valorUnitario, Orcamento orcamento, ItemMapa itemMapa, Produto produto) {
-		this.valorUnitario = valorUnitario;
+	public ItemOrcamento(Orcamento orcamento, ItemMapa itemMapa) {
 		this.orcamento = orcamento;
 		this.itemMapa = itemMapa;
+		setProduto(itemMapa.getProduto());
+	}
+	
+	public ItemOrcamento(Double valorUnitario, Orcamento orcamento, ItemMapa itemMapa, Produto produto) {
+		this(orcamento, itemMapa);
+		this.valorUnitario = valorUnitario;
 		this.produto = produto;
 	}
 
@@ -60,6 +68,14 @@ public class ItemOrcamento extends AbstractModel {
 
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
+	}
+	
+	public Double getValorUnitarioPrazo() {
+		return valorUnitarioPrazo;
+	}
+
+	public void setValorUnitarioPrazo(Double valorUnitarioPrazo) {
+		this.valorUnitarioPrazo = valorUnitarioPrazo;
 	}
 
 	public Orcamento getOrcamento() {

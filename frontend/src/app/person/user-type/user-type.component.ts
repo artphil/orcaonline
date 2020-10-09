@@ -9,11 +9,11 @@ import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { UserTypeService } from './user-type.service';
 
 @Component({
-  selector: 'app-tipo-usuario',
-  templateUrl: './tipo-usuario.component.html',
-  styleUrls: ['./tipo-usuario.component.css']
+  selector: 'app-user-type',
+  templateUrl: './user-type.component.html',
+  styleUrls: ['./user-type.component.css']
 })
-export class TipoUsuarioComponent implements OnInit {
+export class UserTypeComponent implements OnInit {
 
   tipo = new UserTypeModel();
   tipos = [];

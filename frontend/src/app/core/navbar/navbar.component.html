@@ -23,8 +23,14 @@
     </div>
   </div>
 
+  <div *ngIf="!closed">
+    <p-menubar #menu [model]="items"  [style]="{'top':'0px', 'left':'0px'}"></p-menubar>
+  </div>
+
+
 </nav>
 
 <div>
   <p-tieredMenu #menu [model]="items" [popup]="true" [style]="{'top':'0px', 'left':'0px'}"></p-tieredMenu>
 </div>
+<!-- menu.toggle($event);  -->

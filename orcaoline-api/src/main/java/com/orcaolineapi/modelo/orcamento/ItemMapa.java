@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.produto.Brick;
 import com.orcaolineapi.modelo.produto.Produto;
@@ -23,13 +24,12 @@ public class ItemMapa extends AbstractModel {
 
 	// @Size(min = 0, max = 200)
 	private Double quantidade;
-	
-	private String marca;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private UnidadeMedida unidade;
 
+	@JsonIgnoreProperties({"itens", "orcamentos"})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_mapa")
@@ -47,11 +47,10 @@ public class ItemMapa extends AbstractModel {
 
 	}
 
-	public ItemMapa(Double quantidade, @NotNull UnidadeMedida unidade, String marca, @NotNull MapaColeta mapa,
+	public ItemMapa(Double quantidade, @NotNull UnidadeMedida unidade, @NotNull MapaColeta mapa,
 			Brick brick, Produto produto) {
 		this.quantidade = quantidade;
 		this.unidade = unidade;
-		this.marca = marca;
 		this.mapa = mapa;
 		this.brick = brick;
 		this.produto = produto;
@@ -79,14 +78,6 @@ public class ItemMapa extends AbstractModel {
 
 	public void setUnidade(UnidadeMedida unidade) {
 		this.unidade = unidade;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public MapaColeta getMapa() {

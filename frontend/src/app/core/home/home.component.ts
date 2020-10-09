@@ -19,10 +19,17 @@ export class HomeComponent implements OnInit {
     if (!this.logedUser()) {
       this.router.navigate(['/login']);
     }
-
   }
 
-  logedUser(): boolean{
+  logedUser(): boolean {
     return this.auth.jwtPayload?.user_name;
+  }
+
+  hasBudgets(): boolean {
+    return true;
+  }
+
+  hasProposals(): boolean {
+    return true;
   }
 }

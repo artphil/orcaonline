@@ -1,0 +1,84 @@
+<form #priceMapForm="ngForm">
+  <div class="p-grid">
+
+    <div class="p-col-12">
+      <h1>Mapas de Coleta de Preço</h1>
+    </div>
+
+    <div class="p-grid p-col-12 p-fluid">
+
+      <div class="p-col-2 p-fluid">
+        <label>Estado</label>
+        <p-dropdown [options]="statusList" name="status" [(ngModel)]="filter.status.id" placeholder="Selecione">
+        </p-dropdown>
+      </div>
+
+      <div class="p-col-2 p-fluid">
+        <label>Produto</label>
+        <p-dropdown [options]="productList" name="produto" [(ngModel)]="filter.produto.id" placeholder="Selecione">
+        </p-dropdown>
+      </div>
+
+      <div class="p-col-2 p-fluid">
+        <label>Cliente</label>
+        <input type="text" pInputText name="comprador" [(ngModel)]="filter.comprador.nome">
+      </div>
+
+      <div class="p-col-2 p-fluid">
+        <label>Data Inicio</label>
+        <p-calendar name="dataInicio" dateFormat="dd/mm/yy" [maxDate]="filter.dataFim" [(ngModel)]="filter.dataInicio"> </p-calendar>
+      </div>
+
+      <div class="p-col-2 p-fluid">
+        <label>Data fim</label>
+        <p-calendar name="dataFim" dateFormat="dd/mm/yy" [minDate]="filter.dataInicio" [(ngModel)]="filter.dataFim"> </p-calendar>
+      </div>
+
+      <div class="p-col-2 p-grid p-ai-end vertical-container">
+        <button pButton label="Pesquisar" (click)="consult()"></button>
+      </div>
+
+    </div>
+
+
+    <div class="p-col-12">
+
+      <p-table #dt [value]="priceMapList" [paginator]="true" [rows]="10" [responsive]="true">
+
+        <ng-template pTemplate="caption">
+          <div class="table-header">
+            Mapas
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="p-col-2">Data</th>
+            <th class="p-col">Comprador</th>
+            <th class="p-col-2">Estado</th>
+            <th class="p-col-1">Ver Itens</th>
+            <th class="p-col-2">Gerar Orçamento</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-i>
+          <tr>
+            <td>{{i.dataCriacao | date: 'dd/MM/yyyy' }}</td>
+            <td>{{i.comprador?.nome}}</td>
+            <td>{{i.status.nome}}</td>
+            <td>
+              <button pButton label="Ver" (click)="showItems(i.id)"></button>
+            </td>
+            <td>
+              <button pButton label="Gerar" (click)="createBudget(i.id)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+
+
+
+  </div>
+</form>

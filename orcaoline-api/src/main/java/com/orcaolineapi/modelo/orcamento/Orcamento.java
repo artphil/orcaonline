@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
@@ -29,9 +30,14 @@ public class Orcamento extends AbstractModel {
 	@DateTimeFormat
 	private LocalDate dataRegistro;
 
+	private LocalDate dataEnvio;
+	
+	private Boolean aprovado;
+
+	@JsonIgnoreProperties("tipoUsuario")
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "id_fornecedor")
 	private Usuario fornecedor;
 
 	@NotNull
@@ -39,16 +45,19 @@ public class Orcamento extends AbstractModel {
 	@JoinColumn(name = "id_status")
 	private Status status;
 
+	@JsonIgnoreProperties({"comprador", "orcamentos"})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_mapa")
 	private MapaColeta mapa;
 
+	@JsonIgnoreProperties("orcamento")
 	@OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemOrcamento> itens;
 
 	public Orcamento() {
-
+		this.dataRegistro = LocalDate.now();
+		this.status = Status.ABERTO;
 	}
 
 	public Orcamento(LocalDate dataRegistro, Usuario fornecedor, Status status, List<ItemOrcamento> itens,
@@ -75,16 +84,35 @@ public class Orcamento extends AbstractModel {
 	public void setDataRegistro(LocalDate dataRegistro) {
 		this.dataRegistro = dataRegistro;
 	}
+	
+	public LocalDate getDataEnvio() {
+		return dataEnvio;
+	}
 
-	public Usuario getComprador() {
+	public void setDataEnvio(LocalDate dataEnvio) {
+		this.dataEnvio = dataEnvio;
+	}
+
+	public Boolean getAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(Boolean aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	public Usuario getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setComprador(Usuario fornecedor) {
+	public void setFornecedor(Usuario fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
 	public List<ItemOrcamento> getItens() {
+		if(this.itens == null) {
+			this.itens = new ArrayList<>();
+		}
 		return itens;
 	}
 
@@ -108,12 +136,31 @@ public class Orcamento extends AbstractModel {
 		this.status = status;
 	}
 
+	public boolean isOpen() {
+		return getStatus().equals(Status.ABERTO);
+	}
+	
+	public boolean isRunning() {
+		return getStatus().equals(Status.EM_ANDAMENTO);
+	}
+	
+	public boolean isClosed() {
+		return getStatus().equals(Status.FECHADO);
+	}
+	
 	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ABERTO);
 		list.add(Status.EM_ANDAMENTO);
 		list.add(Status.FECHADO);
 		return list;
+	}
+	
+	public void enviar() {
+		if(isOpen()) {
+			setStatus(Status.EM_ANDAMENTO);
+			setDataEnvio(LocalDate.now());
+		}
 	}
 
 }
