@@ -37,10 +37,6 @@ public class Status extends AbstractModel {
 	public Status() {
 	}
 
-	public Status(String nome) {
-		this.nome = nome;
-	}
-
 	public Status(Long idStatus) {
 		id = idStatus;
 		nome = getNome(id);

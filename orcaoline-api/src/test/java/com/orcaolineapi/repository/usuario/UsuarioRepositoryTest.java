@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
@@ -18,9 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
-import com.orcaolineapi.modelo.orcamento.Status;
-import com.orcaolineapi.modelo.sistema.Modulo;
-import com.orcaolineapi.modelo.usuario.Permissao;
+import com.orcaolineapi.modelo.usuario.ModalidadeTipoUsuario;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
@@ -33,7 +28,7 @@ public class UsuarioRepositoryTest {
 	private @Autowired TipoUsuarioRepository repositoryT;
 
 	public TipoUsuario validTipoUsuario() {
-		TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "Descricao do TipoUsuario");
+		TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "Descricao do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 		this.repositoryT.save(tip);
 		return tip;
 	}

@@ -41,7 +41,7 @@ public class Orcamento extends AbstractModel {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_mapa_coleta")
+	@JoinColumn(name = "id_mapa")
 	private MapaColeta mapa;
 
 	@OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true)

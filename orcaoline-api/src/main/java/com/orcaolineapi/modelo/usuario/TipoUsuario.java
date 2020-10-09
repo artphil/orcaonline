@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -37,6 +38,7 @@ public class TipoUsuario extends AbstractModel {
 	@NotBlank
 	private String descricao;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ModalidadeTipoUsuario modalidade;
 	
@@ -48,9 +50,10 @@ public class TipoUsuario extends AbstractModel {
 
 	}
 
-	public TipoUsuario(String nome, String descricao) {
+	public TipoUsuario(String nome, String descricao, ModalidadeTipoUsuario modalidade) {
 		this.nome = nome;
 		this.descricao = descricao;
+		this.modalidade = modalidade;
 	}
 
 	public Long getId() {

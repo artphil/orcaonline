@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 
+import com.orcaolineapi.modelo.usuario.ModalidadeTipoUsuario;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 
 @SpringBootTest
@@ -26,7 +27,7 @@ public class TipoUsuarioRepositoryTest {
 	public void saveTipoUsuarioWithNotNullIdShouldThrowsNoneException() {
 
 		assertDoesNotThrow(() -> {
-			TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "Descricao do TipoUsuario");
+			TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "Descricao do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 			assertThat(tip.getId()).isNotNull();
 		});
@@ -51,7 +52,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 
-			TipoUsuario tip = new TipoUsuario("", "Descrição do TipoUsuario");
+			TipoUsuario tip = new TipoUsuario("", "Descrição do TipoUsuario" , ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -65,7 +66,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 
-			TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "");
+			TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -79,7 +80,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 
-			TipoUsuario tip = new TipoUsuario("123456789", "Descrição do TipoUsuario");
+			TipoUsuario tip = new TipoUsuario("123456789", "Descrição do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -91,7 +92,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 
-			TipoUsuario tip = new TipoUsuario("Nome da Descrição", "123456789");
+			TipoUsuario tip = new TipoUsuario("Nome da Descrição", "123456789", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -104,7 +105,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 
-			TipoUsuario tip = new TipoUsuario("        ", "Descrição do TipoUsuario");
+			TipoUsuario tip = new TipoUsuario("        ", "Descrição do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -117,7 +118,7 @@ public class TipoUsuarioRepositoryTest {
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			
 
-			TipoUsuario tip = new TipoUsuario("@@@@@@@", "Descrição do TipoUsuario");
+			TipoUsuario tip = new TipoUsuario("@@@@@@@", "Descrição do TipoUsuario" , ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -129,7 +130,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 
-			TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "@@@@@@@");
+			TipoUsuario tip = new TipoUsuario("Nome do TipoUsuario", "@@@@@@@", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -144,7 +145,7 @@ public class TipoUsuarioRepositoryTest {
 			TipoUsuario tip = new TipoUsuario(
 					"Nome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuario"
 							+ "Nome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuarioNome do TipoUsuario",
-					"Descrição do TipoUsuario");
+					"Descrição do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -156,7 +157,7 @@ public class TipoUsuarioRepositoryTest {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 		
-			TipoUsuario tip = new TipoUsuario("Nome", "Descrição do TipoUsuario");
+			TipoUsuario tip = new TipoUsuario("Nome", "Descrição do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 
@@ -172,7 +173,7 @@ public class TipoUsuarioRepositoryTest {
 					"Descrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuario"
 							+ "Descrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuario"
 							+ "Descrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuario"
-							+ "Descrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuario");
+							+ "Descrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuarioDescrição do TipoUsuario", ModalidadeTipoUsuario.INTERNO);
 			this.repositoryT.save(tip);
 		});
 

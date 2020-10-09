@@ -49,13 +49,10 @@ public class MapaColeta extends AbstractModel {
 
 	}
 
-	public MapaColeta(LocalDate dataRegistro, Usuario comprador, Status status, List<ItemMapa> itens,
-			List<Orcamento> Orcamento) {
+	public MapaColeta(LocalDate dataRegistro, Usuario comprador, Status status) {
 		this.dataRegistro = dataRegistro;
 		this.comprador = comprador;
 		this.status = status;
-		this.itens = itens;
-		this.orcamento = Orcamento;
 	}
 
 	public Long getId() {
