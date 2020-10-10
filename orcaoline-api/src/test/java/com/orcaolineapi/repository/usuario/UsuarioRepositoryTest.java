@@ -3,7 +3,11 @@ package com.orcaolineapi.repository.usuario;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
@@ -11,15 +15,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.test.context.ActiveProfiles;
 
+import com.orcaolineapi.modelo.orcamento.Status;
 import com.orcaolineapi.modelo.usuario.ModalidadeTipoUsuario;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
-@SpringBootTest
+//@SpringBootTest
+@DataJpaTest
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class UsuarioRepositoryTest {
 
@@ -33,20 +41,39 @@ public class UsuarioRepositoryTest {
 		return tip;
 	}
 	
-	/*@Test
+	@Test
 	public void saveUsuarioWithUsedStatusShouldThrowsNoneException() {
 
 		assertDoesNotThrow(() -> {
 			TipoUsuario tip = validTipoUsuario();
 
-			Usuario usu = new Usuario("usuario.usuario@gmail.com", "12345678Usuario@", "12345678910111",
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
 					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 			this.repositoryU.save(usu);
 			
 			List<Status> list = new ArrayList<>();
 			list = Usuario.usedStatus();
-			assertEquals(Usuario.usedStatus());
-	}*/
+			assertThat(Usuario.usedStatus()).contains(Status.ATIVO);
+			assertThat(Usuario.usedStatus()).contains(Status.INATIVO);
+		});
+	}	
+	
+	@Test
+	public void saveUsuarioWithEncodaSenhaShouldThrowsNoneException() {
+
+		assertDoesNotThrow(() -> {
+			TipoUsuario tip = validTipoUsuario();
+
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
+					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
+			this.repositoryU.save(usu);
+			
+			String senha = usu.getSenha();
+			usu.encodaSenha();
+			String senhaEncryp = usu.getSenha();
+			assertNotEquals(senhaEncryp, senha);
+		});
+	}
 
 	@Test
 	public void saveUsuarioWithNotNullIdShouldThrowsNoneException() {
@@ -54,7 +81,7 @@ public class UsuarioRepositoryTest {
 		assertDoesNotThrow(() -> {
 			TipoUsuario tip = validTipoUsuario();
 
-			Usuario usu = new Usuario("usuario.usuario@gmail.com", "12345678Usuario@", "12345678910111",
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
 					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 			this.repositoryU.save(usu);
 			assertThat(usu.getId()).isNotNull();
@@ -76,17 +103,17 @@ public class UsuarioRepositoryTest {
 	}
 
 	@Test
-	public void saveUsuarioWithNullTipoUsuarioShouldThrowsDataIntegrityViolationException() {
+	public void saveUsuarioWithNullTipoUsuarioShouldThrowsConstraintViolationException() {
 		
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
+		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			TipoUsuario tip = null;
 
-			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123UUsuario@", "12345678910111",
 					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 			this.repositoryU.save(usu);
 		});
 		
-		assertThat(exception.getMessage()).contains("could not execute statement; SQL [n/a]");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'");
 	}
 
 	@Test
@@ -149,7 +176,7 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='deve ser um endereço de e-mail bem formado'");
 	}
 
 	@Test
@@ -207,7 +234,7 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='deve ser um endereço de e-mail bem formado'");
 	}
 
 	@Test
@@ -221,7 +248,7 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='deve conter uma senha bem formada'");
 	}
 
 	@Test
@@ -313,7 +340,7 @@ public class UsuarioRepositoryTest {
 			this.repositoryU.save(usu);
 		});
 
-		assertThat(exception.getMessage()).contains("interpolatedMessage='{0} deve conter apenas letras.'");
+		assertThat(exception.getMessage()).contains("interpolatedMessage='deve ser um endereço de e-mail bem formado'");
 	}
 
 	@Test

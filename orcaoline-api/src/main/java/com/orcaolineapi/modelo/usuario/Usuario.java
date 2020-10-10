@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -28,15 +29,16 @@ public class Usuario extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min = 5, max = 150)
+	@Size(min = 10, max = 150)
 	@Email
 	@NotBlank
 	private String email;
 
-	@Size(min = 6, max = 300)
+	@Size(min = 8, max = 12)
 	@NotBlank
+	@Pattern(regexp = "^(?=.*\\d)(?=.*[!@#$&*])(?=.*[A-Z]).{8,12}$", message= "deve conter uma senha bem formada")
 	private String senha;
-
+	
 	@Digits(integer = 14, fraction = 0)
 	@Size(min = 14, max = 14)
 	private String cnpj;
@@ -51,7 +53,7 @@ public class Usuario extends AbstractModel {
 
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_usuario")
-	@NonNull
+	@NotNull
 	private TipoUsuario tipoUsuario;
 
 	public Usuario() {

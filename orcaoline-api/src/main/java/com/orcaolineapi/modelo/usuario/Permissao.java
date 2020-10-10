@@ -10,7 +10,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.orcaolineapi.modelo.AbstractModel;
@@ -25,10 +25,12 @@ public class Permissao extends AbstractModel {
 
 	@Size(min = 5, max = 100)
 	@NotBlank
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String nome;
 
 	@Size(min = 5, max = 200)
 	@NotBlank
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
 
 	@Enumerated(EnumType.STRING)

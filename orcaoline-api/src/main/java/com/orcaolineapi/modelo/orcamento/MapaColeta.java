@@ -63,8 +63,6 @@ public class MapaColeta extends AbstractModel {
 		this.dataRegistro = dataRegistro;
 		this.comprador = comprador;
 		this.status = status;
-		this.itens = itens;
-		this.orcamentos = Orcamento;
 	}
 
 	public Long getId() {

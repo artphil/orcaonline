@@ -13,7 +13,7 @@
 	<artifactId>orcaoline-api</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>orcaoline-api</name>
-	<description>Proleto para orcamento online</description>
+	<description>Projeto para orcamento online</description>
 
 	<properties>
 		<java.version>11</java.version>

@@ -57,7 +57,8 @@ public class TipoUsuario extends AbstractModel {
 	}
 	
 	public TipoUsuario(String nome, String descricao, List<Permissao> permissoes) {
-		this(nome, descricao);
+		this.nome = nome;
+		this.descricao = descricao;
 		this.permissoes = permissoes;
 	}
 

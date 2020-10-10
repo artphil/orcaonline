@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.orcaolineapi.modelo.orcamento.ItemMapa;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
@@ -36,7 +38,10 @@ import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.repository.usuario.TipoUsuarioRepository;
 import com.orcaolineapi.repository.usuario.UsuarioRepository;
 
-@SpringBootTest
+//@SpringBootTest
+@DataJpaTest
+@ActiveProfiles("test")
+
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class ItemMapaRepositoryTest {
 
@@ -107,7 +112,7 @@ class ItemMapaRepositoryTest {
 	/* PRODUTO + BRICK */
 	
 	public Segmento validSegmento() {
-		Segmento seg = new Segmento("Nome do Segmento", "Descricao do Segmento");
+		Segmento seg = new Segmento("Nome do Segmentoo", "Descricao do Segmento");
 		this.repositorySeg.save(seg);
 		return seg;
 	}
@@ -163,21 +168,17 @@ class ItemMapaRepositoryTest {
 
 		assertDoesNotThrow(() -> {
 			MapaColeta map = validMapaColeta();
-			Brick bri = validBrick();
 			Produto prod = validProduto();
-/*			
-			System.out.println(map.equals(null) + " " + bri.equals(null) + " " +  prod.equals(null));
-			
-			ItemMapa itemM = new ItemMapa(0.9, UnidadeMedida.KILO, "Marca do ItemMapa", map, bri, prod);
-			*/
-			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
+			Brick bri = prod.getGtin().getBrick();
+
+			ItemMapa itemM = new ItemMapa(0.9, UnidadeMedida.KILO, map, bri, prod);
 			this.repositoryI.save(itemM);
 			assertThat(itemM.getId()).isNotNull();
 		});
 
 	}
 	
-	/*
+	
 	@Test
 	public void saveItemMapaWithBlankMarcaShouldThrowsNoneException() {
 
@@ -348,5 +349,5 @@ class ItemMapaRepositoryTest {
 		assertEquals(
 				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
 				exception.getMessage());
-	}*/
+	}
 }
