@@ -150,10 +150,11 @@ class ItemOrcamentoRepositoryTest {
 	
 	public MapaColeta validMapaColeta() {		
 		LocalDate dataRegistro = LocalDate.now();
+		LocalDate dataEncerramento = null;
 		Usuario comp = validUsuarioComprador();
 		Status sta = validStatus();
 		
-		MapaColeta map = new MapaColeta(dataRegistro, comp, sta);
+		MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", comp, sta);
 		this.repositoryM.save(map);
 		return map;
 	}
@@ -221,9 +222,12 @@ class ItemOrcamentoRepositoryTest {
 			
 			/* ITEM MAPA */
 			LocalDate dataRegistro = LocalDate.now();
+			LocalDate dataEncerramento = null;
+
 			Status sta = validStatus();
 			
-			MapaColeta map = new MapaColeta(dataRegistro, orc.getFornecedor(), sta);
+			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
+
 			this.repositoryM.save(map);
 			Brick bri = prod.getGtin().getBrick();
 
@@ -260,10 +264,13 @@ class ItemOrcamentoRepositoryTest {
 			
 			/* ITEM MAPA */
 			LocalDate dataRegistro = LocalDate.now();
+			LocalDate dataEncerramento = null;
+
 			Status sta = validStatus();
 			Usuario usuForn = validUsuarioFornecedor();
 			
-			MapaColeta map = new MapaColeta(dataRegistro, usuForn, sta);
+			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", usuForn, sta);
+
 			this.repositoryM.save(map);
 			Brick bri = prod.getGtin().getBrick();
 
@@ -302,9 +309,12 @@ class ItemOrcamentoRepositoryTest {
 			
 			/* ITEM MAPA */
 			LocalDate dataRegistro = LocalDate.now();
+			LocalDate dataEncerramento = null;
+
 			Status sta = validStatus();
 			
-			MapaColeta map = new MapaColeta(dataRegistro, orc.getFornecedor(), sta);
+			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
+
 			this.repositoryM.save(map);
 			Brick bri = prod.getGtin().getBrick();
 
@@ -332,9 +342,12 @@ class ItemOrcamentoRepositoryTest {
 			
 			/* ITEM MAPA */
 			LocalDate dataRegistro = LocalDate.now();
+			LocalDate dataEncerramento = null;
+
 			Status sta = validStatus();
 			
-			MapaColeta map = new MapaColeta(dataRegistro, orc.getFornecedor(), sta);
+			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
+
 			this.repositoryM.save(map);
 			Brick bri = prod.getGtin().getBrick();
 
@@ -363,9 +376,12 @@ class ItemOrcamentoRepositoryTest {
 			
 			/* ITEM MAPA */
 			LocalDate dataRegistro = LocalDate.now();
+			LocalDate dataEncerramento = null;
+
 			Status sta = validStatus();
 			
-			MapaColeta map = new MapaColeta(dataRegistro, orc.getFornecedor(), sta);
+			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
+
 			this.repositoryM.save(map);
 			Brick bri = prod.getGtin().getBrick();
 
@@ -396,9 +412,12 @@ class ItemOrcamentoRepositoryTest {
 			
 			/* ITEM MAPA */
 			LocalDate dataRegistro = LocalDate.now();
+			LocalDate dataEncerramento = null;
+
 			Status sta = validStatus();
 			
-			MapaColeta map = new MapaColeta(dataRegistro, orc.getFornecedor(), sta);
+			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
+
 			this.repositoryM.save(map);
 			Brick bri = prod.getGtin().getBrick();
 

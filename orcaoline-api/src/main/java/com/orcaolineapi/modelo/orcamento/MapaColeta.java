@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,10 +32,12 @@ public class MapaColeta extends AbstractModel {
 	@DateTimeFormat
 	private LocalDate dataRegistro;
 
+	@DateTimeFormat
 	private LocalDate dataEncerramento;
 	
+	@Size(min = 0, max = 200)
+	@Pattern(regexp = "[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")
 	private String descricao;
-	
 	
 	@JsonIgnoreProperties("tipoUsuario")
 	@NotNull
@@ -59,8 +63,10 @@ public class MapaColeta extends AbstractModel {
 		this.status = Status.ABERTO;
 	}
 
-	public MapaColeta(LocalDate dataRegistro, Usuario comprador, Status status) {
+	public MapaColeta(LocalDate dataRegistro, LocalDate dataEncerramento, String descricao, Usuario comprador, Status status) {
 		this.dataRegistro = dataRegistro;
+		this.dataEncerramento = dataEncerramento;
+		this.descricao = descricao;
 		this.comprador = comprador;
 		this.status = status;
 	}
@@ -177,5 +183,4 @@ public class MapaColeta extends AbstractModel {
 			}
 		}
 	}
-	
 }

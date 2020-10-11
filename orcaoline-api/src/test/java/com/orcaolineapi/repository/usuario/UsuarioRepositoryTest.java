@@ -50,11 +50,26 @@ public class UsuarioRepositoryTest {
 			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
 					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 			this.repositoryU.save(usu);
-			
-			List<Status> list = new ArrayList<>();
-			list = Usuario.usedStatus();
+
 			assertThat(Usuario.usedStatus()).contains(Status.ATIVO);
 			assertThat(Usuario.usedStatus()).contains(Status.INATIVO);
+		});
+	}
+	
+	@Test
+	public void saveUsuarioWithNotUsedStatusShouldThrowsNoneException() {
+
+		assertDoesNotThrow(() -> {
+			TipoUsuario tip = validTipoUsuario();
+
+			Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
+					"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
+			this.repositoryU.save(usu);
+
+			assertThat(Usuario.usedStatus()).doesNotContain(Status.CANCELADO);
+			assertThat(Usuario.usedStatus()).doesNotContain(Status.EM_ANDAMENTO);
+			assertThat(Usuario.usedStatus()).doesNotContain(Status.FECHADO);
+			assertThat(Usuario.usedStatus()).doesNotContain(Status.ABERTO);
 		});
 	}	
 	

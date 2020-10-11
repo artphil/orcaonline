@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
@@ -106,11 +105,13 @@ class ItemMapaRepositoryTest {
 	}
 	
 	public MapaColeta validMapaColeta() {		
-		LocalDate dataRegistro = null;
+		LocalDate dataRegistro = LocalDate.now();
+		LocalDate dataEncerramento = null;
+
 		Usuario comp = validUsuario();
 		Status sta = validStatus();
 		
-		MapaColeta map = new MapaColeta(dataRegistro, comp, sta);
+		MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", comp, sta);
 		this.repositoryM.save(map);
 		return map;
 	}
