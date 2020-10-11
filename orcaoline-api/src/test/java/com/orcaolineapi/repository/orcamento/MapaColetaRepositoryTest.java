@@ -186,14 +186,14 @@ class MapaColetaRepositoryTest {
 	}
 	
 	@Test
-	public void saveMapaColetaCriaNovoOrcamentoWithAnotherStatusShouldThrowsNullPointerException() {
+	public void saveMapaColetaCriaNovoOrcamentoWithAnotherStatusShouldThrowsNoneException() {
 
-		Throwable exception = assertThrows(NullPointerException.class, () -> {
+		assertDoesNotThrow(() -> {
 			LocalDate dataRegistro = LocalDate.now();
-			LocalDate dataEncerramento = LocalDate.now();
+			LocalDate dataEncerramento = null;
 
 			Usuario comp = validUsuarioComprador();
-			Status sta = validStatus();
+			Status sta = Status.EM_ANDAMENTO;
 			
 			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", comp, sta);
 			this.repositoryMP.save(map);
@@ -214,6 +214,13 @@ class MapaColetaRepositoryTest {
 			
 			/*this.repositoryMP.deleteById(map.getId());
 			this.repositoryMP.save(map);*/
+			
+			assertThat(orc1.equals(null)
+					&& orc2.equals(null)
+					&& orc3.equals(null)
+					&& (orcamentosDepois.size() == orcamentosAntes.size())
+					&& !map.getId().equals(null));
+			
 		});
 	}
 	
@@ -244,7 +251,7 @@ class MapaColetaRepositoryTest {
 
 		assertDoesNotThrow(() -> {
 			LocalDate dataRegistro = LocalDate.now();
-			LocalDate dataEncerramento = LocalDate.now();
+			LocalDate dataEncerramento = null;
 
 			Usuario comp = validUsuarioComprador();
 			Status sta = Status.EM_ANDAMENTO;
