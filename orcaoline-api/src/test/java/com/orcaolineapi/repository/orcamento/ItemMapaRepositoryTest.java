@@ -2,9 +2,13 @@ package com.orcaolineapi.repository.orcamento;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+
+import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.orcaolineapi.modelo.orcamento.ItemMapa;
@@ -88,7 +94,7 @@ class ItemMapaRepositoryTest {
 	
 	public Usuario validUsuario() {
 		TipoUsuario tip = validTipoUsuario();
-		Usuario usu = new Usuario("usuario.usuario@gmail.com", "12345678Usuario@", "12345678910111",
+		Usuario usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
 				"Razao Social do Usuario", "Nome fantasia do Usuario", tip);
 		this.repositoryU.save(usu);
 		return usu;
@@ -184,8 +190,8 @@ class ItemMapaRepositoryTest {
 
 		assertDoesNotThrow(() -> {
 			MapaColeta map = validMapaColeta();
-			Brick bri = validBrick();
 			Produto prod = validProduto();
+			Brick bri = prod.getGtin().getBrick();
 			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
@@ -214,8 +220,8 @@ class ItemMapaRepositoryTest {
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			
 			MapaColeta map = null;
-			Brick bri = validBrick();
 			Produto prod = validProduto();
+			Brick bri = prod.getGtin().getBrick();
 			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
@@ -228,41 +234,35 @@ class ItemMapaRepositoryTest {
 	}
 	
 	@Test
-	public void saveItemMapaWithNullBrickShouldThrowsConstraintViolationException() {
+	public void saveItemMapaWithNullBrickShouldThrowsNoneException() {
 
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
+		assertDoesNotThrow(() -> {
 			MapaColeta map = validMapaColeta();
+			Produto prod = validProduto();
 			Brick bri = null;
-			Produto prod = validProduto();
 			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
-
+			assertThat(itemM.getId()).isNotNull();
 		});
-
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
 	}
 	
 	@Test
-	public void saveItemMapaWithNullProdutoShouldThrowsConstraintViolationException() {
+	public void saveItemMapaWithNullProdutoShouldThrowsNoneException() {
 
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
+		assertDoesNotThrow(() -> {
 			MapaColeta map = validMapaColeta();
-			Brick bri = validBrick();
 			Produto prod = null;
+			Brick bri = validBrick();
 			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
-
+			assertThat(itemM.getId()).isNotNull();
 		});
-
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
 	}
 
 	@Test
@@ -271,8 +271,8 @@ class ItemMapaRepositoryTest {
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			
 			MapaColeta map = validMapaColeta();
-			Brick bri = validBrick();
 			Produto prod = validProduto();
+			Brick bri = prod.getGtin().getBrick();
 			UnidadeMedida unid = null;
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
@@ -285,15 +285,15 @@ class ItemMapaRepositoryTest {
 	}
 	
 	@Test
-	public void saveItemMapaWithInvalidIdMapaColetaShouldThrowsDataIntegrityViolationException() {
+	public void saveItemMapaWithInvalidIdMapaColetaShouldThrowsConstraintViolationException() {
 
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
+		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			
 			MapaColeta map = validMapaColeta();
 			map.setId(Long.valueOf(999999999));
-			Brick bri = validBrick();
 			Produto prod = validProduto();
-			UnidadeMedida unid = null;
+			Brick bri = prod.getGtin().getBrick();
+			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
@@ -313,10 +313,10 @@ class ItemMapaRepositoryTest {
 		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
 			
 			MapaColeta map = validMapaColeta();
-			Brick bri = validBrick();
-			bri.setId(Long.valueOf(999999999));
 			Produto prod = validProduto();
-			UnidadeMedida unid = null;
+			Brick bri = prod.getGtin().getBrick();
+			bri.setId(Long.valueOf(999999999));
+			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
@@ -330,24 +330,23 @@ class ItemMapaRepositoryTest {
 	}
 	
 	@Test
-	public void saveItemMapaWithInvalidIdProdutoShouldThrowsDataIntegrityViolationException() {
+	public void saveItemMapaWithInvalidIdProdutoShouldThrowsConstraintViolationException() {
 
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
+		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
 			
 			MapaColeta map = validMapaColeta();
-			Brick bri = validBrick();
 			Produto prod = validProduto();
+			Brick bri = prod.getGtin().getBrick();
 			prod.setId(Long.valueOf(999999999));
-			UnidadeMedida unid = null;
+			UnidadeMedida unid = validUnidadeMedida();
 			
 			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
 			
 			this.repositoryI.save(itemM);
 
 		});
+		
+		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
 
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
 	}
 }

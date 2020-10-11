@@ -60,13 +60,13 @@ public class Orcamento extends AbstractModel {
 		this.status = Status.ABERTO;
 	}
 
-	public Orcamento(LocalDate dataRegistro, Usuario fornecedor, Status status, List<ItemOrcamento> itens,
-			MapaColeta mapa) {
+	public Orcamento(LocalDate dataRegistro, LocalDate dataEnvio, Usuario fornecedor, Status status, MapaColeta mapa, Boolean aprovado) {
 		this.dataRegistro = dataRegistro;
+		this.dataEnvio = dataEnvio;
 		this.fornecedor = fornecedor;
 		this.status = status;
-		this.itens = itens;
 		this.mapa = mapa;
+		this.aprovado = aprovado;
 	}
 
 	public Long getId() {
