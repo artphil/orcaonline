@@ -45,7 +45,7 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     PriceMapItemsComponent
   ],
   providers: [
-    BudgetService
+    BudgetService,
     PriceCollectionMapService
   ]
 })
