@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
-import { PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
+import { PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
 import { PriceCollectionMapService } from '../price-collection-map/price-collection-map.service';
 import { PriceMapItemsComponent } from '../price-map-items/price-map-items.component';
 
@@ -39,13 +39,13 @@ export class PriceMapListComponent implements OnInit {
       });
   }
 
-  showItems(id: number): void {
+  showItems(id: number, items: PriceCollectionMapItemModel[]): void {
     const ref = this.dialogService.open(PriceMapItemsComponent, {
       width: '50%',
-      data: { id }
+      data: { id, items }
     });
   }
 
-  createBudget(): void { }
+  createBudget( priceMap: PriceCollectionMapModel ): void { }
 
 }

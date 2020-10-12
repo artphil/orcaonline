@@ -20,22 +20,9 @@ export class PriceMapItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.idPriceMap = this.config.data.id;
-
-    this.consult(this.idPriceMap);
-
+    this.priceItems = this.config.data.items;
   }
 
-  consult(id: number): void {
-    // this.priceItems = [
-    //   {
-    //     id: 0,
-    //     brick: {id:1, numero: 11},
-    //     produto: null,
-    //     marca: 'ardidas',
-    //     quantidade: 1,
-    //     unidade: {simbolo: 'm²'}
-    //   }
-    // ];
-  }
+
 
 }

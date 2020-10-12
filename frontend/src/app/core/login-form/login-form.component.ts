@@ -25,7 +25,6 @@ export class LoginFormComponent {
 
   login(form: NgForm): void {
     if (form.valid) {
-      this.pass = '';
       this.auth.login(this.user, this.pass)
       .then(() => {
         this.router.navigate(['/']);
@@ -33,6 +32,8 @@ export class LoginFormComponent {
       .catch(erro =>  {
         this.errorHandler.handle(erro);
       });
+
+      this.pass = '';
     } else {
       this.messageService.add(
         { severity: 'error', summary: 'Falha ao enviar.', detail: 'Pereencha os campos corretamente.' }
