@@ -64,18 +64,28 @@ export class PriceCollectionMapItemModel {
   id: number;
   brick: BrickModel;
   produto: ProductModel;
-  marca: string;
   quantidade: number;
   unidade: UnidadeMedidaModel;
+  mapa: PriceCollectionMapModel;
 
   constructor() {
     this.id = null;
+    this.brick = new BrickModel();
+    this.produto = new ProductModel();
+    this.quantidade = null;
+    this.unidade = new UnidadeMedidaModel();
+    this.mapa = null;
   }
 }
 
 export class UnidadeMedidaModel {
   descricao: string;
   simbolo: string;
+
+  constructor(){
+    this.descricao = null;
+    this.simbolo = null
+  }
 }
 
 export class PriceMapFilterModel {
