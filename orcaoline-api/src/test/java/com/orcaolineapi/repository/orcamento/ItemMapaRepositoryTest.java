@@ -43,7 +43,6 @@ import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.repository.usuario.TipoUsuarioRepository;
 import com.orcaolineapi.repository.usuario.UsuarioRepository;
 
-//@SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
 

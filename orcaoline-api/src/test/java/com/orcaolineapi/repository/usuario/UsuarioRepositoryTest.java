@@ -25,9 +25,9 @@ import com.orcaolineapi.modelo.usuario.ModalidadeTipoUsuario;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
-//@SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
+
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class UsuarioRepositoryTest {
 

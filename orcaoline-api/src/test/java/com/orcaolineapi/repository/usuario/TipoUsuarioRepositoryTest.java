@@ -19,9 +19,9 @@ import org.springframework.test.context.ActiveProfiles;
 import com.orcaolineapi.modelo.usuario.ModalidadeTipoUsuario;
 import com.orcaolineapi.modelo.usuario.TipoUsuario;
 
-//@SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
+
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class TipoUsuarioRepositoryTest {
 
