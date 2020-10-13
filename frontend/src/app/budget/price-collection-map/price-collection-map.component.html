@@ -30,16 +30,73 @@
 
         </div>
 
-        <div>
+        <div class="p-col-12">
             <p-tabView>
-                <p-tabPanel header="Header 1">
-                   Content 1
+                <p-tabPanel header="Itens">
+                    <div class="p-grid ">
+                    
+                        <div class="p-col-2  p-fluid ">
+                            <label>Brick</label>
+                            <input type="text" pInputText name="Brick" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Produto</label>
+                            <input type="text" pInputText name="Produto" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Marca</label>
+                            <input type="text" pInputText name="Marca" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Quantidade</label>
+                            <input type="text" pInputText name="Marca" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Unidade</label>
+                            <input type="text" pInputText name="Marca" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <br>
+                            <button pButton label="Adicionar" ></button>
+                        </div>
+                    </div>
+                  
                 </p-tabPanel>
-                <p-tabPanel header="Header 2">
-                    Content 2
-                </p-tabPanel>
-                <p-tabPanel header="Header 3">
-                    Content 3
+                <p-tabPanel header="Orçamentos">
+                    <div class="p-grid ">
+                    
+                        <div class="p-col-2  p-fluid ">
+                            <label>Código</label>
+                            <input type="text" pInputText name="Brick" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Fornecedor</label>
+                            <input type="text" pInputText name="Produto" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Total a vista</label>
+                            <input type="text" pInputText name="Marca" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Total a prazo</label>
+                            <input type="text" pInputText name="Marca" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        <div class="p-col-2 p-fluid ">
+                            <label>Aprovado</label>
+                            <input type="text" pInputText name="Marca" [(ngModel)]="priceCollectionMap.itens">
+                        </div>
+
+                        
+                    </div>
                 </p-tabPanel>
             </p-tabView>
 

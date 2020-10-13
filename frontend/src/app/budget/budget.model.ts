@@ -1,4 +1,6 @@
 import { UserModel } from '../person/person.model';
+import { BrickComponent } from '../product/brick/brick.component';
+import { BrickService } from '../product/brick/brick.service';
 import { BrickModel, ProductModel } from '../product/product.model';
 
 export class BudgetModel {
@@ -65,6 +67,10 @@ export class PriceCollectionMapItemModel {
   marca: string;
   quantidade: number;
   unidade: UnidadeMedidaModel;
+
+  constructor() {
+    this.id = null;
+  }
 }
 
 export class UnidadeMedidaModel {
