@@ -9,7 +9,7 @@ export class ErrorHandlerService {
 
   constructor(private messageService: MessageService) { }
 
-  handle(errorResponse: any) {
+  handle(errorResponse: any): void {
     let msg: string;
 
     if (typeof errorResponse === 'string') {

@@ -1,4 +1,6 @@
 import { UserModel } from '../person/person.model';
+import { BrickComponent } from '../product/brick/brick.component';
+import { BrickService } from '../product/brick/brick.service';
 import { BrickModel, ProductModel } from '../product/product.model';
 
 export class BudgetModel {
@@ -46,6 +48,7 @@ export class PriceCollectionMapModel {
   comprador: UserModel;
   status: StatusModel;
   itens: PriceCollectionMapItemModel[];
+  descricao: string;
 
   constructor() {
     this.id = null;
@@ -53,6 +56,7 @@ export class PriceCollectionMapModel {
     this.comprador = null;
     this.status = new StatusModel();
     this.itens = [];
+    this.descricao = null;
   }
  }
 
@@ -63,6 +67,10 @@ export class PriceCollectionMapItemModel {
   marca: string;
   quantidade: number;
   unidade: UnidadeMedidaModel;
+
+  constructor() {
+    this.id = null;
+  }
 }
 
 export class UnidadeMedidaModel {

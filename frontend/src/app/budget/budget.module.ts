@@ -8,6 +8,7 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { TabViewModule } from 'primeng/tabview';
 
 import { BudgetComponent } from './budget/budget.component';
 import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
@@ -16,6 +17,7 @@ import { BudgetListComponent } from './budget-list/budget-list.component';
 import { PriceMapListComponent } from './price-map-list/price-map-list.component';
 import { PriceMapItemsComponent } from './price-map-items/price-map-items.component';
 import { PriceCollectionMapService } from './price-collection-map/price-collection-map.service';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     TableModule,
     InputTextModule,
     DynamicDialogModule,
-    DropdownModule
+    DropdownModule,
+    TabViewModule
   ],
   exports: [
     PriceCollectionMapComponent,
@@ -45,7 +48,7 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     PriceMapItemsComponent
   ],
   providers: [
-    BudgetService
+    BudgetService,
     PriceCollectionMapService
   ]
 })

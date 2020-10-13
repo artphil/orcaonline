@@ -20,7 +20,7 @@
       <div class="p-col-12 p-fluid">
         <label>Senha</label>
         <input pInputText type="password" placeholder="Senha" name="pass" [(ngModel)]='pass' #password="ngModel"
-          required />
+        (keydown.enter)="login(loginForm)" required />
       </div>
 
       <!-- <div class="p-col-12 p-fluid">
@@ -28,7 +28,7 @@
       </div> -->
 
       <div class="p-col-12 buttonGroup">
-        <p-button label="Login" (click)="login(); pass= '';" [disabled]="loginForm.invalid"></p-button>
+        <p-button label="Login" (click)="login(loginForm)" [disabled]="loginForm.invalid"></p-button>
 
         <p-button styleClass="p-button-success" label="Cadastrar" routerLink="/sing-in"></p-button>
 

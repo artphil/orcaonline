@@ -1,9 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService, SelectItem } from 'primeng/api';
 import { PriceCollectionMapModel } from '../budget.model';
 import { PriceCollectionMapService } from './price-collection-map.service';
+import { ProductModel } from 'src/app/product/product.model';
+import { ProductService } from 'src/app/product/product/product.service';
+import { PriceCollectionMapItemModel } from '../budget.model';
+
+import { PriceMapItemsComponent } from '../price-map-items/price-map-items.component';
+
+import { BrickService } from 'src/app/product/brick/brick.service';
+import { BrickModel } from 'src/app/product/product.model';
+
 
 @Component({
   selector: 'app-price-collection-map',
