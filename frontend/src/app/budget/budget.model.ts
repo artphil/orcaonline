@@ -46,6 +46,7 @@ export class PriceCollectionMapModel {
   comprador: UserModel;
   status: StatusModel;
   itens: PriceCollectionMapItemModel[];
+  descricao: string;
 
   constructor() {
     this.id = null;
@@ -53,6 +54,7 @@ export class PriceCollectionMapModel {
     this.comprador = null;
     this.status = new StatusModel();
     this.itens = [];
+    this.descricao = null;
   }
  }
 
