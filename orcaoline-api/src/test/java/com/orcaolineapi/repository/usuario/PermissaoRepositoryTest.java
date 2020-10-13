@@ -19,9 +19,9 @@ import org.springframework.test.context.ActiveProfiles;
 import com.orcaolineapi.modelo.sistema.Modulo;
 import com.orcaolineapi.modelo.usuario.Permissao;
 
-//@SpringBootTest
 @DataJpaTest
 @ActiveProfiles("test")
+
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class PermissaoRepositoryTest {
 

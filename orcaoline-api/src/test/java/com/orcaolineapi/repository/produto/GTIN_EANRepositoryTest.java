@@ -13,9 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.orcaolineapi.modelo.produto.Brick;
 import com.orcaolineapi.modelo.produto.Classe;
@@ -23,7 +25,10 @@ import com.orcaolineapi.modelo.produto.Familia;
 import com.orcaolineapi.modelo.produto.GTIN_EAN;
 import com.orcaolineapi.modelo.produto.Segmento;
 
-@SpringBootTest
+//@SpringBootTest
+@DataJpaTest
+@ActiveProfiles("test")
+
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class GTIN_EANRepositoryTest {
 
