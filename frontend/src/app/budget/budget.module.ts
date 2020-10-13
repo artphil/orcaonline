@@ -37,7 +37,8 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     TableModule,
     InputTextModule,
     DynamicDialogModule,
-    DropdownModule
+    DropdownModule,
+    TabViewModule
   ],
   exports: [
     PriceCollectionMapComponent,
