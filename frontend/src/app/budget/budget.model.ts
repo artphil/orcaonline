@@ -74,7 +74,7 @@ export class PriceCollectionMapItemModel {
     this.produto = new ProductModel();
     this.quantidade = null;
     this.unidade = new UnidadeMedidaModel();
-    this.mapa = null;
+    this.mapa = new PriceCollectionMapModel();
   }
 }
 

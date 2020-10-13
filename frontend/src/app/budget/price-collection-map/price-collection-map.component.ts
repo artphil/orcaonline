@@ -135,9 +135,28 @@ export class PriceCollectionMapComponent implements OnInit {
     }
   }
 
+  // adicionarItem(): void {
+  //   this.itemAux.mapa = this.priceCollectionMap;
+  //   console.log(this.itemAux)
+  // }
+
   adicionarItem(): void {
-    this.itemAux.mapa = this.priceCollectionMap;
-    console.log(this.itemAux)
+    this.itemAux.mapa.id = this.priceCollectionMap.id;
+      this.priceCollectionMapServices.addItem(this.itemAux)
+      .then ((priceCollectionMap: PriceCollectionMapModel) => {
+        this.priceCollectionMap = priceCollectionMap;
+        this.messageService.add({ severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString()});
+        this.idPriceCollectionMap = priceCollectionMap.id;
+        console.log(priceCollectionMap);
+
+      })
+      .catch((err) => {
+        const msg = err.error [0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg});
+      });
   }
+
+
+
 }
 

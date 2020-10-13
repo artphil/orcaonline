@@ -61,4 +61,10 @@ export class PriceCollectionMapService {
       .then(res => res);
   }
 
+  addItem(data: any): Promise<any> {
+    return this.http.post<any>(`${this.apiPath}/addItem`, data, this.httpOptions)
+      .toPromise()
+      .then(res => res);
+  }
+
 }

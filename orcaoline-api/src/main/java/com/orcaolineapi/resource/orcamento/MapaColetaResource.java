@@ -50,8 +50,8 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 	}
 
 	@CrossOrigin
-	@PutMapping("addItem")
-	public ResponseEntity<MapaColeta> addItem(@Valid ItemMapa item) {
+	@PostMapping("addItem")
+	public ResponseEntity<MapaColeta> addItem(@RequestBody ItemMapa item) {
 		return ResponseEntity.ok(getService().addItem(item));
 	}
 	
