@@ -138,8 +138,8 @@ produtos.
 * Modelagem da classe de Login de Usuario/Fornecedor e Usuario/Cliente
 * Telas de listagem e cadastro de Usuario
 * Telas de listagem e cadastro de Orcamento
-* Testes de integração de resources e repositório de Orcamento
-* Testes de integração de resources e repositório de Usuario
+* Testes de integração de repositório de Orcamento
+* Testes de integração de repositório de Usuario
 
 ## Gerenciamento de Projeto
 
