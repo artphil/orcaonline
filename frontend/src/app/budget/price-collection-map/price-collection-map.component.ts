@@ -107,13 +107,15 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   save(): void {
-
+    
     if (!this.idPriceCollectionMap) {
       this.priceCollectionMapServices.create(this.priceCollectionMap)
       .then ((priceCollectionMap: PriceCollectionMapModel) => {
+        this.priceCollectionMap = priceCollectionMap;
         this.messageService.add({ severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString()});
         this.idPriceCollectionMap = priceCollectionMap.id;
-        this.consult();
+        console.log(priceCollectionMap);
+
       })
       .catch((err) => {
         const msg = err.error [0].mensagemUsuario;

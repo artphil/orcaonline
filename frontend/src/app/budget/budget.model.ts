@@ -44,7 +44,7 @@ export class BudgetItemModel {
 
 export class PriceCollectionMapModel {
   id: number;
-  dataCriacao: Date;
+  dataRegistro: string;
   comprador: UserModel;
   status: StatusModel;
   itens: PriceCollectionMapItemModel[];
@@ -52,7 +52,7 @@ export class PriceCollectionMapModel {
 
   constructor() {
     this.id = null;
-    this.dataCriacao = new Date();
+    this.dataRegistro = null;
     this.comprador = null;
     this.status = new StatusModel();
     this.itens = [];

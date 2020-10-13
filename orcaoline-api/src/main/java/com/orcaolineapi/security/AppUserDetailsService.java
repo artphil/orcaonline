@@ -28,7 +28,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(username);
 		Usuario usuario = usuarioOptional
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha inválidos"));
-		return new User(usuario.getNome(), usuario.getSenha(), getPermissoes(usuario));
+		return new User(usuario.getEmail(), usuario.getSenha(), getPermissoes(usuario));
 	}
 
 	private Collection<? extends GrantedAuthority> getPermissoes(Usuario usuario) {

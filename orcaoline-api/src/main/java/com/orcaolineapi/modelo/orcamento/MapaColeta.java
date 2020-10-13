@@ -29,10 +29,10 @@ public class MapaColeta extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@DateTimeFormat
+//	@DateTimeFormat
 	private LocalDate dataRegistro;
 
-	@DateTimeFormat
+//	@DateTimeFormat
 	private LocalDate dataEncerramento;
 	
 	@Size(min = 0, max = 200)
@@ -62,7 +62,12 @@ public class MapaColeta extends AbstractModel {
 		this.dataRegistro = LocalDate.now();
 		this.status = Status.ABERTO;
 	}
-
+	
+	public MapaColeta(Usuario comprador) {
+		this();
+		this.comprador = comprador;
+	}
+	
 	public MapaColeta(LocalDate dataRegistro, LocalDate dataEncerramento, String descricao, Usuario comprador, Status status) {
 		this.dataRegistro = dataRegistro;
 		this.dataEncerramento = dataEncerramento;

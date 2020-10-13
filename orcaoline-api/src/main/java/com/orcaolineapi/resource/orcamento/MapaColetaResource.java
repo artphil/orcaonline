@@ -43,7 +43,7 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 	
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<MapaColeta> save(@Valid @RequestBody MapaColeta mapa, HttpServletResponse response) {
+	public ResponseEntity<MapaColeta> save(@RequestBody MapaColeta mapa, HttpServletResponse response) {
 		MapaColeta mapaSave = service.save(mapa);
 		getPublisher().publishEvent(new RecursoCriadoEvent(this, response, mapaSave.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(mapaSave);
