@@ -108,6 +108,11 @@ export class NavbarComponent implements OnInit {
         label: 'Mapa de coleta',
         icon: 'pi pi-fw pi-plus',
         routerLink: '/mapc',
+      },
+      {
+        label: 'Orçamentos',
+        icon: 'pi pi-fw pi-plus',
+        routerLink: '/my-bdt',
       }
     ]
   };

@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
   userTypes: SelectItem[];
 
   idUser: number;
-  isNewUser:boolean;
+  isNewUser: boolean;
 
   @Input() userId: number;
   @Input() isPopup: boolean;
@@ -83,6 +83,9 @@ export class UserComponent implements OnInit {
       this.userService.create(this.user)
         .then((user: UserModel) => {
           this.messageService.add({ severity: 'success', summary: 'Cadastro Realizado com Sucesso.', detail: user.nomeFantasia });
+          if (this.isNewUser) {
+            this.router.navigate(['/login']);
+          }
           this.idUser = user.id;
           this.consult();
         })
@@ -103,9 +106,6 @@ export class UserComponent implements OnInit {
         });
     }
 
-    if (this.isNewUser){
-      this.router.navigate(['/login'])
-    }
   }
 
   clearUser(form: NgForm): void {
