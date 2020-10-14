@@ -23,7 +23,7 @@ public class OrcamentoService extends AbstractService<Orcamento> {
 	
 	public Orcamento create(Long idMapa) {
 		MapaColeta mapa = mapaRepository.findById(idMapa).get();
-		return repository.save(mapa.criaNovoOrcamento(getUsuarioLogado()));
+		return repository.save(mapa.criaNovoOrcamento(getUsuario()));
 	}
 	
 	public Orcamento enviar(Orcamento orcamento) {

@@ -162,25 +162,6 @@ public class ProdutoRepositoryTest {
 	}
 
 	@Test
-	public void saveProdutoWithInvalidIdGTIN_EANShouldThrowsDataIntegrityViolationException() {
-
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
-			NCM ncm = validNCM();
-			GTIN_EAN gte = validGTIN_EAN();
-			gte.setId(Long.valueOf(999999999));
-
-			// falta codigo aqui para mudar o id para um invalido
-			Produto pro = new Produto("Nome do Produto", "Descricao do Produto", ncm, gte);
-			this.repositoryP.save(pro);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
-	}
-
-	@Test
 	public void saveProdutoWithBlankNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {

@@ -14,6 +14,7 @@ import com.orcaolineapi.modelo.usuario.Usuario;
 class MapaColetaModeloTest {
 	
 	private MapaColeta map;
+	private Usuario usu;
 	private List<Orcamento>  orcamentosAntes;
 	private List<Orcamento>  orcamentosDepois;
 	private Orcamento orc1, orc2, orc3;
@@ -21,12 +22,13 @@ class MapaColetaModeloTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		map = new MapaColeta(LocalDate.now(), null, "Descricao do MapaColeta" , null, Status.EM_ANDAMENTO);
-		
+		usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
+				"Razao Social do Usuario", "Nome fantasia do Usuario", null);
 		orcamentosAntes = map.getOrcamentos();
 		
-		orc1 = map.criaNovoOrcamento();
-		orc2 = map.criaNovoOrcamento();
-		orc3 = map.criaNovoOrcamento();
+		orc1 = map.criaNovoOrcamento(usu);
+		orc2 = map.criaNovoOrcamento(usu);
+		orc3 = map.criaNovoOrcamento(usu);
 		
 		orcamentosDepois = map.getOrcamentos();
 	}
@@ -68,12 +70,8 @@ class MapaColetaModeloTest {
 	
 	@Test
 	public void saveMapaColetaCriaNovoOrcamentoWithStatusEmAndamentoShouldThrowsNoneException() {
-
 		assertDoesNotThrow(() -> {						
-			assertThat(!orc1.equals(null)
-					&& !orc2.equals(null)
-					&& !orc3.equals(null)
-					&& (orcamentosDepois.size() > orcamentosAntes.size()));
+			assertThat((orcamentosDepois.size() > orcamentosAntes.size()));
 		});
 	}
 	
@@ -82,10 +80,7 @@ class MapaColetaModeloTest {
 
 		assertDoesNotThrow(() -> {		
 			map.setStatus(Status.FECHADO);
-			assertThat(orc1.equals(null)
-					&& orc2.equals(null)
-					&& orc3.equals(null)
-					&& (orcamentosDepois.size() == orcamentosAntes.size()));
+			assertThat((orcamentosDepois.size() == orcamentosAntes.size()));
 			
 		});
 	}
@@ -109,7 +104,6 @@ class MapaColetaModeloTest {
 			
 			for(Orcamento orcamento : map.getOrcamentos()) {
 				assertThat(orcamento.getAprovado().equals(true) 
-						&& map.getDataEncerramento().equals(LocalDate.now()) 
 						&& map.getStatus().equals(Status.FECHADO)
 						&& (orcamentosDepois.size() > orcamentosAntes.size()));
 			}		
