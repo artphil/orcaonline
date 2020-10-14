@@ -31,6 +31,8 @@ export class PriceCollectionMapComponent implements OnInit {
   productList = [];
   unidades = [];
 
+  budgetsList = [];
+
 
   constructor(private route: ActivatedRoute,
     private messageService: MessageService,
