@@ -52,8 +52,8 @@
         <ng-template pTemplate="body" let-i>
           <tr>
             <td>{{i.itemMapa?.brick?.numero}}</td>
-            <td *ngIf="i.itemMapa.produto" >{{i.itemMapa.produto.nome}}</td>
-            <td *ngIf="!i.itemMapa.produto" >
+            <td *ngIf="i.itemMapa.produto?.id" >{{i.itemMapa.produto.nome}}</td>
+            <td *ngIf="!(i.itemMapa.produto?.id)" >
               <div class="p-fluid">
                 <p-dropdown [options]="productList" name="produto" [(ngModel)]="i.produto.id" [filter]="true"
                 placeholder="Selecione" required></p-dropdown>

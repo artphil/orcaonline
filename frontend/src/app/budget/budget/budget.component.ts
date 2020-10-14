@@ -39,7 +39,8 @@ export class BudgetComponent implements OnInit {
       this.consult();
     }
     this.getProducts();
-    console.log(this.budget);
+
+
   }
 
   consult(): void {
@@ -50,6 +51,13 @@ export class BudgetComponent implements OnInit {
       this.budgetServices.getOne(this.idBudget)
         .then((budget: BudgetModel) => {
           this.budget = budget ? budget : new BudgetModel();
+
+          this.budget.itens.forEach(i => {
+            console.log('item: ', i);
+            if (!i.produto) {
+              i.produto = new ProductModel();
+            }
+          });
         })
         .catch(() => {
           this.budget = new BudgetModel();
@@ -91,12 +99,12 @@ export class BudgetComponent implements OnInit {
 
   saveItem(data: BudgetItemModel): void {
     this.budgetServices.updateItem(data)
-    .then(()=>{
-      this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: 'Novo valor salvo.' });
-    })
-    .catch(()=>{
-      this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Tente novamente.' });
-    });
+      .then(() => {
+        this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: 'Novo valor salvo.' });
+      })
+      .catch(() => {
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Tente novamente.' });
+      });
   }
 }
 
@@ -112,7 +120,7 @@ export class BudgetDialogComponent {
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig
-  ) {  }
+  ) { }
 
   close(e: string): void {
     this.ref.close(e);
