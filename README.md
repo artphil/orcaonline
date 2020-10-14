@@ -129,7 +129,7 @@ produtos.
 * Configuracao e preparacao do ambiente
 * Modelagem da classe de Produto
 * Telas de listagem e cadastro de Produto
-* Testes de integração de resources e repositório de Produto
+* Testes de integração de repositório de Produto
 
 ## Sprint #2
 
