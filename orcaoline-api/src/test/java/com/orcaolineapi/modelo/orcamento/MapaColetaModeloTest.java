@@ -96,7 +96,7 @@ class MapaColetaModeloTest {
 	}
 	
 	@Test
-	public void saveMapaColetaAprovarOrcamentoShouldThrowsNoneException() {
+	public void saveMapaColetaAprovarOrcamentoWithStatusAbertoShouldThrowsNoneException() {
 
 		assertDoesNotThrow(() -> {	
 			map.setStatus(Status.ABERTO);
