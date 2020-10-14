@@ -38,6 +38,8 @@ export class BudgetComponent implements OnInit {
       this.idBudget = Number(this.route.snapshot.paramMap.get('cod'));
       this.consult();
     }
+    this.getProducts();
+    console.log(this.budget);
   }
 
   consult(): void {
@@ -57,9 +59,9 @@ export class BudgetComponent implements OnInit {
 
   getProducts(): void {
     this.productServices.getList()
-      .then((familyList: ProductModel[]) => {
+      .then((products: ProductModel[]) => {
         this.productList = [];
-        familyList.forEach(f => {
+        products.forEach(f => {
           this.productList.push({ label: f.nome, value: f.id });
         });
       })
@@ -73,18 +75,28 @@ export class BudgetComponent implements OnInit {
   save(): void {
     this.savePopup.emit('value');
 
-    if (this.idBudget) {
-      this.budgetServices.update(this.budget)
-        .then((budget: BudgetModel) => {
-          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
-          this.consult();
-        })
-        .catch((err) => {
-          const msg = err.error[0].mensagemUsuario;
-          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
-        });
-    }
+    // if (this.idBudget) {
+    //   this.budgetServices.update(this.budget)
+    //     .then((budget: BudgetModel) => {
+    //       this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
+    //       this.consult();
+    //     })
+    //     .catch((err) => {
+    //       const msg = err.error[0].mensagemUsuario;
+    //       this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
+    //     });
+    // }
 
+  }
+
+  saveItem(data: BudgetItemModel): void {
+    this.budgetServices.updateItem(data)
+    .then(()=>{
+      this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: 'Novo valor salvo.' });
+    })
+    .catch(()=>{
+      this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Tente novamente.' });
+    });
   }
 }
 
