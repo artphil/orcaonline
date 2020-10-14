@@ -18,17 +18,12 @@ import { BrickModel } from 'src/app/product/product.model';
 export class PriceCollectionMapComponent implements OnInit {
 
   priceCollectionMap = new PriceCollectionMapModel();
-
   idPriceCollectionMap: number;
-
   itemAux = new PriceCollectionMapItemModel();
-
   brickList = [];
   productList = [];
   unidades = [];
-
   budgetsList = [];
-
 
   constructor(private route: ActivatedRoute,
     private messageService: MessageService,
