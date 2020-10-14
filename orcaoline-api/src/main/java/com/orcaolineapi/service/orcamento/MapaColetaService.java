@@ -25,7 +25,7 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 			mapaSalvo.setDescricao(mapa.getDescricao());
 			return repository.save(mapaSalvo);
 		}
-		MapaColeta map = new MapaColeta(getUsuario());
+		MapaColeta map = new MapaColeta(getUsuarioLogado());
 		map.setDescricao(mapa.getDescricao());
 		return repository.save(map);
 	}
