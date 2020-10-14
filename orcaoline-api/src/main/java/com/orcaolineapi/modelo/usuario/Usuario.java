@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.orcamento.Status;
 import com.orcaolineapi.security.util.GeradorSenha;
@@ -27,14 +29,13 @@ public class Usuario extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Size(min = 10, max = 150)
+	@Size(min = 4, max = 150)
 	@Email
 	@NotBlank
 	private String email;
 
-	@Size(min = 8, max = 12)
+	@Length(min = 8)
 	@NotBlank
-	@Pattern(regexp = "^(?=.*\\d)(?=.*[!@#$&*])(?=.*[A-Z]).{8,12}$", message= "deve conter uma senha bem formada")
 	private String senha;
 	
 	@Digits(integer = 14, fraction = 0)
