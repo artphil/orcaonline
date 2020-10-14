@@ -35,7 +35,6 @@ public class ItemOrcamento extends AbstractModel {
 	@JoinColumn(name = "id_item_mapa")
 	private ItemMapa itemMapa;
 
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
