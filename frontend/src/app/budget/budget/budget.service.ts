@@ -11,6 +11,7 @@ export class BudgetService {
 
   //apiPath = 'http://45.80.152.3:8080/familias';
   apiPath: string;
+  itemPath: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -23,6 +24,7 @@ export class BudgetService {
     private errorHandler: ErrorHandlerService
     ) {
     this.apiPath = `${environment.apiUrl}/orcamentos`;
+    this.itemPath = `${environment.apiUrl}/itemorcamentos`;
   }
 
   getOne(code: number = null): Promise<any> {
@@ -58,6 +60,16 @@ export class BudgetService {
   update(data: any): Promise<any> {
 
     return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
+      .toPromise()
+      .then(res => res)
+      .catch(erro =>  {
+        this.errorHandler.handle(erro);
+      });
+  }
+
+  updateItem(data: any): Promise<any> {
+
+    return this.http.put<any>(`${this.itemPath}/${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => res)
       .catch(erro =>  {

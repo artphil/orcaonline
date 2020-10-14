@@ -52,7 +52,8 @@
         <ng-template pTemplate="body" let-i>
           <tr>
             <td>{{i.itemMapa?.brick?.numero}}</td>
-            <td>
+            <td *ngIf="i.itemMapa.produto" >{{i.itemMapa.produto.nome}}</td>
+            <td *ngIf="!i.itemMapa.produto" >
               <div class="p-fluid">
                 <p-dropdown [options]="productList" name="produto" [(ngModel)]="i.produto.id" [filter]="true"
                 placeholder="Selecione" required></p-dropdown>
@@ -72,6 +73,9 @@
             </td>
             <td>{{(i.valorUnitario * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
             <td>{{i.valorUnitarioPrazo * i.itemMapa?.quantidade | number: '1.2-2'}}</td>
+            <td>
+              <button pButton label="Salvar" (click)="saveItem(i)"></button>
+            </td>
           </tr>
         </ng-template>
 
@@ -80,7 +84,7 @@
 
     <div class="p-col-10"></div>
     <div class="p-col-2">
-      <button pButton label="Salvar" (click)="save()"></button>
+      <button pButton label="Enviar" (click)="save()"></button>
     </div>
 
   </div>
