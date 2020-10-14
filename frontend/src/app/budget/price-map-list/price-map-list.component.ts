@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SelectItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
 import { BudgetItemModel, BudgetModel, PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
@@ -24,6 +25,7 @@ export class PriceMapListComponent implements OnInit {
 
   constructor(
     private dialogService: DialogService,
+    private messageService: MessageService,
     private priceMapService: PriceCollectionMapService,
     private budgetService: BudgetService
   ) { }
@@ -49,18 +51,21 @@ export class PriceMapListComponent implements OnInit {
     });
   }
 
-  createBudget( idMap: number ): void {
-    let budget: BudgetModel;
-
+  createBudget(idMap: number): void {
     this.budgetService.create(idMap)
-      .then((b: BudgetModel) => {
-        budget = b;
+      .then((budget: BudgetModel) => {
+
+        const ref = this.dialogService.open(BudgetDialogComponent, {
+          width: '80%',
+          data: { budget }
+        });
+      })
+      .catch(() => {
+        this.messageService.add(
+            { severity: 'error', summary: 'Erro', detail: 'Não foi possivel gerar orçamento.' }
+        );
       });
 
-    const ref = this.dialogService.open(BudgetDialogComponent, {
-      width: '70%',
-      data: { budget }
-    });
   }
 
 }

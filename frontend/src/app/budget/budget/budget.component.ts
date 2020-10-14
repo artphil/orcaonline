@@ -91,22 +91,16 @@ export class BudgetComponent implements OnInit {
 @Component({
   selector: 'app-dialog-budget',
   template: `
-  <app-budget isPopup="true" budget="budget" (savePopup)="close($event)"></app-budget>
+  <app-budget isPopup="true" [budget]='this.config.data.budget' (savePopup)="close($event)"></app-budget>
   `,
   styles: ['']
 })
-export class BudgetDialogComponent implements OnInit {
-
-  budget: BudgetModel;
+export class BudgetDialogComponent {
 
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig
   ) {  }
-
-  ngOnInit(): void {
-    this.budget = this.config.data.budget;
-  }
 
   close(e: string): void {
     this.ref.close(e);
