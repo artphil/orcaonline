@@ -66,8 +66,44 @@
 
                         <div class="p-col-2 p-fluid ">
                             <br>
-                            <button pButton label="Adicionar" (click)= "adicionarItem()"></button>
+                            <button pButton label="Adicionar" (click)= "addItem()"></button>
                         </div>
+
+                        <p-table [value]="priceCollectionMap.itens" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
+                            <ng-template pTemplate="caption">
+                              <div class="table-header">
+                                  <span class="p-input-icon-left">
+                                    <i class="pi pi-search"></i>
+                                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                      placeholder="Pesquisar" />
+                                  </span>
+                              </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                              <tr>
+                                <th class="p-col-2">Código</th>
+                                <th class="p-col-2">Brick</th>
+                                <th class="p-col-2">Produto</th>
+                                <th class="p-col-2">Quantidade</th>
+                                <th class="p-col-2"></th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-t>
+                              <tr>
+                                <td>{{t.id}}</td>
+                                <td>{{t.brick.nome}}</td>
+                                <td>{{t.produto.nome}}</td>
+                                <td>{{t.quantidade + " " + t.unidade}}</td>
+                                <td>
+                                  <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>
+                                  <a pButton icon="pi pi-trash" (click)="removeUser(t.id)" pTooltip="Excluir" tooltipPosition="top"
+                                    style="margin-left: 10px"></a>
+                          
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                          
                     </div>
                   
                 </p-tabPanel>
@@ -104,7 +140,10 @@
                 </p-tabPanel>
             </p-tabView>
 
+            
+
         </div>
+        
 
     </div>
 </form>
