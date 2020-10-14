@@ -21,11 +21,11 @@ class MapaColetaModeloTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		map = new MapaColeta(LocalDate.now(), null, "Descricao do MapaColeta" , null, Status.EM_ANDAMENTO);
+		map = new MapaColeta(LocalDate.now(), null, "Descricao do MapaColeta" , null, Status.ABERTO);
 		usu = new Usuario("usuario.usuario@gmail.com", "123Usuario@", "12345678910111",
 				"Razao Social do Usuario", "Nome fantasia do Usuario", null);
 		orcamentosAntes = map.getOrcamentos();
-		
+				
 		orc1 = map.criaNovoOrcamento(usu);
 		orc2 = map.criaNovoOrcamento(usu);
 		orc3 = map.criaNovoOrcamento(usu);
@@ -36,7 +36,8 @@ class MapaColetaModeloTest {
 	@Test
 	public void MapaColetaIsRunningWithEmAndamentoStatusShouldThrowsNoneException() {
 
-		assertDoesNotThrow(() -> {						
+		assertDoesNotThrow(() -> {			
+			map.setStatus(Status.EM_ANDAMENTO);
 			assertEquals(map.isRunning(), true);			
 		});
 	}
@@ -70,7 +71,8 @@ class MapaColetaModeloTest {
 	
 	@Test
 	public void saveMapaColetaCriaNovoOrcamentoWithStatusEmAndamentoShouldThrowsNoneException() {
-		assertDoesNotThrow(() -> {						
+		assertDoesNotThrow(() -> {		
+			map.setStatus(Status.EM_ANDAMENTO);
 			assertThat((orcamentosDepois.size() > orcamentosAntes.size()));
 		});
 	}
@@ -81,7 +83,6 @@ class MapaColetaModeloTest {
 		assertDoesNotThrow(() -> {		
 			map.setStatus(Status.FECHADO);
 			assertThat((orcamentosDepois.size() == orcamentosAntes.size()));
-			
 		});
 	}
 	
@@ -98,6 +99,7 @@ class MapaColetaModeloTest {
 	public void saveMapaColetaAprovarOrcamentoShouldThrowsNoneException() {
 
 		assertDoesNotThrow(() -> {	
+			map.setStatus(Status.ABERTO);
 			map.aprovarOrcamento(orc1.getId());
 			map.aprovarOrcamento(orc2.getId());
 			map.aprovarOrcamento(orc3.getId());
@@ -109,5 +111,4 @@ class MapaColetaModeloTest {
 			}		
 		});
 	}
-
 }

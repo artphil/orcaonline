@@ -162,17 +162,6 @@ public class UsuarioRepositoryTest {
 	}
 
 	@Test
-	public void saveUsuarioWithSpecialCharactersInSenhaShouldThrowsConstraintViolationException() {
-
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			usu.setSenha("@@@@@@@@@");
-			this.repositoryU.save(usu);
-		});
-
-		assertThat(exception.getMessage()).contains("interpolatedMessage='deve conter uma senha bem formada'");
-	}
-
-	@Test
 	public void saveUsuarioWithTooLongEmailShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
