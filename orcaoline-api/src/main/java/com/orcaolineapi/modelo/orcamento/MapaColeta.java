@@ -148,6 +148,10 @@ public class MapaColeta extends AbstractModel {
 		return getStatus().equals(Status.EM_ANDAMENTO);
 	}
 	
+	public Boolean isOpen() {
+		return getStatus().equals(Status.ABERTO);
+	}
+	
 	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ABERTO);
@@ -156,9 +160,9 @@ public class MapaColeta extends AbstractModel {
 		return list;
 	}
 	
-	public Orcamento criaNovoOrcamento() {
-		if(isRunning()) {
-			Orcamento orcamento = new Orcamento();
+	public Orcamento criaNovoOrcamento(Usuario fornecedor) {
+		if(isOpen()) {
+			Orcamento orcamento = new Orcamento(fornecedor);
 			orcamento.setMapa(this);
 			addItemOrcamento(orcamento);
 			return orcamento;
