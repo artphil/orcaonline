@@ -29,8 +29,10 @@ export class LoginFormComponent {
       .then(() => {
         this.router.navigate(['/']);
       })
-      .catch(erro =>  {
-        this.errorHandler.handle(erro);
+      .catch((err) => {
+        console.log(err);
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha de autenticação.', detail: msg });
       });
 
       this.pass = '';

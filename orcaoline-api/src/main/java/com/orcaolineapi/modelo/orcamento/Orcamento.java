@@ -59,6 +59,11 @@ public class Orcamento extends AbstractModel {
 		this.dataRegistro = LocalDate.now();
 		this.status = Status.ABERTO;
 	}
+	
+	public Orcamento(Usuario fornecedor) {
+		this();
+		this.fornecedor = fornecedor;
+	}
 
 	public Orcamento(LocalDate dataRegistro, LocalDate dataEnvio, Usuario fornecedor, Status status, MapaColeta mapa, Boolean aprovado) {
 		this.dataRegistro = dataRegistro;

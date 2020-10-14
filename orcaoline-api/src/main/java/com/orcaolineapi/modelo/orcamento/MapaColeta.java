@@ -16,8 +16,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
 import com.orcaolineapi.modelo.usuario.Usuario;
@@ -29,10 +27,10 @@ public class MapaColeta extends AbstractModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@DateTimeFormat
+//	@DateTimeFormat
 	private LocalDate dataRegistro;
 
-	@DateTimeFormat
+//	@DateTimeFormat
 	private LocalDate dataEncerramento;
 	
 	@Size(min = 0, max = 200)
@@ -62,7 +60,12 @@ public class MapaColeta extends AbstractModel {
 		this.dataRegistro = LocalDate.now();
 		this.status = Status.ABERTO;
 	}
-
+	
+	public MapaColeta(Usuario comprador) {
+		this();
+		this.comprador = comprador;
+	}
+	
 	public MapaColeta(LocalDate dataRegistro, LocalDate dataEncerramento, String descricao, Usuario comprador, Status status) {
 		this.dataRegistro = dataRegistro;
 		this.dataEncerramento = dataEncerramento;
@@ -145,6 +148,10 @@ public class MapaColeta extends AbstractModel {
 		return getStatus().equals(Status.EM_ANDAMENTO);
 	}
 	
+	public Boolean isOpen() {
+		return getStatus().equals(Status.ABERTO);
+	}
+	
 	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ABERTO);
@@ -153,9 +160,9 @@ public class MapaColeta extends AbstractModel {
 		return list;
 	}
 	
-	public Orcamento criaNovoOrcamento() {
-		if(isRunning()) {
-			Orcamento orcamento = new Orcamento();
+	public Orcamento criaNovoOrcamento(Usuario fornecedor) {
+		if(isOpen()) {
+			Orcamento orcamento = new Orcamento(fornecedor);
 			orcamento.setMapa(this);
 			addItemOrcamento(orcamento);
 			return orcamento;

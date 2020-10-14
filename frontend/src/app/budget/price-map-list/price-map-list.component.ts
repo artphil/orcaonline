@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SelectItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
-import { PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
+import { BudgetItemModel, BudgetModel, PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
+import { BudgetComponent, BudgetDialogComponent } from '../budget/budget.component';
+import { BudgetService } from '../budget/budget.service';
 import { PriceCollectionMapService } from '../price-collection-map/price-collection-map.service';
 import { PriceMapItemsComponent } from '../price-map-items/price-map-items.component';
 
@@ -22,7 +25,9 @@ export class PriceMapListComponent implements OnInit {
 
   constructor(
     private dialogService: DialogService,
-    private priceMapService: PriceCollectionMapService
+    private messageService: MessageService,
+    private priceMapService: PriceCollectionMapService,
+    private budgetService: BudgetService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +51,21 @@ export class PriceMapListComponent implements OnInit {
     });
   }
 
-  createBudget( priceMap: PriceCollectionMapModel ): void { }
+  createBudget(idMap: number): void {
+    this.budgetService.create(idMap)
+      .then((budget: BudgetModel) => {
+
+        const ref = this.dialogService.open(BudgetDialogComponent, {
+          width: '80%',
+          data: { budget }
+        });
+      })
+      .catch(() => {
+        this.messageService.add(
+            { severity: 'error', summary: 'Erro', detail: 'Não foi possivel gerar orçamento.' }
+        );
+      });
+
+  }
 
 }

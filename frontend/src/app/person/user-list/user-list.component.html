@@ -18,6 +18,7 @@
       <th class="p-col-3">Nome</th>
       <th class="p-col-2">CNPJ</th>
       <th class="p-col">Tipo</th>
+      <th class="p-col">Email</th>
       <th class="p-col-2"></th>
     </tr>
   </ng-template>
@@ -27,6 +28,7 @@
       <td>{{t.nome}}</td>
       <td>{{t.cnpj}}</td>
       <td>{{t.tipoUsuario?.nome}}</td>
+      <td>{{t.email}}</td>
       <td>
         <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>
         <a pButton icon="pi pi-trash" (click)="removeUser(t.id)" pTooltip="Excluir" tooltipPosition="top"

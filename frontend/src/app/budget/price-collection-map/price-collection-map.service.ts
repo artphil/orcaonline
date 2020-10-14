@@ -55,4 +55,16 @@ export class PriceCollectionMapService {
       .then(() => null);
   }
 
+  getUnidades(): Promise<any> {
+    return this.http.get<any>(`${this.apiPath}/unidades`, this.httpOptions)
+      .toPromise()
+      .then(res => res);
+  }
+
+  addItem(data: any): Promise<any> {
+    return this.http.post<any>(`${this.apiPath}/addItem`, data, this.httpOptions)
+      .toPromise()
+      .then(res => res);
+  }
+
 }

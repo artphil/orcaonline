@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { PriceCollectionMapModel } from '../budget.model';
+import { PriceCollectionMapModel, UnidadeMedidaModel } from '../budget.model';
 import { PriceCollectionMapService } from './price-collection-map.service';
 import { ProductModel } from 'src/app/product/product.model';
 import { ProductService } from 'src/app/product/product/product.service';
@@ -25,15 +25,71 @@ export class PriceCollectionMapComponent implements OnInit {
 
   idPriceCollectionMap: number;
 
+  itemAux = new PriceCollectionMapItemModel();
+
+  brickList = [];
+  productList = [];
+  unidades = [];
+
   constructor(private route: ActivatedRoute,
     private messageService: MessageService,
-    private priceCollectionMapServices: PriceCollectionMapService
+    private priceCollectionMapServices: PriceCollectionMapService,
+    private brickServices: BrickService,
+    private productServices: ProductService
     ) { }
 
   ngOnInit(): void {
     this.idPriceCollectionMap = Number(this.route.snapshot.paramMap.get('cod'));
+    this.getBrickList();
+    this.getProductList();
+    this.getUnidades();
 
     this.consult();
+  }
+
+  getBrickList(): void {
+    this.brickServices.getList()
+      .then((brickList: BrickModel[]) => {
+        this.brickList = [];
+        brickList.forEach(item => {
+          this.brickList.push({ label: item.nome, value: item.id });
+        });
+      })
+      .catch(() => {
+        this.brickList = [
+          { label: 'Nenhum Brick cadastrado', value: null }
+        ];
+      });
+  }
+
+  getProductList(): void {
+    this.productServices.getList()
+      .then((productList: ProductModel[]) => {
+        this.productList = [];
+        productList.forEach(item => {
+          this.productList.push({ label: item.nome, value: item.id });
+        });
+      })
+      .catch(() => {
+        this.productList = [
+          { label: 'Nenhum Produto cadastrado', value: null }
+        ];
+      });
+  }
+
+  getUnidades(): void {
+    this.priceCollectionMapServices.getUnidades()
+      .then((unidades: UnidadeMedidaModel[]) => {
+        this.unidades = [];
+        unidades.forEach(item => {
+          this.unidades.push({ label: item, value: item });
+        });
+      })
+      .catch(() => {
+        this.productList = [
+          { label: 'Nenhuma Unidade cadastrada', value: null }
+        ];
+      });
   }
 
   consult(): void {
@@ -51,13 +107,15 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   save(): void {
-
+    
     if (!this.idPriceCollectionMap) {
       this.priceCollectionMapServices.create(this.priceCollectionMap)
       .then ((priceCollectionMap: PriceCollectionMapModel) => {
+        this.priceCollectionMap = priceCollectionMap;
         this.messageService.add({ severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString()});
         this.idPriceCollectionMap = priceCollectionMap.id;
-        this.consult();
+        console.log(priceCollectionMap);
+
       })
       .catch((err) => {
         const msg = err.error [0].mensagemUsuario;
@@ -76,5 +134,29 @@ export class PriceCollectionMapComponent implements OnInit {
       });
     }
   }
+
+  // adicionarItem(): void {
+  //   this.itemAux.mapa = this.priceCollectionMap;
+  //   console.log(this.itemAux)
+  // }
+
+  adicionarItem(): void {
+    this.itemAux.mapa.id = this.priceCollectionMap.id;
+      this.priceCollectionMapServices.addItem(this.itemAux)
+      .then ((priceCollectionMap: PriceCollectionMapModel) => {
+        this.priceCollectionMap = priceCollectionMap;
+        this.messageService.add({ severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString()});
+        this.idPriceCollectionMap = priceCollectionMap.id;
+        console.log(priceCollectionMap);
+
+      })
+      .catch((err) => {
+        const msg = err.error [0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg});
+      });
+  }
+
+
+
 }
 

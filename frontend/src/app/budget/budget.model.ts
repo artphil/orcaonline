@@ -44,7 +44,7 @@ export class BudgetItemModel {
 
 export class PriceCollectionMapModel {
   id: number;
-  dataCriacao: Date;
+  dataRegistro: string;
   comprador: UserModel;
   status: StatusModel;
   itens: PriceCollectionMapItemModel[];
@@ -52,7 +52,7 @@ export class PriceCollectionMapModel {
 
   constructor() {
     this.id = null;
-    this.dataCriacao = new Date();
+    this.dataRegistro = null;
     this.comprador = null;
     this.status = new StatusModel();
     this.itens = [];
@@ -64,18 +64,28 @@ export class PriceCollectionMapItemModel {
   id: number;
   brick: BrickModel;
   produto: ProductModel;
-  marca: string;
   quantidade: number;
   unidade: UnidadeMedidaModel;
+  mapa: PriceCollectionMapModel;
 
   constructor() {
     this.id = null;
+    this.brick = new BrickModel();
+    this.produto = new ProductModel();
+    this.quantidade = null;
+    this.unidade = new UnidadeMedidaModel();
+    this.mapa = new PriceCollectionMapModel();
   }
 }
 
 export class UnidadeMedidaModel {
   descricao: string;
   simbolo: string;
+
+  constructor(){
+    this.descricao = null;
+    this.simbolo = null
+  }
 }
 
 export class PriceMapFilterModel {

@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,6 +57,16 @@ public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
+	// Exceções geradas ao tentar salvar um recurso que viola a integridade do banco. Colunas unique.
+		@ExceptionHandler({DataIntegrityViolationException.class, ConstraintViolationException.class })
+		public ResponseEntity<Object> handleUniqueViolateDataAccessExeption(RuntimeException ex, WebRequest request) {
+			String mensagemUsuario = ex.getMessage();
+			String mensagemDesenvolvesor = ex.toString();
+			List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvesor));
+			return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+		}
+	
+	
 	private List<Erro> criaListaDeErros(BindingResult bindingResult) {
 		List<Erro> erros = new ArrayList<>();
 		for (FieldError erro : bindingResult.getFieldErrors()) {
