@@ -10,7 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TabViewModule } from 'primeng/tabview';
 
-import { BudgetComponent } from './budget/budget.component';
+import { BudgetComponent, BudgetDialogComponent } from './budget/budget.component';
 import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
 import { BudgetService } from './budget/budget.service';
 import { BudgetListComponent } from './budget-list/budget-list.component';
@@ -26,7 +26,9 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     BudgetComponent,
     BudgetListComponent,
     PriceMapListComponent,
-    PriceMapItemsComponent
+
+    PriceMapItemsComponent,
+    BudgetDialogComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     BudgetListComponent
   ],
   entryComponents: [
-    PriceMapItemsComponent
+    PriceMapItemsComponent,
+    BudgetDialogComponent
   ],
   providers: [
     BudgetService,
