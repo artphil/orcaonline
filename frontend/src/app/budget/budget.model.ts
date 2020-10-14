@@ -11,6 +11,7 @@ export class BudgetModel {
   status: StatusModel;
   mapa: PriceCollectionMapModel;
   itens: BudgetItemModel[];
+  orcamentos: BudgetModel[];
 
   constructor() {
     this.id = null;
@@ -20,6 +21,7 @@ export class BudgetModel {
     this.status = new StatusModel();
     this.mapa = new PriceCollectionMapModel();
     this.itens = [];
+    this.orcamentos = [];
   }
 }
 
@@ -48,6 +50,7 @@ export class PriceCollectionMapModel {
   comprador: UserModel;
   status: StatusModel;
   itens: PriceCollectionMapItemModel[];
+  orcamentos: BudgetModel[];
   descricao: string;
 
   constructor() {
