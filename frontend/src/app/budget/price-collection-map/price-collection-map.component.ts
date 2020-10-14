@@ -31,6 +31,7 @@ export class PriceCollectionMapComponent implements OnInit {
   productList = [];
   unidades = [];
 
+
   constructor(private route: ActivatedRoute,
     private messageService: MessageService,
     private priceCollectionMapServices: PriceCollectionMapService,
@@ -140,7 +141,8 @@ export class PriceCollectionMapComponent implements OnInit {
   //   console.log(this.itemAux)
   // }
 
-  adicionarItem(): void {
+  addItem(): void {
+    this.save();
     this.itemAux.mapa.id = this.priceCollectionMap.id;
       this.priceCollectionMapServices.addItem(this.itemAux)
       .then ((priceCollectionMap: PriceCollectionMapModel) => {
