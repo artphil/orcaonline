@@ -68,7 +68,7 @@ const routes: Routes = [
   { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
   { path: 'mapc', component: PriceCollectionMapComponent },
-
+  { path: 'mapc/:cod', component: PriceCollectionMapComponent },
   { path: 'mapc/list', component: PriceMapListComponent},
   { path: 'my-bdt', component: BudgetComponent},
   { path: 'my-bdt/:cod', component: BudgetComponent}

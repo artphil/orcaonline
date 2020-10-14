@@ -3,7 +3,7 @@
 
         <div class="p-col-12">
             <h1 *ngIf="!idPriceCollectionMap">Novo Mapa de Coleta</h1>
-            <h1 *ngIf="idPriceCollectionMap">Mapa de Coleta</h1>
+            <h1 *ngIf="idPriceCollectionMap">Editar Mapa de Coleta</h1>
             <h1></h1>
           </div>
 
@@ -112,7 +112,7 @@
                 <p-tabPanel header="Orçamentos">
                     <div class="p-grid ">
                     
-                        <p-table [value]="priceCollectionMap.itens" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
+                        <p-table [value]="priceCollectionMap.orcamentos" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
                             <ng-template pTemplate="caption">
                               <div class="table-header">
                                   <span class="p-input-icon-left">
@@ -134,8 +134,8 @@
                             <ng-template pTemplate="body" let-t>
                               <tr>
                                 <td>{{t.id}}</td>
-                                <td>{{t.brick.nome}}</td>
-                                <td>{{t.produto.nome}}</td>
+                                <td>{{t.fornecedor.nome}}</td>
+                                <td>{{t.itens}}</td>
                                 <td>{{t.quantidade + " " + t.unidade}}</td>
                                 <td>
                                   <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>

@@ -104,11 +104,7 @@ export class NavbarComponent implements OnInit {
     label: 'Orçamento',
     icon: 'pi pi-fw pi-plus',
     items: [
-      {
-        label: 'Mapa de coleta',
-        icon: 'pi pi-fw pi-plus',
-        routerLink: '/mapc',
-      },
+      
       {
         label: 'Orçamentos',
         icon: 'pi pi-fw pi-plus',
@@ -116,12 +112,21 @@ export class NavbarComponent implements OnInit {
       }
     ]
   };
+  
 
   orcCadastro: MenuItem = {
     label: 'Lista de Mapas ',
     icon: 'pi pi-fw pi-align-justify',
     routerLink: '/mapc/list'
   };
+
+  mapaColeta: MenuItem = {
+    
+    label: 'Mapa de coleta',
+    icon: 'pi pi-fw pi-plus',
+    routerLink: '/mapc',
+    
+  }
 
 
   constructor(
@@ -140,6 +145,9 @@ export class NavbarComponent implements OnInit {
       }
       if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
         this.orcamento.items.push(this.orcCadastro);
+      }
+      if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
+        this.items.push(this.mapaColeta);
       }
       this.items.push(this.orcamento);
     }
