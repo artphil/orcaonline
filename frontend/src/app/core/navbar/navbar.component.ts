@@ -118,15 +118,9 @@ export class NavbarComponent implements OnInit {
   };
 
   orcCadastro: MenuItem = {
-    label: 'Cadastro',
-    icon: 'pi pi-fw pi-plus',
-    items: [
-      {
-        label: 'Orçamento',
-        icon: 'pi pi-fw pi-plus',
-        routerLink: '/bdt',
-      }
-    ]
+    label: 'Lista de Mapas ',
+    icon: 'pi pi-fw pi-align-justify',
+    routerLink: '/mapc/list'
   };
 
 

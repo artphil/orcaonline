@@ -69,7 +69,7 @@ const routes: Routes = [
 
   { path: 'mapc', component: PriceCollectionMapComponent },
 
-  { path: 'bdt', component: PriceMapListComponent},
+  { path: 'mapc/list', component: PriceMapListComponent},
   { path: 'my-bdt', component: BudgetComponent},
   { path: 'my-bdt/:cod', component: BudgetComponent}
 
