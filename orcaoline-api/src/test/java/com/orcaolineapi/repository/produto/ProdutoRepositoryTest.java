@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
@@ -160,25 +159,6 @@ public class ProdutoRepositoryTest {
 		});
 
 		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
-	}
-
-	@Test
-	public void saveProdutoWithInvalidIdNCMShouldThrowsDataIntegrityViolationException() {
-
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
-			NCM ncm = validNCM();
-			ncm.setId(Long.valueOf(999999999));
-			GTIN_EAN gte = validGTIN_EAN();
-
-			// falta codigo aqui para mudar o id para um invalido
-			Produto pro = new Produto("Nome do Produto", "Descricao do Produto", ncm, gte);
-			this.repositoryP.save(pro);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
 	}
 
 	@Test

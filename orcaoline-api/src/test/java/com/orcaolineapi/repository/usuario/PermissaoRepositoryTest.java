@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.validation.ConstraintViolationException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -27,23 +27,19 @@ public class PermissaoRepositoryTest {
 
 	private @Autowired PermissaoRepository repositoryP;
 	
+	private Permissao per;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		per = new Permissao("Nome da Permissao","Descricao da Permissao", Modulo.ORCAMENTO);
+	}
+	
 	@Test
 	public void savePermissaoWithNotNullIdShouldThrowsNoneException() {
 
 		assertDoesNotThrow(() -> {
-			Permissao per = new Permissao("Nome da Permissao","Descricao da Permissao", Modulo.ORCAMENTO);
 			this.repositoryP.save(per);
 			assertThat(per.getId()).isNotNull();
-		});
-	}
-	
-	@Test
-	public void savePermissaoUsingPrePersistShouldThrowsNoneException() {
-
-		assertDoesNotThrow(() -> {
-			Permissao per = new Permissao("Nome da Permissao","Descricao da Permissao", Modulo.ORCAMENTO);
-			per.prepersist();
-			assertEquals(per.getNome().toUpperCase(), per.getNome());
 		});
 	}
 	
@@ -51,7 +47,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoNullShouldThrowsInvalidDataAccessApiUsageException() {
 
 		Throwable exception = assertThrows(InvalidDataAccessApiUsageException.class, () -> {
-			Permissao per = null;
+			per = null;
 			this.repositoryP.save(per);
 		});
 
@@ -64,7 +60,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithBlankNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("", "Descrição da Permissao", Modulo.ORCAMENTO);
+			per.setNome("");
 			this.repositoryP.save(per);
 		});
 
@@ -77,7 +73,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithBlankDescriptionShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("Nome da Permissao", "", Modulo.ORCAMENTO);
+			per.setDescricao("");
 			this.repositoryP.save(per);
 		});
 
@@ -90,7 +86,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithNumbersInNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("123456789", "Descrição da Permissao", Modulo.ORCAMENTO);
+			per.setNome("123456789");
 			this.repositoryP.save(per);
 		});
 
@@ -101,7 +97,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithNumbersInDescriptionShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("Nome da Descrição", "123456789", Modulo.ORCAMENTO);
+			per.setDescricao("123456789");
 			this.repositoryP.save(per);
 		});
 
@@ -113,7 +109,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithBlankSpacesInNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("        ", "Descrição da Permissao", Modulo.ORCAMENTO);
+			per.setNome("        ");
 			this.repositoryP.save(per);
 		});
 
@@ -124,7 +120,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithSpecialCharactersInNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("@@@@@@@", "Descrição da Permissao", Modulo.ORCAMENTO);
+			per.setNome("@@@@@@@");
 			this.repositoryP.save(per);
 		});
 
@@ -135,7 +131,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithSpecialCharactersInDescriptionShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("Nome da Permissao", "@@@@@@@", Modulo.ORCAMENTO);
+			per.setDescricao("@@@@@@@");
 			this.repositoryP.save(per);
 		});
 
@@ -146,10 +142,9 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithTooLongNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao(
-					"Nome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da Permissao"
-							+ "Nome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da Permissao"
-							+ "Nome da PermissaoNome da Permissao", "Descrição da Permissao", Modulo.ORCAMENTO);
+			per.setNome("Nome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da Permissao"
+					+ "Nome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da PermissaoNome da Permissao"
+					+ "Nome da PermissaoNome da Permissao");
 			this.repositoryP.save(per);
 		});
 
@@ -160,7 +155,7 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithTooShortNameShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			Permissao per = new Permissao("Nome", "Descrição da Permissao", Modulo.ORCAMENTO);
+			per.setNome("Nome");
 			this.repositoryP.save(per);
 		});
 
@@ -171,9 +166,8 @@ public class PermissaoRepositoryTest {
 	public void savePermissaoWithTooLongDescriptionShouldThrowsConstraintViolationException() {
 
 		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			com.orcaolineapi.modelo.usuario.Permissao per = new Permissao("Nome da Permissao",
-					"Descrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da Permissao"
-							+ "Descrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da Permissao", Modulo.ORCAMENTO);
+			per.setDescricao("Descrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da Permissao"
+					+ "Descrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da PermissaoDescrição da Permissao");			
 			this.repositoryP.save(per);
 		});
 

@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -108,23 +106,6 @@ public class GTIN_EANRepositoryTest {
 		});
 
 		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
-	}
-
-	@Test
-	public void saveGTIN_EANWithInvalidIdBrickShouldThrowsDataIntegrityViolationException() {
-
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
-			Brick bri = validBrick();
-			bri.setId(Long.valueOf(999999999));
-			// falta codigo aqui para mudar o id para um invalido
-			GTIN_EAN gte = new GTIN_EAN(BigInteger.valueOf(12345678), bri);
-			this.repositoryG.save(gte);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
 	}
 
 	@Test

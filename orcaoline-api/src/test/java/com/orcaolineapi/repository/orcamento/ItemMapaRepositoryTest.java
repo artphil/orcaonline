@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -282,71 +281,5 @@ class ItemMapaRepositoryTest {
 		});
 
 		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
-	}
-	
-	@Test
-	public void saveItemMapaWithInvalidIdMapaColetaShouldThrowsConstraintViolationException() {
-
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
-			MapaColeta map = validMapaColeta();
-			map.setId(Long.valueOf(999999999));
-			Produto prod = validProduto();
-			Brick bri = prod.getGtin().getBrick();
-			UnidadeMedida unid = validUnidadeMedida();
-			
-			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
-			
-			this.repositoryI.save(itemM);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
-	}
-
-	
-	@Test
-	public void saveItemMapaWithInvalidIdBrickShouldThrowsDataIntegrityViolationException() {
-
-		Throwable exception = assertThrows(DataIntegrityViolationException.class, () -> {
-			
-			MapaColeta map = validMapaColeta();
-			Produto prod = validProduto();
-			Brick bri = prod.getGtin().getBrick();
-			bri.setId(Long.valueOf(999999999));
-			UnidadeMedida unid = validUnidadeMedida();
-			
-			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
-			
-			this.repositoryI.save(itemM);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
-	}
-	
-	@Test
-	public void saveItemMapaWithInvalidIdProdutoShouldThrowsConstraintViolationException() {
-
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
-			MapaColeta map = validMapaColeta();
-			Produto prod = validProduto();
-			Brick bri = prod.getGtin().getBrick();
-			prod.setId(Long.valueOf(999999999));
-			UnidadeMedida unid = validUnidadeMedida();
-			
-			ItemMapa itemM = new ItemMapa(0.9, unid, map, bri, prod);
-			
-			this.repositoryI.save(itemM);
-
-		});
-		
-		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
-
 	}
 }

@@ -1,7 +1,9 @@
 package com.orcaolineapi.repository.orcamento;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -327,112 +328,5 @@ class ItemOrcamentoRepositoryTest {
 		});
 
 		assertThat((exception.getMessage()).contains("interpolatedMessage='{0} é obrigatório(a).'"));
-	}
-
-	@Test
-	public void saveItemOrcamentoWithInvalidIdOrcamentoShouldThrowsConstraintViolationException() {
-
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
-			Orcamento orc = validOrcamento();
-			orc.setId(Long.valueOf(9999999));
-
-			Produto prod = validProduto();
-			
-			/* ITEM MAPA */
-			LocalDate dataRegistro = LocalDate.now();
-			LocalDate dataEncerramento = null;
-
-			Status sta = validStatus();
-			
-			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
-
-			this.repositoryM.save(map);
-			Brick bri = prod.getGtin().getBrick();
-
-			ItemMapa itemM = new ItemMapa(0.9, UnidadeMedida.KILO, map, bri, prod);
-			this.repositoryIM.save(itemM);
-			
-			/* FIM DO ITEM MAPA */
-					
-			ItemOrcamento itemO = new ItemOrcamento(0.9, 0.9, orc, itemM, prod);
-			this.repositoryIO.save(itemO);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
-	}
-
-	@Test
-	public void saveItemOrcamentoWithInvalidIdItemMapaShouldThrowsConstraintViolationException() {
-
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
-			Orcamento orc = validOrcamento();
-			Produto prod = validProduto();
-			
-			/* ITEM MAPA */
-			LocalDate dataRegistro = LocalDate.now();
-			LocalDate dataEncerramento = null;
-
-			Status sta = validStatus();
-			
-			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
-
-			this.repositoryM.save(map);
-			Brick bri = prod.getGtin().getBrick();
-
-			ItemMapa itemM = new ItemMapa(0.9, UnidadeMedida.KILO, map, bri, prod);
-			this.repositoryIM.save(itemM);
-			/* FIM DO ITEM MAPA */
-					
-			itemM.setId(Long.valueOf(9999999));
-			
-			ItemOrcamento itemO = new ItemOrcamento(0.9, 0.9, orc, itemM, prod);
-			this.repositoryIO.save(itemO);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
-	}
-	
-	@Test
-	public void saveItemOrcamentoWithInvalidIdProdutoShouldThrowsConstraintViolationException() {
-
-		Throwable exception = assertThrows(ConstraintViolationException.class, () -> {
-			
-			Orcamento orc = validOrcamento();
-			Produto prod = validProduto();
-			prod.setId(Long.valueOf(9999999));
-			
-			/* ITEM MAPA */
-			LocalDate dataRegistro = LocalDate.now();
-			LocalDate dataEncerramento = null;
-
-			Status sta = validStatus();
-			
-			MapaColeta map = new MapaColeta(dataRegistro, dataEncerramento, "Descricao do MapaColeta", orc.getFornecedor(), sta);
-
-			this.repositoryM.save(map);
-			Brick bri = prod.getGtin().getBrick();
-
-			ItemMapa itemM = new ItemMapa(0.9, UnidadeMedida.KILO, map, bri, prod);
-			this.repositoryIM.save(itemM);
-			/* FIM DO ITEM MAPA */
-					
-			itemM.setId(Long.valueOf(9999999));
-			
-			ItemOrcamento itemO = new ItemOrcamento(0.9, 0.9, orc, itemM, prod);
-			this.repositoryIO.save(itemO);
-
-		});
-
-		assertEquals(
-				"could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",
-				exception.getMessage());
 	}
 }
