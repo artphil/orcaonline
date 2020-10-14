@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PriceCollectionMapModel, UnidadeMedidaModel } from '../budget.model';
@@ -7,12 +6,9 @@ import { PriceCollectionMapService } from './price-collection-map.service';
 import { ProductModel } from 'src/app/product/product.model';
 import { ProductService } from 'src/app/product/product/product.service';
 import { PriceCollectionMapItemModel } from '../budget.model';
-
 import { PriceMapItemsComponent } from '../price-map-items/price-map-items.component';
-
 import { BrickService } from 'src/app/product/brick/brick.service';
 import { BrickModel } from 'src/app/product/product.model';
-
 
 @Component({
   selector: 'app-price-collection-map',
@@ -138,11 +134,6 @@ export class PriceCollectionMapComponent implements OnInit {
     }
   }
 
-  // adicionarItem(): void {
-  //   this.itemAux.mapa = this.priceCollectionMap;
-  //   console.log(this.itemAux)
-  // }
-
   addItem(): void {
     this.save();
     this.itemAux.mapa.id = this.priceCollectionMap.id;
@@ -159,8 +150,5 @@ export class PriceCollectionMapComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg});
       });
   }
-
-
-
 }
 

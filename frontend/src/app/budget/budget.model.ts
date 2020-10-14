@@ -59,6 +59,7 @@ export class PriceCollectionMapModel {
     this.comprador = null;
     this.status = new StatusModel();
     this.itens = [];
+    this.orcamentos = [];
     this.descricao = null;
   }
  }
