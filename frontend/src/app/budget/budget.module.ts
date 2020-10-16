@@ -10,6 +10,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TabViewModule } from 'primeng/tabview';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+
 
 import { BudgetComponent, BudgetDialogComponent } from './budget/budget.component';
 import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
@@ -42,7 +44,8 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     InputNumberModule,
     DynamicDialogModule,
     DropdownModule,
-    TabViewModule
+    TabViewModule,
+    OverlayPanelModule
   ],
   exports: [
     PriceCollectionMapComponent,
