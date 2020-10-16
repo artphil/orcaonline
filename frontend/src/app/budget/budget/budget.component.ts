@@ -100,6 +100,7 @@ export class BudgetComponent implements OnInit {
   }
 
   modified(item: BudgetItemModel): void {
+    console.log('modificado');
     const idItem = item.id.toString();
     this.itemsModifieds[idItem] = true;
   }
@@ -109,10 +110,17 @@ export class BudgetComponent implements OnInit {
     return this.itemsModifieds[idItem];
   }
 
+  valid(item: BudgetItemModel): boolean {
+    if (item.produto?.id && item.valorUnitario > 0 && item.valorUnitarioPrazo > 0) {
+      return true;
+    }
+    return false;
+  }
+
   saveItem(data: BudgetItemModel): void {
     const idItem = data.id.toString();
 
-    if (data.valorUnitario > 0 && data.valorUnitarioPrazo > 0) {
+    if (this.valid(data)) {
       this.budgetServices.updateItem(data)
         .then(() => {
           this.itemsModifieds[idItem] = false;

@@ -74,7 +74,7 @@
             <td>{{(i.valorUnitario * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
             <td>{{(i.valorUnitarioPrazo * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
             <td>
-              <button pButton label="Salvar" (click)="saveItem(i)" [disabled]="!isModified(i)"></button>
+              <button pButton label="Salvar" (click)="saveItem(i)" [disabled]="!(modified(i)||valid(i))"></button>
             </td>
           </tr>
         </ng-template>
