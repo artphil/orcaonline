@@ -37,12 +37,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = Number(this.route.snapshot.paramMap.get('cod'));
-    console.log(this.route.snapshot.url.toString());
     this.isNewUser = (this.route.snapshot.url.toString() === 'sing-in');
 
     if (this.userId) {
       this.idUser = this.userId;
-      console.log(this.idUser);
     }
 
     this.consult();

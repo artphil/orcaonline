@@ -30,7 +30,6 @@ export class LoginFormComponent {
         this.router.navigate(['/']);
       })
       .catch((err) => {
-        console.log(err);
         const msg = err.error[0].mensagemUsuario;
         this.messageService.add({ severity: 'error', summary: 'Falha de autenticação.', detail: msg });
       });

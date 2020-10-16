@@ -11,6 +11,7 @@ export class UserService {
 
    //apiPath = 'http://45.80.152.3:8080/usuarios';
    apiPath: string;
+   userPath: string;
 
    httpOptions = {
      headers: new HttpHeaders({
@@ -20,7 +21,17 @@ export class UserService {
 
    constructor(private http: HttpClient, private auth: AuthService) {
      this.apiPath = `${environment.apiUrl}/usuarios`;
+     this.userPath = `${this.apiPath}/getByEmail`;
    }
+
+   getUser(email: string): Promise<any> {
+    return this.http.get<any>(`${this.userPath}/${email}`, this.httpOptions)
+      .toPromise()
+      .then(res => res)
+      .catch(() => {
+        console.log('ninguem logado');
+      });
+  }
 
    getOne(code: number = null): Promise<any> {
      return this.http.get<any>(`${this.apiPath}/${code}`, this.httpOptions)
@@ -35,7 +46,7 @@ export class UserService {
    }
 
    create(data: any): Promise<any> {
-     let url = this.logedUser() ? this.apiPath : `${this.apiPath}/saveWithoutToken`; 
+     let url = this.logedUser() ? this.apiPath : `${this.apiPath}/saveWithoutToken`;
      return this.http.post<any>(url, data, this.httpOptions)
        .toPromise()
        .then(res => res);
