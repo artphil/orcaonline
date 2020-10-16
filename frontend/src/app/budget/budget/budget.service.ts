@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BudgetService {
 
-  //apiPath = 'http://45.80.152.3:8080/familias';
+  //apiPath = 'http://45.80.152.3:8080/orcamentos';
   apiPath: string;
   itemPath: string;
 
