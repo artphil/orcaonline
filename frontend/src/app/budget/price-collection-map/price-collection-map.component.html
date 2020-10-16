@@ -2,6 +2,18 @@
     <div class="p-grid">
                  
         <div class="p-col-12">
+          <br>
+          <p-overlayPanel #op>
+            <ng-template pTemplate>
+                Content
+            </ng-template>
+        </p-overlayPanel>
+        
+        <button type="text" icon="pi pi-search" class = "p-button-outlined " pButton label="Pesquisar" (click)="op.show($event, actualTarget)"></button>
+      
+        <div #actualTarget></div>
+
+        <div #actualTarget></div>
             <br>
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
