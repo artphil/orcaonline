@@ -51,30 +51,30 @@
 
         <ng-template pTemplate="body" let-i>
           <tr>
-            <td>{{i.itemMapa?.brick?.numero}}</td>
+            <td>{{i.itemMapa?.brick?.nome}}</td>
             <td *ngIf="i.itemMapa.produto?.id" >{{i.itemMapa.produto.nome}}</td>
             <td *ngIf="!(i.itemMapa.produto?.id)" >
               <div class="p-fluid">
                 <p-dropdown [options]="productList" name="produto" [(ngModel)]="i.produto.id" [filter]="true"
-                placeholder="Selecione" required></p-dropdown>
+                placeholder="Selecione" (onChange)="modified(i)" required></p-dropdown>
               </div>
             </td>
             <td> {{i.itemMapa?.quantidade}} </td>
             <td>{{i.itemMapa?.unidade}}</td>
             <td>
               <div class="p-fluid">
-                <input type="text" pInputText name="valorUnitario" [(ngModel)]="i.valorUnitario" required>
+                <p-inputNumber name="valorUnitario" [(ngModel)]="i.valorUnitario" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" (onInput)="modified(i)" required></p-inputNumber>
               </div>
             </td>
             <td>
               <div class="p-fluid">
-                <input type="text" pInputText name="valorUnitarioPrazo" [(ngModel)]="i.valorUnitarioPrazo" required>
+                <input type="text" pInputText name="valorUnitarioPrazo" [(ngModel)]="i.valorUnitarioPrazo" (change)="modified(i)" required>
               </div>
             </td>
             <td>{{(i.valorUnitario * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
-            <td>{{i.valorUnitarioPrazo * i.itemMapa?.quantidade | number: '1.2-2'}}</td>
+            <td>{{(i.valorUnitarioPrazo * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
             <td>
-              <button pButton label="Salvar" (click)="saveItem(i)"></button>
+              <button pButton label="Salvar" (click)="saveItem(i)" [disabled]="!isModified(i)"></button>
             </td>
           </tr>
         </ng-template>

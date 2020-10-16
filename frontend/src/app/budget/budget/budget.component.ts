@@ -20,6 +20,8 @@ export class BudgetComponent implements OnInit {
 
   productList: SelectItem[];
 
+  itemsModifieds = {};
+
   @Input() budget: BudgetModel;
   @Input() isPopup: boolean;
   @Output() savePopup = new EventEmitter<string>();
@@ -97,14 +99,31 @@ export class BudgetComponent implements OnInit {
 
   }
 
+  modified(item: BudgetItemModel): void {
+    const idItem = item.id.toString();
+    this.itemsModifieds[idItem] = true;
+  }
+
+  isModified(item: BudgetItemModel): boolean {
+    const idItem = item.id.toString();
+    return this.itemsModifieds[idItem];
+  }
+
   saveItem(data: BudgetItemModel): void {
-    this.budgetServices.updateItem(data)
-      .then(() => {
-        this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: 'Novo valor salvo.' });
-      })
-      .catch(() => {
-        this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Tente novamente.' });
-      });
+    const idItem = data.id.toString();
+
+    if (data.valorUnitario > 0 && data.valorUnitarioPrazo > 0) {
+      this.budgetServices.updateItem(data)
+        .then(() => {
+          this.itemsModifieds[idItem] = false;
+          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: 'Novo valor salvo.' });
+        })
+        .catch(() => {
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Tente novamente.' });
+        });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Valor unitário inválido' });
+    }
   }
 }
 

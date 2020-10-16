@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TabViewModule } from 'primeng/tabview';
@@ -38,6 +39,7 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     CalendarModule,
     TableModule,
     InputTextModule,
+    InputNumberModule,
     DynamicDialogModule,
     DropdownModule,
     TabViewModule
