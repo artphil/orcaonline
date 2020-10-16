@@ -104,28 +104,28 @@ export class NavbarComponent implements OnInit {
     label: 'Orçamento',
     icon: 'pi pi-fw pi-plus',
     items: [
-      
+
       {
         label: 'Orçamentos',
         icon: 'pi pi-fw pi-plus',
-        routerLink: '/my-bdt',
+        routerLink: '/bdt',
       }
     ]
   };
-  
+
 
   orcCadastro: MenuItem = {
     label: 'Lista de Mapas ',
     icon: 'pi pi-fw pi-align-justify',
-    routerLink: '/mapc/list'
+    routerLink: '/bdt/map-list'
   };
 
   mapaColeta: MenuItem = {
-    
+
     label: 'Mapa de coleta',
     icon: 'pi pi-fw pi-plus',
     routerLink: '/mapc',
-    
+
   }
 
 
