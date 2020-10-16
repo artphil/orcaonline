@@ -68,7 +68,7 @@
             </td>
             <td>
               <div class="p-fluid">
-                <input type="text" pInputText name="valorUnitarioPrazo" [(ngModel)]="i.valorUnitarioPrazo" (change)="modified(i)" required>
+                <p-inputNumber name="valorUnitarioPrazo" [(ngModel)]="i.valorUnitarioPrazo" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" (onInput)="modified(i)" required></p-inputNumber>
               </div>
             </td>
             <td>{{(i.valorUnitario * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>

@@ -55,7 +55,6 @@ export class BudgetComponent implements OnInit {
           this.budget = budget ? budget : new BudgetModel();
 
           this.budget.itens.forEach(i => {
-            console.log('item: ', i);
             if (!i.produto) {
               i.produto = new ProductModel();
             }
@@ -100,7 +99,6 @@ export class BudgetComponent implements OnInit {
   }
 
   modified(item: BudgetItemModel): void {
-    console.log('modificado');
     const idItem = item.id.toString();
     this.itemsModifieds[idItem] = true;
   }
