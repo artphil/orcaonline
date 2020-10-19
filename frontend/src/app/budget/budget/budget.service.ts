@@ -11,7 +11,6 @@ export class BudgetService {
 
   //apiPath = 'http://45.80.152.3:8080/orcamentos';
   apiPath: string;
-  itemPath: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,9 +21,8 @@ export class BudgetService {
   constructor(
     private http: HttpClient,
     private errorHandler: ErrorHandlerService
-    ) {
+  ) {
     this.apiPath = `${environment.apiUrl}/orcamentos`;
-    this.itemPath = `${environment.apiUrl}/itemorcamentos`;
   }
 
   getOne(code: number = null): Promise<any> {
@@ -32,7 +30,7 @@ export class BudgetService {
     return this.http.get<any>(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(res => res)
-      .catch(erro =>  {
+      .catch(erro => {
         this.errorHandler.handle(erro);
       });
   }
@@ -42,7 +40,7 @@ export class BudgetService {
     return this.http.get<any>(`${this.apiPath}/${query}`, this.httpOptions)
       .toPromise()
       .then(res => res)
-      .catch(erro =>  {
+      .catch(erro => {
         this.errorHandler.handle(erro);
       });
   }
@@ -52,7 +50,7 @@ export class BudgetService {
     return this.http.post<any>(`${this.apiPath}/create/${idMapa}`, this.httpOptions)
       .toPromise()
       .then(res => res)
-      .catch(erro =>  {
+      .catch(erro => {
         this.errorHandler.handle(erro);
       });
   }
@@ -62,17 +60,23 @@ export class BudgetService {
     return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => res)
-      .catch(erro =>  {
+      .catch(erro => {
         this.errorHandler.handle(erro);
       });
   }
 
   updateItem(data: any): Promise<any> {
+    const dataSend = {
+      id: data.id,
+      valorUnitario: data.valorUnitario,
+      valorUnitarioPrazo: data.valorUnitarioPrazo,
+      produto: { id: data.produto.id }
+    };
 
-    return this.http.put<any>(`${this.itemPath}/${data.id}`, data, this.httpOptions)
+    return this.http.post<any>(`${this.apiPath}/updateItem`, dataSend, this.httpOptions)
       .toPromise()
       .then(res => res)
-      .catch(erro =>  {
+      .catch(erro => {
         this.errorHandler.handle(erro);
       });
   }
@@ -82,7 +86,7 @@ export class BudgetService {
     return this.http.delete(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(() => null)
-      .catch(erro =>  {
+      .catch(erro => {
         this.errorHandler.handle(erro);
       });
   }

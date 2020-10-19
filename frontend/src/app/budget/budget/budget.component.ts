@@ -123,6 +123,7 @@ export class BudgetComponent implements OnInit {
         .then(() => {
           this.itemsModifieds[idItem] = false;
           this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: 'Novo valor salvo.' });
+          this.consult();
         })
         .catch(() => {
           this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Tente novamente.' });
