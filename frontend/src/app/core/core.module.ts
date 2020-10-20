@@ -15,6 +15,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { ErrorHandlerService } from './error-handler.service';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { BudgetModule } from '../budget/budget.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     TieredMenuModule,
     MenubarModule,
 
-    SharedModule
+    SharedModule,
+    BudgetModule
   ],
   exports: [
     NavbarComponent,

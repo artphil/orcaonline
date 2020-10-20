@@ -34,14 +34,14 @@ const routes: Routes = [
 
   { path: 'forbidden', component: ForbiddenComponent },
 
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent },
 
-  { path: 'usr/new', component: UserComponent},
+  { path: 'usr/new', component: UserComponent },
   { path: 'usr', component: UserComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
   { path: 'usr/list', component: UserListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
 
   { path: 'pdt', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
-  { path: 'pdt/list', component: ProductListComponent},
+  { path: 'pdt/list', component: ProductListComponent },
 
   { path: 'pdt/seg', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
   { path: 'pdt/seg/:cod', component: SegmentComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_PRODUTO'] } },
@@ -65,13 +65,17 @@ const routes: Routes = [
 
   { path: 'per', component: PermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
   { path: 'tipousr', component: UserTypeComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
-  { path: 'tipousr-per/:cod', component: TypeUserPermissionComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] } },
+  {
+    path: 'tipousr-per/:cod', component: TypeUserPermissionComponent,
+    canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] }
+  },
 
   { path: 'mapc', component: PriceCollectionMapComponent },
   { path: 'mapc/:cod', component: PriceCollectionMapComponent },
-  { path: 'mapc/list', component: PriceMapListComponent},
-  { path: 'my-bdt', component: BudgetComponent},
-  { path: 'my-bdt/:cod', component: BudgetComponent}
+
+  { path: 'bdt/map-list', component: PriceMapListComponent },
+  { path: 'bdt', component: BudgetComponent },
+  { path: 'bdt/:cod', component: BudgetComponent }
 
 ];
 

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/security/auth.service';
+import { UserModel } from 'src/app/person/person.model';
+import { UserService } from 'src/app/person/user/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +14,7 @@ import { AuthService } from 'src/app/security/auth.service';
 export class NavbarComponent implements OnInit {
 
   closed = true;
+  user = new UserModel();
 
   items: MenuItem[] = [{
     label: 'Início',
@@ -104,38 +107,40 @@ export class NavbarComponent implements OnInit {
     label: 'Orçamento',
     icon: 'pi pi-fw pi-plus',
     items: [
-      
+
       {
         label: 'Orçamentos',
         icon: 'pi pi-fw pi-plus',
-        routerLink: '/my-bdt',
+        routerLink: '/bdt',
       }
     ]
   };
-  
+
 
   orcCadastro: MenuItem = {
     label: 'Lista de Mapas ',
     icon: 'pi pi-fw pi-align-justify',
-    routerLink: '/mapc/list'
+    routerLink: '/bdt/map-list'
   };
 
   mapaColeta: MenuItem = {
-    
+
     label: 'Mapa de coleta',
     icon: 'pi pi-fw pi-plus',
     routerLink: '/mapc',
-    
-  }
+  };
 
 
   constructor(
     private auth: AuthService,
+    private userService: UserService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     if (this.auth.jwtPayload) {
+      this.getUser();
+
       if (this.auth.hasPermission('ROLE_CADASTRAR_PRODUTO')) {
         this.prod.items.push(this.prodCadastro);
       }
@@ -154,12 +159,19 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  getUser(): void {
+    this.userService.getUser(this.auth.jwtPayload.user_name)
+    .then( (user: UserModel) => {
+      this.user = user;
+    });
+  }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
 
-  logedUser(): boolean{
+  logedUser(): boolean {
     return this.auth.jwtPayload?.user_name;
   }
 

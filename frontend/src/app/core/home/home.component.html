@@ -1,11 +1,16 @@
 <div class="p-grid" *ngIf="logedUser()">
   <div class="p-col-12">
-    <h1>Tela Inicial</h1>
+    <h1>Bem vindo {{user?.nome}}</h1>
   </div>
   <div class="p-col" *ngIf="hasBudgets()">
     <h2>Meus Orçamentos</h2>
+    <app-budget-list [showAll]="false">uuu</app-budget-list>
   </div>
+
+  <div class="p-col-1" *ngIf="hasBudgets() && hasProposals()"> </div>
+
   <div class="p-col" *ngIf="hasProposals()">
     <h2>Minhas Propostas</h2>
+    <app-price-map-list [showAll]="false">uuu</app-price-map-list>
   </div>
 </div>

@@ -141,6 +141,13 @@ produtos.
 * Testes de integração de repositório de Orcamento
 * Testes de integração de repositório de Usuario
 
+## Sprint #3
+
+* Telas de listagem e cadastro de Orcamento
+* Testes da camada de resources de Orcamento
+* Testes da camada de resources de Produto
+* Testes da camada de resources de Usuario
+
 ## Gerenciamento de Projeto
 
 [Pipefy](https://app.pipefy.com/pipes/1238697)

@@ -6,9 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TabViewModule } from 'primeng/tabview';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+
 
 import { BudgetComponent, BudgetDialogComponent } from './budget/budget.component';
 import { PriceCollectionMapComponent } from './price-collection-map/price-collection-map.component';
@@ -17,6 +20,7 @@ import { BudgetListComponent } from './budget-list/budget-list.component';
 import { PriceMapListComponent } from './price-map-list/price-map-list.component';
 import { PriceMapItemsComponent } from './price-map-items/price-map-items.component';
 import { PriceCollectionMapService } from './price-collection-map/price-collection-map.service';
+import { BudgetItemsComponent } from './budget-items/budget-items.component';
 
 
 
@@ -28,7 +32,8 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     PriceMapListComponent,
 
     PriceMapItemsComponent,
-    BudgetDialogComponent
+    BudgetDialogComponent,
+    BudgetItemsComponent
   ],
   imports: [
     CommonModule,
@@ -38,12 +43,15 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     CalendarModule,
     TableModule,
     InputTextModule,
+    InputNumberModule,
     DynamicDialogModule,
     DropdownModule,
-    TabViewModule
+    TabViewModule,
+    OverlayPanelModule
   ],
   exports: [
     PriceCollectionMapComponent,
+    PriceMapListComponent,
     BudgetListComponent
   ],
   entryComponents: [

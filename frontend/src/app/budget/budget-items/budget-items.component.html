@@ -1,0 +1,36 @@
+<p-table #dt [value]="budgetItems">
+
+  <ng-template pTemplate="caption">
+    <!-- <div class="table-header"> -->
+    Itens do Orçamento
+    <!-- </div> -->
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="p-col">Brick</th>
+      <th class="p-col">Produto</th>
+      <th class="p-col">Quantidade</th>
+      <th class="p-col">Unidade</th>
+      <th class="p-col">Unitario a vista</th>
+      <th class="p-col">Unitario a prazo</th>
+      <th class="p-col">Total a vista</th>
+      <th class="p-col">Total a prazo</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-i>
+    <tr>
+      <td>{{i.itemMapa?.brick?.nome}}</td>
+      <td *ngIf="i.itemMapa.produto?.id">{{i.itemMapa.produto.nome}}</td>
+      <td *ngIf="!(i.itemMapa.produto?.id)">{{i.produto?.nome}} </td>
+      <td> {{i.itemMapa?.quantidade}} </td>
+      <td>{{i.itemMapa?.unidade}}</td>
+      <td>{{(i.valorUnitario) | number: '1.2-2'}}</td>
+      <td>{{(i.valorUnitarioPrazo) | number: '1.2-2'}}</td>
+      <td>{{(i.valorUnitario * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
+      <td>{{(i.valorUnitarioPrazo * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>
+    </tr>
+  </ng-template>
+
+</p-table>

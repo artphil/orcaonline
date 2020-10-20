@@ -134,7 +134,6 @@ export class ProductListComponent implements OnInit {
   }
 
   searchByClass(): void {
-    console.log(this.filter)
     this.search();
   }
 
