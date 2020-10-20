@@ -1,40 +1,42 @@
 <form #priceMapForm="ngForm">
   <div class="p-grid">
 
-    <div class="p-col-12">
+    <div class="p-col-12" *ngIf="showAll">
       <h1>Mapas de Coleta de Preço</h1>
     </div>
 
     <div class="p-grid p-col-12 p-fluid">
 
-      <div class="p-col-2 p-fluid">
+      <div class="p-col-2 p-fluid" *ngIf="showAll">
         <label>Estado</label>
         <p-dropdown [options]="statusList" name="status" [(ngModel)]="filter.status.id" placeholder="Selecione">
         </p-dropdown>
       </div>
 
-      <div class="p-col-2 p-fluid">
+      <div class="p-col-2 p-fluid" *ngIf="showAll">
         <label>Produto</label>
         <p-dropdown [options]="productList" name="produto" [(ngModel)]="filter.produto.id" placeholder="Selecione">
         </p-dropdown>
       </div>
 
-      <div class="p-col-2 p-fluid">
+      <div class="p-col-2 p-fluid" *ngIf="showAll">
         <label>Cliente</label>
         <input type="text" pInputText name="comprador" [(ngModel)]="filter.comprador.nome">
       </div>
 
-      <div class="p-col-2 p-fluid">
+      <div class="p-col p-fluid">
         <label>Data Inicio</label>
-        <p-calendar name="dataInicio" dateFormat="dd/mm/yy" [maxDate]="filter.dataFim" [(ngModel)]="filter.dataInicio"> </p-calendar>
+        <p-calendar name="dataInicio" dateFormat="dd/mm/yy" [maxDate]="filter.dataFim" [(ngModel)]="filter.dataInicio">
+        </p-calendar>
       </div>
 
-      <div class="p-col-2 p-fluid">
+      <div class="p-col p-fluid">
         <label>Data fim</label>
-        <p-calendar name="dataFim" dateFormat="dd/mm/yy" [minDate]="filter.dataInicio" [(ngModel)]="filter.dataFim"> </p-calendar>
+        <p-calendar name="dataFim" dateFormat="dd/mm/yy" [minDate]="filter.dataInicio" [(ngModel)]="filter.dataFim">
+        </p-calendar>
       </div>
 
-      <div class="p-col-2 p-grid p-ai-end vertical-container">
+      <div class="p-col p-grid p-ai-end vertical-container">
         <button pButton label="Pesquisar" (click)="consult()"></button>
       </div>
 
@@ -43,13 +45,7 @@
 
     <div class="p-col-12">
 
-      <p-table #dt [value]="priceMapList" [paginator]="true" [rows]="10" [responsive]="true">
-
-        <ng-template pTemplate="caption">
-          <div class="table-header">
-            Mapas
-          </div>
-        </ng-template>
+      <p-table #dt [value]="priceMapList" [paginator]="true" [rows]="5" [responsive]="true">
 
         <ng-template pTemplate="header">
           <tr>

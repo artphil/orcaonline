@@ -20,6 +20,7 @@ import { BudgetListComponent } from './budget-list/budget-list.component';
 import { PriceMapListComponent } from './price-map-list/price-map-list.component';
 import { PriceMapItemsComponent } from './price-map-items/price-map-items.component';
 import { PriceCollectionMapService } from './price-collection-map/price-collection-map.service';
+import { BudgetItemsComponent } from './budget-items/budget-items.component';
 
 
 
@@ -31,7 +32,8 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
     PriceMapListComponent,
 
     PriceMapItemsComponent,
-    BudgetDialogComponent
+    BudgetDialogComponent,
+    BudgetItemsComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { PriceCollectionMapService } from './price-collection-map/price-collecti
   ],
   exports: [
     PriceCollectionMapComponent,
+    PriceMapListComponent,
     BudgetListComponent
   ],
   entryComponents: [

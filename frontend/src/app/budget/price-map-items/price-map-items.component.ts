@@ -23,6 +23,4 @@ export class PriceMapItemsComponent implements OnInit {
     this.priceItems = this.config.data.items;
   }
 
-
-
 }

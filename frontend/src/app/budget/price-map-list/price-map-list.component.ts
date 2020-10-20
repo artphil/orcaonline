@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -22,6 +22,8 @@ export class PriceMapListComponent implements OnInit {
 
   statusList: SelectItem[];
   productList: SelectItem[];
+
+  @Input() showAll = true;
 
   constructor(
     private dialogService: DialogService,

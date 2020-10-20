@@ -51,7 +51,7 @@
 
         <ng-template pTemplate="body" let-i>
           <tr>
-            <td>{{i.itemMapa?.brick?.nome}} {{i.itemMapa?.brick?.id}}</td>
+            <td>{{i.itemMapa?.brick?.nome}}</td>
             <td *ngIf="i.itemMapa.produto?.id">{{i.itemMapa.produto.nome}}</td>
             <td *ngIf="!(i.itemMapa.produto?.id)">
               <div class="p-fluid">

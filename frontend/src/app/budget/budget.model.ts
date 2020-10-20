@@ -25,6 +25,24 @@ export class BudgetModel {
   }
 }
 
+export class BudgetFilterModel {
+  dataInicio: Date;
+  dataFim: Date;
+  aprovado: boolean;
+  fornecedor: UserModel;
+  status: StatusModel;
+  produto: ProductModel;
+
+  constructor() {
+    this.dataInicio = new Date();
+    this.dataFim = new Date();
+    this.aprovado = null;
+    this.fornecedor = null;
+    this.status = new StatusModel();
+    this.produto = new ProductModel();
+  }
+}
+
 export class StatusModel {
   id: number;
   nome: string;
