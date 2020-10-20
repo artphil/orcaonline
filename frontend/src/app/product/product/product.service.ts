@@ -28,7 +28,14 @@ export class ProductService {
       .then(res => res);
   }
 
-  getList(query: any = null): Promise<any> {
+  getByBricks(code: number = null): Promise<any> {
+
+    return this.http.get<any>(`${this.apiPath}/bricks/${code}`, { headers: this.headers })
+      .toPromise()
+      .then(res => res);
+  }
+
+  getList(): Promise<any> {
 
     return this.http.get<any>(this.apiPath, { headers: this.headers })
       .toPromise()

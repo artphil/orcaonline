@@ -9,6 +9,8 @@ import { ProductService } from 'src/app/product/product/product.service';
 import { BudgetItemModel, BudgetModel } from '../budget.model';
 import { BudgetService } from './budget.service';
 
+class Ssee {label: string; value: number; }
+
 @Component({
   selector: 'app-budget',
   templateUrl: './budget.component.html',
@@ -18,7 +20,8 @@ export class BudgetComponent implements OnInit {
 
   idBudget: number;
 
-  productList: SelectItem[];
+  productList = {};
+  listaAux: SelectItem[];
 
   itemsModifieds = {};
 
@@ -40,9 +43,6 @@ export class BudgetComponent implements OnInit {
       this.idBudget = Number(this.route.snapshot.paramMap.get('cod'));
       this.consult();
     }
-    this.getProducts();
-
-
   }
 
   consult(): void {
@@ -57,6 +57,7 @@ export class BudgetComponent implements OnInit {
           this.budget.itens.forEach(i => {
             if (!i.produto) {
               i.produto = new ProductModel();
+              this.getProducts(i.itemMapa.brick.id);
             }
           });
         })
@@ -66,35 +67,45 @@ export class BudgetComponent implements OnInit {
     }
   }
 
-  getProducts(): void {
-    this.productServices.getList()
+  getProducts(itemId: number): void {
+    if (!this.productList[itemId]){
+      this.productList[itemId] = [];
+    }
+
+    this.productServices.getByBricks(itemId)
       .then((products: ProductModel[]) => {
-        this.productList = [];
         products.forEach(f => {
-          this.productList.push({ label: f.nome, value: f.id });
+          this.productList[itemId].push({ label: f.nome, value: f.id });
         });
+        console.log( this.productList);
       })
       .catch(() => {
-        this.productList = [
-          { label: 'Nenhuma Familia cadastrada', value: null }
-        ];
+        this.productList[itemId].push(
+          { label: 'Nenhum Produto cadastrado', value: null }
+        );
       });
   }
 
-  save(): void {
+  send(): void {
     this.savePopup.emit('value');
 
-    // if (this.idBudget) {
-    //   this.budgetServices.update(this.budget)
-    //     .then((budget: BudgetModel) => {
-    //       this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
-    //       this.consult();
-    //     })
-    //     .catch((err) => {
-    //       const msg = err.error[0].mensagemUsuario;
-    //       this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
-    //     });
-    // }
+    if (this.budget.status.nome === 'Aberto') {
+      this.budgetServices.send(this.budget.id)
+        .then((budget: BudgetModel) => {
+          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
+          this.budget = budget;
+        })
+        .catch((err) => {
+          const msg = err.error[0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
+        });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha ao Alterar Orçamento.',
+        detail: 'Este orçamento não está apto para ser enviado.'
+      });
+    }
 
   }
 
@@ -109,7 +120,7 @@ export class BudgetComponent implements OnInit {
   }
 
   valid(item: BudgetItemModel): boolean {
-    if (item.produto?.id && item.valorUnitario > 0 && item.valorUnitarioPrazo > 0) {
+    if (this.budget.status.id === 1 && item.produto?.id && item.valorUnitario > 0 && item.valorUnitarioPrazo > 0) {
       return true;
     }
     return false;
@@ -132,6 +143,7 @@ export class BudgetComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: 'Valor unitário inválido' });
     }
   }
+
 }
 
 @Component({

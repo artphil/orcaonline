@@ -65,6 +65,16 @@ export class BudgetService {
       });
   }
 
+  send(idBudget: any): Promise<any> {
+
+    return this.http.put<any>(`${this.apiPath}/enviar/${idBudget}`, this.httpOptions)
+      .toPromise()
+      .then(res => res)
+      .catch(erro => {
+        this.errorHandler.handle(erro);
+      });
+  }
+
   updateItem(data: any): Promise<any> {
     const dataSend = {
       id: data.id,
