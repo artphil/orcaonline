@@ -1,7 +1,6 @@
 package com.orcaolineapi.resource.orcamento;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +10,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orcaolineapi.event.RecursoCriadoEvent;
+import com.orcaolineapi.modelo.orcamento.ItemOrcamento;
 import com.orcaolineapi.modelo.orcamento.Orcamento;
 import com.orcaolineapi.repository.orcamento.OrcamentoRepository;
 import com.orcaolineapi.resource.AbstractResource;
@@ -48,11 +49,17 @@ public class OrcamentoResource extends AbstractResource<Orcamento> {
 	}
 	
 	@CrossOrigin
-	@PutMapping("enviar")
-	public ResponseEntity<Orcamento> enviar(@Valid Orcamento orcamento) {
-		return ResponseEntity.ok(service.enviar(orcamento));
+	@PutMapping("enviar/{id}")
+	public ResponseEntity<Orcamento> enviar(@PathVariable Long id) {
+		return ResponseEntity.ok(service.enviar(id));
 	}
 
+	@CrossOrigin
+	@PostMapping("updateItem")
+	public ResponseEntity<Orcamento> udateItem(@RequestBody ItemOrcamento item) {
+		return ResponseEntity.ok(service.updateItem(item));
+	}
+	
 	@CrossOrigin
 	@DeleteMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
