@@ -155,6 +155,7 @@ public class MapaColeta extends AbstractModel {
 	public static List<Status> usedStatus() {
 		List<Status> list = new ArrayList<>();
 		list.add(Status.ABERTO);
+		list.add(Status.APROVADO);
 		list.add(Status.EM_ANDAMENTO);
 		list.add(Status.FECHADO);
 		return list;
@@ -179,14 +180,19 @@ public class MapaColeta extends AbstractModel {
 	public void encerrar() {
 		setDataEncerramento(LocalDate.now());
 		setStatus(Status.FECHADO);
+		for(Orcamento o : getOrcamentos()) {
+			if(!o.getStatus().equals(Status.APROVADO)) {
+				o.setStatus(Status.FECHADO);
+			}
+		}
 	}
 	
 	public void aprovarOrcamento(Long idOrcamento) {
 		for(Orcamento o : getOrcamentos()) {
 			if(o.getId() == idOrcamento) {
 				o.setAprovado(true);
-				setDataEncerramento(LocalDate.now());
-				setStatus(Status.FECHADO);
+				o.setStatus(Status.APROVADO);
+				encerrar();
 			}
 		}
 	}

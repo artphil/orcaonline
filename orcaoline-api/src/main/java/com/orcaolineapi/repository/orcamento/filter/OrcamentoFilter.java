@@ -15,8 +15,6 @@ public class OrcamentoFilter {
 	private LocalDate dataEnvioInicial;
 	
 	private LocalDate dataEnvioFinal;
-	
-	private Boolean aprovado;
 
 	public Long getIdStatus() {
 		return idStatus;
@@ -65,12 +63,5 @@ public class OrcamentoFilter {
 	public void setDataEnvioFinal(LocalDate dataEnvioFinal) {
 		this.dataEnvioFinal = dataEnvioFinal;
 	}
-
-	public Boolean getAprovado() {
-		return aprovado;
-	}
-
-	public void setAprovado(Boolean aprovado) {
-		this.aprovado = aprovado;
-	}
+	
 }

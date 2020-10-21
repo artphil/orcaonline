@@ -18,6 +18,7 @@ public class Status extends AbstractModel {
 	public static final Long STATUS_CANCELADO = 4L;
 	public static final Long STATUS_INATIVO = 5L;
 	public static final Long STATUS_EM_ANDAMENTO = 6L;
+	public static final Long STATUS_APROVADO = 7L;
 
 	public static final Status ABERTO = new Status(STATUS_ABERTO);
 	public static final Status ATIVO = new Status(STATUS_ATIVO);
@@ -25,6 +26,7 @@ public class Status extends AbstractModel {
 	public static final Status CANCELADO = new Status(STATUS_CANCELADO);
 	public static final Status INATIVO = new Status(STATUS_INATIVO);
 	public static final Status EM_ANDAMENTO = new Status(STATUS_EM_ANDAMENTO);
+	public static final Status APROVADO = new Status(STATUS_APROVADO);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +57,8 @@ public class Status extends AbstractModel {
 			return "Inativo";
 		} else if (STATUS_EM_ANDAMENTO.equals(id)) {
 			return "Em andamento";
+		} else if (STATUS_APROVADO.equals(id)) {
+			return "Aprovado";
 		}
 		return "Sem status";
 	}
