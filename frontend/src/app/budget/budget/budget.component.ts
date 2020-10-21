@@ -52,7 +52,12 @@ export class BudgetComponent implements OnInit {
     } else {
       this.budgetServices.getOne(this.idBudget)
         .then((budget: BudgetModel) => {
-          this.budget = budget ? budget : new BudgetModel();
+          if (budget) {
+            budget.dataRegistro = new Date(budget.dataRegistro);
+            this.budget = budget;
+          } else {
+            this.budget = new BudgetModel();
+          }
 
           this.budget.itens.forEach(i => {
             if (!i.produto) {
