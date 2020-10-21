@@ -1,5 +1,7 @@
 package com.orcaolineapi.service.orcamento;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.orcaolineapi.modelo.produto.Produto;
 import com.orcaolineapi.repository.orcamento.ItemOrcamentoRepository;
 import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
 import com.orcaolineapi.repository.orcamento.OrcamentoRepository;
+import com.orcaolineapi.repository.orcamento.filter.OrcamentoFilter;
 import com.orcaolineapi.repository.produto.ProdutoRepository;
 import com.orcaolineapi.service.AbstractService;
 
@@ -59,5 +62,8 @@ public class OrcamentoService extends AbstractService<Orcamento> {
 		return itemSalvo.getOrcamento();
 	}
 	
-	
+	public List<Orcamento> filtrar(OrcamentoFilter filtro){
+		filtro.setIdUsuario(getUsuarioLogado().getId());
+		return repository.filtrar(filtro);
+	}
 }
