@@ -1,5 +1,7 @@
 package com.orcaolineapi.resource.orcamento;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -20,6 +22,7 @@ import com.orcaolineapi.modelo.orcamento.ItemMapa;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
 import com.orcaolineapi.modelo.orcamento.UnidadeMedida;
 import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
+import com.orcaolineapi.repository.orcamento.filter.MapaColetaFilter;
 import com.orcaolineapi.resource.AbstractResource;
 import com.orcaolineapi.service.orcamento.MapaColetaService;
 
@@ -84,4 +87,11 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 	public UnidadeMedida[] getUnidades() {
 		return UnidadeMedida.values();
 	}
+	
+	@CrossOrigin
+	@GetMapping("filtrar")
+	public List<MapaColeta> filtrar(MapaColetaFilter filtro){
+		return service.filtrar(filtro);
+	}
+	
 }
