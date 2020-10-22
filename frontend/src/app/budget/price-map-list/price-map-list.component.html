@@ -64,9 +64,9 @@
 
         <ng-template pTemplate="body" let-i>
           <tr>
-            <td>{{i.dataRegistro | date: 'dd/MM/yy' }}</td>
-            <td>{{i.comprador?.nome}}</td>
-            <td>{{i.status.nome}}</td>
+            <td>{{ i.dataRegistro | date: 'dd/MM/yy' }}</td>
+            <td>{{ i.comprador?.nome }}</td>
+            <td>{{ i.status.nome }}</td>
             <td>
               <button pButton label="Ver" (click)="showItems(i.id, i.itens)"></button>
             </td>
