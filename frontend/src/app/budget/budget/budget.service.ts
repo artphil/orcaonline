@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
@@ -17,6 +17,10 @@ export class BudgetService {
       'Content-Type': 'application/json; charset=utf-8'
     })
   };
+
+  headers = new HttpHeaders({
+    'Content-Type': 'application/json; charset=utf-8'
+  });
 
   constructor(
     private http: HttpClient,
@@ -46,8 +50,25 @@ export class BudgetService {
   }
 
   getByFilter(data: any): Promise<any> {
+    let params = new HttpParams();
 
-    return this.http.post<any>(`${this.apiPath}/filtrar`, data, this.httpOptions)
+    if (data.idStatus) {
+      params = params.append('idStatus', data.idStatus);
+    }
+    if (data.dataRegistroInicial) {
+      params = params.append('dataRegistroInicial', data.dataRegistroInicial.toLocaleDateString());
+    }
+    if (data.dataRegistroFinal) {
+      params = params.append('dataRegistroFinal', data.dataRegistroFinal.toLocaleDateString());
+    }
+    if (data.dataEnvioInicial) {
+      params = params.append('dataEnvioInicial', data.dataEnvioInicial.toLocaleDateString());
+    }
+    if (data.dataEnvioFinal) {
+      params = params.append('dataEnvioFinal', data.dataEnvioFinal.toLocaleDateString());
+    }
+
+    return this.http.get<any>(`${this.apiPath}/filtrar`, { params, headers: this.headers } )
       .toPromise()
       .then(res => res)
       .catch(erro => {

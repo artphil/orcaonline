@@ -31,7 +31,7 @@ export class BudgetListComponent implements OnInit {
   }
 
   consult(): void {
-    this.budgetService.getByFilter(this.filter.json())
+    this.budgetService.getByFilter(this.filter)
       .then((budgets: BudgetModel[]) => {
         if (budgets) {
           budgets.forEach((budget) => {

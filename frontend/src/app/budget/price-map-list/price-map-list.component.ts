@@ -4,7 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 
-import { BudgetItemModel, BudgetModel, PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel } from '../budget.model';
+import { BudgetItemModel, BudgetModel, PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel, StatusModel } from '../budget.model';
 import { BudgetComponent, BudgetDialogComponent } from '../budget/budget.component';
 import { BudgetService } from '../budget/budget.service';
 import { PriceCollectionMapService } from '../price-collection-map/price-collection-map.service';
@@ -34,12 +34,21 @@ export class PriceMapListComponent implements OnInit {
 
   ngOnInit(): void {
     this.consult();
+
+    this.statusList = StatusModel.selectItems();
   }
 
   consult(): void {
-    this.priceMapService.getList()
+    this.priceMapService.getByFilter(this.filter)
       .then((priceMaps: PriceCollectionMapModel[]) => {
-        this.priceMapList = priceMaps ? priceMaps : [];
+        if (priceMaps) {
+          priceMaps.forEach((priceMap) => {
+            priceMap.dataRegistro = new Date(priceMap.dataRegistro);
+          });
+          this.priceMapList = priceMaps;
+        } else {
+          this.priceMapList = [];
+        }
       })
       .catch(() => {
         this.priceMapList = [];
