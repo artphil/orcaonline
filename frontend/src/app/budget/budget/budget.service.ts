@@ -45,6 +45,16 @@ export class BudgetService {
       });
   }
 
+  getByFilter(data: any): Promise<any> {
+
+    return this.http.post<any>(`${this.apiPath}/filtrar`, data, this.httpOptions)
+      .toPromise()
+      .then(res => res)
+      .catch(erro => {
+        this.errorHandler.handle(erro);
+      });
+  }
+
   create(idMapa: number): Promise<any> {
 
     return this.http.post<any>(`${this.apiPath}/create/${idMapa}`, this.httpOptions)

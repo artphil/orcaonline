@@ -26,20 +26,33 @@ export class BudgetModel {
 }
 
 export class BudgetFilterModel {
-  dataInicio: Date;
-  dataFim: Date;
-  aprovado: boolean;
-  fornecedor: UserModel;
-  status: StatusModel;
-  produto: ProductModel;
+  dataRegistroInicial: Date;
+  dataRegistroFinal: Date;
+  dataEnvioInicial: Date;
+  dataEnvioFinal: Date;
+  idStatus: number;
 
   constructor() {
-    this.dataInicio = new Date();
-    this.dataFim = new Date();
-    this.aprovado = null;
-    this.fornecedor = null;
-    this.status = new StatusModel();
-    this.produto = new ProductModel();
+    const date = new Date();
+    this.dataRegistroInicial = new Date();
+    this.dataRegistroInicial.setDate(date.getDate() - 15);
+    this.dataRegistroFinal = date;
+    this.dataEnvioInicial = new Date();
+    this.dataEnvioInicial.setDate(date.getDate() - 15);
+    this.dataEnvioFinal = date;
+    this.idStatus = null;
+  }
+
+  json(): any {
+    const data = {
+      dataRegistroInicial: this.dataRegistroInicial.toLocaleDateString(),
+      dataRegistroFinal: this.dataRegistroFinal.toLocaleDateString(),
+      dataEnvioInicial: this.dataRegistroFinal.toLocaleDateString(),
+      dataEnvioFinal: this.dataRegistroFinal.toLocaleDateString(),
+      idStatus: this.idStatus
+    };
+    console.log(data);
+    return data;
   }
 }
 
@@ -50,6 +63,19 @@ export class StatusModel {
   constructor() {
     this.id = null;
     this.nome = null;
+  }
+
+  static selectItems(): any {
+    const status = [
+      { value: null, label: 'Todos' },
+      { value: 1, label: 'Aberto' },
+      { value: 2, label: 'Ativo' },
+      { value: 3, label: 'Fechado' },
+      { value: 4, label: 'Cancelado' },
+      { value: 5, label: 'Inativo' },
+      { value: 6, label: 'Em andamento' }
+    ];
+    return status;
   }
 }
 
@@ -80,7 +106,7 @@ export class PriceCollectionMapModel {
     this.orcamentos = [];
     this.descricao = null;
   }
- }
+}
 
 export class PriceCollectionMapItemModel {
   id: number;
@@ -104,24 +130,38 @@ export class UnidadeMedidaModel {
   descricao: string;
   simbolo: string;
 
-  constructor(){
+  constructor() {
     this.descricao = null;
-    this.simbolo = null
+    this.simbolo = null;
   }
 }
 
 export class PriceMapFilterModel {
-  status: StatusModel;
-  produto: ProductModel;
-  comprador: UserModel;
-  dataInicio: Date;
-  dataFim: Date;
+  dataRegistroInicial: Date;
+  dataRegistroFinal: Date;
+  dataEncerramentoInicial: Date;
+  dataEncerramentoFinal: Date;
+  idStatus: number;
 
   constructor() {
-    this.dataInicio = new Date();
-    this.dataFim = new Date();
-    this.comprador = new UserModel();
-    this.status = new StatusModel();
-    this.produto = new ProductModel();
+    const date = new Date();
+    this.dataRegistroInicial = new Date();
+    this.dataRegistroInicial.setDate(date.getDate() - 15);
+    this.dataRegistroFinal = date;
+    this.dataEncerramentoInicial = new Date();
+    this.dataEncerramentoInicial.setDate(date.getDate() - 15);
+    this.dataEncerramentoFinal = date;
+    this.idStatus = null;
   }
- }
+
+  json(): any {
+    const data = {
+      dataRegistroInicial: this.dataRegistroInicial,
+      dataRegistroFinal: this.dataRegistroFinal,
+      dataEncerramentoInicial: this.dataEncerramentoInicial,
+      dataEncerramentoFinal: this.dataEncerramentoFinal,
+      idStatus: this.idStatus
+    };
+    return data;
+  }
+}

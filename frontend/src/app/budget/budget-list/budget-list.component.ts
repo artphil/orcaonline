@@ -3,7 +3,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BudgetItemsComponent } from '../budget-items/budget-items.component';
 
-import { BudgetFilterModel, BudgetItemModel, BudgetModel } from '../budget.model';
+import { BudgetFilterModel, BudgetItemModel, BudgetModel, StatusModel } from '../budget.model';
 import { BudgetService } from '../budget/budget.service';
 
 @Component({
@@ -16,14 +16,13 @@ export class BudgetListComponent implements OnInit {
   filter = new BudgetFilterModel();
   budgetList: BudgetModel[];
 
-  statusList: SelectItem[];
+  statusList = StatusModel.selectItems();
   productList: SelectItem[];
 
   @Input() showAll = true;
 
   constructor(
     private dialogService: DialogService,
-    private messageService: MessageService,
     private budgetService: BudgetService
   ) { }
 
@@ -32,9 +31,16 @@ export class BudgetListComponent implements OnInit {
   }
 
   consult(): void {
-    this.budgetService.getList()
+    this.budgetService.getByFilter(this.filter.json())
       .then((budgets: BudgetModel[]) => {
-        this.budgetList = budgets ? budgets : [];
+        if (budgets) {
+          budgets.forEach((budget) => {
+            budget.dataRegistro = new Date(budget.dataRegistro);
+          });
+          this.budgetList = budgets;
+        } else {
+          this.budgetList = [];
+        }
       })
       .catch(() => {
         this.budgetList = [];

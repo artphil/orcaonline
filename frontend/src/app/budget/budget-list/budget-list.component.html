@@ -5,38 +5,43 @@
       <h1>Orçamentos</h1>
     </div>
 
-    <div class="p-grid p-col-12 p-fluid">
+    <div class="p-grid p-col-12">
 
-      <div class="p-col-2 p-fluid" *ngIf="showAll">
+      <div class="p-fluid" [ngClass]="{ 'p-col-2': showAll, 'p-col-4': !showAll }">
         <label>Estado</label>
-        <p-dropdown [options]="statusList" name="status" [(ngModel)]="filter.status.id" placeholder="Selecione">
+        <p-dropdown [options]="statusList" name="idStatus" [(ngModel)]="filter.idStatus" placeholder="Selecione">
         </p-dropdown>
       </div>
 
-      <div class="p-col-2 p-fluid" *ngIf="showAll">
-        <label>Produto</label>
-        <p-dropdown [options]="productList" name="produto" [(ngModel)]="filter.produto.id" placeholder="Selecione">
-        </p-dropdown>
-      </div>
-
-      <div class="p-col-2 p-fluid" *ngIf="showAll">
-        <label>Cliente</label>
-        <input type="text" pInputText name="fornecedor" [(ngModel)]="filter.fornecedor.nome">
-      </div>
-
-      <div class="p-col p-fluid">
-        <label>Data Inicio</label>
-        <p-calendar name="dataInicio" dateFormat="dd/mm/yy" [maxDate]="filter.dataFim" [(ngModel)]="filter.dataInicio">
+      <div class="p-fluid" [ngClass]="{ 'p-col-2': showAll, 'p-col-4': !showAll }">
+        <label>Registro Inicio</label>
+        <p-calendar name="dataRegistroInicial" dateFormat="dd/mm/yy" [maxDate]="filter.dataRegistroFinal"
+          [(ngModel)]="filter.dataRegistroInicial">
         </p-calendar>
       </div>
 
-      <div class="p-col p-fluid">
-        <label>Data fim</label>
-        <p-calendar name="dataFim" dateFormat="dd/mm/yy" [minDate]="filter.dataInicio" [(ngModel)]="filter.dataFim">
+      <div class="p-fluid" [ngClass]="{ 'p-col-2': showAll, 'p-col-4': !showAll }">
+        <label>Registro Fim</label>
+        <p-calendar name="dataRegistroFinal" dateFormat="dd/mm/yy" [minDate]="filter.dataRegistroInicial"
+          [(ngModel)]="filter.dataRegistroFinal">
         </p-calendar>
       </div>
 
-      <div class="p-col p-grid p-ai-end vertical-container">
+      <div class="p-fluid" [ngClass]="{ 'p-col-2': showAll, 'p-col-4': !showAll }">
+        <label>Envio Inicio</label>
+        <p-calendar name="dataEnvioInicial" dateFormat="dd/mm/yy" [maxDate]="filter.dataEnvioFinal"
+          [(ngModel)]="filter.dataEnvioInicial">
+        </p-calendar>
+      </div>
+
+      <div class="p-fluid" [ngClass]="{ 'p-col-2': showAll, 'p-col-4': !showAll }">
+        <label>Envio Fim</label>
+        <p-calendar name="dataEnvioFinal" dateFormat="dd/mm/yy" [minDate]="filter.dataEnvioInicial"
+          [(ngModel)]="filter.dataEnvioFinal">
+        </p-calendar>
+      </div>
+
+      <div class="p-fluid p-grid p-ai-end " [ngClass]="{ 'p-col-2': showAll, 'p-col-4': !showAll }">
         <button pButton label="Pesquisar" (click)="consult()"></button>
       </div>
 
@@ -58,7 +63,7 @@
 
         <ng-template pTemplate="body" let-i>
           <tr>
-            <td>{{i.dataCriacao | date: 'dd/MM/yyyy' }}</td>
+            <td>{{i.dataRegistro | date: 'dd/MM/yy' }}</td>
             <td>{{i.fornecedor?.nome}}</td>
             <td>{{i.status.nome}}</td>
             <td>
