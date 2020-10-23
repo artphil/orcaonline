@@ -99,7 +99,7 @@
 
                         <div class="p-col-2 p-fluid ">
                             <br>
-                            <button pButton label="Adicionar" (click)= "addItem()"></button>
+                            <button pButton [disabled]="priceCollectionMap.status.id && priceCollectionMap.status.id != 1" label="Adicionar" (click)= "addItem()"></button>
                         </div>
 
                         <p-table [value]="priceCollectionMap.itens" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
