@@ -1,10 +1,35 @@
 <form #priceCollectionMapForm="ngForm">
     <div class="p-grid">
+        
+          <div class="p-col-2 p-fluid ">
+          <br>
+            <button pButton type="button" label = "Pesquisar" icon="pi pi-search" class="p-button-outlined" (click) = "search()"></button>
+          </div>
 
-        <div class="p-col-2 p-fluid ">
-        <br>
-          <button pButton type="button" label = "Pesquisar" icon="pi pi-search" class="p-button-outlined" (click) = "search()"></button>
-        </div>
+          <div class="p-col-2 p-fluid ">
+            <br>
+              <button pButton type="button" label = "Novo/Limpar" icon="pi pi-plus" class="p-button-outlined" (click) = "clear()"></button>
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+            <br>
+              
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+            <br>
+              <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Excluir" icon="pi pi-trash" class="p-button-outlined p-button-danger " (click) = "deleteMap()"></button>
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+            <br>
+              <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Iniciar Cotação" icon="pi pi-check" class="p-button-outlined " (click) = "startPriceCollection()"></button>
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+          <br>
+            <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 6 && idPriceCollectionMap" label = "Encerrar" icon="pi pi-times" class="p-button-outlined p-button-warning " (click) = "closeMap()"></button>
+          </div>
                  
         <div class="p-col-12">                      
             <h1 *ngIf="!idPriceCollectionMap">Novo Mapa de Coleta</h1>
@@ -31,12 +56,13 @@
 
             <div class="p-col-6 p-fluid">
                 <label>Descrição</label>
-                <input type="text" pInputText name="descrição" [(ngModel)]="priceCollectionMap.descricao" >
+                <input type="text" placeholder="Inserir descrição" pInputText name="descrição" [(ngModel)]="priceCollectionMap.descricao" >
             </div>
 
             <div class="p-col-1 p-fluid">
                 <br>
-                <button pButton label="Salvar" (click)="save()"></button>
+                <button [disabled]="priceCollectionMap.status.id != 1 && idPriceCollectionMap " pButton label="Salvar" (click)="save()"></button>
+                
               </div>
             
 
@@ -166,7 +192,7 @@
 </form>
 
 <p-dialog header="Meus Mapas de Coleta" [(visible)]="showSearchDialog" modal="modal"
-[style]="{width: '1200px', height: '400px'}">
+[style]="{width: '1200px', height: '700px'}">
 
   <form>
     <div class="p-grid p-col-12 p-fluid">
@@ -240,5 +266,7 @@
 
     </div>
   </form>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   
 </p-dialog>

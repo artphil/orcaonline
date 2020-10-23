@@ -65,6 +65,16 @@ export class StatusModel {
     ];
     return status;
   }
+
+  static getPriceCollectionMapStatus(): any {
+    const status = [
+      { value: null, label: 'Todos' },
+      { value: 1, label: 'Aberto' },      
+      { value: 3, label: 'Fechado' },
+      { value: 6, label: 'Em andamento' }
+    ];
+    return status;
+  }
 }
 
 export class BudgetItemModel {
