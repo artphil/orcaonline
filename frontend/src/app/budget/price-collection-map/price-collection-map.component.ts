@@ -42,12 +42,12 @@ export class PriceCollectionMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.idPriceCollectionMap = Number(this.route.snapshot.paramMap.get('cod'));
+
+    this.consult();
+
     this.getBrickList();
     this.getProductList();
     this.getUnidades();
-
-
-    this.consult();
   }
 
   getBrickList(): void {
@@ -66,17 +66,18 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   getProductList(): void {
-    this.productServices.getList()
-      .then((productList: ProductModel[]) => {
-        this.productList = [];
-        productList.forEach(item => {
-          this.productList.push({ label: item.nome, value: item.id });
+    this.productList = [];
+    this.productServices.getByBricks(this.itemAux.brick?.id)
+      .then((products: ProductModel[]) => {
+        products.forEach(f => {
+          this.productList.push({ label: f.nome, value: f.id });
         });
+        console.log( this.productList);
       })
       .catch(() => {
-        this.productList = [
+        this.productList.push(
           { label: 'Nenhum Produto cadastrado', value: null }
-        ];
+        );
       });
   }
 
