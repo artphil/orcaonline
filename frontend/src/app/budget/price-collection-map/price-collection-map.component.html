@@ -1,26 +1,37 @@
 <form #priceCollectionMapForm="ngForm">
     <div class="p-grid">
-                 
-        <div class="p-col-12">
-          <br>
-          <p-overlayPanel #op>
-            <ng-template pTemplate>
-                Content
-            </ng-template>
-        </p-overlayPanel>
         
-        <button type="text" icon="pi pi-search" class = "p-button-outlined " pButton label="Pesquisar" (click)="op.show($event, actualTarget)"></button>
-      
-        <div #actualTarget></div>
+          <div class="p-col-2 p-fluid ">
+          <br>
+            <button pButton type="button" label = "Pesquisar" icon="pi pi-search" class="p-button-outlined" (click) = "search()"></button>
+          </div>
 
-        <div #actualTarget></div>
+          <div class="p-col-2 p-fluid ">
             <br>
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input pInputText [(ngModel)]="brickList"  placeholder="Pesquisar" />
-                
-            </span>
+              <button pButton type="button" label = "Novo/Limpar" icon="pi pi-plus" class="p-button-outlined" (click) = "clear()"></button>
+          </div>
 
+          <div class="p-col-2 p-fluid ">
+            <br>
+              
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+            <br>
+              <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Excluir" icon="pi pi-trash" class="p-button-outlined p-button-danger " (click) = "deleteMap()"></button>
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+            <br>
+              <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Iniciar Cotação" icon="pi pi-check" class="p-button-outlined " (click) = "startPriceCollection()"></button>
+          </div>
+
+          <div class="p-col-2 p-fluid ">
+          <br>
+            <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 6 && idPriceCollectionMap" label = "Encerrar" icon="pi pi-times" class="p-button-outlined p-button-warning " (click) = "closeMap()"></button>
+          </div>
+                 
+        <div class="p-col-12">                      
             <h1 *ngIf="!idPriceCollectionMap">Novo Mapa de Coleta</h1>
             <h1 *ngIf="idPriceCollectionMap">Editar Mapa de Coleta</h1>
             <h1></h1>
@@ -45,12 +56,13 @@
 
             <div class="p-col-6 p-fluid">
                 <label>Descrição</label>
-                <input type="text" pInputText name="descrição" [(ngModel)]="priceCollectionMap.descricao" >
+                <input type="text" placeholder="Inserir descrição" pInputText name="descrição" [(ngModel)]="priceCollectionMap.descricao" >
             </div>
 
             <div class="p-col-1 p-fluid">
                 <br>
-                <button pButton label="Salvar" (click)="save()"></button>
+                <button [disabled]="priceCollectionMap.status.id != 1 && idPriceCollectionMap " pButton label="Salvar" (click)="save()"></button>
+                
               </div>
             
 
@@ -87,7 +99,7 @@
 
                         <div class="p-col-2 p-fluid ">
                             <br>
-                            <button pButton label="Adicionar" (click)= "addItem()"></button>
+                            <button pButton [disabled]="priceCollectionMap.status.id && priceCollectionMap.status.id != 1" label="Adicionar" (click)= "addItem()"></button>
                         </div>
 
                         <p-table [value]="priceCollectionMap.itens" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
@@ -131,7 +143,7 @@
                 <p-tabPanel header="Orçamentos">
                     <div class="p-grid ">
                     
-                        <p-table [value]="priceCollectionMap.orcamentos" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
+                        <p-table [value]="priceCollectionMap.orcamentos" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','fornecedor.nome','itens','quantidade']">
                             <ng-template pTemplate="caption">
                               <div class="table-header">
                                   <span class="p-input-icon-left">
@@ -178,3 +190,83 @@
 
     </div>
 </form>
+
+<p-dialog header="Meus Mapas de Coleta" [(visible)]="showSearchDialog" modal="modal"
+[style]="{width: '1200px', height: '700px'}">
+
+  <form>
+    <div class="p-grid p-col-12 p-fluid">
+
+      <div class="p-fluid p-col-2"  >
+        <label>Status</label>
+        <p-dropdown [options]="statusList" name="idStatus" [(ngModel)]="filter.idStatus" placeholder="Selecione">
+        </p-dropdown>
+      </div>
+
+      <div class="p-fluid p-col-2" >
+        <label>Registro Inicio</label>
+        <p-calendar name="dataRegistroInicial" dateFormat="dd/mm/yy" [maxDate]="filter.dataRegistroFinal"
+          [(ngModel)]="filter.dataRegistroInicial">
+        </p-calendar>
+      </div>
+
+      <div class="p-fluid p-col-2" >
+        <label>Registro Fim</label>
+        <p-calendar name="dataRegistroFinal" dateFormat="dd/mm/yy" [minDate]="filter.dataRegistroInicial"
+          [(ngModel)]="filter.dataRegistroFinal">
+        </p-calendar>
+      </div>
+
+      <div class="p-fluid p-col-2" >
+        <label>Fechamento Inicio</label>
+        <p-calendar name="dataEncerramentoInicial" dateFormat="dd/mm/yy" [maxDate]="filter.dataEncerramentoFinal"
+          [(ngModel)]="filter.dataEncerramentoInicial">
+        </p-calendar>
+      </div>
+
+      <div class="p-fluid p-col-2" >
+        <label>Fechamento Fim</label>
+        <p-calendar name="dataEncerramentoFinal" dateFormat="dd/mm/yy" [minDate]="filter.dataEncerramentoInicial"
+          [(ngModel)]="filter.dataEncerramentoFinal">
+        </p-calendar>
+      </div>
+
+      <div class="p-fluid p-col-2" >
+        <br>
+        <button pButton label="Pesquisar" (click)="consultList()"></button>
+      </div>
+
+      <div class="p-col-12">
+
+        <p-table #dt [value]="priceMapList" [paginator]="true" [rows]="5" [responsive]="true">
+  
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="p-col-2">Data Registro</th>
+              <th class="p-col-7">Descrição</th>
+              <th class="p-col-2">Status</th>
+              <th class="p-col-1"></th>
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-i>
+            <tr>
+              <td>{{i.dataRegistro | date: 'dd/MM/yy' }}</td>
+              <td>{{i.descricao}}</td>
+              <td>{{i.status.nome}}</td>
+              <td>
+                <button pButton label="Ir" (click)="selectMap(i.id)"></button>
+              </td>
+              
+            </tr>
+          </ng-template>
+  
+        </p-table>
+      </div>
+
+    </div>
+  </form>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  
+</p-dialog>

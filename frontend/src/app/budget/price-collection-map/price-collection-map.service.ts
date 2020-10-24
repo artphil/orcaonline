@@ -70,21 +70,18 @@ export class PriceCollectionMapService {
   }
 
   create(data: any): Promise<any> {
-
     return this.http.post<any>(this.apiPath, data, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
   update(data: any): Promise<any> {
-
     return this.http.put<any>(`${this.apiPath}/${data.id}`, data, this.httpOptions)
       .toPromise()
       .then(res => res);
   }
 
   delete(code: number): Promise<void> {
-
     return this.http.delete(`${this.apiPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(() => null);
@@ -102,4 +99,15 @@ export class PriceCollectionMapService {
       .then(res => res);
   }
 
+  closeMap(id: any): Promise<any> {
+    return this.http.put<any>(`${this.apiPath}/encerrar/${id}`, this.httpOptions)
+      .toPromise()
+      .then(res => res);
+  }
+
+  startPriceCollection(id: any): Promise<any> {
+    return this.http.put<any>(`${this.apiPath}/iniciarCotacao/${id}`, this.httpOptions)
+      .toPromise()
+      .then(res => res);
+  }
 }

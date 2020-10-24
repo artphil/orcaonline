@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { PriceCollectionMapModel, UnidadeMedidaModel } from '../budget.model';
+import { PriceCollectionMapModel, UnidadeMedidaModel, PriceMapFilterModel, StatusModel } from '../budget.model';
 import { PriceCollectionMapService } from './price-collection-map.service';
 import { ProductModel } from 'src/app/product/product.model';
 import { ProductService } from 'src/app/product/product/product.service';
 import { PriceCollectionMapItemModel } from '../budget.model';
-import { PriceMapItemsComponent } from '../price-map-items/price-map-items.component';
 import { BrickService } from 'src/app/product/brick/brick.service';
 import { BrickModel } from 'src/app/product/product.model';
+
+
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-price-collection-map',
@@ -25,11 +27,17 @@ export class PriceCollectionMapComponent implements OnInit {
   unidades = [];
   budgetsList = [];
 
+  showSearchDialog = false;
+  filter = new PriceMapFilterModel();
+  statusList: SelectItem[];
+  priceMapList = [];
+
   constructor(private route: ActivatedRoute,
     private messageService: MessageService,
     private priceCollectionMapServices: PriceCollectionMapService,
     private brickServices: BrickService,
-    private productServices: ProductService
+    private productServices: ProductService,
+    private priceMapService: PriceCollectionMapService
     ) { }
 
   ngOnInit(): void {
@@ -37,6 +45,7 @@ export class PriceCollectionMapComponent implements OnInit {
     this.getBrickList();
     this.getProductList();
     this.getUnidades();
+
 
     this.consult();
   }
@@ -103,18 +112,24 @@ export class PriceCollectionMapComponent implements OnInit {
   save(): void {
     
     if (!this.idPriceCollectionMap) {
-      this.priceCollectionMapServices.create(this.priceCollectionMap)
-      .then ((priceCollectionMap: PriceCollectionMapModel) => {
-        this.priceCollectionMap = priceCollectionMap;
-        this.messageService.add({ severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString()});
-        this.idPriceCollectionMap = priceCollectionMap.id;
-        console.log(priceCollectionMap);
+      if (this.priceCollectionMap.descricao) {
+        this.priceCollectionMapServices.create(this.priceCollectionMap)
+        .then ((priceCollectionMap: PriceCollectionMapModel) => {
+          this.priceCollectionMap = priceCollectionMap;
+          this.messageService.add({ severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString()});
+          this.idPriceCollectionMap = priceCollectionMap.id;
+          console.log(priceCollectionMap);
 
-      })
-      .catch((err) => {
-        const msg = err.error [0].mensagemUsuario;
-        this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg});
-      });
+        })
+        .catch((err) => {
+          const msg = err.error [0].mensagemUsuario;
+          this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg});
+        });
+      }
+      else
+      {
+        this.messageService.add({ severity: 'error', summary: 'Informe a descrição.', detail: ""});
+      }
     }
     else {
       this.priceCollectionMapServices.update(this.priceCollectionMap)
@@ -145,5 +160,85 @@ export class PriceCollectionMapComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg});
       });
   }
+
+  search(): void {
+    
+    this.statusList = StatusModel.getPriceCollectionMapStatus();
+    this.showSearchDialog = true;
+  }
+
+  consultList(): void {
+    this.priceMapService.getByFilter(this.filter)
+      .then((priceMaps: PriceCollectionMapModel[]) => {
+        if (priceMaps) {
+          priceMaps.forEach((priceMap) => {
+            priceMap.dataRegistro = new Date(priceMap.dataRegistro);
+          });
+          this.priceMapList = priceMaps;
+        } else {
+          this.priceMapList = [];
+        }
+      })
+      .catch(() => {
+        this.priceMapList = [];
+      });
+  }
+
+  selectMap(idMap): void {
+    this.priceMapService.getOne(idMap)
+      .then((map: PriceCollectionMapModel) => {
+        this.priceCollectionMap = map;
+        this.showSearchDialog = false;
+        this.idPriceCollectionMap = idMap;
+      })
+      .catch(() => {
+        this.messageService.add(
+            { severity: 'error', summary: 'Erro', detail: 'Não foi possivel carregar o mapa.' }
+        );
+      });
+  }
+  
+  closeMap(): void {
+    this.priceMapService.closeMap(this.idPriceCollectionMap)
+      .then((map: PriceCollectionMapModel) => {
+        this.priceCollectionMap = map;
+      })
+      .catch(() => {
+        this.messageService.add(
+            { severity: 'error', summary: 'Erro', detail: 'Não foi possivel encerrar o mapa.' }
+        );
+      });
+
+  }
+
+  deleteMap(): void {
+    this.priceMapService.delete(this.idPriceCollectionMap)
+      .then(() => {
+        this.ngOnInit();
+      })
+      .catch(() => {
+        this.messageService.add(
+            { severity: 'error', summary: 'Erro', detail: 'Não foi possivel deletar o mapa.' }
+        );
+      });
+  }
+
+  startPriceCollection(): void {
+    this.priceMapService.startPriceCollection(this.idPriceCollectionMap)
+      .then((map: PriceCollectionMapModel) => {
+        this.priceCollectionMap = map;
+      })
+      .catch(() => {
+        this.messageService.add(
+            { severity: 'error', summary: 'Erro', detail: 'Não foi possivel iniciar a cotação.' }
+        );
+      });
+  }
+
+  clear(): void {
+    this.idPriceCollectionMap = null;
+    this.priceCollectionMap = new PriceCollectionMapModel;
+  }
+
 }
 
