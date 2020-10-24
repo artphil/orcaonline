@@ -11,19 +11,8 @@
               <button pButton type="button" label = "Novo/Limpar" icon="pi pi-plus" class="p-button-outlined" (click) = "clear()"></button>
           </div>
 
-          <div class="p-col-2 p-fluid ">
+          <div class="p-col-6 p-fluid ">
             <br>
-
-          </div>
-
-          <div class="p-col-2 p-fluid ">
-            <br>
-              <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Excluir" icon="pi pi-trash" class="p-button-outlined p-button-danger " (click) = "deleteMap()"></button>
-          </div>
-
-          <div class="p-col-2 p-fluid ">
-            <br>
-              <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Iniciar Cotação" icon="pi pi-check" class="p-button-outlined " (click) = "startPriceCollection()"></button>
           </div>
 
           <div class="p-col-2 p-fluid ">
@@ -187,8 +176,22 @@
 
         </div>
 
+        <div class="p-col-2 p-fluid ">
+      
+          <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Iniciar Cotação" icon="pi pi-check" class="p-button-outlined " (click) = "startPriceCollection()"></button>
+      </div>
+  
+      <div class="p-col-8 p-fluid ">
+      </div>
+
+      <div class="p-col-2 p-fluid ">
+          <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Excluir" icon="pi pi-trash" class="p-button-outlined p-button-danger " (click) = "deleteMap()"></button>
+      </div>
 
     </div>
+
+   
+
 </form>
 
 <p-dialog header="Meus Mapas de Coleta" [(visible)]="showSearchDialog" modal="modal"
