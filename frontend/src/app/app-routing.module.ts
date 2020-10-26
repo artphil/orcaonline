@@ -70,12 +70,12 @@ const routes: Routes = [
     canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_USUARIO'] }
   },
 
-  { path: 'mapc', component: PriceCollectionMapComponent },
-  { path: 'mapc/:cod', component: PriceCollectionMapComponent },
+  { path: 'mapc', component: PriceCollectionMapComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_MAPACOLETA'] }  },
+  { path: 'mapc/:cod', component: PriceCollectionMapComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_MAPACOLETA'] }  },
 
-  { path: 'bdt/map-list', component: PriceMapListComponent },
-  { path: 'bdt', component: BudgetComponent },
-  { path: 'bdt/:cod', component: BudgetComponent }
+  { path: 'bdt/map-list', component: PriceMapListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] } },
+  { path: 'bdt', component: BudgetComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] }  },
+  { path: 'bdt/:cod', component: BudgetComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] }  }
 
 ];
 
