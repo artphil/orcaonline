@@ -55,7 +55,7 @@
           <th class="p-col-1">Classe</th>
           <th class="p-col-1">Familia</th>
           <th class="p-col-1">Segmento</th>
-          <th class="p-col-1"></th>
+          <th class="p-col-1"  *ngIf="hasPermission()"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
@@ -69,7 +69,7 @@
           <td>{{product.gtin?.brick?.classe?.nome}}</td>
           <td>{{product.gtin?.brick?.classe?.familia?.nome}}</td>
           <td>{{product.gtin?.brick?.classe?.familia?.segmento?.nome}}</td>
-          <td>
+          <td *ngIf="hasPermission()">
             <p-button icon="pi pi-pencil" (onClick)="editProduct(product.id)"></p-button>
           </td>
         </tr>

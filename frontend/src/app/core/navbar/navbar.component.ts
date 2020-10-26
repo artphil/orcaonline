@@ -109,18 +109,19 @@ export class NavbarComponent implements OnInit {
     items: [
 
       {
-        label: 'Orçamentos',
-        icon: 'pi pi-fw pi-plus',
-        routerLink: '/bdt',
+        label: 'Lista de Mapas ',
+        icon: 'pi pi-fw pi-align-justify',
+        routerLink: '/bdt/map-list'
+
       }
     ]
   };
 
 
   orcCadastro: MenuItem = {
-    label: 'Lista de Mapas ',
-    icon: 'pi pi-fw pi-align-justify',
-    routerLink: '/bdt/map-list'
+    label: 'Orçamentos',
+    icon: 'pi pi-fw pi-plus',
+    routerLink: '/bdt'
   };
 
   mapaColeta: MenuItem = {
@@ -149,21 +150,21 @@ export class NavbarComponent implements OnInit {
         this.items.push(this.users);
       }
       if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
-        this.orcamento.items.push(this.orcCadastro);
+        // this.orcamento.items.push(this.orcCadastro);
+        this.items.push(this.orcamento);
       }
-      if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
+      if (this.auth.hasPermission('ROLE_CADASTRAR_MAPACOLETA')) {
         this.items.push(this.mapaColeta);
       }
-      this.items.push(this.orcamento);
     }
 
   }
 
   getUser(): void {
     this.userService.getUser(this.auth.jwtPayload.user_name)
-    .then( (user: UserModel) => {
-      this.user = user;
-    });
+      .then((user: UserModel) => {
+        this.user = user;
+      });
   }
 
   logout(): void {

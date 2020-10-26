@@ -10,6 +10,7 @@ import { SegmentService } from '../segment/segment.service';
 import { FamilyService } from '../family/family.service';
 import { ClassService } from '../class/class.service';
 import { BrickService } from '../brick/brick.service';
+import { AuthService } from 'src/app/security/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -27,6 +28,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private auth: AuthService,
     private productService: ProductService,
     private segmentService: SegmentService,
     private familyService: FamilyService,
@@ -143,6 +145,10 @@ export class ProductListComponent implements OnInit {
 
   editProduct(id: string): void {
     this.router.navigateByUrl('/pdt/' + id);
+  }
+
+  hasPermission(): boolean {
+    return this.auth.hasPermission('ROLE_EDITAR_PRODUTO');
   }
 
 }

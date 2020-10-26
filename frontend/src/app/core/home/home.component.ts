@@ -39,10 +39,10 @@ export class HomeComponent implements OnInit {
   }
 
   hasBudgets(): boolean {
-    return true;
+    return this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO');
   }
 
   hasProposals(): boolean {
-    return true;
+    return this.auth.hasPermission('ROLE_CADASTRAR_MAPACOLETA');
   }
 }

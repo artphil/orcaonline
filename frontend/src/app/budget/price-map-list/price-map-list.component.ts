@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SelectItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+import { AuthService } from 'src/app/security/auth.service';
 
 import { BudgetItemModel, BudgetModel, PriceCollectionMapItemModel, PriceCollectionMapModel, PriceMapFilterModel, StatusModel } from '../budget.model';
 import { BudgetComponent, BudgetDialogComponent } from '../budget/budget.component';
@@ -23,9 +25,14 @@ export class PriceMapListComponent implements OnInit {
   statusList: SelectItem[];
   productList: SelectItem[];
 
+  isBuyer: boolean;
+  isSeller: boolean;
+
   @Input() showAll = true;
 
   constructor(
+    private router: Router,
+    private auth: AuthService,
     private dialogService: DialogService,
     private messageService: MessageService,
     private priceMapService: PriceCollectionMapService,
@@ -36,6 +43,9 @@ export class PriceMapListComponent implements OnInit {
     this.consult();
 
     this.statusList = StatusModel.selectItems();
+
+    this.isBuyer = this.auth.hasPermission('ROLE_CADASTRAR_MAPACOLETA');
+    this.isSeller = this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO');
   }
 
   consult(): void {
@@ -77,6 +87,10 @@ export class PriceMapListComponent implements OnInit {
         );
       });
 
+  }
+
+  editMap(mapId: number): void {
+    this.router.navigate([`mapc/${mapId}`]);
   }
 
 }

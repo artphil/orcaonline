@@ -58,7 +58,8 @@
             <th class="p-col">Comprador</th>
             <th class="p-col-2">Estado</th>
             <th class="p-col-1">Ver Itens</th>
-            <th class="p-col-2">Gerar Orçamento</th>
+            <th class="p-col-2" *ngIf="isBuyer">Editar</th>
+            <th class="p-col-2" *ngIf="isSeller">Gerar Orçamento</th>
           </tr>
         </ng-template>
 
@@ -70,8 +71,11 @@
             <td>
               <button pButton label="Ver" (click)="showItems(i.id, i.itens)"></button>
             </td>
-            <td>
+            <td *ngIf="isSeller">
               <button pButton label="Gerar" (click)="createBudget(i.id)"></button>
+            </td>
+            <td *ngIf="isBuyer">
+              <button pButton label="Editar" (click)="editMap(i.id)"></button>
             </td>
           </tr>
         </ng-template>
