@@ -103,10 +103,12 @@ export class PriceCollectionMapComponent implements OnInit {
       this.priceCollectionMapServices.getOne(this.idPriceCollectionMap)
         .then((priceCollectionMap: PriceCollectionMapModel) => {
           this.priceCollectionMap = priceCollectionMap ? priceCollectionMap : new PriceCollectionMapModel();
+          this.priceCollectionMap.dataRegistro = new Date(priceCollectionMap.dataRegistro);
+
         })
         .catch(() => {
           this.priceCollectionMap = new PriceCollectionMapModel();
-        })
+        });
     }
   }
 
@@ -193,6 +195,7 @@ export class PriceCollectionMapComponent implements OnInit {
   selectMap(idMap): void {
     this.priceMapService.getOne(idMap)
       .then((map: PriceCollectionMapModel) => {
+        map.dataRegistro = new Date(map.dataRegistro);
         this.priceCollectionMap = map;
         this.showSearchDialog = false;
         this.idPriceCollectionMap = idMap;
