@@ -10,8 +10,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TabViewModule } from 'primeng/tabview';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
-import {DialogModule} from 'primeng/dialog';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
 
 
 import { BudgetComponent, BudgetDialogComponent } from './budget/budget.component';
@@ -49,6 +50,7 @@ import { BudgetItemsComponent } from './budget-items/budget-items.component';
     DropdownModule,
     TabViewModule,
     OverlayPanelModule,
+    TooltipModule,
     DialogModule
   ],
   exports: [

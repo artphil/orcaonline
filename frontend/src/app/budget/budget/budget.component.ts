@@ -92,18 +92,17 @@ export class BudgetComponent implements OnInit {
   }
 
   send(): void {
-    this.savePopup.emit('value');
 
     if (this.budget.status.nome === 'Aberto') {
       this.budgetServices.send(this.budget.id)
-        .then((budget: BudgetModel) => {
-          this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
-          this.budget = budget;
-        })
-        .catch((err) => {
-          const msg = err.error[0].mensagemUsuario;
-          this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
-        });
+      .then((budget: BudgetModel) => {
+        this.messageService.add({ severity: 'success', summary: 'Alteração Realizada com Sucesso.', detail: budget.id.toString() });
+        this.budget = budget;
+      })
+      .catch((err) => {
+        const msg = err.error[0].mensagemUsuario;
+        this.messageService.add({ severity: 'error', summary: 'Falha ao Alterar Orçamento.', detail: msg });
+      });
     } else {
       this.messageService.add({
         severity: 'error',
@@ -111,6 +110,7 @@ export class BudgetComponent implements OnInit {
         detail: 'Este orçamento não está apto para ser enviado.'
       });
     }
+    this.savePopup.emit('value');
 
   }
 

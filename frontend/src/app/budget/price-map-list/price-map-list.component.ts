@@ -49,7 +49,7 @@ export class PriceMapListComponent implements OnInit {
   }
 
   consult(): void {
-    this.priceMapService.getByFilter(this.filter)
+    this.priceMapService.getByFilterRunning(this.filter)
       .then((priceMaps: PriceCollectionMapModel[]) => {
         if (priceMaps) {
           priceMaps.forEach((priceMap) => {
@@ -76,10 +76,12 @@ export class PriceMapListComponent implements OnInit {
     this.budgetService.create(idMap)
       .then((budget: BudgetModel) => {
 
-        const ref = this.dialogService.open(BudgetDialogComponent, {
-          width: '80%',
-          data: { budget }
-        });
+        this.router.navigate([`/bdt/${budget.id}`])
+
+        // const ref = this.dialogService.open(BudgetDialogComponent, {
+        //   width: '80%',
+        //   data: { budget }
+        // });
       })
       .catch(() => {
         this.messageService.add(

@@ -69,6 +69,30 @@ export class PriceCollectionMapService {
       });
   }
 
+  getByFilterRunning(data: any): Promise<any> {
+    let params = new HttpParams();
+
+    if (data.dataRegistroInicial) {
+      params = params.append('dataRegistroInicial', data.dataRegistroInicial.toLocaleDateString());
+    }
+    if (data.dataRegistroFinal) {
+      params = params.append('dataRegistroFinal', data.dataRegistroFinal.toLocaleDateString());
+    }
+    if (data.dataEnvioInicial) {
+      params = params.append('dataEnvioInicial', data.dataEnvioInicial.toLocaleDateString());
+    }
+    if (data.dataEnvioFinal) {
+      params = params.append('dataEnvioFinal', data.dataEnvioFinal.toLocaleDateString());
+    }
+
+    return this.http.get<any>(`${this.apiPath}/filtrarEmAndamento`, { params, headers: this.headers } )
+      .toPromise()
+      .then(res => res)
+      .catch(erro => {
+        this.errorHandler.handle(erro);
+      });
+  }
+
   create(data: any): Promise<any> {
     return this.http.post<any>(this.apiPath, data, this.httpOptions)
       .toPromise()

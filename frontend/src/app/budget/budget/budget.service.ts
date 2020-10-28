@@ -101,7 +101,7 @@ export class BudgetService {
     return this.http.put<any>(`${this.apiPath}/enviar/${idBudget}`, this.httpOptions)
       .toPromise()
       .then(res => res)
-      .catch(erro => {
+      .catch((erro: Response) => {
         this.errorHandler.handle(erro);
       });
   }

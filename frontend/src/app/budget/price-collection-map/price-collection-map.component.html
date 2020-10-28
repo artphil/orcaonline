@@ -155,8 +155,8 @@
                               <tr>
                                 <td>{{t.id}}</td>
                                 <td>{{t.fornecedor.nome}}</td>
-                                <td>{{t.itens}}</td>
-                                <td>{{t.quantidade + " " + t.unidade}}</td>
+                                <td>{{t.totalAVista}}</td>
+                                <td>{{t.totalAPrazo}}</td>
                                 <td>
                                   <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>
                                   <a pButton icon="pi pi-trash" (click)="removeUser(t.id)" pTooltip="Excluir" tooltipPosition="top"
@@ -177,10 +177,10 @@
         </div>
 
         <div class="p-col-2 p-fluid ">
-      
+
           <button pButton type="button" *ngIf= "priceCollectionMap.status.id == 1 " label = "Iniciar Cotação" icon="pi pi-check" class="p-button-outlined " (click) = "startPriceCollection()"></button>
       </div>
-  
+
       <div class="p-col-8 p-fluid ">
       </div>
 
@@ -190,7 +190,7 @@
 
     </div>
 
-   
+
 
 </form>
 

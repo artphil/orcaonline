@@ -27,6 +27,7 @@ import { BudgetComponent } from './budget/budget/budget.component';
 import { AuthGuard } from './security/auth.guard';
 import { TypeUserPermissionComponent } from './person/type-user-permission/type-user-permission.component';
 import { PriceMapListComponent } from './budget/price-map-list/price-map-list.component';
+import { BudgetListComponent } from './budget/budget-list/budget-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -74,7 +75,7 @@ const routes: Routes = [
   { path: 'mapc/:cod', component: PriceCollectionMapComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_MAPACOLETA'] }  },
 
   { path: 'bdt/map-list', component: PriceMapListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] } },
-  { path: 'bdt', component: BudgetComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] }  },
+  { path: 'bdt/list', component: BudgetListComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] }  },
   { path: 'bdt/:cod', component: BudgetComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_CADASTRAR_ORCAMENTO'] }  }
 
 ];

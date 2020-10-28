@@ -1,0 +1,9 @@
+.back-img {
+  padding: 10px;
+  background-image: url(/assets/images/background2.jpg);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 600px;
+  z-index: 0;
+}
