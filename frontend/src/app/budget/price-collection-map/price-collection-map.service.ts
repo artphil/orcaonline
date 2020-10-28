@@ -10,6 +10,7 @@ export class PriceCollectionMapService {
 
   //apiPath = 'http://45.80.152.3:8080/familias';
   apiPath: string;
+  apiItemPath: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -26,6 +27,7 @@ export class PriceCollectionMapService {
     private errorHandler: ErrorHandlerService
     ) {
     this.apiPath = `${environment.apiUrl}/mapas`;
+    this.apiItemPath = `${environment.apiUrl}/itemmapas`;
   }
 
   getOne(code: number = null): Promise<any> {
@@ -123,6 +125,12 @@ export class PriceCollectionMapService {
       .then(res => res);
   }
 
+  deleteItem(code: number): Promise<any> {
+    return this.http.delete<any>(`${this.apiItemPath}/${code}`, this.httpOptions)
+      .toPromise()
+      .then(res => res);
+  }
+
   closeMap(id: any): Promise<any> {
     return this.http.put<any>(`${this.apiPath}/encerrar/${id}`, this.httpOptions)
       .toPromise()
@@ -134,4 +142,5 @@ export class PriceCollectionMapService {
       .toPromise()
       .then(res => res);
   }
+
 }

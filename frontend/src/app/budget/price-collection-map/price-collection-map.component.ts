@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { PriceCollectionMapModel, UnidadeMedidaModel, PriceMapFilterModel, StatusModel } from '../budget.model';
+import { PriceCollectionMapModel, UnidadeMedidaModel, PriceMapFilterModel, StatusModel, BudgetItemModel } from '../budget.model';
 import { PriceCollectionMapService } from './price-collection-map.service';
 import { ProductModel } from 'src/app/product/product.model';
 import { ProductService } from 'src/app/product/product/product.service';
@@ -11,6 +11,7 @@ import { BrickModel } from 'src/app/product/product.model';
 
 
 import { DialogService } from 'primeng/dynamicdialog';
+import { BudgetItemsComponent } from '../budget-items/budget-items.component';
 
 @Component({
   selector: 'app-price-collection-map',
@@ -34,6 +35,7 @@ export class PriceCollectionMapComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private messageService: MessageService,
+    private dialogService: DialogService,
     private priceCollectionMapServices: PriceCollectionMapService,
     private brickServices: BrickService,
     private productServices: ProductService,
@@ -152,7 +154,9 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   addItem(): void {
-    this.save();
+    if (!this.itemAux.id) {
+      this.save();
+    }
     this.itemAux.mapa.id = this.priceCollectionMap.id;
     this.priceCollectionMapServices.addItem(this.itemAux)
       .then((priceCollectionMap: PriceCollectionMapModel) => {
@@ -162,7 +166,6 @@ export class PriceCollectionMapComponent implements OnInit {
         );
         this.idPriceCollectionMap = priceCollectionMap.id;
         console.log(priceCollectionMap);
-
       })
       .catch((err) => {
         const msg = err.error[0].mensagemUsuario;
@@ -170,16 +173,21 @@ export class PriceCollectionMapComponent implements OnInit {
       });
   }
 
-  edit(): void {
-
+  editItemMap(item: PriceCollectionMapItemModel): void {
+    this.itemAux = item;
   }
 
-  remove(): void {
-
+  removeItemMap(idItem: number): void {
+    this.priceCollectionMapServices.deleteItem(idItem)
+      .then()
+      .catch(() => {
+        this.messageService.add(
+          { severity: 'error', summary: 'Erro', detail: 'Não foi possivel deletar o item.' }
+        );
+      });
   }
 
   search(): void {
-
     this.statusList = StatusModel.getPriceCollectionMapStatus();
     this.showSearchDialog = true;
   }
@@ -232,7 +240,7 @@ export class PriceCollectionMapComponent implements OnInit {
   deleteMap(): void {
     this.priceMapService.delete(this.idPriceCollectionMap)
       .then(() => {
-        this.ngOnInit();
+        this.consult();
       })
       .catch(() => {
         this.messageService.add(
@@ -255,7 +263,14 @@ export class PriceCollectionMapComponent implements OnInit {
 
   clear(): void {
     this.idPriceCollectionMap = null;
-    this.priceCollectionMap = new PriceCollectionMapModel;
+    this.priceCollectionMap = new PriceCollectionMapModel();
+  }
+
+  showItems(id: number, items: BudgetItemModel[]): void {
+    const ref = this.dialogService.open(BudgetItemsComponent, {
+      width: '70%',
+      data: { id, items }
+    });
   }
 
 }
