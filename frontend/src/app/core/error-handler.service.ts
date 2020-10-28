@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
@@ -17,13 +18,14 @@ export class ErrorHandlerService {
     } else {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
 
-      if (errorResponse instanceof Response && errorResponse.status >= 400 && errorResponse.status <= 499) {
+      // if (errorResponse instanceof Response && errorResponse.status >= 400 && errorResponse.status <= 499) {
         let errors: any;
         try {
-          errors = errorResponse.json();
+          errors = errorResponse.error;
+
           msg = errors[0].mensagemUsuario;
         } catch (e) { }
-      }
+      // }
       console.log('Erro na requisição:', errorResponse);
     }
 

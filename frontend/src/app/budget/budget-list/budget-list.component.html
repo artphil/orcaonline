@@ -57,7 +57,7 @@
             <th class="p-col-2">Data</th>
             <th class="p-col">Fornecedor</th>
             <th class="p-col-2">Estado</th>
-            <th class="p-col-1">Ver Itens</th>
+            <th class="p-col-2"></th>
           </tr>
         </ng-template>
 
@@ -66,8 +66,9 @@
             <td>{{i.dataRegistro | date: 'dd/MM/yy' }}</td>
             <td>{{i.fornecedor?.nome}}</td>
             <td>{{i.status.nome}}</td>
-            <td>
-              <button pButton label="Ver" (click)="showItems(i.id, i.itens)"></button>
+            <td class="buttonGroup">
+              <button pButton icon="pi pi-eye" (click)="showItems(i.id, i.itens)" pTooltip="Ver itens" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-pencil" (click)="edit(i.id)" pTooltip="Editar" tooltipPosition="top"></button>
             </td>
           </tr>
         </ng-template>

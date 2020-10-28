@@ -28,6 +28,10 @@ label {
   margin-right: 10px;
 }
 
+.buttonGroup button {
+  margin-right: 10px;
+}
+
 .inputItem-first {
   padding-right: 0;
 }

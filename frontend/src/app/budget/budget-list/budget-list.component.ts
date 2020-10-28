@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BudgetItemsComponent } from '../budget-items/budget-items.component';
@@ -22,6 +23,7 @@ export class BudgetListComponent implements OnInit {
   @Input() showAll = true;
 
   constructor(
+    private router: Router,
     private dialogService: DialogService,
     private budgetService: BudgetService
   ) { }
@@ -45,6 +47,10 @@ export class BudgetListComponent implements OnInit {
       .catch(() => {
         this.budgetList = [];
       });
+  }
+
+  edit(id: number): void {
+    this.router.navigate([`/bdt/${id}`]);
   }
 
   showItems(id: number, items: BudgetItemModel[]): void {

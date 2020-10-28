@@ -119,9 +119,9 @@ export class NavbarComponent implements OnInit {
 
 
   orcCadastro: MenuItem = {
-    label: 'Orçamentos',
-    icon: 'pi pi-fw pi-plus',
-    routerLink: '/bdt'
+    label: 'Meus Orçamentos',
+    icon: 'pi pi-fw pi-align-justify',
+    routerLink: '/bdt/list'
   };
 
   mapaColeta: MenuItem = {
@@ -150,7 +150,7 @@ export class NavbarComponent implements OnInit {
         this.items.push(this.users);
       }
       if (this.auth.hasPermission('ROLE_CADASTRAR_ORCAMENTO')) {
-        // this.orcamento.items.push(this.orcCadastro);
+        this.orcamento.items.push(this.orcCadastro);
         this.items.push(this.orcamento);
       }
       if (this.auth.hasPermission('ROLE_CADASTRAR_MAPACOLETA')) {
