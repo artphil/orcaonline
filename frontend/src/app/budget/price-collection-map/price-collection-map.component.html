@@ -117,10 +117,9 @@
                                 <td>{{t.produto.nome}}</td>
                                 <td>{{t.quantidade + " " + t.unidade}}</td>
                                 <td>
-                                  <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>
-                                  <a pButton icon="pi pi-trash" (click)="removeUser(t.id)" pTooltip="Excluir" tooltipPosition="top"
+                                  <a pButton icon="pi pi-pencil" (click)="editItemMap(t)" pTooltip="Editar" tooltipPosition="top"></a>
+                                  <a pButton icon="pi pi-trash" (click)="removeItemMap(t.id)" pTooltip="Excluir" tooltipPosition="top"
                                     style="margin-left: 10px"></a>
-
                                 </td>
                               </tr>
                             </ng-template>
@@ -158,8 +157,8 @@
                                 <td>{{t.totalAVista}}</td>
                                 <td>{{t.totalAPrazo}}</td>
                                 <td>
-                                  <a pButton icon="pi pi-pencil" (click)="editUser(t.id)" pTooltip="Editar" tooltipPosition="top"></a>
-                                  <a pButton icon="pi pi-trash" (click)="removeUser(t.id)" pTooltip="Excluir" tooltipPosition="top"
+                                  <a pButton icon="pi pi-eye" (click)="showItems(t.id, t)" pTooltip="Editar" tooltipPosition="top"></a>
+                                  <a pButton icon="pi pi-check" (click)="checkBudget(t.id)" pTooltip="Excluir" tooltipPosition="top"
                                     style="margin-left: 10px"></a>
 
                                 </td>
