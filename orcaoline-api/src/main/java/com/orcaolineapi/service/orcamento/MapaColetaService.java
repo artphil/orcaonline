@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.orcaolineapi.modelo.orcamento.ItemMapa;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
 import com.orcaolineapi.modelo.orcamento.Status;
+import com.orcaolineapi.repository.orcamento.ItemMapaRepository;
 import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
 import com.orcaolineapi.repository.orcamento.filter.MapaColetaFilter;
 import com.orcaolineapi.service.AbstractService;
@@ -17,6 +18,8 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 
 	private @Autowired MapaColetaRepository repository;
 
+	private @Autowired ItemMapaRepository itemMapaRepository;
+	
 	@Override
 	public MapaColetaRepository getRepository() {
 		return repository;
@@ -34,6 +37,10 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 	}
 	
 	public MapaColeta addItem(ItemMapa item) {
+		if(item.getId() != null) {
+			itemMapaRepository.save(item);
+			return repository.findById(item.getMapa().getId()).get();
+		}
 		if(item.getMapa().getId() != null) {
 			MapaColeta mapaSalvo = repository.findById(item.getMapa().getId()).get();
 			mapaSalvo.getItens().add(item);
