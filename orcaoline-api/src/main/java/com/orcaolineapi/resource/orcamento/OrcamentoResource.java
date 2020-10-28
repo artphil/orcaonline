@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orcaolineapi.event.RecursoCriadoEvent;
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.orcamento.ItemOrcamento;
 import com.orcaolineapi.modelo.orcamento.Orcamento;
 import com.orcaolineapi.repository.orcamento.OrcamentoRepository;
@@ -46,7 +47,7 @@ public class OrcamentoResource extends AbstractResource<Orcamento> {
 	
 	@CrossOrigin
 	@PostMapping("create/{idMapa}")
-	public ResponseEntity<Orcamento> create(@PathVariable Long idMapa, HttpServletResponse response) {
+	public ResponseEntity<Orcamento> create(@PathVariable Long idMapa, HttpServletResponse response) throws LogicException {
 		Orcamento orcamento = getService().create(idMapa);
 		getPublisher().publishEvent(new RecursoCriadoEvent(this, response, orcamento.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(orcamento);

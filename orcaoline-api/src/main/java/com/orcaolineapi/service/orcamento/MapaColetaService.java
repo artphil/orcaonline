@@ -81,6 +81,13 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 	public List<MapaColeta> filtrar(MapaColetaFilter filtro){
 		filtro.setIdUsuario(getUsuarioLogado().getId());
 		return repository.filtrar(filtro);
+		
+	}
+	
+	public List<MapaColeta> filtrarEmAndamento(MapaColetaFilter filtro){
+		filtro.setIdStatus(6L);
+		filtro.setIdUsuario(null);
+		return repository.filtrar(filtro);
 	}
 	
 }

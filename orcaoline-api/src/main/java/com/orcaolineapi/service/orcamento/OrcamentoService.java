@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.orcamento.ItemOrcamento;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
 import com.orcaolineapi.modelo.orcamento.Orcamento;
@@ -32,7 +33,7 @@ public class OrcamentoService extends AbstractService<Orcamento> {
 		return repository;
 	}
 	
-	public Orcamento create(Long idMapa) {
+	public Orcamento create(Long idMapa) throws LogicException {
 		MapaColeta mapa = mapaRepository.findById(idMapa).get();
 		return repository.save(mapa.criaNovoOrcamento(getUsuarioLogado()));
 	}
