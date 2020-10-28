@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
 @Entity
@@ -161,14 +162,15 @@ public class MapaColeta extends AbstractModel {
 		return list;
 	}
 	
-	public Orcamento criaNovoOrcamento(Usuario fornecedor) {
-		if(isOpen()) {
+	public Orcamento criaNovoOrcamento(Usuario fornecedor) throws LogicException {
+		if(isRunning()) {
 			Orcamento orcamento = new Orcamento(fornecedor);
 			orcamento.setMapa(this);
 			addItemOrcamento(orcamento);
 			return orcamento;
+		} else {
+			throw new LogicException("Só é possível criar orcamento de mapa em andamento!");
 		}
-		return null;
 	}
 	
 	private void addItemOrcamento(Orcamento orcamento) {

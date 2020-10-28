@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.orcaolineapi.modelo.LogicException;
+
 @ControllerAdvice
 public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -65,7 +67,15 @@ public class OrcaOnlineExceptionHandler extends ResponseEntityExceptionHandler {
 			List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvesor));
 			return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 		}
-	
+		
+		// Exceções de lógica de negócio.
+		@ExceptionHandler({LogicException.class })
+		public ResponseEntity<Object> logicExeption(RuntimeException ex, WebRequest request) {
+			String mensagemUsuario = ex.getMessage();
+			String mensagemDesenvolvesor = ex.toString();
+			List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvesor));
+			return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		}
 	
 	private List<Erro> criaListaDeErros(BindingResult bindingResult) {
 		List<Erro> erros = new ArrayList<>();

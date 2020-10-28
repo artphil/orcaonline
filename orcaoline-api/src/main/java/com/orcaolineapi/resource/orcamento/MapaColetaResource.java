@@ -94,4 +94,11 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 		return service.filtrar(filtro);
 	}
 	
+	@CrossOrigin
+	@GetMapping("filtrarEmAndamento")
+	public List<MapaColeta> filtrarEmAndamento(MapaColetaFilter filtro){
+		return service.filtrarEmAndamento(filtro);
+	}
+	
+	
 }

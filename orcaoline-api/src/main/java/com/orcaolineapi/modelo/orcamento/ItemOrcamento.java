@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.produto.Produto;
 
 @Entity
@@ -102,4 +103,11 @@ public class ItemOrcamento extends AbstractModel {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
+	public void checkValores() {
+		if(getValorUnitario() == null || getValorUnitarioPrazo() == null) {
+			throw new LogicException("É preciso informar valores para todos os itens!");
+		}
+	}
+	
 }

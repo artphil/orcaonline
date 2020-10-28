@@ -18,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.usuario.Usuario;
 
 @Entity
@@ -163,9 +164,18 @@ public class Orcamento extends AbstractModel {
 	
 	public void enviar() {
 		if(isOpen()) {
+			checkItems();
 			setStatus(Status.EM_ANDAMENTO);
 			setDataEnvio(LocalDate.now());
 		}
+		else {
+			throw new LogicException("O orçamento não está aberto!");
+		}
 	}
 
+	private void checkItems() {
+		for(ItemOrcamento i : getItens()) {
+			i.checkValores();
+		}
+	}
 }
