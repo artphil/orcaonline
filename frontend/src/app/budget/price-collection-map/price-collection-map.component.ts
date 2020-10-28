@@ -289,7 +289,7 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   checkBudget(idBudget: number): void {
-    this.priceMapService.aproveBudget(this.idPriceCollectionMap, idBudget)
+    this.priceMapService.aproveBudget(idBudget)
     .then((map: PriceCollectionMapModel) => {
       this.priceCollectionMap = map;
     })
