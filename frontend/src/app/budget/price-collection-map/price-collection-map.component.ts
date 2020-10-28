@@ -158,8 +158,8 @@ export class PriceCollectionMapComponent implements OnInit {
   addItem(): void {
     if (!this.itemAux.id) {
       this.save();
+      this.itemAux.mapa.id = this.priceCollectionMap.id;
     }
-    this.itemAux.mapa.id = this.priceCollectionMap.id;
     this.priceCollectionMapServices.addItem(this.itemAux)
       .then((priceCollectionMap: PriceCollectionMapModel) => {
         this.priceCollectionMap = priceCollectionMap;
@@ -176,7 +176,13 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   editItemMap(item: PriceCollectionMapItemModel): void {
-    this.itemAux = item;
+    this.itemAux = new PriceCollectionMapItemModel();
+    this.itemAux.mapa.id = this.idPriceCollectionMap;
+    this.itemAux.id = item.id;
+    this.itemAux.produto.id = item.produto.id;
+    this.itemAux.brick.id = item.brick.id;
+    this.itemAux.quantidade = item.quantidade;
+    this.itemAux.unidade = item.unidade;
   }
 
   clearItemMap(): void {
@@ -279,6 +285,18 @@ export class PriceCollectionMapComponent implements OnInit {
     const ref = this.dialogService.open(BudgetItemsComponent, {
       width: '70%',
       data: { id, items }
+    });
+  }
+
+  checkBudget(idBudget: number): void {
+    this.priceMapService.aproveBudget(this.idPriceCollectionMap, idBudget)
+    .then((map: PriceCollectionMapModel) => {
+      this.priceCollectionMap = map;
+    })
+    .catch(() => {
+      this.messageService.add(
+        { severity: 'error', summary: 'Erro', detail: 'Não foi possivel aprovar o Orçamento.'}
+      );
     });
   }
 

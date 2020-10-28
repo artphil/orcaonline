@@ -143,4 +143,15 @@ export class PriceCollectionMapService {
       .then(res => res);
   }
 
+  aproveBudget(idMap: number, idBudget: number): Promise<any> {
+    let params = new HttpParams();
+
+    // params = params.append('id', idMap.toString());
+    params = params.append('idOrcamento', idBudget.toString());
+
+    return this.http.put<any>(`${this.apiPath}/aprovarOrcamento/${idMap}`,  { params, headers: this.headers })
+      .toPromise()
+      .then(res => res);
+  }
+
 }
