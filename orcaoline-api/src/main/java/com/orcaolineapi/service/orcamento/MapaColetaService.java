@@ -37,12 +37,14 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 	}
 	
 	public MapaColeta addItem(ItemMapa item) {
+		item.check();
 		if(item.getId() != null) {
 			itemMapaRepository.save(item);
 			return repository.findById(item.getMapa().getId()).get();
 		}
 		if(item.getMapa().getId() != null) {
 			MapaColeta mapaSalvo = repository.findById(item.getMapa().getId()).get();
+			item.setMapa(mapaSalvo);
 			mapaSalvo.getItens().add(item);
 			return repository.save(mapaSalvo);
 		}

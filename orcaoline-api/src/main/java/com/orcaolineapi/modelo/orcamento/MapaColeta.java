@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -145,10 +146,12 @@ public class MapaColeta extends AbstractModel {
 		this.orcamentos = orcamentos;
 	}
 	
+	@Transient
 	public Boolean isRunning() {
 		return getStatus().equals(Status.EM_ANDAMENTO);
 	}
 	
+	@Transient
 	public Boolean isOpen() {
 		return getStatus().equals(Status.ABERTO);
 	}

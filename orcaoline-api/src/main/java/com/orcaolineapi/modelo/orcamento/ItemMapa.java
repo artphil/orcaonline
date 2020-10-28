@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.orcaolineapi.modelo.AbstractModel;
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.produto.Brick;
 import com.orcaolineapi.modelo.produto.Produto;
 
@@ -104,4 +105,14 @@ public class ItemMapa extends AbstractModel {
 		this.produto = produto;
 	}
 
+	public void check() {
+		if(getProduto() != null && getProduto().getId() == null) {
+			setProduto(null);
+		}
+		if(getBrick() == null || getBrick().getId() == null) {
+			throw new LogicException("É preciso informar o BRICK");
+		}
+	}
+	
+	
 }
