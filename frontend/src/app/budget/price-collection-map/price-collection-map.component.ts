@@ -48,6 +48,7 @@ export class PriceCollectionMapComponent implements OnInit {
     this.getBrickList();
     this.getProductList();
     this.getUnidades();
+    this.consultList()
   }
 
   getBrickList(): void {
@@ -72,7 +73,7 @@ export class PriceCollectionMapComponent implements OnInit {
         products.forEach(f => {
           this.productList.push({ label: f.nome, value: f.id });
         });
-        console.log( this.productList);
+        console.log(this.productList);
       })
       .catch(() => {
         this.productList.push(
@@ -167,6 +168,14 @@ export class PriceCollectionMapComponent implements OnInit {
         const msg = err.error[0].mensagemUsuario;
         this.messageService.add({ severity: 'error', summary: 'Falha ao adicionar Mapa de Coleta', detail: msg });
       });
+  }
+
+  edit(): void {
+
+  }
+
+  remove(): void {
+
   }
 
   search(): void {
