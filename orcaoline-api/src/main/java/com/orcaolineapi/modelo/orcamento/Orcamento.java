@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -56,6 +57,12 @@ public class Orcamento extends AbstractModel {
 	@OneToMany(mappedBy = "orcamento", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemOrcamento> itens;
 
+	@Transient
+	private Double totalAVista;
+	
+	@Transient
+	private Double totalAPrazo;
+	
 	public Orcamento() {
 		this.dataRegistro = LocalDate.now();
 		this.status = Status.ABERTO;
@@ -177,5 +184,47 @@ public class Orcamento extends AbstractModel {
 		for(ItemOrcamento i : getItens()) {
 			i.checkValores();
 		}
+	}
+	
+	public void atualizaTotais() {
+		if(getItens() != null) {
+			Double totalAVista = getItens().stream().mapToDouble(i -> i.getValorUnitario() == null ? 0.0 : i.getValorUnitario()).sum();
+			Double totalAPrazo = getItens().stream().mapToDouble(i -> i.getValorUnitarioPrazo() == null ? 0.0 : i.getValorUnitarioPrazo()).sum();
+			setTotalAVista(totalAVista);
+			setTotalAPrazo(totalAPrazo);
+		}
+	}
+	
+	public void atualizaTotalAprazo() {
+		if(getItens() != null) {
+			Double totalAPrazo = getItens().stream().mapToDouble(i -> i.getValorUnitarioPrazo() == null ? 0.0 : i.getValorUnitarioPrazo()).sum();
+			setTotalAPrazo(totalAPrazo);
+		}
+	}
+	
+	public void atualizaTotalAvista() {
+		if(getItens() != null) {
+			Double totalAVista = getItens().stream().mapToDouble(i -> i.getValorUnitario() == null ? 0.0 : i.getValorUnitario()).sum();
+			setTotalAVista(totalAVista);
+		}
+	}
+	
+
+	public Double getTotalAVista() {
+		atualizaTotalAvista();
+		return this.totalAVista;
+	}
+
+	public void setTotalAVista(Double totalAVista) {
+		this.totalAVista = totalAVista;
+	}
+
+	public Double getTotalAPrazo() {
+		atualizaTotalAprazo();
+		return this.totalAPrazo;
+	}
+
+	public void setTotalAPrazo(Double totalAPrazo) {
+		this.totalAPrazo = totalAPrazo;
 	}
 }
