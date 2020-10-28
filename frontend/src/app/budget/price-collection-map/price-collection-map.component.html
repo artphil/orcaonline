@@ -115,7 +115,7 @@
                               <tr>
                                 <td>{{t.id}}</td>
                                 <td>{{t.brick.nome}}</td>
-                                <td>{{t.produto.nome}}</td>
+                                <td>{{t.produto?.nome}}</td>
                                 <td>{{t.quantidade + " " + t.unidade}}</td>
                                 <td>
                                   <a pButton icon="pi pi-pencil" (click)="editItemMap(t)" pTooltip="Editar" tooltipPosition="top"></a>
