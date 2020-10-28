@@ -12,6 +12,8 @@ export class BudgetModel {
   mapa: PriceCollectionMapModel;
   itens: BudgetItemModel[];
   orcamentos: BudgetModel[];
+  totalAVista: number;
+  totalAPrazo: number;
 
   constructor() {
     this.id = null;
@@ -22,6 +24,8 @@ export class BudgetModel {
     this.mapa = new PriceCollectionMapModel();
     this.itens = [];
     this.orcamentos = [];
+    this.totalAVista = 0;
+    this.totalAPrazo = 0;
   }
 }
 
@@ -94,8 +98,7 @@ export class PriceCollectionMapModel {
   itens: PriceCollectionMapItemModel[];
   orcamentos: BudgetModel[];
   descricao: string;
-  totalAVista: number;
-  totalAPrazo: number;
+ 
 
   constructor() {
     this.id = null;
@@ -105,8 +108,6 @@ export class PriceCollectionMapModel {
     this.itens = [];
     this.orcamentos = [];
     this.descricao = null;
-    this.totalAVista = 0;
-    this.totalAPrazo = 0;
   }
 }
 
