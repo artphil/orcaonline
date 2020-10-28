@@ -33,7 +33,9 @@ export class PriceCollectionMapComponent implements OnInit {
   statusList: SelectItem[];
   priceMapList = [];
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private messageService: MessageService,
     private dialogService: DialogService,
     private priceCollectionMapServices: PriceCollectionMapService,
@@ -177,9 +179,15 @@ export class PriceCollectionMapComponent implements OnInit {
     this.itemAux = item;
   }
 
+  clearItemMap(): void {
+    this.itemAux = new PriceCollectionMapItemModel();
+  }
+
   removeItemMap(idItem: number): void {
     this.priceCollectionMapServices.deleteItem(idItem)
-      .then()
+      .then(() => {
+        this.consult();
+      })
       .catch(() => {
         this.messageService.add(
           { severity: 'error', summary: 'Erro', detail: 'Não foi possivel deletar o item.' }
@@ -210,18 +218,19 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   selectMap(idMap): void {
-    this.priceMapService.getOne(idMap)
-      .then((map: PriceCollectionMapModel) => {
-        map.dataRegistro = new Date(map.dataRegistro);
-        this.priceCollectionMap = map;
-        this.showSearchDialog = false;
-        this.idPriceCollectionMap = idMap;
-      })
-      .catch(() => {
-        this.messageService.add(
-          { severity: 'error', summary: 'Erro', detail: 'Não foi possivel carregar o mapa.' }
-        );
-      });
+    this.router.navigate([`/mapc/${idMap}`]);
+    // this.priceMapService.getOne(idMap)
+    //   .then((map: PriceCollectionMapModel) => {
+    //     map.dataRegistro = new Date(map.dataRegistro);
+    //     this.priceCollectionMap = map;
+    //     this.showSearchDialog = false;
+    //     this.idPriceCollectionMap = idMap;
+    //   })
+    //   .catch(() => {
+    //     this.messageService.add(
+    //       { severity: 'error', summary: 'Erro', detail: 'Não foi possivel carregar o mapa.' }
+    //     );
+    //   });
   }
 
   closeMap(): void {

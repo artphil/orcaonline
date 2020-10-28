@@ -75,7 +75,7 @@
                         </div>
 
 
-                        <div class="p-col-2 p-fluid ">
+                        <div class="p-col-1 p-fluid ">
                             <label>Quantidade</label>
                             <input type="text" pInputText name="quantidade" [(ngModel)]="itemAux.quantidade">
                         </div>
@@ -86,9 +86,10 @@
                             </p-dropdown>
                         </div>
 
-                        <div class="p-col-2 p-fluid ">
+                        <div class="p-col-3 buttonGroup">
                             <br>
                             <button pButton [disabled]="priceCollectionMap.status.id && priceCollectionMap.status.id != 1" label="Adicionar" (click)= "addItem()"></button>
+                            <button pButton label="Limpar" (click)= "clearItemMap()"></button>
                         </div>
 
                         <p-table [value]="priceCollectionMap.itens" [paginator]="true" [rows]="10" [responsive]="true"  [globalFilterFields]="['id','nome','cnpj','tipoUsuario.nome']">
