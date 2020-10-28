@@ -255,6 +255,9 @@ export class PriceCollectionMapComponent implements OnInit {
   deleteMap(): void {
     this.priceMapService.delete(this.idPriceCollectionMap)
       .then(() => {
+        this.messageService.add(
+          { severity: 'sucess', summary: 'Item removido com Sucesso' }
+        );
         this.consult();
       })
       .catch(() => {
