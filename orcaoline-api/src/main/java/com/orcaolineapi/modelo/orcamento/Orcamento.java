@@ -197,14 +197,14 @@ public class Orcamento extends AbstractModel {
 	
 	public void atualizaTotalAprazo() {
 		if(getItens() != null) {
-			Double totalAPrazo = getItens().stream().mapToDouble(i -> i.getValorUnitarioPrazo() == null ? 0.0 : i.getValorUnitarioPrazo()).sum();
+			Double totalAPrazo = getItens().stream().mapToDouble(i -> i.getValorUnitarioPrazo() == null ? 0.0 : i.getValorUnitarioPrazo() * i.getItemMapa().getQuantidade()).sum();
 			setTotalAPrazo(totalAPrazo);
 		}
 	}
 	
 	public void atualizaTotalAvista() {
 		if(getItens() != null) {
-			Double totalAVista = getItens().stream().mapToDouble(i -> i.getValorUnitario() == null ? 0.0 : i.getValorUnitario()).sum();
+			Double totalAVista = getItens().stream().mapToDouble(i -> i.getValorUnitario() == null ? 0.0 : i.getValorUnitario() * i.getItemMapa().getQuantidade()).sum();
 			setTotalAVista(totalAVista);
 		}
 	}
