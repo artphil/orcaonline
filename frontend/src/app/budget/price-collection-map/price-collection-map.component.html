@@ -50,7 +50,7 @@
       <div class="p-col-6 p-fluid">
         <label>Descrição</label>
         <input type="text" placeholder="Inserir descrição" pInputText name="descrição"
-          [(ngModel)]="priceCollectionMap.descricao">
+          [(ngModel)]="priceCollectionMap.descricao" [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1">
       </div>
 
       <div class="p-col-1 p-fluid">
@@ -71,34 +71,36 @@
             <div class="p-col-3  p-fluid ">
               <label>Brick</label>
               <p-dropdown [options]="brickList" name="brick" [(ngModel)]="itemAux.brick.id" placeholder="Selecione"
-                (onChange)="getProductList()">
+                (onChange)="getProductList()" [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1">
               </p-dropdown>
             </div>
 
             <div class="p-col-3 p-fluid ">
               <label>Produto</label>
               <p-dropdown [options]="productList" name="produto" [(ngModel)]="itemAux.produto.id"
-                placeholder="Selecione" [showClear]="true">
+                placeholder="Selecione" [showClear]="true" [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1">
               </p-dropdown>
             </div>
 
 
             <div class="p-col-1 p-fluid ">
               <label>Quantidade</label>
-              <input type="text" pInputText name="quantidade" [(ngModel)]="itemAux.quantidade">
+              <p-inputNumber name="quantidade" [(ngModel)]="itemAux.quantidade"
+              mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0"
+              [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1" required></p-inputNumber>
             </div>
 
             <div class="p-col-2 p-fluid ">
               <label>Unidade</label>
-              <p-dropdown [options]="unidades" name="unidades" [(ngModel)]="itemAux.unidade" placeholder="Selecione">
-              </p-dropdown>
+              <p-dropdown [options]="unidades" name="unidades" [(ngModel)]="itemAux.unidade" placeholder="Selecione"
+              [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1"></p-dropdown>
             </div>
 
             <div class="p-col-3 buttonGroup">
               <br>
               <button pButton [disabled]="priceCollectionMap.status.id && priceCollectionMap.status.id != 1"
-                label="Adicionar" (click)="addItem()"></button>
-              <button pButton label="Limpar" (click)="clearItemMap()"></button>
+                label="Adicionar" (click)="addItem()" [disabled]="priceCollectionMap.status.id == 3"></button>
+              <button pButton label="Limpar" (click)="clearItemMap()" [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1"></button>
             </div>
 
             <p-table [value]="priceCollectionMap.itens" [paginator]="true" [rows]="10" [responsive]="true"
@@ -128,9 +130,10 @@
                   <td>{{t.produto?.nome}}</td>
                   <td>{{t.quantidade + " " + t.unidade}}</td>
                   <td>
-                    <a pButton icon="pi pi-pencil" (click)="editItemMap(t)" pTooltip="Editar" tooltipPosition="top"></a>
-                    <a pButton icon="pi pi-trash" (click)="removeItemMap(t.id)" pTooltip="Excluir" tooltipPosition="top"
-                      style="margin-left: 10px"></a>
+                    <button pButton icon="pi pi-pencil" (click)="editItemMap(t)" pTooltip="Editar" tooltipPosition="top"
+                    [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1"></button>
+                    <button pButton icon="pi pi-trash" (click)="removeItemMap(t.id)" pTooltip="Excluir" tooltipPosition="top"
+                      style="margin-left: 10px" [disabled]="idPriceCollectionMap && priceCollectionMap.status.id != 1"></button>
                   </td>
                 </tr>
               </ng-template>
@@ -156,6 +159,7 @@
               <ng-template pTemplate="header">
                 <tr>
                   <th class="p-col-2">Código</th>
+                  <th class="p-col-2">Status</th>
                   <th class="p-col-2">Fornecedor</th>
                   <th class="p-col-2">Total a Vista</th>
                   <th class="p-col-2">Total a Prazo</th>
@@ -163,16 +167,18 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-t>
-                <tr>
+                <tr [style.color]="t.status.id == 7 ? 'green': 'black'" *ngIf="t.status.id != 1">
                   <td>{{t.id}}</td>
+                  <td>{{t.status.nome}}</td>
                   <td>{{t.fornecedor.nome}}</td>
-                  <td>{{t.totalAVista}}</td>
-                  <td>{{t.totalAPrazo}}</td>
+                  <td>{{t.totalAVista | number: '1.2-2'}}</td>
+                  <td>{{t.totalAPrazo | number: '1.2-2'}}</td>
                   <td>
                     <a pButton icon="pi pi-eye" (click)="showItems(t.id, t.itens)" pTooltip="Editar"
-                      tooltipPosition="top"></a>
-                    <a pButton icon="pi pi-check" (click)="checkBudget(t.id)" pTooltip="Aprovar Orçamento"
-                      tooltipPosition="top" style="margin-left: 10px"></a>
+                      tooltipPosition="top" [ngClass]="{'p-button-success': t.status.id == 7}"></a>
+                    <button pButton icon="pi pi-check" (click)="checkBudget(t.id)" pTooltip="Aprovar Orçamento"
+                      tooltipPosition="top" style="margin-left: 10px" [disabled]="priceCollectionMap.status.id == 3"
+                      [ngClass]="{'p-button-success': t.status.id == 7}"></button>
 
                   </td>
                 </tr>
@@ -186,7 +192,7 @@
     <div class="p-col-2 p-fluid ">
 
       <button pButton type="button" *ngIf="priceCollectionMap.status.id == 1 " label="Iniciar Cotação"
-        icon="pi pi-check" class="p-button-outlined " (click)="startPriceCollection()"></button>
+        icon="pi pi-check" class="p-button-outlined " (click)="startPriceCollection()" ></button>
     </div>
 
     <div class="p-col-8 p-fluid ">

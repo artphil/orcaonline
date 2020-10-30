@@ -27,7 +27,7 @@ export class PriceCollectionMapService {
     private errorHandler: ErrorHandlerService
     ) {
     this.apiPath = `${environment.apiUrl}/mapas`;
-    this.apiItemPath = `${environment.apiUrl}/itemmapas`;
+    this.apiItemPath = `${environment.apiUrl}/mapas/deleteItem`;
   }
 
   getOne(code: number = null): Promise<any> {
@@ -126,7 +126,7 @@ export class PriceCollectionMapService {
   }
 
   deleteItem(code: number): Promise<any> {
-    return this.http.delete<any>(`${this.apiItemPath}/${code}`, this.httpOptions)
+    return this.http.put<any>(`${this.apiItemPath}/${code}`, this.httpOptions)
       .toPromise()
       .then(res => res);
   }

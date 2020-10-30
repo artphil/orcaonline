@@ -65,13 +65,15 @@
             <td>
               <div class="p-fluid">
                 <p-inputNumber name="valorUnitario{{i.id}}" [(ngModel)]="i.valorUnitario" mode="decimal"
-                  [minFractionDigits]="2" [maxFractionDigits]="2" (onInput)="modified(i)" required></p-inputNumber>
+                  [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" (onInput)="modified(i)"
+                  [disabled]="idBudget && budget.status.id != 1" required></p-inputNumber>
               </div>
             </td>
             <td>
               <div class="p-fluid">
                 <p-inputNumber name="valorUnitarioPrazo{{i.id}}" [(ngModel)]="i.valorUnitarioPrazo" mode="decimal"
-                  [minFractionDigits]="2" [maxFractionDigits]="2" (onInput)="modified(i)" required></p-inputNumber>
+                  [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0" (onInput)="modified(i)"
+                  [disabled]="idBudget && budget.status.id != 1" required></p-inputNumber>
               </div>
             </td>
             <td>{{(i.valorUnitario * i.itemMapa?.quantidade) | number: '1.2-2'}}</td>

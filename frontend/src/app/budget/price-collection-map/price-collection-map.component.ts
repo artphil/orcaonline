@@ -108,8 +108,7 @@ export class PriceCollectionMapComponent implements OnInit {
       this.priceCollectionMapServices.getOne(this.idPriceCollectionMap)
         .then((priceCollectionMap: PriceCollectionMapModel) => {
           this.priceCollectionMap = priceCollectionMap ? priceCollectionMap : new PriceCollectionMapModel();
-          this.priceCollectionMap.dataRegistro = new Date(priceCollectionMap.dataRegistro);
-
+          this.priceCollectionMap.dataRegistro = new Date(priceCollectionMap.dataRegistro + ' 00:00:00');
         })
         .catch(() => {
           this.priceCollectionMap = new PriceCollectionMapModel();
@@ -125,7 +124,7 @@ export class PriceCollectionMapComponent implements OnInit {
           .then((priceCollectionMap: PriceCollectionMapModel) => {
             this.priceCollectionMap = priceCollectionMap;
             this.messageService.add(
-              { severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString() }
+              { severity: 'success', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString() }
             );
             this.idPriceCollectionMap = priceCollectionMap.id;
             console.log(priceCollectionMap);
@@ -144,7 +143,7 @@ export class PriceCollectionMapComponent implements OnInit {
       this.priceCollectionMapServices.update(this.priceCollectionMap)
         .then((priceCollectionMap: PriceCollectionMapModel) => {
           this.messageService.add(
-            { severity: 'sucess', summary: 'Alteração realizada com sucesso.', detail: priceCollectionMap.id.toString() }
+            { severity: 'success', summary: 'Alteração realizada com sucesso.', detail: priceCollectionMap.id.toString() }
           );
           this.consult();
         })
@@ -157,16 +156,17 @@ export class PriceCollectionMapComponent implements OnInit {
 
   addItem(): void {
     if (!this.itemAux.id) {
-      this.save();
+      // this.save();
       this.itemAux.mapa.id = this.priceCollectionMap.id;
     }
     this.priceCollectionMapServices.addItem(this.itemAux)
       .then((priceCollectionMap: PriceCollectionMapModel) => {
         this.priceCollectionMap = priceCollectionMap;
         this.messageService.add(
-          { severity: 'sucess', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString() }
+          { severity: 'success', summary: 'Cadastro realizado com sucesso.', detail: this.priceCollectionMap.id.toString() }
         );
         this.idPriceCollectionMap = priceCollectionMap.id;
+        this.clearItemMap();
         console.log(priceCollectionMap);
       })
       .catch((err) => {
@@ -192,6 +192,9 @@ export class PriceCollectionMapComponent implements OnInit {
   removeItemMap(idItem: number): void {
     this.priceCollectionMapServices.deleteItem(idItem)
       .then(() => {
+        this.messageService.add(
+          { severity: 'success', summary: 'Item excluido com sucesso.' }
+        );
         this.consult();
       })
       .catch(() => {
@@ -224,6 +227,7 @@ export class PriceCollectionMapComponent implements OnInit {
   }
 
   selectMap(idMap): void {
+    this.showSearchDialog = false;
     this.router.navigate([`/mapc/${idMap}`]);
     // this.priceMapService.getOne(idMap)
     //   .then((map: PriceCollectionMapModel) => {
@@ -256,7 +260,7 @@ export class PriceCollectionMapComponent implements OnInit {
     this.priceMapService.delete(this.idPriceCollectionMap)
       .then(() => {
         this.messageService.add(
-          { severity: 'sucess', summary: 'Item removido com Sucesso' }
+          { severity: 'success', summary: 'Item removido com Sucesso' }
         );
         this.consult();
       })

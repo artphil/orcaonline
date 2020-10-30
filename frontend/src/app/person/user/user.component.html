@@ -57,7 +57,7 @@
 
     <div class="p-col-12 p-md-2 p-fluid">
       <label>Senha</label>
-      <input type="text" pInputText name="senha" #userPass="ngModel" [(ngModel)]="user.senha" required minlength="8">
+      <input type="password" pInputText name="senha" #userPass="ngModel" [(ngModel)]="user.senha" required minlength="8">
 
       <app-msg-validation [control]="userPass" error="required" text="Informe a senha do Usuário.">
       </app-msg-validation>

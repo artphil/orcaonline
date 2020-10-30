@@ -53,7 +53,7 @@ export class BudgetComponent implements OnInit {
       this.budgetServices.getOne(this.idBudget)
         .then((budget: BudgetModel) => {
           if (budget) {
-            budget.dataRegistro = new Date(budget.dataRegistro);
+            budget.dataRegistro = new Date(budget.dataRegistro + ' 00:00:00');
             this.budget = budget;
           } else {
             this.budget = new BudgetModel();

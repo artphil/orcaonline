@@ -35,6 +35,7 @@ export class BudgetFilterModel {
   dataEnvioInicial: Date;
   dataEnvioFinal: Date;
   idStatus: number;
+  status: StatusModel;
 
   constructor() {
     this.dataRegistroInicial = null;
@@ -44,6 +45,7 @@ export class BudgetFilterModel {
     this.dataEnvioInicial = null;
     this.dataEnvioFinal = null;
     this.idStatus = null;
+    this.status = new StatusModel();
   }
 
 }
@@ -73,7 +75,7 @@ export class StatusModel {
   static getPriceCollectionMapStatus(): any {
     const status = [
       { value: null, label: 'Todos' },
-      { value: 1, label: 'Aberto' },      
+      { value: 1, label: 'Aberto' },
       { value: 3, label: 'Fechado' },
       { value: 6, label: 'Em andamento' }
     ];
@@ -98,7 +100,7 @@ export class PriceCollectionMapModel {
   itens: PriceCollectionMapItemModel[];
   orcamentos: BudgetModel[];
   descricao: string;
- 
+
 
   constructor() {
     this.id = null;
