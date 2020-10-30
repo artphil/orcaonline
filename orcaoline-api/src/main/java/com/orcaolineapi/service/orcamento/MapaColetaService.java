@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.orcaolineapi.modelo.LogicException;
 import com.orcaolineapi.modelo.orcamento.ItemMapa;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
+import com.orcaolineapi.modelo.orcamento.Orcamento;
 import com.orcaolineapi.modelo.orcamento.Status;
 import com.orcaolineapi.repository.orcamento.ItemMapaRepository;
 import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
+import com.orcaolineapi.repository.orcamento.OrcamentoRepository;
 import com.orcaolineapi.repository.orcamento.filter.MapaColetaFilter;
 import com.orcaolineapi.service.AbstractService;
 
@@ -18,6 +21,8 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 
 	private @Autowired MapaColetaRepository repository;
 
+	private @Autowired OrcamentoRepository orcamentoRepository;
+	
 	private @Autowired ItemMapaRepository itemMapaRepository;
 	
 	@Override
@@ -37,18 +42,21 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 	}
 	
 	public MapaColeta addItem(ItemMapa item) {
-		item.check();
-		if(item.getId() != null) {
-			itemMapaRepository.save(item);
-			return repository.findById(item.getMapa().getId()).get();
+		MapaColeta mapa = item.getMapa().getId() != null ? repository.findById(item.getMapa().getId()).get() : null;
+		if(mapa != null) {
+			item.check();
+			mapa.checkAddUpdateItemMapa(item);
+			if(item.getId() != null) {
+				itemMapaRepository.save(item);
+				return repository.findById(item.getMapa().getId()).get();
+			}
+			if(item.getMapa().getId() != null) {
+				item.setMapa(mapa);
+				mapa.getItens().add(item);
+				return repository.save(mapa);
+			}
 		}
-		if(item.getMapa().getId() != null) {
-			MapaColeta mapaSalvo = repository.findById(item.getMapa().getId()).get();
-			item.setMapa(mapaSalvo);
-			mapaSalvo.getItens().add(item);
-			return repository.save(mapaSalvo);
-		}
-		return null;
+		throw new LogicException("O identificador do mapa de coleta não foi encontrado!");
 	}
 	
 	public MapaColeta deleteItem(ItemMapa item) {
@@ -78,11 +86,16 @@ public class MapaColetaService extends AbstractService<MapaColeta> {
 		return null;
 	}
 	
-	public MapaColeta aprovarOrcamento(Long idMapa, Long idOrcamento) {
-		if(idMapa != null) {
-			MapaColeta mapa = repository.findById(idMapa).get();
-			mapa.aprovarOrcamento(idOrcamento);
-			return repository.save(mapa);
+	public MapaColeta aprovarOrcamento(Long idOrcamento) {
+		if(idOrcamento != null) {
+			Orcamento o = orcamentoRepository.findById(idOrcamento).get();
+			if(o.getMapa().isRunning() && o.isRunning()) {
+				o.setAprovado(true);
+				o.setStatus(Status.APROVADO);
+				o.getMapa().encerrar();
+				return repository.save(o.getMapa());
+			}
+			throw new LogicException("Apenas orcamentos em andamento podem ser aprovados!");
 		}
 		return null;
 	}

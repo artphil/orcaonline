@@ -78,8 +78,8 @@ public class MapaColetaResource extends AbstractResource<MapaColeta> {
 	
 	@CrossOrigin
 	@PutMapping("aprovarOrcamento/{id}")
-	public ResponseEntity<MapaColeta> aprovarOrcamento(@PathVariable Long id, Long idOrcamento) {
-		return ResponseEntity.ok(service.aprovarOrcamento(id, idOrcamento));
+	public ResponseEntity<MapaColeta> aprovarOrcamento(@PathVariable Long id) {
+		return ResponseEntity.ok(service.aprovarOrcamento(id));
 	}
 	
 	@CrossOrigin

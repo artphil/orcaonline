@@ -192,13 +192,40 @@ public class MapaColeta extends AbstractModel {
 		}
 	}
 	
-	public void aprovarOrcamento(Long idOrcamento) {
-		for(Orcamento o : getOrcamentos()) {
-			if(o.getId() == idOrcamento) {
-				o.setAprovado(true);
-				o.setStatus(Status.APROVADO);
-				encerrar();
+	public void checkAddUpdateItemMapa(ItemMapa item) {
+		if(item.getId() == null) {
+			checkAddItem(item);
+		}
+		else {
+			checkUpdateItem(item);
+		}
+	}
+	
+	private void checkUpdateItem(ItemMapa item) {
+		if(item.getProduto() == null) {
+			if(getItens().stream().filter(i -> i.getId() != item.getId() && i.getProduto() == null && i.getBrick().getId().equals(item.getBrick().getId())).findAny().isPresent()) {
+				throw new LogicException("Já há este item adicionado no mapa!");
+			}
+		}
+		if(item.getProduto() != null) {
+			if(getItens().stream().filter(i -> i.getId() != item.getId() &&  i.getProduto() != null &&  i.getProduto().getId().equals(item.getProduto().getId()) && i.getBrick().getId().equals(item.getBrick().getId())).findAny().isPresent()) {
+				throw new LogicException("Já há este item adicionado no mapa!");
 			}
 		}
 	}
+	
+	private void checkAddItem(ItemMapa item) {
+		if(item.getProduto() == null) {
+			if(getItens().stream().filter(i -> i.getProduto() == null && i.getBrick().getId().equals(item.getBrick().getId())).findAny().isPresent()) {
+				throw new LogicException("Já há este item adicionado no mapa!");
+			}
+		}
+		if(item.getProduto() != null) {
+			if(getItens().stream().filter(i -> i.getProduto() != null && i.getProduto().getId().equals(item.getProduto().getId()) && i.getBrick().getId().equals(item.getBrick().getId())).findAny().isPresent()) {
+				throw new LogicException("Já há este item adicionado no mapa!");
+			}
+		}
+	}
+	
+	
 }
