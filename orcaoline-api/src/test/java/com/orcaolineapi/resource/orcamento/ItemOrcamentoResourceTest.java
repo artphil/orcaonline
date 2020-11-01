@@ -31,7 +31,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.orcaolineapi.modelo.orcamento.ItemOrcamento;
-import com.orcaolineapi.modelo.produto.ItemOrcamento;
 import com.orcaolineapi.repository.orcamento.ItemOrcamentoRepository;
 import com.orcaolineapi.service.orcamento.ItemOrcamentoService;
 

@@ -31,6 +31,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
+import com.orcaolineapi.modelo.orcamento.Status;
 import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
 import com.orcaolineapi.service.orcamento.MapaColetaService;
 
@@ -58,7 +59,7 @@ class MapaColetaResourceTest {
 	@Test
 	public void putRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		MapaColeta mc1 = new MapaColeta(null, null, "descricao1", null, null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao1", null, Status.ABERTO);
 		MapaColeta mc2 = new MapaColeta(null, null, "descricao2", null, null);
 		
 		when(this.repository.save(mc1)).thenReturn(mc1);
@@ -77,7 +78,7 @@ class MapaColetaResourceTest {
 	@Test
 	public void postRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, Status.ABERTO);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(mc1);
@@ -93,17 +94,17 @@ class MapaColetaResourceTest {
 	@Test
 	public void getRecursos_Sucesso_BuscarRecursosExistentes() throws Exception {
 
-		MapaColeta mc1 = new MapaColeta(null, null, "descricao1", null, null);
-		MapaColeta seg2 = new MapaColeta(null, null, "descricao2", null, null);
-		MapaColeta seg3 = new MapaColeta(null, null, "descricao3", null, null);
-		MapaColeta seg4 = new MapaColeta(null, null, "descricao4", null, null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao1", null, Status.ABERTO);
+		MapaColeta mc2 = new MapaColeta(null, null, "descricao2", null, null);
+		MapaColeta mc3 = new MapaColeta(null, null, "descricao3", null, null);
+		MapaColeta mc4 = new MapaColeta(null, null, "descricao4", null, null);
 		
 		mc1.setId(Long.valueOf(1));
-		seg2.setId(Long.valueOf(2));
-		seg3.setId(Long.valueOf(3));
-		seg4.setId(Long.valueOf(4));
+		mc2.setId(Long.valueOf(2));
+		mc3.setId(Long.valueOf(3));
+		mc4.setId(Long.valueOf(4));
 		
-		when(this.repository.findAll()).thenReturn(Arrays.asList(mc1, seg2, seg3, seg4));
+		when(this.repository.findAll()).thenReturn(Arrays.asList(mc1, mc2, mc3, mc4));
 		
 		given().accept(ContentType.JSON).when().get("/mapas").andReturn().then().statusCode(HttpStatus.OK.value())
 	    .expect(jsonPath("$[*]", hasSize(4)))
@@ -136,7 +137,7 @@ class MapaColetaResourceTest {
 	@Test()
 	public void getById_Sucesso_BuscarUmRecursoExistente() {
 
-		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, Status.ABERTO);
 		mc1.setId(1L);
 
 		when(this.repository.findById(1L)).thenReturn(Optional.of(mc1));
@@ -169,7 +170,7 @@ class MapaColetaResourceTest {
 	public void deleteById_NestedServletException_BuscarUmRecursoInexistente() {
         
 		Throwable exception = assertThrows(ArgumentsAreDifferent.class, () -> {
-			MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+			MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, Status.ABERTO);
 			mc1.setId(1L);
 			
 			when(this.repository.save(mc1)).thenReturn(mc1);
@@ -190,7 +191,7 @@ class MapaColetaResourceTest {
 	@Test
 	public void deleteById_Sucesso_BuscarUmRecursoExistente() throws JsonProcessingException {
         			
-		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, Status.ABERTO);
 		mc1.setId(1L);
 		
 		when(this.repository.save(mc1)).thenReturn(mc1);

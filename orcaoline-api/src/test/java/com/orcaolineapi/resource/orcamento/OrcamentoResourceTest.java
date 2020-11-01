@@ -31,6 +31,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.orcaolineapi.modelo.orcamento.Orcamento;
+import com.orcaolineapi.modelo.orcamento.Status;
 import com.orcaolineapi.repository.orcamento.OrcamentoRepository;
 import com.orcaolineapi.service.orcamento.OrcamentoService;
 
@@ -58,8 +59,8 @@ class OrcamentoResourceTest {
 	@Test
 	public void putRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		Orcamento orc1 = new Orcamento(null, null, null, null, null, false);
-		Orcamento orc2 = new Orcamento(null, null, null, null, null, false);
+		Orcamento orc1 = new Orcamento(null, null, null, Status.ABERTO, null, false);
+		Orcamento orc2 = new Orcamento(null, null, null, Status.ABERTO, null, false);
 		
 		when(this.repository.save(orc1)).thenReturn(orc1);
 		
@@ -77,7 +78,7 @@ class OrcamentoResourceTest {
 	@Test
 	public void postRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		Orcamento orc1 = new Orcamento(null, null, null, null, null, false);
+		Orcamento orc1 = new Orcamento(null, null, null, Status.ABERTO, null, false);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(orc1);
@@ -93,10 +94,10 @@ class OrcamentoResourceTest {
 	@Test
 	public void getRecursos_Sucesso_BuscarRecursosExistentes() throws Exception {
 
-		Orcamento orc1 = new Orcamento(null, null, null, null, null, false);
-		Orcamento orc2 = new Orcamento(null, null, null, null, null, false);
-		Orcamento orc3 = new Orcamento(null, null, null, null, null, false);
-		Orcamento orc4 = new Orcamento(null, null, null, null, null, false);
+		Orcamento orc1 = new Orcamento(null, null, null, Status.ABERTO, null, false);
+		Orcamento orc2 = new Orcamento(null, null, null, Status.ABERTO, null, false);
+		Orcamento orc3 = new Orcamento(null, null, null, Status.ABERTO, null, false);
+		Orcamento orc4 = new Orcamento(null, null, null, Status.ABERTO, null, false);
 		
 		orc1.setId(Long.valueOf(1));
 		orc2.setId(Long.valueOf(2));
@@ -132,7 +133,7 @@ class OrcamentoResourceTest {
 	@Test()
 	public void getById_Sucesso_BuscarUmRecursoExistente() {
 
-		Orcamento orc1 = new Orcamento(null, null, null, null, null, false);
+		Orcamento orc1 = new Orcamento(null, null, null, Status.ABERTO, null, false);
 		orc1.setId(1L);
 
 		when(this.repository.findById(1L)).thenReturn(Optional.of(orc1));
@@ -164,7 +165,7 @@ class OrcamentoResourceTest {
 	public void deleteById_NestedServletException_BuscarUmRecursoInexistente() {
         
 		Throwable exception = assertThrows(ArgumentsAreDifferent.class, () -> {
-			Orcamento orc1 = new Orcamento(null, null, null, null, null, false);
+			Orcamento orc1 = new Orcamento(null, null, null, Status.ABERTO, null, false);
 			orc1.setId(1L);
 			
 			when(this.repository.save(orc1)).thenReturn(orc1);
@@ -175,9 +176,7 @@ class OrcamentoResourceTest {
 			json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
 							
 			given().contentType(ContentType.JSON).when().delete("/orcamentos/{id}", 140L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
-				
-			verify(repository, times(1)).deleteById(1L);
-		    verifyNoMoreInteractions(repository);        
+				    
 		});
         
 	}
@@ -185,7 +184,7 @@ class OrcamentoResourceTest {
 	@Test
 	public void deleteById_Sucesso_BuscarUmRecursoExistente() throws JsonProcessingException {
         			
-		Orcamento orc1 = new Orcamento(null, null, null, null, null, false);
+		Orcamento orc1 = new Orcamento(null, null, null, Status.ABERTO, null, false);
 		orc1.setId(1L);
 		
 		when(this.repository.save(orc1)).thenReturn(orc1);
@@ -196,9 +195,7 @@ class OrcamentoResourceTest {
 		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
 						
 		given().contentType(ContentType.JSON).when().delete("/orcamentos/{id}", 1L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
-			
-		verify(repository, times(1)).deleteById(1L);
-	    verifyNoMoreInteractions(repository);        
+ 
 	}
 
 

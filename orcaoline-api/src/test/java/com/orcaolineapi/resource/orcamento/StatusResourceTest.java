@@ -108,13 +108,13 @@ class StatusResourceTest {
 		given().accept(ContentType.JSON).when().get("/status").andReturn().then().statusCode(HttpStatus.OK.value())
 	    .expect(jsonPath("$[*]", hasSize(4)))
 	    .expect(jsonPath("$[0].id", is(1)))
-	    .expect(jsonPath("$[0].nome", is("ABERTO")))
+	    .expect(jsonPath("$[0].nome", is("Aberto")))
 	    .expect(jsonPath("$[1].id", is(2)))
-	    .expect(jsonPath("$[1].nome", is("ATIVO")))
+	    .expect(jsonPath("$[1].nome", is("Ativo")))
 	    .expect(jsonPath("$[2].id", is(3)))
-	    .expect(jsonPath("$[2].nome", is("FECHADO")))
+	    .expect(jsonPath("$[2].nome", is("Fechado")))
 	    .expect(jsonPath("$[3].id", is(4)))
-	    .expect(jsonPath("$[3].nome", is("CANCELADO")));
+	    .expect(jsonPath("$[3].nome", is("Cancelado")));
 		
 		verify(repository, times(1)).findAll();
         verifyNoMoreInteractions(repository);
@@ -143,7 +143,7 @@ class StatusResourceTest {
 
 		given().accept(ContentType.JSON).when().get("/status/{id}", 1L).then().statusCode(HttpStatus.OK.value())
 		.expect(jsonPath("$.id", is(1)))
-	    .expect(jsonPath("$.nome", is("ABERTO")));
+	    .expect(jsonPath("$.nome", is("Aberto")));
 		
 		verify(repository, times(1)).findById(1L);
         verifyNoMoreInteractions(repository);
