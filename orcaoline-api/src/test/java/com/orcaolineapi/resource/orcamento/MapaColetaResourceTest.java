@@ -31,7 +31,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.orcaolineapi.modelo.orcamento.MapaColeta;
-import com.orcaolineapi.modelo.produto.Familia;
 import com.orcaolineapi.repository.orcamento.MapaColetaRepository;
 import com.orcaolineapi.service.orcamento.MapaColetaService;
 
@@ -55,90 +54,66 @@ class MapaColetaResourceTest {
 	}
 
 	// nomeDoMetodo / resultadoEsperado / emQueSituação
-	@Test()
-	public void getById_Sucesso_BuscarUmRecursoExistente() {
 
-		MapaColeta it = new MapaColeta(null, null, "Descricao", null, null);
-		
-		it.setId(1L);
-
-		when(this.repository.findById(1L)).thenReturn(Optional.of(it));
-
-		given().accept(ContentType.JSON).when().get("/mapas/{id}", 1L).then().statusCode(HttpStatus.OK.value());
-
-	}
-
-//	@Test
-	public void getById_Falha_BuscarUmRecursoInexistente() {
-		when(this.repository.findById(1L)).thenReturn(null);
-
-		given().accept(ContentType.JSON).when().get("/mapas/{id}", 140L).then()
-				.statusCode(HttpStatus.NOT_FOUND.value());
-	}
-	
 	@Test
 	public void putRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		Familia fam1 = new Familia("Nome", "descricao", null);
-		Familia fam2 = new Familia("Nome modificado", "descricao modificada", null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao1", null, null);
+		MapaColeta mc2 = new MapaColeta(null, null, "descricao2", null, null);
 		
-		when(this.repository.save(fam1)).thenReturn(fam1);
+		when(this.repository.save(mc1)).thenReturn(mc1);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(fam2);
+		String json = ow.writeValueAsString(mc2);
 				
 		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
 				
 		System.out.println(json);
 		
-		given().body(json).contentType(ContentType.JSON).when().put("/familias/{id}", fam1.getId()).andReturn().then().statusCode(HttpStatus.OK.value());
+		given().body(json).contentType(ContentType.JSON).when().put("/mapas/{id}", mc1.getId()).andReturn().then().statusCode(HttpStatus.OK.value());
 			
 	}
 	
 	@Test
 	public void postRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		Familia fam1 = new Familia("Nome", "descricao", null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(fam1);
+		String json = ow.writeValueAsString(mc1);
 				
 		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
 				
 		System.out.println(json);
 		
-		given().body(json).contentType(ContentType.JSON).when().post("/familias").andReturn().then().statusCode(HttpStatus.OK.value());
+		given().body(json).contentType(ContentType.JSON).when().post("/mapas").andReturn().then().statusCode(HttpStatus.OK.value());
 			
 	}
 	
 	@Test
 	public void getRecursos_Sucesso_BuscarRecursosExistentes() throws Exception {
 
-		Familia fam1 = new Familia("Nome1", "descricao1", null);
-		Familia seg2 = new Familia("Nome2", "descricao2", null);
-		Familia seg3 = new Familia("Nome3", "descricao3", null);
-		Familia seg4 = new Familia("Nome4", "descricao4", null);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao1", null, null);
+		MapaColeta seg2 = new MapaColeta(null, null, "descricao2", null, null);
+		MapaColeta seg3 = new MapaColeta(null, null, "descricao3", null, null);
+		MapaColeta seg4 = new MapaColeta(null, null, "descricao4", null, null);
 		
-		fam1.setId(Long.valueOf(1));
+		mc1.setId(Long.valueOf(1));
 		seg2.setId(Long.valueOf(2));
 		seg3.setId(Long.valueOf(3));
 		seg4.setId(Long.valueOf(4));
 		
-		when(this.repository.findAll()).thenReturn(Arrays.asList(fam1, seg2, seg3, seg4));
+		when(this.repository.findAll()).thenReturn(Arrays.asList(mc1, seg2, seg3, seg4));
 		
-		given().accept(ContentType.JSON).when().get("/familias").andReturn().then().statusCode(HttpStatus.OK.value())
+		given().accept(ContentType.JSON).when().get("/mapas").andReturn().then().statusCode(HttpStatus.OK.value())
 	    .expect(jsonPath("$[*]", hasSize(4)))
 	    .expect(jsonPath("$[0].id", is(1)))
-	    .expect(jsonPath("$[0].nome", is("Nome1")))
 	    .expect(jsonPath("$[0].descricao", is("descricao1")))
 	    .expect(jsonPath("$[1].id", is(2)))
-	    .expect(jsonPath("$[1].nome", is("Nome2")))
 	    .expect(jsonPath("$[1].descricao", is("descricao2")))
 	    .expect(jsonPath("$[2].id", is(3)))
-	    .expect(jsonPath("$[2].nome", is("Nome3")))
 	    .expect(jsonPath("$[2].descricao", is("descricao3")))
 	    .expect(jsonPath("$[3].id", is(4)))
-	    .expect(jsonPath("$[3].nome", is("Nome4")))
 	    .expect(jsonPath("$[3].descricao", is("descricao4")));
 		
 		verify(repository, times(1)).findAll();
@@ -150,7 +125,7 @@ class MapaColetaResourceTest {
 		
 		when(this.repository.findAll()).thenReturn(Collections.emptyList());
 
-		given().accept(ContentType.JSON).when().get("/familias").then().statusCode(HttpStatus.OK.value())
+		given().accept(ContentType.JSON).when().get("/mapas").then().statusCode(HttpStatus.OK.value())
 		.expect(jsonPath("$[*]", hasSize(0)));
 		
 		verify(repository, times(1)).findAll();
@@ -161,14 +136,13 @@ class MapaColetaResourceTest {
 	@Test()
 	public void getById_Sucesso_BuscarUmRecursoExistente() {
 
-		Familia fam1 = new Familia("Nome", "descricao", null);
-		fam1.setId(1L);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+		mc1.setId(1L);
 
-		when(this.repository.findById(1L)).thenReturn(Optional.of(fam1));
+		when(this.repository.findById(1L)).thenReturn(Optional.of(mc1));
 
-		given().accept(ContentType.JSON).when().get("/familias/{id}", 1L).then().statusCode(HttpStatus.OK.value())
+		given().accept(ContentType.JSON).when().get("/mapas/{id}", 1L).then().statusCode(HttpStatus.OK.value())
 		.expect(jsonPath("$.id", is(1)))
-	    .expect(jsonPath("$.nome", is("Nome")))
 	    .expect(jsonPath("$.descricao", is("descricao")));
 		
 		verify(repository, times(1)).findById(1L);
@@ -182,7 +156,7 @@ class MapaColetaResourceTest {
 		Throwable exception = assertThrows(NestedServletException.class, () -> {
 			when(this.repository.findById(140L)).thenReturn(null);
 
-			given().accept(ContentType.JSON).when().get("/familias/{id}", 140L).then()
+			given().accept(ContentType.JSON).when().get("/mapas/{id}", 140L).then()
 					.statusCode(HttpStatus.NOT_FOUND.value());
 			
 			verify(repository, times(1)).findById(1L);
@@ -195,17 +169,17 @@ class MapaColetaResourceTest {
 	public void deleteById_NestedServletException_BuscarUmRecursoInexistente() {
         
 		Throwable exception = assertThrows(ArgumentsAreDifferent.class, () -> {
-			Familia fam1 = new Familia("Nome", "descricao", null);
-			fam1.setId(1L);
+			MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+			mc1.setId(1L);
 			
-			when(this.repository.save(fam1)).thenReturn(fam1);
+			when(this.repository.save(mc1)).thenReturn(mc1);
 			
 			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-			String json = ow.writeValueAsString(fam1);
+			String json = ow.writeValueAsString(mc1);
 					
 			json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
 							
-			given().contentType(ContentType.JSON).when().delete("/familias/{id}", 140L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
+			given().contentType(ContentType.JSON).when().delete("/mapas/{id}", 140L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
 				
 			verify(repository, times(1)).deleteById(1L);
 		    verifyNoMoreInteractions(repository);        
@@ -216,17 +190,17 @@ class MapaColetaResourceTest {
 	@Test
 	public void deleteById_Sucesso_BuscarUmRecursoExistente() throws JsonProcessingException {
         			
-		Familia fam1 = new Familia("Nome", "descricao", null);
-		fam1.setId(1L);
+		MapaColeta mc1 = new MapaColeta(null, null, "descricao", null, null);
+		mc1.setId(1L);
 		
-		when(this.repository.save(fam1)).thenReturn(fam1);
+		when(this.repository.save(mc1)).thenReturn(mc1);
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(fam1);
+		String json = ow.writeValueAsString(mc1);
 				
 		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
 						
-		given().contentType(ContentType.JSON).when().delete("/familias/{id}", 1L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
+		given().contentType(ContentType.JSON).when().delete("/mapas/{id}", 1L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
 			
 		verify(repository, times(1)).deleteById(1L);
 	    verifyNoMoreInteractions(repository);        

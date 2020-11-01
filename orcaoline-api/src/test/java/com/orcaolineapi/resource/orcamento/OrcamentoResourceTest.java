@@ -108,17 +108,9 @@ class OrcamentoResourceTest {
 		given().accept(ContentType.JSON).when().get("/orcamentos").andReturn().then().statusCode(HttpStatus.OK.value())
 	    .expect(jsonPath("$[*]", hasSize(4)))
 	    .expect(jsonPath("$[0].id", is(1)))
-	    .expect(jsonPath("$[0].nome", is("Nome1")))
-	    .expect(jsonPath("$[0].descricao", is("descricao1")))
 	    .expect(jsonPath("$[1].id", is(2)))
-	    .expect(jsonPath("$[1].nome", is("Nome2")))
-	    .expect(jsonPath("$[1].descricao", is("descricao2")))
 	    .expect(jsonPath("$[2].id", is(3)))
-	    .expect(jsonPath("$[2].nome", is("Nome3")))
-	    .expect(jsonPath("$[2].descricao", is("descricao3")))
-	    .expect(jsonPath("$[3].id", is(4)))
-	    .expect(jsonPath("$[3].nome", is("Nome4")))
-	    .expect(jsonPath("$[3].descricao", is("descricao4")));
+	    .expect(jsonPath("$[3].id", is(4)));
 		
 		verify(repository, times(1)).findAll();
         verifyNoMoreInteractions(repository);
@@ -146,9 +138,7 @@ class OrcamentoResourceTest {
 		when(this.repository.findById(1L)).thenReturn(Optional.of(orc1));
 
 		given().accept(ContentType.JSON).when().get("/orcamentos/{id}", 1L).then().statusCode(HttpStatus.OK.value())
-		.expect(jsonPath("$.id", is(1)))
-	    .expect(jsonPath("$.nome", is("Nome")))
-	    .expect(jsonPath("$.descricao", is("descricao")));
+		.expect(jsonPath("$.id", is(1)));
 		
 		verify(repository, times(1)).findById(1L);
         verifyNoMoreInteractions(repository);
