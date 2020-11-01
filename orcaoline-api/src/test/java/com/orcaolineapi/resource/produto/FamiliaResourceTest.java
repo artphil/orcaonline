@@ -98,16 +98,16 @@ public class FamiliaResourceTest {
 	public void getRecursos_Sucesso_BuscarRecursosExistentes() throws Exception {
 
 		Familia fam1 = new Familia("Nome1", "descricao1", null);
-		Familia seg2 = new Familia("Nome2", "descricao2", null);
-		Familia seg3 = new Familia("Nome3", "descricao3", null);
-		Familia seg4 = new Familia("Nome4", "descricao4", null);
+		Familia fam2 = new Familia("Nome2", "descricao2", null);
+		Familia fam3 = new Familia("Nome3", "descricao3", null);
+		Familia fam4 = new Familia("Nome4", "descricao4", null);
 		
 		fam1.setId(Long.valueOf(1));
-		seg2.setId(Long.valueOf(2));
-		seg3.setId(Long.valueOf(3));
-		seg4.setId(Long.valueOf(4));
+		fam2.setId(Long.valueOf(2));
+		fam3.setId(Long.valueOf(3));
+		fam4.setId(Long.valueOf(4));
 		
-		when(this.repository.findAll()).thenReturn(Arrays.asList(fam1, seg2, seg3, seg4));
+		when(this.repository.findAll()).thenReturn(Arrays.asList(fam1, fam2, fam3, fam4));
 		
 		given().accept(ContentType.JSON).when().get("/familias").andReturn().then().statusCode(HttpStatus.OK.value())
 	    .expect(jsonPath("$[*]", hasSize(4)))
