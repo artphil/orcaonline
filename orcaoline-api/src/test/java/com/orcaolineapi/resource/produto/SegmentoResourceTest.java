@@ -2,9 +2,12 @@ package com.orcaolineapi.resource.produto;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -12,34 +15,50 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.exceptions.verification.opentest4j.ArgumentsAreDifferent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.util.NestedServletException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.orcaolineapi.modelo.produto.Segmento;
 import com.orcaolineapi.repository.produto.SegmentoRepository;
 import com.orcaolineapi.service.produto.SegmentoService;
 
 import io.restassured.http.ContentType;
+import io.restassured.module.mockmvc.response.MockMvcResponse;
+import io.restassured.module.mockmvc.response.ValidatableMockMvcResponse;
+import io.restassured.response.Response;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 
 public class SegmentoResourceTest {
+	
+	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 	
 	private @Autowired SegmentoResource resource;
  
@@ -55,14 +74,38 @@ public class SegmentoResourceTest {
 	}
 
 	// nomeDoMetodo / resultadoEsperado / emQueSituação
-
+	
 	@Test
-	public void postRecursos_Sucesso_InserirRecursosExistentes() {
+	public void putRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
 						
-		given().body("{ \"message\" : \"hello world\"}").contentType(ContentType.JSON).when().post("/segmentos").andReturn().then().statusCode(400)
-		.expect(jsonPath("$[0].id", is(1)))
-	    .expect(jsonPath("$[0].nome", is("Nome1")))
-	    .expect(jsonPath("$[0].descricao", is("descricao1")));
+		Segmento seg1 = new Segmento("Nome do Segmento", "Descricao do Segmento");
+		Segmento seg2 = new Segmento("Nome do Segmento Modificado", "Nome do Segmento Modificado");
+		
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(seg1);
+				
+		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
+				
+		System.out.println(json);
+		
+		given().body(json).contentType(ContentType.JSON).when().post("/segmentos").andReturn().then().statusCode(HttpStatus.CREATED.value());
+			
+	}
+	
+	@Test
+	public void postRecursos_Sucesso_InserirRecursosExistentes() throws Exception {
+						
+		Segmento seg1 = new Segmento("Nome do Segmento", "Descricao do Segmento");
+		
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(seg1);
+				
+		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
+				
+		System.out.println(json);
+		
+		given().body(json).contentType(ContentType.JSON).when().post("/segmentos").andReturn().then().statusCode(HttpStatus.OK.value());
+			
 	}
 	
 	@Test
@@ -100,11 +143,12 @@ public class SegmentoResourceTest {
    }
 	
 	@Test
-	public void getRecursos_Sucesso_BuscarRecursosInexistentes() {
+	public void getRecursos_EmptyList_BuscarRecursosInexistentes() {
 		
 		when(this.repository.findAll()).thenReturn(Collections.emptyList());
 
-		given().accept(ContentType.JSON).when().get("/segmentos").then().statusCode(HttpStatus.OK.value());
+		given().accept(ContentType.JSON).when().get("/segmentos").then().statusCode(HttpStatus.OK.value())
+		.expect(jsonPath("$[*]", hasSize(0)));
 		
 		verify(repository, times(1)).findAll();
         verifyNoMoreInteractions(repository);
@@ -163,32 +207,41 @@ public class SegmentoResourceTest {
 	@Test
 	public void deleteById_NestedServletException_BuscarUmRecursoInexistente() {
         
-		Throwable exception = assertThrows(NestedServletException.class, () -> {
-			doNothing().when(this.repository).deleteById(140L);
-
-			given().accept(ContentType.JSON).when().get("/segmentos/{id}", 140L).then()
-					.statusCode(HttpStatus.NOT_FOUND.value());
+		Throwable exception = assertThrows(ArgumentsAreDifferent.class, () -> {
+			Segmento seg1 = new Segmento("Nome", "descricao");
+			seg1.setId(1L);
 			
-			verify(repository, times(1)).findAll();
-	        verifyNoMoreInteractions(repository);
+			when(this.repository.save(seg1)).thenReturn(seg1);
+			
+			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+			String json = ow.writeValueAsString(seg1);
+					
+			json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
+							
+			given().contentType(ContentType.JSON).when().delete("/segmentos/{id}", 140L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
+				
+			verify(repository, times(1)).deleteById(1L);
+		    verifyNoMoreInteractions(repository);        
 		});
         
 	}
 	
 	@Test
-	public void deleteById_Sucesso_BuscarUmRecursoExistente() {
+	public void deleteById_Sucesso_BuscarUmRecursoExistente() throws JsonProcessingException {
         			
 		Segmento seg1 = new Segmento("Nome", "descricao");
 		seg1.setId(1L);
 		
 		when(this.repository.save(seg1)).thenReturn(seg1);
-
-		when(this.repository.deleteById(1L)).thenReturn("SUCESS");
 		
-		given().accept(ContentType.JSON).when().get("/segmentos/{id}", 1L).then()
-			.statusCode(HttpStatus.OK.value());
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(seg1);
+				
+		json = json.replaceAll("\"" + "id" + "\"[ ]*:[^,}\\]]*[,]?", "");
+						
+		given().contentType(ContentType.JSON).when().delete("/segmentos/{id}", 1L).andReturn().then().statusCode(HttpStatus.NO_CONTENT.value());
 			
-		verify(repository, times(1)).findAll();
+		verify(repository, times(1)).deleteById(1L);
 	    verifyNoMoreInteractions(repository);        
 	}
 
